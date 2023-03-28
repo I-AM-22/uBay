@@ -1,0 +1,9 @@
+{
+  "required": "Field is required",
+  "minStr": "must be at least {{value}} charachters",
+  "maxStr": "must be at most {{value}} charachters",
+  "minArr": "choose at least {{value}} items",
+  "maxArr": "choose at most {{value}} items",
+
+  "mobileNumber": "must be a mobile number"
+}

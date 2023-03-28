@@ -1,0 +1,6 @@
+{
+  "cSpell.words": ["CPAPI", "motserrat", "Userkind"],
+  "files.exclude": {
+    "**/node_modules/**": true
+  }
+}
