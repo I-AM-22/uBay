@@ -1,7 +1,7 @@
 import FemaleIcon from "@mui/icons-material/Female";
 import MaleIcon from "@mui/icons-material/Male";
+import { Gender } from "constants/enums";
 import { FC } from "react";
-import { Gender } from "../../constants/enums";
 type Props = {
   gender: Gender;
 };

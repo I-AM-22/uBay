@@ -26,7 +26,7 @@ export default createBrowserRouter(
   )
 );
 function ErrorBoundary() {
-  const error = useRouteError() as any;
+  const error = useRouteError() as string;
   return <div>{error}</div>;
 }
 function WithScroll() {

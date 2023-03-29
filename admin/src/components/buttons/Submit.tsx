@@ -12,7 +12,7 @@ const defaultSx: SxProps = {
   fontSize: { xs: 15, sm: 20 },
   minWidth: 110,
 };
-const Submit = forwardRef(function fr(
+const Submit = forwardRef(function Fr(
   {
     isSubmitting = false,
     error = false,

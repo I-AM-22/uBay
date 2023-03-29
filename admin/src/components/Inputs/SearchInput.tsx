@@ -14,7 +14,7 @@ const SearchInput: FC<Props> = (props) => {
       searchParams.delete("q");
     }
     setSearchParams(searchParams);
-  }, [query]);
+  }, [query, searchParams, setSearchParams]);
   return (
     <DebouncedTextField
       initial={query}

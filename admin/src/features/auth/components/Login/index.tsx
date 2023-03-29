@@ -19,9 +19,11 @@ export const Login = () => {
     defaultValues: loginDefault,
   });
 
-  const { t, i18n } = useTranslation("auth");
+  const { t } = useTranslation("auth");
 
-  const onSubmit = async (data: AccountLoginBody) => {};
+  const onSubmit = async (data: AccountLoginBody) => {
+    console.log(data);
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Box

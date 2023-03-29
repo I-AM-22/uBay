@@ -23,6 +23,7 @@
   "rules": {
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "no-empty-pattern": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error",

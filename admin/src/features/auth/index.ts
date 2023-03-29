@@ -1,1 +1,1 @@
-export * from "features/auth/components/Login";
+export * from "./components/Login";

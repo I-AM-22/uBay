@@ -8,11 +8,11 @@ export type SkeletonProps = {
 const Skeleton: FC<SkeletonProps> = ({ widthRange, heightRange, ...props }) => {
   const width = useMemo(
     () => (widthRange ? widthRange.min + Math.random() * widthRange.max : props.width),
-    [widthRange?.min, widthRange?.max]
+    [widthRange, props.width]
   );
   const height = useMemo(
     () => (heightRange ? heightRange.min + Math.random() * heightRange.max : props.height),
-    [heightRange?.min, heightRange?.max]
+    [heightRange, props.height]
   );
   return <MuiSkeleton {...props} width={width} height={height} />;
 };

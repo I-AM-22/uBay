@@ -3,7 +3,7 @@ import { createContext, FC, ReactNode, useContext, useState } from "react";
 type Props = { children: ReactNode };
 const TopBarLoadingContext = createContext({
   topBarLoading: false,
-  setTopBarLoading: (value: boolean) => {},
+  setTopBarLoading: (value: boolean) => value,
 });
 
 export const useTopBarLoadingContext = () => useContext(TopBarLoadingContext);
@@ -25,7 +25,7 @@ const TopBarProgressProvider: FC<Props> = ({ children }) => {
   const [topBarLoading, setTopBarLoading] = useState(false);
   return (
     <TopBarLoadingContext.Provider
-      value={{ topBarLoading, setTopBarLoading: setTopBarLoading as (value: boolean) => void }}
+      value={{ topBarLoading, setTopBarLoading: setTopBarLoading as (value: boolean) => boolean }}
     >
       {topBarLoading && <TopBarProgressIndicator />}
       {children}
