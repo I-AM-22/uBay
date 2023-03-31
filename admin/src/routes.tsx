@@ -1,4 +1,5 @@
 import NotFound from "components/feedback/NotFound";
+import SomethingWentWrong from "components/feedback/SomethingWentWrong";
 import { Login } from "features/auth";
 import { lazy } from "react";
 import {
@@ -9,8 +10,7 @@ import {
   ScrollRestoration,
   useRouteError,
 } from "react-router-dom";
-const Layout = lazy(() => import("features/layout/components/Layout"));
-const Test = lazy(() => import("components/feedback/SomethingWentWrong"));
+const Layout = lazy(() => import("features/layout"));
 
 export default createBrowserRouter(
   createRoutesFromElements(
@@ -19,7 +19,7 @@ export default createBrowserRouter(
       {/* <Route element={<ProtectedRoute />}> */}
       <Route element={<Layout />}>
         <Route path="" element={<NotFound />} />
-        <Route path="*" element={<Test />} />
+        <Route path="*" element={<SomethingWentWrong />} />
       </Route>
       {/* </Route> */}
     </Route>

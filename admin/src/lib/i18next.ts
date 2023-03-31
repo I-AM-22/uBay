@@ -12,7 +12,6 @@ declare module "i18next" {
     returnNull: false;
   }
 }
-document.dir = "rtl";
 export const availableLanguages = Object.keys(resources);
 i18n
   .use(initReactI18next)
@@ -29,7 +28,6 @@ i18n.on("languageChanged", (language) => {
 });
 
 export const changeLanguage = (lang: string) => {
-  console.log(lang);
   storage.setLanguage(lang);
   i18n.changeLanguage(lang);
   document.documentElement.lang = lang;
