@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, Query } from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
 import APIFeatures from '../utils/apiFeatures';
 import AppError from '../utils/appError';
@@ -35,6 +35,7 @@ export const updateOne = (Model: Model<any>) =>
 export const createOne = (Model: Model<any>) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const newDoc = await Model.create(req.body);
+
     res.status(201).json({
       status: 'success',
       data: {
@@ -47,7 +48,6 @@ export const getOne = (Model: Model<any>, ...popOptions: Array<any>) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const query = Model.findById(req.params.id);
     if (popOptions) query.populate(popOptions);
-
     const doc = await query;
     const modelName = `${Model.modelName.toLowerCase()}`;
 
@@ -65,17 +65,28 @@ export const getOne = (Model: Model<any>, ...popOptions: Array<any>) =>
 export const getAll = (Model: Model<any>) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     //small hack
-    const filter: any = {};
-    if (req.params.tourId) filter.tour = req.params.tourId;
+    let filter: any = {};
     if (req.params.userId) filter.user = req.params.userId;
-    const feature = new APIFeatures(Model.find(filter), req.query)
+    if (req.params.chatId) filter.chat = req.params.chatId;
+
+    const query =
+      Model.modelName === 'User'
+        ? Model.find({ _id: { $ne: req.user?.id } })
+        : Model.find(filter);
+
+    const feature = new APIFeatures(query, req.query)
       .filter()
       .sort()
       .limitFields()
-      .paginate();
+      .paginate()
+      .search(req.querySearch);
 
-    // const docs = await feature.query.explain();
+    // [Model.modelName.toLowerCase() + 's']
     const docs = await feature.query;
+
+    if (req.query.reverse) {
+      docs.reverse();
+    }
     //Send Response
     res.status(200).json({
       status: 'success',

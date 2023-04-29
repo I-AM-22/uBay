@@ -1,9 +1,22 @@
 import { JwtPayload } from 'jsonwebtoken';
-import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt';
+import {
+  ExtractJwt,
+  Strategy as JWTStrategy,
+  JwtFromRequestFunction,
+} from 'passport-jwt';
 import { settings } from '../config/settings';
-import User from '@models/User';
+import User from '@models/user.model';
 import catchAsync from '@utils/catchAsync';
 import AppError from '@utils/appError';
+import { Request } from 'express';
+
+// const cookieExtractor = (req: Request) => {
+//   let token;
+//   if (req && req.cookies) {
+//     token = req.cookies.jwt;
+//   }
+//   return token;
+// };
 
 export default new JWTStrategy(
   {

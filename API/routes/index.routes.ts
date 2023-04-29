@@ -1,19 +1,15 @@
 import { Router } from 'express';
-import passport from 'passport';
 import userRouter from '@routes/user.routes';
 import AppError from '@utils/appError';
-import privateRouter from '@routes/private.routes';
+import chatRouter from '@routes/chat.routes';
+import messageRouter from '@routes/message.routes';
+import notificationRouter from '@routes/notification.routes';
 
 const router = Router();
 
 router.use('/api/v1/users', userRouter);
-router.use('/api/v1/private',privateRouter);
-
-router.all('*', (req, res, next) => {
-  //req.originalURl mean the route was sent
-  return next(
-    new AppError(400, `Can't find ${req.originalUrl} on this server`)
-  ); //skip all middleware and go to the errors handler
-});
+router.use('/api/v1/chats', chatRouter);
+router.use('/api/v1/messages', messageRouter);
+router.use('/api/v1/notifications', notificationRouter);
 
 export default router;

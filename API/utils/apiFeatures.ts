@@ -2,14 +2,21 @@
   query: any;
   queryString: any;
   //we should not  play with query and queryString
-  constructor(query:any, queryString:any) {
+  constructor(query: any, queryString: any) {
     this.query = query; //Tour.find
     this.queryString = queryString; //req.query.
   }
 
   filter() {
     const queryObj = { ...this.queryString };
-    const excludedFields = ['limit', 'sort', 'page', 'fields'];
+    const excludedFields = [
+      'limit',
+      'sort',
+      'page',
+      'fields',
+      'search',
+      'reverse',
+    ];
     excludedFields.forEach((el) => delete queryObj[el]);
     //Advance
     //For find
@@ -49,6 +56,13 @@
     const skip = (page - 1) * limit;
     this.query = this.query.skip(skip).limit(limit);
     //NOTE i deleted if because it does not give an error but give no data
+    return this;
+  }
+
+  search(query: any) {
+    if (this.queryString.search) {
+      this.query = this.query.find(query);
+    }
     return this;
   }
 }

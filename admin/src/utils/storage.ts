@@ -1,8 +1,9 @@
 import { refreshAxiosToken } from "lib/axios";
+import Cookies from 'js-cookie';
 
 export const storage = {
   storeToken(token: string) {
-    localStorage.setItem("token", token);
+    Cookies.set("token", token,);
     refreshAxiosToken();
   },
   clearToken() {

@@ -1,12 +1,11 @@
-import { Schema, model, Model, Query, Document, DocumentQuery } from 'mongoose';
+import { Schema, model, QueryOptions } from 'mongoose';
 import validator from 'validator';
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
-import AppError from '@utils/appError';
-import { settings } from '@config/settings';
+import { settings } from './../config/settings';
 import { UserModel, UserDoc, IUser } from '../types/user.type';
-const userSchema = new Schema<IUser, UserModel, any>(
+const userSchema = new Schema<UserDoc, UserModel, any>(
   {
     name: {
       type: String,
@@ -22,7 +21,7 @@ const userSchema = new Schema<IUser, UserModel, any>(
     photo: { type: String, default: 'default.jpg' },
     role: {
       type: String,
-      enum: ['admin', 'guide', 'lead-guide', 'user'],
+      enum: ['admin', 'user','employee'],
       default: 'user',
     },
     password: {
@@ -30,10 +29,6 @@ const userSchema = new Schema<IUser, UserModel, any>(
       required: [true, 'Please provide a password'],
       minlength: [8, 'the password must have at least 8 characters'],
       select: false,
-    },
-    passwordConfirm: {
-      type: String,
-      required: [true, 'Please confirm your password'],
     },
     passwordChangedAt: Date,
     passwordResetToken: String,
@@ -43,15 +38,11 @@ const userSchema = new Schema<IUser, UserModel, any>(
       default: true,
       select: false,
     },
-    logInTimes: {
-      type: Number,
-      select: false,
-    },
-    bannedForHour: { type: Date, select: false },
   },
   {
     toJSON: { virtuals: true, versionKey: false },
     toObject: { virtuals: true, versionKey: false },
+    timestamps: true,
   }
 );
 
@@ -60,13 +51,8 @@ const userSchema = new Schema<IUser, UserModel, any>(
 userSchema.pre('save', async function (next) {
   //if the password not changed end the process
   if (!this.isModified('password')) return next();
-  if (this.password !== this.passwordConfirm) {
-    return next(new AppError(400, 'password are not the same'));
-  }
   //crypt the password
   this.password = await bcryptjs.hash(this.password, 12);
-  //we are not need confirm password filed
-  this.passwordConfirm = undefined;
   next();
 });
 
@@ -78,25 +64,17 @@ userSchema.pre('save', function (next) {
   this.passwordChangedAt = new Date(Date.now() - 1000);
   next();
 });
-//The limited number of login times exceeded
-userSchema.pre('save', function (next) {
-  if (this.logInTimes !== 10) return next();
-  this.bannedForHour = new Date(Date.now() + 60 * 60 * 1000);
-  this.logInTimes = undefined;
+
+userSchema.pre<QueryOptions>(/^find/, function (next) {
+  this.find({ active: { $ne: false } });
   next();
 });
 
-userSchema.pre<Query<any, DocumentQuery<any, UserDoc>>>(
-  /^find/,
-  function (next) {
-    this.find({ active: { $ne: false } });
-    next();
-  }
-);
-
 //we did this operation in the model to apply the concept of fat model && fit controller
 //for matching the password with the encrypted one
-userSchema.methods.correctPassword = async function (candidatePassword) {
+userSchema.methods.correctPassword = async function (
+  candidatePassword: string
+) {
   //candidate password means the password with the body
   return bcryptjs.compare(candidatePassword, this.password);
 };
@@ -118,10 +96,6 @@ userSchema.methods.createPasswordResetToken = function () {
     .digest('hex');
   this.passwordResetExpires = new Date(Date.now() + 10 * 60 * 1000);
   return resetToken;
-};
-userSchema.methods.bannedForHourFun = function () {
-  if (!this.bannedForHour) return false;
-  return this.bannedForHour.getTime() > Date.now();
 };
 
 userSchema.methods.createSendToken = function (user: any) {

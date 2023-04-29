@@ -3,6 +3,7 @@ import { htmlToText } from 'html-to-text';
 import nodemailer from 'nodemailer';
 import pug from 'pug';
 import { TransportOptions } from 'nodemailer';
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 interface Trans extends TransportOptions {
   host: string;
@@ -36,23 +37,26 @@ class Email {
       });
     }
 
-    return nodemailer.createTransport<Trans>({
+    return nodemailer.createTransport({
       host: MAILER.HOST,
       port: MAILER.PORT,
       auth: {
         user: MAILER.USERNAME,
         pass: MAILER.PASSWORD,
       },
-    });
+    } as SMTPTransport.Options);
   }
 
   async send(template: string, subject: string) {
     //1) Render html based on pug template
-    const html = pug.renderFile(`${__dirname}/../views/email/${template}.pug`, {
-      firstName: this.firstName,
-      url: this.url,
-      subject,
-    });
+    const html = pug.renderFile(
+      `${__dirname}/../public/email/${template}.pug`,
+      {
+        firstName: this.firstName,
+        url: this.url,
+        subject,
+      }
+    );
 
     //2) Define email options
     const mailOptions = {
