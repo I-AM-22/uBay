@@ -52,7 +52,7 @@ const AppBar: FC<Props> = ({ open, onDrawerOpen, onDrawerClose }) => {
         <IconButton color="inherit" onClick={open ? onDrawerClose : onDrawerOpen} edge="start">
           <MenuIcon sx={{ color: "white" }} />
         </IconButton>
-        <Typography variant="h6" noWrap component="div">
+        <Typography variant="h6" noWrap component="div" pl={0.5}>
           {t(`navLink.${pageTitle}`)}
         </Typography>
         <Select

@@ -45,6 +45,7 @@ const Sidebar: FC<Props> = ({ open }) => {
                   <ListItem key={navLink.id} disablePadding sx={LinkSx}>
                     <ListItemButton
                       selected={pathname === navLink.href && !navLink.children}
+                      className="fade"
                       sx={{
                         minHeight: 48,
                         justifyContent: open ? "initial" : "center",
@@ -60,7 +61,7 @@ const Sidebar: FC<Props> = ({ open }) => {
                       <ListItemIcon
                         sx={{
                           minWidth: 0,
-                          mr: open ? 3 : "auto",
+                          mr: { xs: "auto", sm: open ? 3 : 0 },
                           justifyContent: "center",
                         }}
                       >
@@ -93,8 +94,6 @@ const Sidebar: FC<Props> = ({ open }) => {
                       <RouterLink
                         sx={{
                           textDecoration: "none !important",
-                          color: "#000",
-                          "&:hover": { color: "primary.main" },
                         }}
                         key={index}
                         href={navLinkChild.href}
@@ -102,6 +101,7 @@ const Sidebar: FC<Props> = ({ open }) => {
                         <ListItem key={index} disablePadding sx={LinkSx}>
                           <ListItemButton
                             selected={pathname === navLinkChild.href}
+                            className="fade"
                             sx={{
                               minHeight: 48,
                               justifyContent: open ? "initial" : "center",
@@ -111,7 +111,7 @@ const Sidebar: FC<Props> = ({ open }) => {
                             <ListItemIcon
                               sx={{
                                 minWidth: 0,
-                                mr: open ? 3 : "auto",
+                                mr: { xs: "auto", sm: open ? 3 : 0 },
                                 justifyContent: "center",
                               }}
                             >
@@ -149,23 +149,30 @@ const Sidebar: FC<Props> = ({ open }) => {
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
-  transition: theme.transitions.create(["width", "opacity"], {
-    easing: theme.transitions.easing.easeInOut,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
+  "&, .fade, .fade *": {
+    transition: theme.transitions.create(["width", "opacity", "margin", "padding"], {
+      easing: theme.transitions.easing.easeInOut,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+
   overflowX: "hidden",
 });
 
-const closedMixin = (theme: Theme): CSSObject => ({
-  transition: theme.transitions.create(["width", "opacity"], {
-    easing: theme.transitions.easing.easeInOut,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
+const closedMixin = (theme: Theme, iconOnly: boolean): CSSObject => ({
+  "&, .fade, .fade *": {
+    transition: theme.transitions.create(["width", "opacity", "margin", "padding"], {
+      easing: theme.transitions.easing.easeInOut,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
+  overflowX: "hidden",
+  ...(iconOnly && {
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up("sm")]: {
+      width: `calc(${theme.spacing(8)} + 1px)`,
+    },
+  }),
 });
 
 export const DrawerHeader = styled("div")(({ theme }) => ({
@@ -188,8 +195,8 @@ const DrawerPermanent = styled(MuiDrawer)(({ theme, open }) => ({
     "& .MuiDrawer-paper": openedMixin(theme),
   }),
   ...(!open && {
-    ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
+    ...closedMixin(theme, true),
+    "& .MuiDrawer-paper": closedMixin(theme, true),
   }),
 }));
 const DrawerTemporary = styled(MuiDrawer)(({ theme, open }) => ({
@@ -202,12 +209,14 @@ const DrawerTemporary = styled(MuiDrawer)(({ theme, open }) => ({
     "& .MuiDrawer-paper": openedMixin(theme),
   }),
   ...(!open && {
-    ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
+    ...closedMixin(theme, false),
+    "& .MuiDrawer-paper": closedMixin(theme, false),
   }),
 }));
 const LinkSx: SxProps = {
   display: "block",
+  color: "#000",
+  "&:hover": { color: "primary.main" },
   "& .MuiListItemButton-root": {
     "&.Mui-selected": {
       backgroundColor: "primary.100",
@@ -221,15 +230,16 @@ type ResponsiveDrawerProps = {
 const ResponsiveDrawer: FC<ResponsiveDrawerProps> = ({ open, children }) => {
   const theme = useTheme();
   const small = useMediaQuery(theme.breakpoints.down("sm"));
+  const ltr = useTheme().direction === "ltr";
+  console.log(ltr);
   return (
     <>
       {small ? (
         <DrawerTemporary
           variant="temporary"
           anchor="left"
-          SlideProps={{ direction: "left" }}
+          SlideProps={{ direction: ltr ? "right" : "left" }}
           open={open}
-          ModalProps={{}}
         >
           {children}
         </DrawerTemporary>

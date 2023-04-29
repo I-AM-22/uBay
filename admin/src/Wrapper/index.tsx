@@ -1,7 +1,7 @@
 import { CssBaseline } from "@mui/material";
+import "lib/i18next";
 import { FC } from "react";
-import "../lib/i18next";
-import MaterialThemeProvider from "../theme/ThemeContext";
+import MaterialThemeProvider from "Wrapper/MaterialThemeProvider";
 import Direction from "./Direction";
 import LanguageProvider from "./LanguageProvider";
 import QueryClientContext from "./QueryClient";

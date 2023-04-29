@@ -1,16 +1,14 @@
-import { createTheme, ThemeProvider } from "@mui/material";
-import i18n from "i18next";
-import { FC, PropsWithChildren } from "react";
-import themeConstants from "./themeConstants";
+import { createTheme } from "@mui/material";
+import themeConstants from "../constants/themeConstants";
 
-const MaterialThemeProvider: FC<PropsWithChildren> = ({ children }) => {
-  const theme = createTheme({
+const theme = (language: string) =>
+  createTheme({
     typography: {
       fontFamily: "MontserratArabic",
       fontSize: 12,
     },
 
-    direction: i18n.language === "ar" ? "rtl" : "ltr",
+    direction: language === "ar" ? "rtl" : "ltr",
     palette: {
       primary: {
         main: themeConstants.primary,
@@ -110,7 +108,4 @@ const MaterialThemeProvider: FC<PropsWithChildren> = ({ children }) => {
       },
     },
   });
-
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
-};
-export default MaterialThemeProvider;
+export default theme;

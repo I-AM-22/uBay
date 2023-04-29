@@ -1,5 +1,5 @@
 import { styled } from "@mui/material";
-import themeConstants from "../../../theme/themeConstants";
+import themeConstants from "../../../constants/themeConstants";
 
 const TableRowStriped = styled("tr")(({}) => ({
   "&:nth-of-type(2n+1)": {

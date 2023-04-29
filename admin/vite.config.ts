@@ -19,7 +19,7 @@ export default defineConfig({
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,ttf}"],
       },
-      devOptions: { enabled: true },
+      devOptions: { enabled: false },
       manifest: {
         name: "React & MUI Dashboard",
         short_name: "Dashboard",
