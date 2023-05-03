@@ -1,10 +1,11 @@
-import { Schema, model, QueryOptions } from 'mongoose';
+import { Schema, model, QueryOptions, Query, Types } from 'mongoose';
 import validator from 'validator';
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import { settings } from './../config/settings';
 import { UserModel, UserDoc, IUser } from '../types/user.type';
+import AppError from '@utils/appError';
 const userSchema = new Schema<UserDoc, UserModel, any>(
   {
     name: {
@@ -21,9 +22,10 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
     photo: { type: String, default: 'default.jpg' },
     role: {
       type: String,
-      enum: ['admin', 'user','employee'],
+      enum: ['admin', 'user', 'employee'],
       default: 'user',
     },
+    store: Types.ObjectId,
     password: {
       type: String,
       required: [true, 'Please provide a password'],
@@ -48,6 +50,13 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
 
 //Document middleware
 
+userSchema.pre('save', function (next) {
+  if (this.role !== 'employee') next();
+  if (!this.store)
+    return next(new AppError(400, 'Please provide a store for employee'));
+  next();
+});
+
 userSchema.pre('save', async function (next) {
   //if the password not changed end the process
   if (!this.isModified('password')) return next();
@@ -65,8 +74,12 @@ userSchema.pre('save', function (next) {
   next();
 });
 
-userSchema.pre<QueryOptions>(/^find/, function (next) {
-  this.find({ active: { $ne: false } });
+userSchema.post('save', function () {
+  this.populate('store');
+});
+
+userSchema.pre<Query<IUser, IUser>>(/^find/, function (next) {
+  this.find({ active: { $ne: false } }).populate('store');
   next();
 });
 

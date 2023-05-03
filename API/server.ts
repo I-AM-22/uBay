@@ -23,7 +23,6 @@ io.on('connection', (socket) => {
     socket.join(userData.id);
     socket.emit('connected');
   });
-
   socket.on('join chat', (room) => {
     socket.join(room);
   });

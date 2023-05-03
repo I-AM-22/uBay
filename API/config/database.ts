@@ -1,11 +1,10 @@
 import mongoose from 'mongoose';
 import { settings } from './settings';
 
-const pass: any = settings.DB.PASSWORD;
-const DB: any = settings.DB.DATABASE?.replace(
-  '<PASSWORD>',
-  settings.DB.PASSWORD
-);
+const DB: any =
+  settings.NODE_ENV === 'production'
+    ? settings.DB.DATABASE?.replace('<PASSWORD>', settings.DB.PASSWORD)
+    : settings.DB.DATABASE_LOCAL;
 const ConnDB = () => {
   mongoose
     .connect(DB)

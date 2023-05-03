@@ -1,14 +1,13 @@
-import { Document, Model, ObjectId, PopulatedDoc, Types } from 'mongoose';
+import { Document, Model, ObjectId, PopulatedDoc } from 'mongoose';
 import { IUser } from './user.type';
 import { IMessage } from './message.type';
+import { IProduct } from './product.type';
 
 export interface IChat {
-  id: string;
   name: string;
   users: PopulatedDoc<Document<ObjectId> & IUser>[];
   lastMessage?: PopulatedDoc<Document<ObjectId> & IMessage>;
-  isGroup: boolean;
-  groupAdmin?: PopulatedDoc<Document<ObjectId> & IUser>;
+  product: PopulatedDoc<Document<ObjectId> & IProduct>;
   createNotification(userId: string): void;
 }
 

@@ -1,10 +1,12 @@
-import { Model, Document } from 'mongoose';
+import { Model, Document, ObjectId, PopulatedDoc } from 'mongoose';
+import { IStore } from './store.type';
 export interface IUser {
   id: string;
   name: string;
   photo: string;
   email: string;
   role: string;
+  store: PopulatedDoc<Document<ObjectId> & IStore>;
   password: string;
   passwordChangedAt: Date | undefined;
   passwordResetToken: string | undefined;
