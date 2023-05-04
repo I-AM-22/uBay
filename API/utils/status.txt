@@ -1,0 +1,14 @@
+﻿400 bad request only for post because the error absolutely in the body
+404 error maybe in the req body or params at the get method or update... because we use find
+200 good get
+201 create post
+204 delete
+401 bad auth
+for read from config use (import config from dotenv) then give path to config and get to vars using process.env.var
+
+We delete excluded fields from route because that affect on filtering
+and we do that by coping the req.query and destructing them
+and put them in queryObj and delete excluded fields from queryObj
+by forEach on excluded array and delete queryObj[excludedFields]
+Example:a{bahaa:2,s:5} and write delete a['bahaa'] and print(a)
+the result will be {s:5}
