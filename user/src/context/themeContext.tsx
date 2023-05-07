@@ -1,8 +1,8 @@
 import { createTheme } from "@mui/material";
 import themeConstants from "../constants/themeConstants";
 
-const theme = (language: string) =>
-  createTheme({
+const theme = (language: string) => {
+  const theme = createTheme({
     typography: {
       fontFamily: "MontserratArabic",
       fontSize: 12,
@@ -127,4 +127,7 @@ const theme = (language: string) =>
       },
     },
   });
+  theme.shadows[1] = `0 0 5px RGBA( 73, 113, 116, 0.3)`;
+  return theme;
+};
 export default theme;

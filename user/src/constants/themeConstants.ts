@@ -21,6 +21,7 @@ const themeConstants = {
   secondary7: "#be185d",
   secondary8: "#9d174d",
   secondary9: "#831843",
+
   background: "#EFF5F5",
 };
 export default themeConstants;

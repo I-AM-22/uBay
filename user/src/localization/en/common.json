@@ -1,0 +1,19 @@
+{
+  "action": "Options",
+  "remove": "Remove",
+  "add": "Add",
+  "edit": "Edit",
+  "cancel": "Cancel",
+  "submit": "Submit",
+  "next": "Next",
+  "search": "search...",
+
+  "error": {
+    "notFound": "Not Found 404",
+    "noData": "No Data",
+    "sorry": "Sorry",
+    "somethingWentWrong": "Something Went Wrong, please try later",
+    "retry": "Retry",
+    "offline": "No internet connection"
+  }
+}

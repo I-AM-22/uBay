@@ -1,0 +1,12 @@
+{
+  "navLink": {
+    "home": "Home",
+    "customers": "Customers",
+    "billing": "Billing",
+    "reports": "Reports",
+    "admins": "Administrators",
+    "settings": "Settings",
+    "about": "About",
+    "policy": "Policy"
+  }
+}
