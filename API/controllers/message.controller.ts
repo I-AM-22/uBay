@@ -1,6 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
 import Message from '@models/message.model';
-
 import {
   createOne,
   getAll,
@@ -8,6 +6,8 @@ import {
   deleteOne,
   updateOne,
 } from '@controllers/handlerFactory';
+import { checkIsOwner } from '@middlewares/helper.middleware';
+import { Request, Response, NextFunction } from 'express';
 
 export const setSenderAndChat = (
   req: Request,
@@ -16,9 +16,11 @@ export const setSenderAndChat = (
 ) => {
   if (!req.body.chat) req.body.chat = req.params.chatId;
   req.body.sender = req.user?.id;
-
   next();
 };
+
+export const checkIsOwnerMessage = checkIsOwner(Message);
+
 export const getAllMessages = getAll(Message);
 export const getMessage = getOne(Message);
 export const CreateMessage = createOne(Message);

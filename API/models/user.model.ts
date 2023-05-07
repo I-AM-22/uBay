@@ -1,11 +1,13 @@
-import { Schema, model, QueryOptions, Query, Types } from 'mongoose';
+import { Schema, model, Query, Types } from 'mongoose';
 import validator from 'validator';
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import { settings } from './../config/settings';
-import { UserModel, UserDoc, IUser } from '../types/user.type';
+import { UserModel, UserDoc, IUser } from '../types/user.types';
 import AppError from '@utils/appError';
+import { STATUS_CODE } from '../types/helper.types';
+
 const userSchema = new Schema<UserDoc, UserModel, any>(
   {
     name: {
@@ -19,13 +21,13 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
       lowercase: true,
       validate: [validator.isEmail, 'Please provide a valid email'],
     },
-    photo: { type: String, default: 'default.jpg' },
+    photo: { type: String, default: 'https://i.imgur.com/7rlze8l.jpg' },
     role: {
       type: String,
       enum: ['admin', 'user', 'employee'],
       default: 'user',
     },
-    store: Types.ObjectId,
+    store: { type: Types.ObjectId, ref: 'Store' },
     password: {
       type: String,
       required: [true, 'Please provide a password'],
@@ -53,7 +55,12 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
 userSchema.pre('save', function (next) {
   if (this.role !== 'employee') next();
   if (!this.store)
-    return next(new AppError(400, 'Please provide a store for employee'));
+    return next(
+      new AppError(
+        STATUS_CODE.BAD_REQUEST,
+        'Please provide a store for employee'
+      )
+    );
   next();
 });
 

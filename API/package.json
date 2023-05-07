@@ -9,7 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node server.ts",
     "start:dev": "nodemon server.ts",
-    "start:prod": "NODE_ENV=production nodemon server.ts"
+    "start:prod": "NODE_ENV=production nodemon server.ts",
+    "lint": "eslint . --ext .js,.ts"
   },
   "dependencies": {
     "@rmp135/imgur": "^0.6.0",
@@ -67,7 +68,9 @@
     "@types/pug": "^2.0.6",
     "@types/sharp": "^0.31.1",
     "@types/validator": "^13.7.14",
-    "eslint": "^8.37.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.2",
+    "@typescript-eslint/parser": "^5.59.2",
+    "eslint": "^8.40.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",

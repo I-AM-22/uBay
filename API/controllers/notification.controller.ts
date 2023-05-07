@@ -8,16 +8,17 @@ import {
   deleteOne,
 } from './handlerFactory';
 import Notification from '@models/notification.model';
+import { STATUS_CODE } from '../types/helper.types';
 
 export const markAsRead = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     let { chatId } = req.params;
     if (!chatId) chatId = req.body.chat;
-    const result = await Notification.updateMany(
+    await Notification.updateMany(
       { chat: chatId, user: req.user?.id, read: false },
       { read: true }
     );
-    res.status(200).json({ status: 'success' });
+    res.status(STATUS_CODE.SUCCESS).json({ status: 'success' });
   }
 );
 export const getAllNotification = getAll(Notification);

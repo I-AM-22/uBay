@@ -1,5 +1,6 @@
 import { Model, Document, ObjectId, PopulatedDoc } from 'mongoose';
-import { IStore } from './store.type';
+import { IStore } from './store.types';
+
 export interface IUser {
   id: string;
   name: string;
@@ -18,6 +19,5 @@ export interface IUser {
   signToken(id: any): string;
   createSendToken(user: any): string;
 }
-
 export type UserDoc = IUser & Document;
-export type UserModel = Model<IUser, {}, any>;
+export type UserModel = Model<UserDoc, object, any>;

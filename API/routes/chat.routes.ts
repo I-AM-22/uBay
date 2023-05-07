@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
 import messageRouter from '@routes/message.routes';
-import notificationRouter from '@routes/notification.routes'
+import notificationRouter from '@routes/notification.routes';
 import {
   accessChat,
   getAllChats,

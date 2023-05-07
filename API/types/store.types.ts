@@ -6,4 +6,4 @@ export interface IStore {
 }
 export type StoreDoc = IStore & Document;
 
-export type StoreModel = Model<StoreDoc, {}, any>;
+export type StoreModel = Model<StoreDoc, object, any>;

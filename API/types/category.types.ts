@@ -6,4 +6,4 @@ export interface ICategory {
 }
 export type CategoryDoc = ICategory & Document;
 
-export type CategoryModel = Model<ICategory, {}, any>;
+export type CategoryModel = Model<CategoryDoc, object, any>;

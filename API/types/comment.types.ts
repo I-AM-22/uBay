@@ -1,6 +1,6 @@
 import { Document, Model, ObjectId, PopulatedDoc } from 'mongoose';
-import { IUser } from './user.type';
-import { IProduct } from './product.type';
+import { IUser } from './user.types';
+import { IProduct } from './product.types';
 
 export interface IComment {
   content: string;
@@ -10,4 +10,4 @@ export interface IComment {
 
 export type CommentDoc = IComment & Document;
 
-export type CommentModel = Model<IComment, {}, any>;
+export type CommentModel = Model<CommentDoc, object, any>;

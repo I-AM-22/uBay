@@ -1,22 +1,26 @@
 import { Query, Schema, Types, model } from 'mongoose';
-import { ChatModel, ChatDoc, IChat } from '../types/chat.type';
+import { ChatModel, ChatDoc, IChat } from '../types/chat.types';
 
 const chatSchema = new Schema<ChatDoc, ChatModel, any>(
   {
     name: {
       type: String,
-      required: [true, 'Chat must have a name'],
-      minlength: 1,
-      maxlength: 16,
+      default: 'sender',
     },
-    users: {
-      type: [Schema.Types.ObjectId],
+    customer: {
+      type: Types.ObjectId,
+      ref: 'User',
+      required: [true, 'Chat must have users'],
+    },
+    seller: {
+      type: Types.ObjectId,
       ref: 'User',
       required: [true, 'Chat must have users'],
     },
     product: {
       type: Types.ObjectId,
       required: [true, 'Chat must have a product'],
+      ref: 'Product',
     },
     lastMessage: { type: Schema.Types.ObjectId, ref: 'Message' },
   },
@@ -29,14 +33,28 @@ const chatSchema = new Schema<ChatDoc, ChatModel, any>(
 );
 
 chatSchema.post('save', async function () {
-  await this.populate({ path: 'users', select: 'name photo email' });
+  await this.populate({
+    path: 'customer',
+    select: 'name photo email',
+  });
+  await this.populate({ path: 'seller', select: 'name photo email' });
+  await this.populate({
+    path: 'product',
+    select: 'description price category',
+  });
 });
 
 chatSchema.pre<Query<IChat, IChat>>(/^find/, function (next) {
-  this.populate('users', 'name photo email').populate({
-    path: 'lastMessage',
-    select: { chat: 0 },
-  });
+  this.populate('customer', 'name photo email')
+    .populate({ path: 'seller', select: 'name photo email' })
+    .populate({
+      path: 'product',
+      select: { description: 1, price: 1, category: 1, user: 1 },
+    })
+    .populate({
+      path: 'lastMessage',
+      select: { chat: 0 },
+    });
   next();
 });
 

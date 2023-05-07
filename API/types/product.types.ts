@@ -1,6 +1,6 @@
 import { Document, Model, ObjectId, PopulatedDoc } from 'mongoose';
-import { IUser } from './user.type';
-import { ICategory } from './category.type';
+import { IUser } from './user.types';
+import { ICategory } from './category.types';
 
 export interface IProduct {
   description: string;
@@ -12,5 +12,4 @@ export interface IProduct {
 }
 
 export type ProductDoc = IProduct & Document;
-
-export type ProductModel = Model<IProduct, {}, any>;
+export type ProductModel = Model<ProductDoc, object, any>;
