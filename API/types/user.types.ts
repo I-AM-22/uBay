@@ -1,6 +1,5 @@
 import { Model, Document, ObjectId, PopulatedDoc } from 'mongoose';
 import { IStore } from './store.types';
-
 export interface IUser {
   id: string;
   name: string;

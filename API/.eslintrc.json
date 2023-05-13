@@ -34,7 +34,10 @@
     "prefer-destructuring": ["error", { "object": true, "array": false }],
     "@typescript-eslint/no-unused-vars": [
       "error",
-      { "argsIgnorePattern": "req|res|next|val" }
+      { 
+          "argsIgnorePattern": "req|res|next|val",
+          "endOfLine": "auto" 
+      }
     ]
   }
 }
