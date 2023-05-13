@@ -1,14 +1,17 @@
-import { Model, Document, ObjectId, PopulatedDoc } from 'mongoose';
+import mongoose, { Model, Document, ObjectId, PopulatedDoc } from 'mongoose';
 import { IStore } from './store.types';
 
 export interface IUser {
-  id: string;
   name: string;
   photo: string;
   email: string;
   role: string;
   store: PopulatedDoc<Document<ObjectId> & IStore>;
   password: string;
+}
+export interface UserDoc extends IUser, mongoose.Document {
+  createdAt: Date;
+  updatedAt: Date;
   passwordChangedAt: Date | undefined;
   passwordResetToken: string | undefined;
   passwordResetExpires: Date | undefined;
@@ -19,5 +22,5 @@ export interface IUser {
   signToken(id: any): string;
   createSendToken(user: any): string;
 }
-export type UserDoc = IUser & Document;
+
 export type UserModel = Model<UserDoc, object, any>;

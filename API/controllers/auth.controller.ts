@@ -5,13 +5,14 @@ import AppError from '@utils/appError';
 import Email from '@utils/email';
 import crypto from 'crypto';
 import { STATUS_CODE } from '../types/helper.types';
+import { omit } from 'lodash';
 
 //Send The User With the response after login and signup
 const sendUser = (user: any, statusCode: number, res: Response) => {
   const token = user.createSendToken(user);
 
   //remove password from output
-  user.password = undefined;
+  user = omit(user, 'password');
   res.status(statusCode).send({
     status: 'success',
     token,

@@ -57,11 +57,14 @@ export const accessChat = catchAsync(
 
 export const getAllChats = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    // const chats = await Chat.find({
-    // }).sort({ updatedAt: -1 });
-    // res
-    //   .status(STATUS_CODE.SUCCESS)
-    //   .json({ status: 'success', result: chats.length, data: chats });
+    const chats = await Chat.find({
+      $or: [{ customer: req.user?.id }, { seller: req.user?.id }],
+    }).sort({
+      updatedAt: -1,
+    });
+    res
+      .status(STATUS_CODE.SUCCESS)
+      .json({ status: 'success', result: chats.length, data: chats });
   }
 );
 

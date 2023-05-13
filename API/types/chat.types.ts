@@ -9,8 +9,10 @@ export interface IChat {
   seller: PopulatedDoc<Document<ObjectId> & IUser>;
   lastMessage?: PopulatedDoc<Document<ObjectId> & IMessage>;
   product: PopulatedDoc<Document<ObjectId> & IProduct>;
-  createNotification(userId: string): void;
 }
 
-export type ChatDoc = IChat & Document;
+export interface ChatDoc extends IChat, Document {
+  createdAt: Date;
+  updatedAt: Date;
+}
 export type ChatModel = Model<ChatDoc, object, any>;

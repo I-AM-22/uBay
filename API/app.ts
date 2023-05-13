@@ -12,8 +12,8 @@ import { settings } from './config/settings';
 import routes from '@routes/index.routes';
 import JWTStrategy from '@middlewares/passport.config';
 import passport from 'passport';
+// import xssClean from 'xss-clean';
 // import { rateLimit } from 'express-rate-limit';
-
 const app: express.Application = express();
 //middlewares
 app.use(cors());
@@ -32,11 +32,14 @@ app.disable('x-powered-by');
 //   message: 'Too many requests from this IP, please try again in an hour!',
 // });
 // app.use('/api', limiter);
+// With this declaration file in place, you should be able to use import xssClean from 'xss-clean' and app.use(xssClean())
+
+app.use(json({ limit: '10kb' }));
 app.use(json({ limit: '10kb' }));
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(mongoSanitize());
-
+// app.use(xssClean());
 app.use(
   hpp({
     whitelist: [

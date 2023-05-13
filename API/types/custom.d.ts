@@ -12,3 +12,10 @@ export declare global {
     }
   }
 }
+
+declare module 'xss-clean' {
+  import { RequestHandler } from 'express';
+
+  function xss(options?: any): RequestHandler;
+  export = xss;
+}
