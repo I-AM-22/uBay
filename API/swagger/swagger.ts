@@ -1,6 +1,4 @@
-import { Express, Request, Response } from "express";
 import swaggerJsdoc from "swagger-jsdoc";
-import swaggerUi from "swagger-ui-express";
 import { version } from "../package.json";
 const options: swaggerJsdoc.Options = {
   definition: {
@@ -12,7 +10,7 @@ const options: swaggerJsdoc.Options = {
     },  
     servers: [
       {
-        url: 'http://localhost:3000/api/v1',
+        url: 'http://127.0.0.1:3000/api/v1',
         description: 'Development server',
       },
     ],
@@ -34,22 +32,34 @@ const options: swaggerJsdoc.Options = {
             passwordConfirm: {
               type: 'string',
             },
+            photo: {
+              type: 'string',
+            },
           },
           example: {
             name: 'ibrahim',
             email: 'ibrahim@gmail.com',
             password: 'test1234',
             passwordConfirm: 'test1234',
+            photo: 'string',
           },
         },
       },
       securitySchemes: {
-        ApiKeyAuth: {
-          type: 'apiKey',
+        bearerAuth: {
+          type: 'http',
           in: 'header',
-          name: 'Authorization'
-        }
+          name: 'Authorization',
+          description: 'Bearer Token',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
       },
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
       responses: {
         400: {
           description:
@@ -66,27 +76,10 @@ const options: swaggerJsdoc.Options = {
         },
       },
     },
-    security: [
-      {
-        bearerAuth: [],
-      },
-    ],
   },
   apis: ["./swagger/routes/auth.swagger.ts", "./swagger/routes/users.swagger.ts"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);
 
-function swaggerDocs(app: Express, port: number | string) {
-  // Swagger page
-  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-  // Docs in JSON format
-  app.get("/docs.json", (req: Request, res: Response) => {
-    res.setHeader("Content-Type", "application/json");
-    res.send(swaggerSpec);
-  });
-
-  console.log(`Docs available at http://localhost:${port}/docs`);
-}
-
-export default swaggerDocs;
+export default swaggerSpec;

@@ -26,6 +26,7 @@
  *           description: user created successfully
  *           contents:
  *             application/json
+ *  
  */
 
 
@@ -42,7 +43,15 @@
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *               type: object
+ *               required:
+ *                 - email
+ *                 - password
+ *               properties:
+ *                 email:
+ *                   type: string
+ *                 password:
+ *                   type: string
  *       responses:
  *         "400":
  *           $ref: '#/components/responses/400'

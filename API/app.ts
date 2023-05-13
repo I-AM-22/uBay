@@ -19,12 +19,11 @@ import routes from '@routes/index.routes';
 import JWTStrategy from '@middlewares/passport.config';
 import passport from 'passport';
 // import { rateLimit } from 'express-rate-limit';
-import swaggerDocs from './swagger/swagger';
-const port = settings.PORT;
 
 const app = express();
 //middlewares
 app.use(cors());
+
 app.options('*', cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -69,8 +68,6 @@ app.use((req: any, res: Response, next: NextFunction) => {
   req.requestTime = new Date().toISOString();
   next();
 });
-//Swagger Doc
-swaggerDocs(app, port);
 //Routes
 app.use(routes);
 
