@@ -12,6 +12,7 @@ import { settings } from './config/settings';
 import routes from '@routes/index.routes';
 import JWTStrategy from '@middlewares/passport.config';
 import passport from 'passport';
+<<<<<<< HEAD
 import swaggerDocs from "./swagger/swagger";
 const port = settings.PORT;
 
@@ -19,6 +20,11 @@ const port = settings.PORT;
 // import { rateLimit } from 'express-rate-limit';
 
 const app = express();
+=======
+// import xssClean from 'xss-clean';
+// import { rateLimit } from 'express-rate-limit';
+const app: express.Application = express();
+>>>>>>> db28a700dc8a566e70264fdb31cf3d06a45dc4bf
 //middlewares
 app.use(cors());
 app.options('*', cors());
@@ -36,11 +42,14 @@ app.disable('x-powered-by');
 //   message: 'Too many requests from this IP, please try again in an hour!',
 // });
 // app.use('/api', limiter);
+// With this declaration file in place, you should be able to use import xssClean from 'xss-clean' and app.use(xssClean())
+
+app.use(json({ limit: '10kb' }));
 app.use(json({ limit: '10kb' }));
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(mongoSanitize());
-
+// app.use(xssClean());
 app.use(
   hpp({
     whitelist: [

@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "dev",
+      "path": "admin",
+      "problemMatcher": [],
+      "label": "npm: dev - admin",
+      "detail": "vite --port 5170 --host"
+    }
+  ]
+}

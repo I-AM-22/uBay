@@ -125,6 +125,6 @@ userSchema.methods.createSendToken = function (user: any) {
   return token;
 };
 
-const User = model<IUser>('User', userSchema);
+const User = model<UserDoc>('User', userSchema);
 
 export default User;

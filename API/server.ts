@@ -3,8 +3,6 @@ import '@utils/unCaughtException';
 import app from './app';
 import { settings } from '@config/settings';
 import connDB from '@config/database';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import declareUser from '@config/custom';
 import { Server } from 'socket.io';
 import http from 'http';
 
