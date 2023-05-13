@@ -1,21 +1,15 @@
+import { IUser } from './user.types';
+
 // eslint-disable-next-line prettier/prettier
-export declare global {
+declare global {
   namespace Express {
     interface Request {
       querySearch: any;
     }
 
-    interface User {
+    interface User extends IUser {
       id: string;
       _id: string;
-      role: string;
     }
   }
-}
-
-declare module 'xss-clean' {
-  import { RequestHandler } from 'express';
-
-  function xss(options?: any): RequestHandler;
-  export = xss;
 }
