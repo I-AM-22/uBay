@@ -6,13 +6,14 @@ import Email from '@utils/email';
 import crypto from 'crypto';
 import { STATUS_CODE } from '../types/helper.types';
 import { omit } from 'lodash';
+import { IUser, UserDoc } from 'types/user.types';
 
 //Send The User With the response after login and signup
 const sendUser = (user: any, statusCode: number, res: Response) => {
   const token = user.createSendToken(user);
 
   //remove password from output
-  user = omit(user, 'password');
+  user.password = undefined;
   res.status(statusCode).send({
     status: 'success',
     token,
@@ -22,7 +23,7 @@ const sendUser = (user: any, statusCode: number, res: Response) => {
   });
 };
 
-export const signup:any = catchAsync(
+export const signup = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     if (req.body.role) req.body.role = undefined;
     const newUser = await User.create(req.body);

@@ -1,4 +1,10 @@
-﻿import express, { NextFunction, Response, json, urlencoded } from 'express';
+﻿import express, {
+  NextFunction,
+  Request,
+  Response,
+  json,
+  urlencoded,
+} from 'express';
 import path from 'path';
 import morgan from 'morgan';
 import helmet from 'helmet';
@@ -12,19 +18,11 @@ import { settings } from './config/settings';
 import routes from '@routes/index.routes';
 import JWTStrategy from '@middlewares/passport.config';
 import passport from 'passport';
-<<<<<<< HEAD
-import swaggerDocs from "./swagger/swagger";
+// import { rateLimit } from 'express-rate-limit';
+import swaggerDocs from './swagger/swagger';
 const port = settings.PORT;
 
-
-// import { rateLimit } from 'express-rate-limit';
-
 const app = express();
-=======
-// import xssClean from 'xss-clean';
-// import { rateLimit } from 'express-rate-limit';
-const app: express.Application = express();
->>>>>>> db28a700dc8a566e70264fdb31cf3d06a45dc4bf
 //middlewares
 app.use(cors());
 app.options('*', cors());
@@ -44,7 +42,6 @@ app.disable('x-powered-by');
 // app.use('/api', limiter);
 // With this declaration file in place, you should be able to use import xssClean from 'xss-clean' and app.use(xssClean())
 
-app.use(json({ limit: '10kb' }));
 app.use(json({ limit: '10kb' }));
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -72,14 +69,14 @@ app.use((req: any, res: Response, next: NextFunction) => {
   req.requestTime = new Date().toISOString();
   next();
 });
-//Swagger Doc 
+//Swagger Doc
 swaggerDocs(app, port);
 //Routes
 app.use(routes);
 
 // For Views
 
-app.get('/', (req, res, next) => {
+app.get('/', (req: Request, res: Response, next: NextFunction) => {
   res.send('API work successfully');
 });
 

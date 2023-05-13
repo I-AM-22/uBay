@@ -118,7 +118,7 @@ userSchema.methods.createPasswordResetToken = function () {
   return resetToken;
 };
 
-userSchema.methods.createSendToken = function (user: any) {
+userSchema.methods.createSendToken = function (user: UserDoc) {
   const token = jwt.sign({ id: user.id }, settings.JWT_SECRET, {
     expiresIn: settings.JWT_EXPIRES_IN,
   });
