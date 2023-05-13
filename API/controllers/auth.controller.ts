@@ -22,7 +22,7 @@ const sendUser = (user: any, statusCode: number, res: Response) => {
   });
 };
 
-export const signup = catchAsync(
+export const signup:any = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     if (req.body.role) req.body.role = undefined;
     const newUser = await User.create(req.body);

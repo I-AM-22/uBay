@@ -12,9 +12,19 @@ import { settings } from './config/settings';
 import routes from '@routes/index.routes';
 import JWTStrategy from '@middlewares/passport.config';
 import passport from 'passport';
+<<<<<<< HEAD
+import swaggerDocs from "./swagger/swagger";
+const port = settings.PORT;
+
+
+// import { rateLimit } from 'express-rate-limit';
+
+const app = express();
+=======
 // import xssClean from 'xss-clean';
 // import { rateLimit } from 'express-rate-limit';
 const app: express.Application = express();
+>>>>>>> db28a700dc8a566e70264fdb31cf3d06a45dc4bf
 //middlewares
 app.use(cors());
 app.options('*', cors());
@@ -60,10 +70,10 @@ passport.use('jwt', JWTStrategy);
 
 app.use((req: any, res: Response, next: NextFunction) => {
   req.requestTime = new Date().toISOString();
-
   next();
 });
-
+//Swagger Doc 
+swaggerDocs(app, port);
 //Routes
 app.use(routes);
 
