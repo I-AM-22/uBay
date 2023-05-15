@@ -1,22 +1,22 @@
-import swaggerJsdoc from "swagger-jsdoc";
-import { version } from "../package.json";
+import swaggerJsdoc from 'swagger-jsdoc';
 const options: swaggerJsdoc.Options = {
   definition: {
-    openapi: "3.0.0",
+    openapi: '3.0.0',
     info: {
-      title: "REST API Docs",
-      version,
-      description: 'This is a API store application made with Express and documented with Swagger',
-    },  
+      title: 'REST API Docs',
+      version: '1.0.0',
+      description:
+        'This is a API store application made with Express and documented with Swagger',
+    },
     servers: [
       {
-        url: 'http://127.0.0.1:3000/api/v1',
+        url: 'http://localhost:3000/api/v1',
         description: 'Development server',
       },
     ],
     components: {
       schemas: {
-        User: {
+        signUp: {
           type: 'object',
           required: ['name', 'email', 'password', 'passwordConfirm'],
           properties: {
@@ -32,34 +32,40 @@ const options: swaggerJsdoc.Options = {
             passwordConfirm: {
               type: 'string',
             },
-            photo: {
+          },
+          example: {
+            name: 'bahaa',
+            email: 'bahaa@gmail.com',
+            password: 'test1234',
+            passwordConfirm: 'test1234',
+          },
+        },
+        updateMe: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string',
+            },
+            email: {
               type: 'string',
             },
           },
           example: {
-            name: 'ibrahim',
-            email: 'ibrahim@gmail.com',
-            password: 'test1234',
-            passwordConfirm: 'test1234',
-            photo: 'string',
+            name: 'bahaa',
+            email: 'bahaa@gmail.com',
           },
         },
       },
       securitySchemes: {
-        bearerAuth: {
-          type: 'http',
-          in: 'header',
+        Bearer: {
+          type: 'apiKey',
           name: 'Authorization',
-          description: 'Bearer Token',
-          scheme: 'bearer',
-          bearerFormat: 'JWT',
+          in: 'header',
+          description:
+            '>-Enter the token with the `Bearer: ` prefix, e.g. "Bearer abcde12345".',
         },
       },
-      security: [
-        {
-          bearerAuth: [],
-        },
-      ],
+
       responses: {
         400: {
           description:
@@ -77,7 +83,10 @@ const options: swaggerJsdoc.Options = {
       },
     },
   },
-  apis: ["./swagger/routes/auth.swagger.ts", "./swagger/routes/users.swagger.ts"],
+  apis: [
+    './swagger/routes/auth.swagger.ts',
+    './swagger/routes/users.swagger.ts',
+  ],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

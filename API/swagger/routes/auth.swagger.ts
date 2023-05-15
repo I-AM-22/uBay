@@ -16,7 +16,7 @@
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *               $ref: '#/components/schemas/signUp'
  *       responses:
  *         "400":
  *           $ref: '#/components/responses/400'

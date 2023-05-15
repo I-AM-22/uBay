@@ -3,7 +3,7 @@
  * tags:
  *  name: Users
  *  description: API to manage users
- */ 
+ */
 
 //                                    Get All Users
 
@@ -14,7 +14,7 @@
  *       summary: Get All Users
  *       tags: [Users]
  *       security:
- *         - bearerAuth: []
+ *         - Bearer: []
  *       responses:
  *         "200":
  *           description: The list of Users
@@ -23,7 +23,7 @@
  *               schema:
  *                 type: array
  *                 items:
- *                   $ref: '#/components/schemas/User'
+ *                   $ref: '#/components/schemas/updateMe'
  *         "400":
  *           $ref: '#/components/responses/400'
  *         "401":
@@ -39,16 +39,20 @@
  *       summary: Get Current User
  *       tags: [Users]
  *       security:
- *         - bearerAuth: []
+ *         - Bearer: []
  *       responses:
  *         "200":
- *           description: The list of Users
+ *           description: The user info
  *           content:
  *             application/json:
  *               schema:
- *                 type: array
- *                 items:
- *                   $ref: '#/components/schemas/User'
+ *                 type: object
+ *                 properties:
+ *                   name:
+ *                      type: string
+ *                   email:
+ *                      type: string
+ *                  
  *         "400":
  *           $ref: '#/components/responses/400'
  *         "401":
@@ -63,37 +67,38 @@
  *       summary: Update Current User
  *       tags: [Users]
  *       security:
- *         - bearerAuth: []
+ *         - Bearer: []
  *       requestBody:
  *         required: true
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 email:
+ *              type: object
+ *              properties:
+ *                  name:
  *                   type: string
- *                 photo:
+ *                  email:
  *                   type: string
+ *
  *       responses:
  *         "400":
  *           $ref: '#/components/responses/400'
  *         "401":
  *           $ref: '#/components/responses/401'
- *         "204":
+ *         "200":
  *           description: User updated successfully
- *           content:
+ *           contents:
  *             application/json
  */
 
 //                                   Delete Current User
 /**
  * @swagger
- *   /Users/deleteMe:
+ *   /users/deleteMe:
  *     delete:
  *       summary: Delete Current User
  *       security:
- *         - bearerAuth: []
+ *         - Bearer: []
  *       tags: [Users]
  *       responses:
  *         "400":

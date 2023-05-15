@@ -5,8 +5,6 @@ import AppError from '@utils/appError';
 import Email from '@utils/email';
 import crypto from 'crypto';
 import { STATUS_CODE } from '../types/helper.types';
-import { omit } from 'lodash';
-import { IUser, UserDoc } from 'types/user.types';
 
 //Send The User With the response after login and signup
 const sendUser = (user: any, statusCode: number, res: Response) => {
