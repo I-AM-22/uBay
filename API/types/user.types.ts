@@ -19,7 +19,6 @@ export interface UserDoc extends IUser, mongoose.Document {
   isPasswordChanged(JWTTimestamp: number | undefined): boolean;
   createPasswordResetToken(): string;
   signToken(id: any): string;
-  createSendToken(user: any): string;
 }
 
 export type UserModel = Model<UserDoc, object, any>;

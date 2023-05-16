@@ -5,10 +5,11 @@ import AppError from '@utils/appError';
 import Email from '@utils/email';
 import crypto from 'crypto';
 import { STATUS_CODE } from '../types/helper.types';
+import { signJwt } from '@utils/jwt.utils';
 
 //Send The User With the response after login and signup
 const sendUser = (user: any, statusCode: number, res: Response) => {
-  const token = user.createSendToken(user);
+  const token = signJwt(user.id.toString());
 
   //remove password from output
   user.password = undefined;

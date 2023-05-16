@@ -52,7 +52,7 @@
  *                      type: string
  *                   email:
  *                      type: string
- *                  
+ *
  *         "400":
  *           $ref: '#/components/responses/400'
  *         "401":

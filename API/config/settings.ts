@@ -5,7 +5,8 @@ config({ path: `${__dirname}/../../.env` });
 export const settings = {
   NODE_ENV: process.env.NODE_ENV,
   PORT: process.env.PORT || 5000,
-  JWT_SECRET: process.env.JWT_SECRET_KEY || 'cnasklcnsklcaskl',
+  JWT_PUBLIC_KEY: process.env.JWT_PUBLIC_KEY || 'cnasklcnsklcaskl',
+  JWT_PRIVATE_KEY: process.env.JWT_PRIVATE_KEY || 'cnaskzcnsklcaskl',
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
   JWT_COOKIE_EXPIRES_IN: process.env.JWT_COOKIE_EXPIRES_IN,
   IMGUR_CLIENT_ID: process.env.IMGUR_CLIENT_ID,

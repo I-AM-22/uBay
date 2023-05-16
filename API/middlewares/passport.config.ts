@@ -13,11 +13,13 @@ import { STATUS_CODE } from '../types/helper.types';
 //   }
 //   return token;
 // };
-
 export default new JWTStrategy(
   {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: settings.JWT_SECRET,
+    secretOrKey: Buffer.from(settings.JWT_PUBLIC_KEY, 'base64').toString(
+      'ascii'
+    ),
+    algorithms: ['RS256'],
   },
   catchAsync(async function (payload: JwtPayload, done: any) {
     const user = await User.findById(payload.id);
