@@ -33,7 +33,8 @@
     "react-timeago": "^7.1.0",
     "stylis-plugin-rtl": "^2.1.1",
     "vite-tsconfig-paths": "^4.0.3",
-    "zod": "^3.21.4"
+    "zod": "^3.21.4",
+    "zod-i18n-map": "^2.12.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",
