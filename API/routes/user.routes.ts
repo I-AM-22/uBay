@@ -39,10 +39,12 @@ router.use(
 );
 
 router.route('/').get(checkQuerySearch, getAllUsers);
-router.route('/me').get(getMe, getUser);
+router
+  .route('/me')
+  .get(getMe, getUser)
+  .patch(uploadUserPhoto, resizeUserImage, updateMe)
+  .delete(deleteMe);
 router.route('/updateMyPassword').patch(updateMyPassword);
-router.route('/updateMe').patch(uploadUserPhoto, resizeUserImage, updateMe);
-router.route('/deleteMe').delete(deleteMe);
 
 //All routes after this middleware are only for admin
 router.use(restrictTo('admin'));
