@@ -1,9 +1,8 @@
 let API_ROUTES = {
-  REGISTRATION: {
-    root: "Authentication",
-    REGISTER: "Register",
-    LOGIN: "Login",
-    LOGOUT: "Logout",
+  USERS: {
+    root: "users",
+    SIGNUP: "signup",
+    LOGIN: "login",
   },
 } as const;
 

@@ -1,24 +1,16 @@
 import i18n from "lib/i18next";
-import yup from "lib/yup";
-import { AccountLoginBody } from "../../api/type";
+import z from "lib/zod";
+import { UserLoginBody } from "../../api/type";
 
 export const userNameRegex = /^[a-z0-9_-]*$/i;
 export const passwordRegex = /^[^\s]+$/;
 
-export const loginDefault: AccountLoginBody = {
-  username: "",
+export const loginDefault: UserLoginBody = {
+  email: "",
   password: "",
 };
-const loginSchema = yup.object().shape({
-  username: yup
-    .string()
-    .trim()
-    .required()
-    .matches(userNameRegex, i18n.t("auth:validation.username")),
-  password: yup
-    .string()
-    .required()
-    .matches(passwordRegex, i18n.t(`auth:validation.password`))
-    .min(6),
+const loginSchema: z.ZodType<UserLoginBody> = z.object({
+  email: z.string().nonempty().trim().email(),
+  password: z.string().nonempty().regex(passwordRegex, i18n.t(`auth:validation.password`)).min(6),
 });
 export default loginSchema;
