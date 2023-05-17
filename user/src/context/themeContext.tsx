@@ -67,7 +67,7 @@ const theme = (language: string) => {
       MuiOutlinedInput: {
         styleOverrides: {
           root: {
-            borderRadius: "20px",
+            borderRadius: "12px",
             "& fieldset": {
               borderColor: themeConstants.primary,
             },
@@ -83,7 +83,7 @@ const theme = (language: string) => {
       MuiButton: {
         styleOverrides: {
           root: {
-            borderRadius: "20px",
+            borderRadius: "12px",
           },
         },
       },
@@ -127,7 +127,6 @@ const theme = (language: string) => {
       },
     },
   });
-  theme.shadows[1] = `0 0 5px RGBA( 73, 113, 116, 0.3)`;
   return theme;
 };
 export default theme;
