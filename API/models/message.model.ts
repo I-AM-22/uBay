@@ -33,7 +33,7 @@ messageSchema.pre('save', async function (next) {
   });
   if (!chat)
     return next(
-      new AppError(STATUS_CODE.FORBIDDEN, 'you do not belong to this chat')
+      new AppError(STATUS_CODE.FORBIDDEN, [], 'you do not belong to this chat')
     );
   next();
 });

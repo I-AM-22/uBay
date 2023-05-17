@@ -17,10 +17,16 @@ export const accessChat = catchAsync(
     const { userId, productId } = req.body;
     if (!userId || !productId)
       return next(
-        new AppError(
-          400,
-          'please provide userId and productId with the request'
-        )
+        new AppError(400, [
+          {
+            name: 'userId',
+            message: 'Please provide userId',
+          },
+          {
+            name: 'productId',
+            message: 'Please provide productId',
+          },
+        ])
       );
 
     const data: any = {};

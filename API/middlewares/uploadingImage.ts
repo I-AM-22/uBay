@@ -18,10 +18,9 @@ const multerFilter: any = (
   if (file.mimetype.startsWith('image')) cb(null, true);
   else
     cb(
-      new AppError(
-        STATUS_CODE.BAD_REQUEST,
-        'Not an image! Please upload only images.'
-      ),
+      new AppError(STATUS_CODE.BAD_REQUEST, [
+        { name: 'photo', message: 'Not an image! Please upload only images.' },
+      ]),
       false
     );
 };

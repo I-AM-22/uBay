@@ -30,10 +30,13 @@ export const updateMe = catchAsync(
     //and if the front end developer thought this route for update password
     if (req.body.password || req.body.passwordConfirm)
       return next(
-        new AppError(
-          STATUS_CODE.BAD_REQUEST,
-          'This route is not for updates password. Please use /updateMyPassword to update password'
-        )
+        new AppError(STATUS_CODE.BAD_REQUEST, [
+          {
+            name: 'password',
+            message:
+              'This route is not for updates password. Please use /updateMyPassword to update password',
+          },
+        ])
       );
     if (!req.user) return next();
     const filteredBody = filterObj(req.body, 'name', 'email');

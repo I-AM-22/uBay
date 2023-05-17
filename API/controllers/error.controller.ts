@@ -4,38 +4,43 @@ import { STATUS_CODE } from '../types/helper.types';
 
 const handleCastErrorDB = (err: any) => {
   const message = `Invalid ${err.path}: ${err.value}`;
-  return new AppError(STATUS_CODE.BAD_REQUEST, message);
+  return new AppError(STATUS_CODE.BAD_REQUEST, [{ message, name: err.path }]);
 };
 
 const handleDuplicateErrorDB = (err: any) => {
-  if (err.message.includes('reviews')) {
-    const message = 'You can have only one review';
-    return new AppError(STATUS_CODE.BAD_REQUEST, message);
-  }
-  const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
-  const message = `Duplicate field value: ${value}. please use another value!`;
-  return new AppError(STATUS_CODE.BAD_REQUEST, message);
+  let field = Object.entries(err.keyValue);
+  const message = `${field[0][0]}:${field[0][1]} already exist, please use another value!`;
+  return new AppError(STATUS_CODE.BAD_REQUEST, [
+    { message, name: field[0][0] },
+  ]);
 };
 
 const handleValidatorErrorDB = (err: any) => {
-  const message = `Invalid input data. ${Object.values(err.errors)
-    .map((el: any) => el.message)
-    .join('. ')}`;
+  const message = Object.values(err.errors).map((el: any) => {
+    return { message: el.message, name: el.path };
+  });
+
   return new AppError(STATUS_CODE.BAD_REQUEST, message);
 };
 
 const handleJWTError = () =>
-  new AppError(STATUS_CODE.UNAUTHORIZE, 'Invalid token, please log in again');
+  new AppError(
+    STATUS_CODE.UNAUTHORIZE,
+    [],
+    'Invalid token, please log in again'
+  );
 
 const handleJWTExpiredError = () =>
   new AppError(
     STATUS_CODE.UNAUTHORIZE,
+    [],
     'Your token has expired!, please log in again'
   );
 
 const handelPassportError = () =>
   new AppError(
     STATUS_CODE.UNAUTHORIZE,
+    [],
     'You are not logged in, please log in to get access.'
   );
 
@@ -46,6 +51,7 @@ const sendErrorDev = (err: any, req: Request, res: Response) => {
     status: err.status,
     error: err,
     message: err.message,
+    name: err.name,
     stack: err.stack,
   });
 };
@@ -58,8 +64,8 @@ const sendErrorProd = (err: any, req: Request, res: Response) => {
   //Operational, trusted errors:send message to the client
   if (err.isOperational) {
     return res.status(err.statusCode).json({
-      status: err.status,
-      message: err.message,
+      errors: err.errors,
+      message: err?.message,
     });
   } //Programming or other unknown error:don't leak details
   //1) log error
@@ -67,7 +73,7 @@ const sendErrorProd = (err: any, req: Request, res: Response) => {
   //2) send generic message :don't leak error details
   return res
     .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
-    .json({ status: 'error', message: 'Something went very wrong' });
+    .json({ message: 'Something went very wrong' });
 };
 
 const globalErrorHandler = (
@@ -82,7 +88,9 @@ const globalErrorHandler = (
   if (process.env.NODE_ENV === 'development') {
     sendErrorDev(err, req, res);
   } else if (process.env.NODE_ENV === 'production') {
-    let error = err;
+    let error = { ...err };
+    error.message = err.message;
+    error.name = err.name;
     if (error.name === 'CastError') error = handleCastErrorDB(error);
     if (error.code === 11000) error = handleDuplicateErrorDB(error);
     if (error.name === 'ValidationError') error = handleValidatorErrorDB(error);
@@ -99,6 +107,7 @@ const notFound = (req: Request, res: Response, next: NextFunction) => {
   return next(
     new AppError(
       STATUS_CODE.NOT_FOUND,
+      [],
       `Can't find ${req.originalUrl} on this server`
     )
   ); //skip all middleware and go to the errors handler

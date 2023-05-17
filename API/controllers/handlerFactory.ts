@@ -13,7 +13,8 @@ export const deleteOne = (Model: Model<any>) =>
       return next(
         new AppError(
           STATUS_CODE.NOT_FOUND,
-          `No ${modelName} found with that ID`
+          [],
+          `No ${modelName} found with that Id`
         )
       );
     }
@@ -31,7 +32,8 @@ export const updateOne = (Model: Model<any>) =>
       return next(
         new AppError(
           STATUS_CODE.NOT_FOUND,
-          `No ${modelName} found with that ID`
+          [],
+          `No ${modelName} found with that Id`
         )
       );
     }
@@ -64,7 +66,7 @@ export const getOne = (Model: Model<any>, ...popOptions: Array<any>) =>
 
     if (!doc) {
       return next(
-        new AppError(STATUS_CODE.NOT_FOUND, `No ${modelName} with that ID`)
+        new AppError(STATUS_CODE.NOT_FOUND, [], `No ${modelName} with that Id`)
       );
     }
     res.status(STATUS_CODE.SUCCESS).json({

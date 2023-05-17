@@ -37,7 +37,7 @@ export const dislike = catchAsync(
     );
     if (!product) {
       return next(
-        new AppError(STATUS_CODE.NOT_FOUND, `No Product found with that ID`)
+        new AppError(STATUS_CODE.NOT_FOUND, [], `No Product found with that ID`)
       );
     }
     if (product.likes < 0) {
