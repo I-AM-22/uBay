@@ -5,15 +5,15 @@ import { isOwner } from '@utils/logics';
 
 const commentSchema = new Schema<CommentDoc, CommentModel, any>(
   {
-    content: { type: String, required: [true, 'Comment must have content'] },
+    content: { type: String, required: true },
     user: {
       type: Types.ObjectId,
-      required: [true, 'Comment must have user'],
+      required: true,
       ref: 'User',
     },
     product: {
       type: Types.ObjectId,
-      required: [true, 'Comment must have post'],
+      required: true,
       ref: 'Product',
     },
   },

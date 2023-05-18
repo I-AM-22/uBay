@@ -44,6 +44,12 @@ const handelPassportError = () =>
     'You are not logged in, please log in to get access.'
   );
 
+const handleZodError = (error: any) => {
+  const prodValidationError = error.issues.map((el: any) => {
+    return { message: el.message, name: el.path[1] };
+  });
+  return new AppError(STATUS_CODE.BAD_REQUEST, prodValidationError);
+};
 //development error
 const sendErrorDev = (err: any, req: Request, res: Response) => {
   //A) Api error
@@ -96,6 +102,7 @@ const globalErrorHandler = (
     if (error.name === 'ValidationError') error = handleValidatorErrorDB(error);
     if (error.name === 'JsonWebTokenError') error = handleJWTError();
     if (error.name === 'TokenExpiredError') error = handleJWTExpiredError();
+    if (error.name === 'ZodError') error = handleZodError(error);
     if (err.message === 'Unauthorized') error = handelPassportError();
 
     sendErrorProd(error, req, res);

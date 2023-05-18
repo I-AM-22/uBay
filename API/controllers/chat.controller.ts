@@ -12,50 +12,43 @@ import {
 import Product from '@models/product.model';
 import { STATUS_CODE } from '../types/helper.types';
 
+export const isSeller = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { user, product } = req.body;
+  const data: any = {};
+  const isSeller = await Product.findOne({
+    _id: product,
+    user: req.user?.id,
+  });
+
+  //Check if the chat creator is the seller or the customer
+  if (isSeller) {
+    data.seller = req.user?.id;
+    data.customer = user;
+    data.product = product;
+  } else {
+    data.seller = user;
+    data.customer = req.user?.id;
+    data.product = product;
+  }
+  req.body = data;
+  next();
+};
 export const accessChat = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { userId, productId } = req.body;
-    if (!userId || !productId)
-      return next(
-        new AppError(400, [
-          {
-            name: 'userId',
-            message: 'Please provide userId',
-          },
-          {
-            name: 'productId',
-            message: 'Please provide productId',
-          },
-        ])
-      );
-
-    const data: any = {};
-    const product = await Product.findOne({
-      _id: productId,
-      user: req.user?._id,
-    });
-
-    //Check if the chat creator is the seller or the customer
-    if (product) {
-      data.seller = req.user?._id;
-      data.customer = userId;
-      data.product = productId;
-    } else {
-      data.seller = userId;
-      data.customer = req.user?._id;
-      data.product = productId;
-    }
-
     // If the chat existed
-    const isChat = await Chat.findOne(data);
+    const isChat = await Chat.findOne(req.body);
     if (isChat) {
       return res
         .status(STATUS_CODE.SUCCESS)
         .json({ status: 'success', data: isChat });
     }
 
-    const createdChat = await Chat.create(data);
-    res
+    const createdChat = await Chat.create(req.body);
+    return res
       .status(STATUS_CODE.CREATED)
       .json({ status: 'success', data: createdChat });
   }

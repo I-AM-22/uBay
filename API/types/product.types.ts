@@ -3,7 +3,7 @@ import { IUser } from './user.types';
 import { ICategory } from './category.types';
 
 export interface IProduct {
-  description: string;
+  content: string;
   user: PopulatedDoc<Document<ObjectId> & IUser>;
   category: PopulatedDoc<Document<ObjectId> & ICategory>;
   price: number;

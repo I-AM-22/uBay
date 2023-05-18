@@ -8,16 +8,16 @@ import { isOwner } from '@utils/logics';
 
 const messageSchema = new Schema<MessageDoc, MessageModel, any>(
   {
-    content: { type: String, required: [true, 'message must have a content'] },
+    content: { type: String, required: true },
     user: {
       type: Types.ObjectId,
-      required: [true, 'message must have a sender'],
+      required: true,
       ref: 'User',
     },
     chat: {
       type: Types.ObjectId,
       ref: 'Chat',
-      required: [true, 'message must belong to a chat'],
+      required: true,
     },
   },
   {

@@ -3,10 +3,10 @@ import { CategoryDoc, CategoryModel } from '../types/category.types';
 
 const categorySchema = new Schema<CategoryDoc, CategoryModel, any>(
   {
-    name: { type: String, required: [true, 'Category must have name'] },
+    name: { type: String, required: true, unique: true },
     description: {
       type: String,
-      required: [true, 'Category must have description'],
+      required: true,
     },
   },
   {

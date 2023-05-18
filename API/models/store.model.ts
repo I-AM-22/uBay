@@ -3,10 +3,10 @@ import { StoreDoc, StoreModel } from '../types/store.types';
 
 const storeSchema = new Schema<StoreDoc, StoreModel, any>(
   {
-    name: { type: String, required: [true, 'Store must have content'] },
+    name: { type: String, required: true },
     address: {
       type: String,
-      required: [true, 'Please provide a store address'],
+      required: true,
     },
   },
   {

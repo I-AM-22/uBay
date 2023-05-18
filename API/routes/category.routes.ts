@@ -9,6 +9,8 @@ import { restrictTo } from '@controllers/auth.controller';
 import passport from 'passport';
 import { getAllCategories } from '@controllers/category.controller';
 import productRouter from '@routes/product.routes';
+import validate from '@middlewares/validateResource';
+import { categorySchema } from './../schema/category.schema';
 
 const router = Router();
 
@@ -20,6 +22,7 @@ router
   .post(
     passport.authenticate('jwt', { session: false, failWithError: true }),
     restrictTo('admin'),
+    validate(categorySchema),
     createCategory
   );
 

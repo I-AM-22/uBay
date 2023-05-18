@@ -10,16 +10,16 @@ const chatSchema = new Schema<ChatDoc, ChatModel, any>(
     customer: {
       type: Types.ObjectId,
       ref: 'User',
-      required: [true, 'Chat must have users'],
+      required: true,
     },
     seller: {
       type: Types.ObjectId,
       ref: 'User',
-      required: [true, 'Chat must have users'],
+      required: true,
     },
     product: {
       type: Types.ObjectId,
-      required: [true, 'Chat must have a product'],
+      required: true,
       ref: 'Product',
     },
     lastMessage: { type: Schema.Types.ObjectId, ref: 'Message' },
