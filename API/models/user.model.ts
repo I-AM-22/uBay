@@ -12,14 +12,13 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
   {
     name: {
       type: String,
-      required: [true, 'Please enter your name'],
+      required: true,
     },
     email: {
       type: String,
-      required: [true, 'Please provide your email'],
+      required: true,
       unique: true,
       lowercase: true,
-      validate: [validator.isEmail, 'Please provide a valid email'],
     },
     photo: { type: String, default: 'https://i.imgur.com/7rlze8l.jpg' },
     role: {
@@ -30,8 +29,7 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
     store: { type: Types.ObjectId, ref: 'Store' },
     password: {
       type: String,
-      required: [true, 'Please provide a password'],
-      minlength: [8, 'the password must have at least 8 characters'],
+      required: true,
       select: false,
     },
     passwordChangedAt: Date,
@@ -56,10 +54,9 @@ userSchema.pre('save', function (next) {
   if (this.role !== 'employee') next();
   if (!this.store)
     return next(
-      new AppError(
-        STATUS_CODE.BAD_REQUEST,
-        'Please provide a store for employee'
-      )
+      new AppError(STATUS_CODE.BAD_REQUEST, [
+        { name: 'store', message: 'Please provide a store for employee' },
+      ])
     );
   next();
 });
@@ -117,7 +114,6 @@ userSchema.methods.createPasswordResetToken = function () {
   this.passwordResetExpires = new Date(Date.now() + 10 * 60 * 1000);
   return resetToken;
 };
-
 
 const User = model<UserDoc>('User', userSchema);
 

@@ -37,17 +37,17 @@ export const login = catchAsync(
     const { email, password } = req.body;
     if (!email || !password) {
       return next(
-        new AppError(
-          STATUS_CODE.BAD_REQUEST,
-          'Please provide password and email'
-        )
+        new AppError(STATUS_CODE.BAD_REQUEST, [
+          { message: 'Please provide password ', name: 'password' },
+        ])
       );
     }
     //check if the user exist and the password correct
     const user = await User.findOne({ email }).select('+password ');
     if (!user || !(await user.correctPassword(password))) {
-      const message = 'Incorrect password or email';
-      return next(new AppError(STATUS_CODE.UNAUTHORIZE, message));
+      return next(
+        new AppError(STATUS_CODE.UNAUTHORIZE, [], 'Incorrect password or email')
+      );
     }
 
     sendUser(user, 201, res);
@@ -63,6 +63,7 @@ export const restrictTo =
       return next(
         new AppError(
           STATUS_CODE.FORBIDDEN,
+          [],
           'You do not have permission to perform this action '
         )
       );
@@ -77,7 +78,9 @@ export const forgotPassword = catchAsync(
     const user = await User.findOne({ email });
     if (!user) {
       return next(
-        new AppError(STATUS_CODE.NOT_FOUND, 'There is no user with that email')
+        new AppError(STATUS_CODE.NOT_FOUND, [
+          { message: 'There is no user with that email', name: 'email' },
+        ])
       );
     }
     // 2) Create reset token
@@ -104,6 +107,7 @@ export const forgotPassword = catchAsync(
       return next(
         new AppError(
           STATUS_CODE.INTERNAL_SERVER_ERROR,
+          [],
           'There was an error sending the email. Try again later!'
         )
       );
@@ -124,7 +128,9 @@ export const isTokenValid = catchAsync(
     });
     if (!user)
       return next(
-        new AppError(STATUS_CODE.NOT_FOUND, 'Token is invalid or expired')
+        new AppError(STATUS_CODE.NOT_FOUND, [
+          { message: 'Token is invalid or expired', name: 'resetToken' },
+        ])
       );
 
     res.status(STATUS_CODE.SUCCESS).json({ status: 'success' });
@@ -145,7 +151,9 @@ export const resetPassword = catchAsync(
     });
     if (!user) {
       return next(
-        new AppError(STATUS_CODE.NOT_FOUND, 'Token is invalid or expired')
+        new AppError(STATUS_CODE.NOT_FOUND, [
+          { name: 'resetToken', message: 'Token is invalid or expired' },
+        ])
       );
     }
     //3) Save the new data
@@ -166,11 +174,16 @@ export const updateMyPassword = catchAsync(
     // 1) get the logged in user
     const user = await User.findById(req.user.id).select('+password');
     if (!user)
-      return next(new AppError(STATUS_CODE.NOT_FOUND, 'User not found'));
+      return next(new AppError(STATUS_CODE.NOT_FOUND, [], 'User not found'));
     // 2)check if the passwordConfirm is correct
     if (!user.correctPassword(passwordCurrent)) {
       return next(
-        new AppError(STATUS_CODE.UNAUTHORIZE, 'Your current password is wrong')
+        new AppError(STATUS_CODE.UNAUTHORIZE, [
+          {
+            message: 'Your current password is wrong',
+            name: 'currentPassword',
+          },
+        ])
       );
     }
     //3) Change the password to the new one

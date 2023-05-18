@@ -17,6 +17,8 @@ import {
   resizeProductPhotos,
   uploadProductPhotos,
 } from '@middlewares/uploadingImage';
+import validate from '@middlewares/validateResource';
+import { productSchema } from './../schema/product.schema';
 
 const router = Router({ mergeParams: true });
 /*
@@ -32,9 +34,10 @@ router
   .post(
     passport.authenticate('jwt', { session: false, failWithError: true }),
     restrictTo('user'),
-    uploadProductPhotos,
-    resizeProductPhotos,
+    // uploadProductPhotos,
+    // resizeProductPhotos,
     setUserId,
+    validate(productSchema),
     createProduct
   );
 

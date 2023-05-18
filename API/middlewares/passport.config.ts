@@ -27,6 +27,8 @@ export default new JWTStrategy(
       return done(
         new AppError(
           STATUS_CODE.UNAUTHORIZE,
+
+          [],
           'The user belonging to this token does no longer exist'
         )
       );
@@ -36,6 +38,7 @@ export default new JWTStrategy(
       return done(
         new AppError(
           STATUS_CODE.UNAUTHORIZE,
+          [],
           'User recently changed the password!, please login again.'
         )
       );

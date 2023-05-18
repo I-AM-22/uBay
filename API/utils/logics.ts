@@ -9,11 +9,16 @@ export const isOwner = async function (
 ) {
   const item = await Model.findById(id);
   if (!item) {
-    throw new AppError(STATUS_CODE.NOT_FOUND, `${Model.modelName} not found`);
+    throw new AppError(
+      STATUS_CODE.NOT_FOUND,
+      [],
+      `There is no ${Model.modelName} with that Id`
+    );
   }
   if (item.user.id.toString() !== user.id.toString() && user.role !== 'admin') {
     throw new AppError(
       STATUS_CODE.FORBIDDEN,
+      [],
       'You are not authorized to perform this action'
     );
   }

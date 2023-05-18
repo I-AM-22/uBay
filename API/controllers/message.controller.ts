@@ -15,7 +15,7 @@ export const setSenderAndChat = (
   next: NextFunction
 ) => {
   if (!req.body.chat) req.body.chat = req.params.chatId;
-  req.body.sender = req.user?.id;
+  req.body.user = req.user?.id;
   next();
 };
 

@@ -5,28 +5,25 @@ import { isOwner } from '@utils/logics';
 
 const productSchema = new Schema<ProductDoc, ProductModel, any>(
   {
-    description: {
+    content: {
       type: String,
-      required: [true, 'Product must have description'],
+      required: true,
     },
     user: {
       type: Types.ObjectId,
-      required: [true, 'Product must have user'],
+      required: true,
       ref: 'User',
     },
     likes: { type: Number, default: 0, min: 0 },
     photos: {
       type: [String],
-      validate: {
-        validator: checkSize,
-        message: 'Product must have at least one photo',
-      },
+      required: true,
     },
 
-    price: { type: Number, required: [true, 'Product must have a price'] },
+    price: { type: Number, required: true },
     category: {
       type: Types.ObjectId,
-      required: [true, 'Product must have category'],
+      required: true,
       ref: 'Category',
     },
   },
