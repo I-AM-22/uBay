@@ -1,9 +1,9 @@
 import { VisibilityOff } from "@mui/icons-material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { IconButton, InputAdornment } from "@mui/material";
+import TextField, { TextFieldProps } from "components/Inputs/TextField";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import TextField, { TextFieldProps } from "./TextField";
 type Props = TextFieldProps<true | false>;
 const PasswordInput: FC<Props> = ({ ...props }) => {
   const [showPassword, setShowPassword] = useState(false);

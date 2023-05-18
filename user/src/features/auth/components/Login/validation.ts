@@ -10,7 +10,7 @@ export const loginDefault: UserLoginBody = {
   password: "",
 };
 const loginSchema: z.ZodType<UserLoginBody> = z.object({
-  email: z.string().nonempty().trim().email(),
+  email: z.string().trim().nonempty().email(),
   password: z.string().nonempty().regex(passwordRegex, i18n.t(`auth:validation.password`)).min(6),
 });
 export default loginSchema;
