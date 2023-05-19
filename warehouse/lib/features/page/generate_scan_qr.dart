@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:warehouse/page/qr_create.dart';
-import 'package:warehouse/page/qr_scan.dart';
+import 'package:warehouse/features/page/qr_create.dart';
+import 'package:warehouse/features/page/qr_scan.dart';
 
 class GenerateOrScanQR extends StatelessWidget {
   const GenerateOrScanQR({Key? key}) : super(key: key);
