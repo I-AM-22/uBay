@@ -7,7 +7,7 @@ class AppError extends Error {
   // and rewrite the same error with status and statusCode and make me  process the kind of status automatically
   constructor(
     statusCode: number,
-    errors: { message: string; name: string }[],
+    errors: { message: string; path: string[] }[],
     message?: string
   ) {
     super(message ? message : 'error');

@@ -35,7 +35,7 @@
     "vite-tsconfig-paths": "^4.0.3",
     "workbox-build": "^6.5.4",
     "workbox-window": "^6.5.4",
-    "yup": "^0.32.11"
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",

@@ -67,7 +67,7 @@ const theme = (language: string) => {
       MuiOutlinedInput: {
         styleOverrides: {
           root: {
-            borderRadius: "12px",
+            borderRadius: themeConstants.borderRadius,
             "& fieldset": {
               borderColor: themeConstants.primary,
             },
@@ -83,7 +83,7 @@ const theme = (language: string) => {
       MuiButton: {
         styleOverrides: {
           root: {
-            borderRadius: "12px",
+            borderRadius: themeConstants.borderRadius,
           },
         },
       },

@@ -23,7 +23,13 @@ import { checkQuerySearch } from '@middlewares/helper.middleware';
 import notificationRouter from '@routes/notification.routes';
 import productRouter from '@routes/product.routes';
 import validate from '@middlewares/validateResource';
-import { userSchema, loginInput } from './../schema/user.schema';
+import {
+  userSchema,
+  loginInput,
+  forgotPasswordSchema,
+  resetPasswordSchema,
+  updatePasswordSchema,
+} from './../schema/user.schema';
 
 const router = Router();
 
@@ -32,8 +38,13 @@ router.use('/:userId/products', productRouter);
 
 router.route('/signup').post(validate(userSchema), signup);
 router.route('/login').post(validate(loginInput), login);
-router.route('/forgotPassword').post(forgotPassword);
-router.route('/resetPassword/:token').get(isTokenValid).patch(resetPassword);
+router
+  .route('/forgotPassword')
+  .post(validate(forgotPasswordSchema), forgotPassword);
+router
+  .route('/resetPassword')
+  .get(validate(resetPasswordSchema), isTokenValid)
+  .patch(validate(resetPasswordSchema), resetPassword);
 
 //Protect all routes after this middleware
 router.use(
@@ -46,7 +57,7 @@ router
   .get(getMe, getUser)
   .patch(uploadUserPhoto, resizeUserImage, updateMe)
   .delete(deleteMe);
-router.route('/updateMyPassword').patch(updateMyPassword);
+router.route('/updateMyPassword').patch(validate(updatePasswordSchema),updateMyPassword);
 
 //All routes after this middleware are only for admin
 router.use(restrictTo('admin'));

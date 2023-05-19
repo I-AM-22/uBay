@@ -50,17 +50,6 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
 
 //Document middleware
 
-userSchema.pre('save', function (next) {
-  if (this.role !== 'employee') next();
-  if (!this.store)
-    return next(
-      new AppError(STATUS_CODE.BAD_REQUEST, [
-        { name: 'store', message: 'Please provide a store for employee' },
-      ])
-    );
-  next();
-});
-
 userSchema.pre('save', async function (next) {
   //if the password not changed end the process
   if (!this.isModified('password')) return next();

@@ -1,22 +1,22 @@
-import PersonIcon from "@mui/icons-material/Person";
+import MailIcon from "@mui/icons-material/Mail";
 import { InputAdornment } from "@mui/material";
+import TextField, { TextFieldProps } from "components/Inputs/TextField";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import TextField, { TextFieldProps } from "./TextField";
 type Props = TextFieldProps<true>;
-const UsernameInput: FC<Props> = ({ control, name, ...props }) => {
+const EmailInput: FC<Props> = ({ control, name, ...props }) => {
   const { t } = useTranslation("auth");
   return (
     <TextField
       name={name}
       variant="outlined"
       control={control}
-      label={t("login.username")}
+      label={t("login.email")}
       fullWidth
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <PersonIcon />
+            <MailIcon />
           </InputAdornment>
         ),
       }}
@@ -25,4 +25,4 @@ const UsernameInput: FC<Props> = ({ control, name, ...props }) => {
   );
 };
 
-export default UsernameInput;
+export default EmailInput;
