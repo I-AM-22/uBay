@@ -22,13 +22,8 @@ class ErrorLoginState extends AuthState {
 
 class SuccessSignupState extends AuthState {
   final String message;
-  final String userName;
-  File? profileImage;
-  final String email;
-  final String password;
 
-  SuccessSignupState(this.message, this.userName, this.profileImage, this.email,
-      this.password);
+  SuccessSignupState(this.message);
 }
 
 class ErrorSignupState extends AuthState {

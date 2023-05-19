@@ -11,7 +11,8 @@ class SignupUseCase {
   SignupUseCase(this.authRepository);
 
   Future<Either<Failure, Unit>> call(String userName, String email,
-      String password, File? profileImage) async {
-    return await authRepository.signup(userName, email, password, profileImage);
+      String password, String passwordConfirm) async {
+    return await authRepository.signup(
+        userName, email, password, passwordConfirm);
   }
 }

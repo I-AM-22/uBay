@@ -20,9 +20,9 @@ class SignupEvent extends AuthEvent {
   final String userName;
   final String email;
   final String password;
-  File? profileImage;
+  final String passwordConfirm;
 
-  SignupEvent(this.userName, this.email, this.password, this.profileImage);
+  SignupEvent(this.userName, this.email, this.password, this.passwordConfirm);
 }
 
 class PickProfileImageEvent extends AuthEvent {

@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:warehouse/core/widget/loading_widget.dart';
+import 'package:warehouse/features/auth/presentation/widget/text_form.dart';
 import 'package:warehouse/injection_container.dart' as di;
 import '../../../../core/theme.dart';
-import '../../../../core/util/show_bottom_sheet.dart';
 import '../../../../core/util/snackbar_message.dart';
 import '../bloc/auth/auth_bloc.dart';
 import '../bloc/auth/auth_event.dart';
@@ -16,7 +17,8 @@ import '../pages/login_page.dart';
 class SignupFormWidget extends StatelessWidget {
   SignupFormWidget({Key? key}) : super(key: key);
   var emailController = TextEditingController();
-  var passWordController = TextEditingController();
+  var passwordController = TextEditingController();
+  var passwordConfirmController = TextEditingController();
   var nameController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   File? userImage;
@@ -36,125 +38,106 @@ class SignupFormWidget extends StatelessWidget {
           } else if (state is ErrorSignupState) {
             SnackBarMessage().snackBarMessageError(context, state.error);
           }
-          if (state is SuccessPickImageState) {
-            userImage = state.image;
-          }
         },
         builder: (context, state) {
           {
             if (state is LoadingLoginState) {
-              return Form(
-                key: formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Sign Up',
-                      style: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          color: primaryColor),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Stack(
-                        clipBehavior: Clip.antiAlias,
-                        alignment: Alignment.bottomRight,
-                        children: [
-                          Container(
-                            height: 200,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    fit: BoxFit.contain,
-                                    image: userImage != null
-                                        ? Image(image: FileImage(userImage!))
-                                            .image
-                                        : const AssetImage(
-                                            'assets/image/user.jpg'))),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(5),
-                            color: primaryColor,
-                            child: IconButton(
-                              onPressed: () {
-                                ShowModalBottomSheet().showBottomSheet(
-                                    context, _buildPickProfileImage(context));
-                              },
-                              icon: const Icon(Icons.add_a_photo),
-                            ),
-                          )
-                        ]),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Expanded(
-                        child: MaterialButton(
-                      onPressed: () {
-                        BlocProvider.of<AuthBloc>(context).add(
-                            const PickProfileImageEvent(ImageSource.gallery));
-                      },
-                      color: primaryColor,
-                      child: const Text('Gallery',
-                          style: TextStyle(color: Colors.white)),
-                    )),
-                    Container(
-                      width: double.infinity,
-                      color: primaryColor,
-                      child: TextButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            BlocProvider.of<AuthBloc>(context).add(SignupEvent(
-                                nameController.text,
-                                emailController.text,
-                                passWordController.text,
-                                null));
-                          }
-                        },
-                        child: const Text(
-                          'SIGN UP',
-                          style: TextStyle(fontSize: 25, color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
+              return const LoadingWidget();
             }
-            return SignupFormWidget();
+            return _buildSignupWidget(context);
           }
         },
       ),
     );
   }
 
-  Widget _buildPickProfileImage(context) {
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            BlocProvider.of<AuthBloc>(context)
-                .add(const PickProfileImageEvent(ImageSource.camera));
-          },
-          child: const Text("camera"),
+  Widget _buildSignupWidget(BuildContext context) => Form(
+        key: formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Sign Up',
+              style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: primaryColor),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            TextFormFileWidget(
+                controller: nameController,
+                obscureText: true,
+                validate: validateName,
+                hintText: 'name',
+                icon: Icons.person,
+                textInputType: TextInputType.name),
+            const SizedBox(
+              height: 20,
+            ),
+            TextFormFileWidget(
+                controller: emailController,
+                obscureText: true,
+                validate: validateEmail,
+                hintText: 'Email',
+                icon: Icons.email,
+                textInputType: TextInputType.emailAddress),
+            const SizedBox(
+              height: 20,
+            ),
+            TextFormFileWidget(
+                controller: passwordController,
+                obscureText: true,
+                validate: validatePassword,
+                hintText: 'Password',
+                icon: Icons.lock,
+                textInputType: TextInputType.visiblePassword),
+            const SizedBox(
+              height: 20,
+            ),
+            TextFormFileWidget(
+                controller: passwordConfirmController,
+                obscureText: true,
+                validate: validatePasswordConfirm,
+                hintText: 'Password',
+                icon: Icons.lock,
+                textInputType: TextInputType.visiblePassword),
+            const SizedBox(
+              height: 20,
+            ),
+            Expanded(
+                child: MaterialButton(
+              onPressed: () {
+                BlocProvider.of<AuthBloc>(context)
+                    .add(const PickProfileImageEvent(ImageSource.gallery));
+              },
+              color: primaryColor,
+              child:
+                  const Text('Gallery', style: TextStyle(color: Colors.white)),
+            )),
+            Container(
+              width: double.infinity,
+              color: primaryColor,
+              child: TextButton(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    BlocProvider.of<AuthBloc>(context).add(SignupEvent(
+                        nameController.text,
+                        emailController.text,
+                        passwordController.text,
+                        passwordConfirmController.text));
+                  }
+                },
+                child: const Text(
+                  'SIGN UP',
+                  style: TextStyle(fontSize: 25, color: Colors.white),
+                ),
+              ),
+            ),
+          ],
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        ElevatedButton(
-          onPressed: () {
-            BlocProvider.of<AuthBloc>(context)
-                .add(const PickProfileImageEvent(ImageSource.gallery));
-          },
-          child: const Text('gallery'),
-        ),
-      ],
-    );
-  }
+      );
 
   String? validateEmail(String? value) {
     if (RegExp(
@@ -180,5 +163,12 @@ class SignupFormWidget extends StatelessWidget {
       return null;
     }
     return "password must be not empty";
+  }
+
+  String? validatePasswordConfirm(String? value) {
+    if (value.toString() != passwordController.text) {
+      return 'password does not match';
+    }
+    return null;
   }
 }

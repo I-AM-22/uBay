@@ -17,7 +17,7 @@ class SignupPage extends StatelessWidget {
   AppBar _buildAppBar() {
     return AppBar(
       backgroundColor: primaryColor,
-      title: const Text('Social App'),
+      title: const Text('Warehouse'),
     );
   }
 

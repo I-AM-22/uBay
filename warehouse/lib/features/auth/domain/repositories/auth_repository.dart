@@ -8,6 +8,6 @@ import '../../data/model/user_login_model.dart';
 abstract class AuthRepository {
   Future<Either<Failure, UserLogin>> login(String email, String password);
   Future<Either<Failure, Unit>> signup(
-      String userName, String email, String password, File? profileImage);
+      String userName, String email, String password, String passwordConfirm);
   Future<Either<Failure, File>> pickProfileImage(ImageSource source);
 }

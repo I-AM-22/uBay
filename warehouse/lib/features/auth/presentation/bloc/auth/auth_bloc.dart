@@ -32,12 +32,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignupEvent>((event, emit) async {
       emit(LoadingLoginState());
       final signup = await signupUseCase(
-          event.userName, event.email, event.password, event.profileImage);
+          event.userName, event.email, event.password, event.passwordConfirm);
       signup.fold((failure) {
         emit(ErrorSignupState(_mapFailureToString(failure)));
       }, (_) {
-        emit(SuccessSignupState("Signup Successfully", event.userName,
-            event.profileImage, event.email, event.password));
+        emit(SuccessSignupState("Signup Successfully"));
       });
     });
     on<PickProfileImageEvent>((event, emit) async {

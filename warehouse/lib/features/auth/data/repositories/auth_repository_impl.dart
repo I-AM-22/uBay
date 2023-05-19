@@ -39,11 +39,11 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<Failure, Unit>> signup(String userName, String email,
-      String password, File? profileImage) async {
+      String password, String passwordConfirm) async {
     if (await networkInfo.isConnected) {
       try {
         await authRemoteDataSource.signup(
-            userName, email, password, profileImage);
+            userName, email, password, passwordConfirm);
         return const Right(unit);
       } on ServerException {
         return Left(ServerFailure());
