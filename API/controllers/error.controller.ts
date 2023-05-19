@@ -4,20 +4,20 @@ import { STATUS_CODE } from '../types/helper.types';
 
 const handleCastErrorDB = (err: any) => {
   const message = `Invalid ${err.path}: ${err.value}`;
-  return new AppError(STATUS_CODE.BAD_REQUEST, [{ message, name: err.path }]);
+  return new AppError(STATUS_CODE.BAD_REQUEST, [{ message, path: [err.path] }]);
 };
 
 const handleDuplicateErrorDB = (err: any) => {
   let field = Object.entries(err.keyValue);
   const message = `${field[0][0]}:${field[0][1]} already exist, please use another value!`;
   return new AppError(STATUS_CODE.BAD_REQUEST, [
-    { message, name: field[0][0] },
+    { message, path: [field[0][0]] },
   ]);
 };
 
 const handleValidatorErrorDB = (err: any) => {
   const message = Object.values(err.errors).map((el: any) => {
-    return { message: el.message, name: el.path };
+    return { message: el.message, path: [el.path] };
   });
 
   return new AppError(STATUS_CODE.BAD_REQUEST, message);
@@ -43,10 +43,10 @@ const handelPassportError = () =>
     [],
     'You are not logged in, please log in to get access.'
   );
-
+let a = [];
 const handleZodError = (error: any) => {
   const prodValidationError = error.issues.map((el: any) => {
-    return { message: el.message, name: el.path[1] };
+    return { message: el.message, path: el.path.slice(1) };
   });
   return new AppError(STATUS_CODE.BAD_REQUEST, prodValidationError);
 };

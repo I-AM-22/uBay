@@ -19,7 +19,10 @@ const multerFilter: any = (
   else
     cb(
       new AppError(STATUS_CODE.BAD_REQUEST, [
-        { name: 'photo', message: 'Not an image! Please upload only images.' },
+        {
+          path: ['photo'],
+          message: 'Not an image! Please upload only images.',
+        },
       ]),
       false
     );

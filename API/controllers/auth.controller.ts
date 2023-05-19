@@ -35,13 +35,7 @@ export const login = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     //Check if  the email and password  exist
     const { email, password } = req.body;
-    if (!email || !password) {
-      return next(
-        new AppError(STATUS_CODE.BAD_REQUEST, [
-          { message: 'Please provide password ', name: 'password' },
-        ])
-      );
-    }
+
     //check if the user exist and the password correct
     const user = await User.findOne({ email }).select('+password ');
     if (!user || !(await user.correctPassword(password))) {
@@ -74,12 +68,13 @@ export const restrictTo =
 export const forgotPassword = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email } = req.body;
+
     // 1) Search for the user
     const user = await User.findOne({ email });
     if (!user) {
       return next(
         new AppError(STATUS_CODE.NOT_FOUND, [
-          { message: 'There is no user with that email', name: 'email' },
+          { message: 'There is no user with that email', path: ['email'] },
         ])
       );
     }
@@ -89,12 +84,12 @@ export const forgotPassword = catchAsync(
     //3) Save the user with resetToken to the database to modify it
     await user.save({ validateBeforeSave: false });
     //Reset URL
-    const resetUrl = `${req.protocol}://${req.get(
-      'host'
-    )}/resetPassword/${resetToken}`;
+    // const resetUrl = `${req.protocol}://${req.get(
+    //   'host'
+    // )}/resetPassword/${c}`;
     // 4) Send the email
     try {
-      await new Email(user, resetUrl).sendPasswordReset();
+      await new Email(user, resetToken).sendPasswordReset();
       res.status(STATUS_CODE.SUCCESS).json({
         status: 'success',
         message: 'Token sent to email',
@@ -120,7 +115,7 @@ export const isTokenValid = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const hashToken = crypto
       .createHash('sha256')
-      .update(req.params.token)
+      .update(req.body.token)
       .digest('hex');
     const user = await User.findOne({
       passwordResetToken: hashToken,
@@ -128,9 +123,7 @@ export const isTokenValid = catchAsync(
     });
     if (!user)
       return next(
-        new AppError(STATUS_CODE.NOT_FOUND, [
-          { message: 'Token is invalid or expired', name: 'resetToken' },
-        ])
+        new AppError(STATUS_CODE.NOT_FOUND, [], 'Token is invalid or expired')
       );
 
     res.status(STATUS_CODE.SUCCESS).json({ status: 'success' });
@@ -142,7 +135,7 @@ export const resetPassword = catchAsync(
     //1) encode the token
     const hashToken = crypto
       .createHash('sha256')
-      .update(req.params.token)
+      .update(req.body.token)
       .digest('hex');
     //2) Find user with that resetToken and does not expire
     const user = await User.findOne({
@@ -151,9 +144,7 @@ export const resetPassword = catchAsync(
     });
     if (!user) {
       return next(
-        new AppError(STATUS_CODE.NOT_FOUND, [
-          { name: 'resetToken', message: 'Token is invalid or expired' },
-        ])
+        new AppError(STATUS_CODE.NOT_FOUND, [], 'Token is invalid or expired')
       );
     }
     //3) Save the new data
@@ -176,14 +167,13 @@ export const updateMyPassword = catchAsync(
     if (!user)
       return next(new AppError(STATUS_CODE.NOT_FOUND, [], 'User not found'));
     // 2)check if the passwordConfirm is correct
-    if (!user.correctPassword(passwordCurrent)) {
+    if (!(await user.correctPassword(passwordCurrent))) {
       return next(
-        new AppError(STATUS_CODE.UNAUTHORIZE, [
-          {
-            message: 'Your current password is wrong',
-            name: 'currentPassword',
-          },
-        ])
+        new AppError(
+          STATUS_CODE.UNAUTHORIZE,
+          [],
+          'Your current password is wrong'
+        )
       );
     }
     //3) Change the password to the new one
