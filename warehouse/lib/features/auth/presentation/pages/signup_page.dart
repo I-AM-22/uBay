@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:warehouse/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:warehouse/injection_container.dart' as di;
 import '../widget/signup_form_widget.dart';
 
 class SignupPage extends StatelessWidget {
@@ -16,15 +17,15 @@ class SignupPage extends StatelessWidget {
 
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: primaryColor,
-      title: const Text('Warehouse'),
+      title: const Text(
+        'Warehouse',
+        style: TextStyle(color: Colors.white),
+      ),
     );
   }
 
   Widget _buildBody() {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: SignupFormWidget(),
-    );
+    return BlocProvider(
+        create: (_) => di.getIt<AuthBloc>(), child: SignupFormWidget());
   }
 }

@@ -11,7 +11,7 @@ class SnackBarMessage {
   void snackBarMessageError(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(message),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.redAccent,
     ));
   }
 }

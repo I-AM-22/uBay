@@ -1,51 +1,43 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../core/errors/failures.dart';
 import '../../../../../core/strings/failure.dart';
 import '../../../domain/usecases/login_usecase.dart';
-import '../../../domain/usecases/pick_profile_image_usecase.dart';
 import '../../../domain/usecases/signup_usecase.dart';
-import 'auth_event.dart';
-import 'auth_state.dart';
+part 'auth_event.dart';
+part 'auth_state.dart';
+part 'auth_bloc.freezed.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUseCase loginUseCase;
   final SignupUseCase signupUseCase;
-  final PickProfileImageUseCase pickProfileImageUseCase;
 
   AuthBloc({
     required this.signupUseCase,
     required this.loginUseCase,
-    required this.pickProfileImageUseCase,
-  }) : super(AuthInitial()) {
-    on<LoginEvent>((event, emit) async {
-      emit(LoadingLoginState());
+  }) : super(const AuthState.authInitial()) {
+    on<_$_loginEvent>((event, emit) async {
+      emit(const _$_loading());
       final login = await loginUseCase(event.email, event.password);
       login.fold((failure) {
-        emit(ErrorLoginState(_mapFailureToString(failure)));
+        emit(AuthState.errorLoginState(_mapFailureToString(failure)));
       }, (success) {
-        emit(const SuccessLoginState("Login Successfully"));
+        emit(const AuthState.successLoginState("Login Successfully"));
       });
     });
-    on<SignupEvent>((event, emit) async {
-      emit(LoadingLoginState());
+    on<_$_signupEvent>((event, emit) async {
+      emit(const AuthState.loading());
       final signup = await signupUseCase(
           event.userName, event.email, event.password, event.passwordConfirm);
       signup.fold((failure) {
-        emit(ErrorSignupState(_mapFailureToString(failure)));
+        emit(AuthState.errorLoginState(_mapFailureToString(failure)));
       }, (_) {
-        emit(SuccessSignupState("Signup Successfully"));
+        emit(const AuthState.successLoginState("Signup Successfully"));
       });
     });
-    on<PickProfileImageEvent>((event, emit) async {
-      final image = await pickProfileImageUseCase(event.source);
-      image.fold((l) {
-        emit(const ErrorPickImageState());
-      }, (success) {
-        emit(SuccessPickImageState(File(success.path)));
-      });
+    on<_$_changeIconVisibilityEvent>((event, emit) {
+      emit(AuthState.changeIconVisibilityState(!event.isVisible));
     });
   }
 

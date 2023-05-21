@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
+// ignore: must_be_immutable
 class QrScan extends StatefulWidget {
   QrScan({Key? key}) : super(key: key);
   String qrCode = 'UnKnown';
