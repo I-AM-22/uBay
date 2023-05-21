@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:warehouse/injection_container.dart' as di;
-import '../../../../core/theme.dart';
-import '../../../../core/util/snackbar_message.dart';
-import '../../../../core/widget/loading_widget.dart';
 import '../bloc/auth/auth_bloc.dart';
 import '../widget/login_form_widget.dart';
 
@@ -20,7 +17,10 @@ class LoginPage extends StatelessWidget {
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: const Text('Warehouse',style: TextStyle(color: Colors.white),),
+      title: const Text(
+        'Warehouse',
+        style: TextStyle(color: Colors.white),
+      ),
     );
   }
 
