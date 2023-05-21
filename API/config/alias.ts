@@ -10,4 +10,5 @@ moduleAlias.addAliases({
   '@controllers': __dirname + '/controllers',
   '@utils': __dirname + '/utils',
   '@routes': __dirname + '/routes',
+  '@swagger': __dirname + '/swagger',
 });

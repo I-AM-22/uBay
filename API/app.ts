@@ -1,7 +1,7 @@
 ﻿import express, {
   NextFunction,
-  Response,
   Request,
+  Response,
   json,
   urlencoded,
 } from 'express';
@@ -13,22 +13,17 @@ import cookieParser from 'cookie-parser';
 import hpp from 'hpp';
 import cors from 'cors';
 import compression from 'compression';
-
-import { globalErrorHandler, notFound } from '@middlewares/error.middleware';
-
-import AppError from '@utils/appError';
-import userRouter from '@routes/user.routes';
-
+import { globalErrorHandler, notFound } from '@controllers/error.controller';
 import { settings } from './config/settings';
 import routes from '@routes/index.routes';
 import JWTStrategy from '@middlewares/passport.config';
 import passport from 'passport';
-import { rateLimit } from 'express-rate-limit';
+// import { rateLimit } from 'express-rate-limit';
 
-const app: express.Application = express();
-
+const app = express();
 //middlewares
 app.use(cors());
+
 app.options('*', cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -38,17 +33,19 @@ if (settings.NODE_ENV === 'development') {
 }
 app.disable('x-powered-by');
 
-const limiter = rateLimit({
-  max: 100,
-  windowMs: 60 * 60 * 1000,
-  message: 'Too many requests from this IP, please try again in an hour!',
-});
+// const limiter = rateLimit({
+//   max: 100,
+//   windowMs: 60 * 60 * 1000,
+//   message: 'Too many requests from this IP, please try again in an hour!',
+// });
 // app.use('/api', limiter);
+// With this declaration file in place, you should be able to use import xssClean from 'xss-clean' and app.use(xssClean())
+
 app.use(json({ limit: '10kb' }));
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(mongoSanitize());
-
+// app.use(xssClean());
 app.use(
   hpp({
     whitelist: [
@@ -69,19 +66,16 @@ passport.use('jwt', JWTStrategy);
 
 app.use((req: any, res: Response, next: NextFunction) => {
   req.requestTime = new Date().toISOString();
-
   next();
 });
-
 //Routes
 app.use(routes);
 
 // For Views
 
-app.get('/', (req, res, next) => {
-    res.send('API work successfully');
+app.get('/', (req: Request, res: Response, next: NextFunction) => {
+  res.send('API work successfully');
 });
-
 
 //for other routes
 app.all('*', notFound);

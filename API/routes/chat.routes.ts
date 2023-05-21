@@ -1,14 +1,17 @@
 import { Router } from 'express';
 import passport from 'passport';
 import messageRouter from '@routes/message.routes';
-import notificationRouter from '@routes/notification.routes'
+import notificationRouter from '@routes/notification.routes';
 import {
   accessChat,
   getAllChats,
   getChat,
   updateChat,
   deleteChat,
+  isSeller,
 } from '@controllers/chat.controller';
+import validate from '@middlewares/validateResource';
+import { chatSchema } from './../schema/chat.schema';
 
 const router = Router();
 
@@ -19,7 +22,10 @@ router.use(
   passport.authenticate('jwt', { session: false, failWithError: true })
 );
 
-router.route('/').get(getAllChats).post(accessChat);
+router
+  .route('/')
+  .get(getAllChats)
+  .post(validate(chatSchema), isSeller, accessChat);
 
 router.route('/:id').get(getChat).patch(updateChat).delete(deleteChat);
 

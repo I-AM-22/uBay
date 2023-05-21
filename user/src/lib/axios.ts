@@ -7,13 +7,8 @@ const axios = ax.create({
 });
 axios.interceptors.request.use(
   (config) => {
-    if (config.headers) {
-      config.headers = {
-        "accept-language": i18n.language,
-        Authorization: `Bearer ${token}`,
-      };
-    }
-
+    config.headers["Accept-language"] = i18n.language;
+    config.headers["Authorization"] = `Bearer ${token}`;
     return config;
   },
   (error) => {

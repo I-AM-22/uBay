@@ -1,24 +1,43 @@
 {
-  "extends": ["airbnb", "prettier", "plugin:node/recommended"],
-  "parserOptions": { "ecmaVersion": 2020 },
-  "plugins": ["prettier"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "import", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".ts", ".d.ts", ".types"]
+      }
+    }
+  },
   "rules": {
-    "prettier/prettier": [
-      "error",
-      { "endOfLine": "auto", "singleQuote": true, "parser": "flow" }
-    ],
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "import/extensions": ["error", "never"],
-    "spaced-comment": "off",
+    "import/newline-after-import": ["error", { "count": 1 }],
+    "@typescript-eslint/spaced-comment": "off",
     "no-console": "warn",
-    "consistent-return": "off",
-    "func-names": "off",
-    "object-shorthand": "off",
-    "no-process-exit": "off",
-    "no-param-reassign": "off",
-    "no-return-await": "off",
-    "no-underscore-dangle": "off",
-    "class-methods-use-this": "off",
+    "@typescript-eslint/consistent-return": "off",
+    "@typescript-eslint/func-names": "off",
+    "@typescript-eslint/object-shorthand": "off",
+    "@typescript-eslint/no-process-exit": "off",
+    "@typescript-eslint/no-param-reassign": "off",
+    "@typescript-eslint/no-return-await": "off",
+    "@typescript-eslint/no-underscore-dangle": "off",
+    "@typescript-eslint/class-methods-use-this": "off",
     "prefer-destructuring": ["error", { "object": true, "array": false }],
-    "no-unused-vars": ["error", { "argsIgnorePattern": "req|res|next|val" }]
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { 
+          "argsIgnorePattern": "req|res|next|val",
+          "endOfLine": "auto" 
+      }
+    ]
   }
 }

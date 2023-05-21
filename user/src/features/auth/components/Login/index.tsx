@@ -1,28 +1,36 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Checkbox, FormControlLabel, Paper, Slide, Typography } from "@mui/material";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Box, Paper, Slide, Typography, colors } from "@mui/material";
 import { Stack } from "@mui/system";
-import logo from "assets/img/logo.svg";
 import Submit from "components/buttons/Submit";
-import PasswordInput from "components/Inputs/PasswordInput";
-import UsernameInput from "components/Inputs/UsernameInput";
+import RouterLink from "components/links/RouterLink";
+import { authQueries } from "features/auth";
+import z from "lib/zod";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { AccountLoginBody } from "../../api/type";
+import { useNavigate } from "react-router-dom";
+import { storage } from "utils/storage";
+import { UserLoginBody } from "../../api/type";
+import EmailInput from "../EmailInput";
+import PasswordInput from "../PasswordInput";
 import loginSchema, { loginDefault } from "./validation";
 export const Login = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm<AccountLoginBody>({
-    resolver: yupResolver(loginSchema),
+  const { control, handleSubmit } = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
     defaultValues: loginDefault,
   });
-
-  const { t } = useTranslation("auth");
-
-  const onSubmit = async (data: AccountLoginBody) => {
-    console.log(data);
+  const navigate = useNavigate();
+  const login = authQueries.useLogin();
+  const { t } = useTranslation("auth", { keyPrefix: "login" });
+  const onSubmit = async (data: UserLoginBody) => {
+    login.mutate(data, {
+      onSuccess: (data) => {
+        storage.setToken(data.token);
+        navigate("/");
+      },
+      onError: (err) => {
+        console.log(err);
+      },
+    });
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -32,9 +40,8 @@ export const Login = () => {
           boxSizing: "border-box",
           width: "100vw",
           overflow: "hidden",
-          background: `url(${logo}) no-repeat 100% 90%`,
           backgroundSize: { xs: 300, md: 1000 },
-          bgcolor: "primary.50",
+          position: "relative",
         }}
       >
         <Box
@@ -44,38 +51,58 @@ export const Login = () => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            backdropFilter: "blur(10px)",
+            bgcolor: "primary.100",
           }}
         >
-          <Box component={"img"} width={200} position="absolute" top={10} left={10} src={logo} />
           <Slide in={true} direction="up" timeout={300}>
             <Paper
               sx={{
-                width: { xs: "90vw", sm: "50%" },
-                height: { xs: "70vh", sm: "100%" },
-
+                width: { xs: "100vw", sm: "50%" },
+                height: { xs: "100vh", sm: "100%" },
+                background: { xs: "#fff9", sm: "white" },
                 mx: "auto",
                 borderRadius: 2,
                 overflow: "hidden",
                 p: 3,
               }}
             >
-              <Stack gap={8}>
-                <Typography color="primary" variant="h4" textAlign={"center"}>
-                  {t("login.title")}
-                </Typography>
-                <Stack gap={2} width="80%" mx="auto">
-                  <UsernameInput control={control} name="username" />
-                  <PasswordInput control={control} name="password" />
-                  <FormControlLabel
-                    sx={{ mx: 2, width: "fit-content" }}
-                    control={<Checkbox />}
-                    label={t`login.remember`}
-                  />
-                  <Box m="auto" width="fit-content">
-                    <Submit sx={{ px: 5 }} isSubmitting={isSubmitting}>{t`login.submit`}</Submit>
-                  </Box>
+              <Stack gap={8} height={"100%"}>
+                <Stack gap={1}>
+                  <Typography color="primary.800" variant="h4" textAlign={"center"}>
+                    {t("title")}
+                  </Typography>
+                  <Typography variant="subtitle1" textAlign={"center"}>
+                    {t("subtitle")}
+                  </Typography>
                 </Stack>
+                <Stack
+                  gap={2}
+                  sx={{
+                    width: "80%",
+                    mx: "auto",
+                    ".MuiOutlinedInput-notchedOutline": {
+                      background: "white",
+                      borderColor: { xs: colors.grey["300"] },
+                    },
+                    ".MuiInputBase-input, .MuiInputAdornment-root": {
+                      zIndex: 1,
+                    },
+                    ".MuiFormLabel-root": {
+                      zIndex: 1,
+                      color: colors.grey["800"],
+                    },
+                  }}
+                >
+                  <EmailInput control={control} name="email" />
+                  <PasswordInput sx={{ mb: 5 }} control={control} name="password" />
+                  <Submit
+                    sx={{ px: 5, py: 1.5, mt: "auto" }}
+                    isSubmitting={login.isLoading}
+                  >{t`submit`}</Submit>
+                </Stack>
+                <Typography textAlign={"center"}>
+                  {t("notAMember")} <RouterLink to="/signup">{t("signup")}</RouterLink>
+                </Typography>
               </Stack>
             </Paper>
           </Slide>

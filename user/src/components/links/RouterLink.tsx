@@ -1,16 +1,15 @@
 import { Link, LinkProps } from "@mui/material";
-import { FC } from "react";
-import { Link as Router } from "react-router-dom";
-const RouterLink: FC<LinkProps & { noDecoration?: boolean }> = ({
-  href,
-  children,
-  noDecoration = false,
-  ...props
-}) => {
+import { FC, forwardRef } from "react";
+import { Link as Router, LinkProps as RouterProps } from "react-router-dom";
+export type RouterLinkProps = LinkProps & RouterProps & { noDecoration?: boolean };
+const RouterLink: FC<RouterLinkProps> = forwardRef(function FR(
+  { children, noDecoration = false, ...props }: RouterLinkProps,
+  _ref
+) {
   return (
     <Link
+      ref={_ref}
       component={Router}
-      to={href ?? ""}
       {...props}
       sx={{
         textDecoration: noDecoration ? "none" : "underline",
@@ -20,5 +19,5 @@ const RouterLink: FC<LinkProps & { noDecoration?: boolean }> = ({
       {children}
     </Link>
   );
-};
+});
 export default RouterLink;

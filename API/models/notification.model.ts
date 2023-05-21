@@ -3,19 +3,24 @@ import {
   INotification,
   NotificationDoc,
   NotificationModel,
-} from '../types/notification.type';
-import AppError from '@utils/appError';
+} from '../types/notification.types';
 
 const notificationSchema = new Schema<NotificationDoc, NotificationModel, any>(
   {
     message: {
       type: Schema.Types.ObjectId,
       ref: 'Message',
+      required: [true, 'Notification must have message'],
     },
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: [true, 'Notification must have user'],
+    },
+    chat: {
+      type: Schema.Types.ObjectId,
+      ref: 'Chat',
+      required: [true, 'Notification must have chat'],
     },
     read: { type: Boolean, default: false },
   },

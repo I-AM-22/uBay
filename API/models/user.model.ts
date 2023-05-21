@@ -1,35 +1,35 @@
-import { Schema, model, QueryOptions, Query, Types } from 'mongoose';
+import { Schema, model, Query, Types } from 'mongoose';
 import validator from 'validator';
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import { settings } from './../config/settings';
-import { UserModel, UserDoc, IUser } from '../types/user.type';
+import { UserModel, UserDoc, IUser } from '../types/user.types';
 import AppError from '@utils/appError';
+import { STATUS_CODE } from '../types/helper.types';
+
 const userSchema = new Schema<UserDoc, UserModel, any>(
   {
     name: {
       type: String,
-      required: [true, 'Please enter your name'],
+      required: true,
     },
     email: {
       type: String,
-      required: [true, 'Please provide your email'],
+      required: true,
       unique: true,
       lowercase: true,
-      validate: [validator.isEmail, 'Please provide a valid email'],
     },
-    photo: { type: String, default: 'default.jpg' },
+    photo: { type: String, default: 'https://i.imgur.com/7rlze8l.jpg' },
     role: {
       type: String,
       enum: ['admin', 'user', 'employee'],
       default: 'user',
     },
-    store: Types.ObjectId,
+    store: { type: Types.ObjectId, ref: 'Store' },
     password: {
       type: String,
-      required: [true, 'Please provide a password'],
-      minlength: [8, 'the password must have at least 8 characters'],
+      required: true,
       select: false,
     },
     passwordChangedAt: Date,
@@ -49,13 +49,6 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
 );
 
 //Document middleware
-
-userSchema.pre('save', function (next) {
-  if (this.role !== 'employee') next();
-  if (!this.store)
-    return next(new AppError(400, 'Please provide a store for employee'));
-  next();
-});
 
 userSchema.pre('save', async function (next) {
   //if the password not changed end the process
@@ -111,13 +104,6 @@ userSchema.methods.createPasswordResetToken = function () {
   return resetToken;
 };
 
-userSchema.methods.createSendToken = function (user: any) {
-  const token = jwt.sign({ id: user.id }, settings.JWT_SECRET, {
-    expiresIn: settings.JWT_EXPIRES_IN,
-  });
-  return token;
-};
-
-const User = model<IUser>('User', userSchema);
+const User = model<UserDoc>('User', userSchema);
 
 export default User;

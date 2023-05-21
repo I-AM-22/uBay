@@ -1,14 +1,10 @@
 import { JwtPayload } from 'jsonwebtoken';
-import {
-  ExtractJwt,
-  Strategy as JWTStrategy,
-  JwtFromRequestFunction,
-} from 'passport-jwt';
+import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt';
 import { settings } from '../config/settings';
 import User from '@models/user.model';
 import catchAsync from '@utils/catchAsync';
 import AppError from '@utils/appError';
-import { Request } from 'express';
+import { STATUS_CODE } from '../types/helper.types';
 
 // const cookieExtractor = (req: Request) => {
 //   let token;
@@ -17,18 +13,22 @@ import { Request } from 'express';
 //   }
 //   return token;
 // };
-
 export default new JWTStrategy(
   {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: settings.JWT_SECRET,
+    secretOrKey: Buffer.from(settings.JWT_PUBLIC_KEY, 'base64').toString(
+      'ascii'
+    ),
+    algorithms: ['RS256'],
   },
   catchAsync(async function (payload: JwtPayload, done: any) {
     const user = await User.findById(payload.id);
     if (!user) {
       return done(
         new AppError(
-          401,
+          STATUS_CODE.UNAUTHORIZE,
+
+          [],
           'The user belonging to this token does no longer exist'
         )
       );
@@ -37,7 +37,8 @@ export default new JWTStrategy(
     if (user.isPasswordChanged(payload.iat)) {
       return done(
         new AppError(
-          401,
+          STATUS_CODE.UNAUTHORIZE,
+          [],
           'User recently changed the password!, please login again.'
         )
       );

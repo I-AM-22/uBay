@@ -3,13 +3,15 @@ import '@utils/unCaughtException';
 import app from './app';
 import { settings } from '@config/settings';
 import connDB from '@config/database';
-import declareUser from '@config/custom';
 import { Server } from 'socket.io';
-connDB();
+import http from 'http';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import dec from './types/custom';
 
+connDB();
 const port = settings.PORT;
 
-const server = app.listen(port, () =>
+const server: http.Server = app.listen(port, () =>
   console.log(`Example app listening on port ${port}!`)
 );
 
@@ -35,14 +37,13 @@ io.on('connection', (socket) => {
     socket.broadcast.in(chatId).emit('stop typing', { chatId, userId });
   });
   socket.on('new message', (newMessageReceived) => {
-    var chat = newMessageReceived.chat;
+    const { chat } = newMessageReceived;
 
-    if (!chat.users) return console.log('chats.users not defined');
+    if (!chat.customer || !chat.seller)
+      return console.log('chat did not have users');
     else {
-      chat.users.forEach((user: any) => {
-        if (user._id !== newMessageReceived.sender._id)
-          socket.in(user._id).emit('message received', newMessageReceived);
-      });
+      socket.in(chat.seller.id).emit('message received', newMessageReceived);
+      socket.in(chat.customer.id).emit('message received', newMessageReceived);
     }
   });
 });

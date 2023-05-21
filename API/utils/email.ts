@@ -2,17 +2,8 @@ import { settings } from '@config/settings';
 import { htmlToText } from 'html-to-text';
 import nodemailer from 'nodemailer';
 import pug from 'pug';
-import { TransportOptions } from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
-interface Trans extends TransportOptions {
-  host: string;
-  port: string;
-  auth: {
-    user: string;
-    pass: string;
-  };
-}
 const { MAILER } = settings;
 class Email {
   firstName: any;

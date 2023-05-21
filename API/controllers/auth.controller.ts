@@ -1,13 +1,15 @@
 import catchAsync from '@utils/catchAsync';
 import { Request, Response, NextFunction } from 'express';
 import User from '@models/user.model';
-import { settings } from '../config/settings';
 import AppError from '@utils/appError';
 import Email from '@utils/email';
 import crypto from 'crypto';
+import { STATUS_CODE } from '../types/helper.types';
+import { signJwt } from '@utils/jwt.utils';
 
+//Send The User With the response after login and signup
 const sendUser = (user: any, statusCode: number, res: Response) => {
-  const token = user.createSendToken(user);
+  const token = signJwt(user.id.toString());
 
   //remove password from output
   user.password = undefined;
@@ -22,11 +24,9 @@ const sendUser = (user: any, statusCode: number, res: Response) => {
 
 export const signup = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
+    if (req.body.role) req.body.role = undefined;
     const newUser = await User.create(req.body);
-    // await new Email(
-    //   newUser,
-    //   `${req.protocol}://${req.get('host')}/me`
-    // ).sendWelcome();
+
     sendUser(newUser, 201, res);
   }
 );
@@ -35,27 +35,31 @@ export const login = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     //Check if  the email and password  exist
     const { email, password } = req.body;
-    if (!email || !password) {
-      return next(new AppError(400, 'Please provide password and email'));
-    }
+
     //check if the user exist and the password correct
     const user = await User.findOne({ email }).select('+password ');
     if (!user || !(await user.correctPassword(password))) {
-      const message = 'Incorrect password or email';
-      return next(new AppError(401, message));
+      return next(
+        new AppError(STATUS_CODE.UNAUTHORIZE, [], 'Incorrect password or email')
+      );
     }
 
     sendUser(user, 201, res);
   }
 );
 
+//Check the role of the user
 export const restrictTo =
   (...roles: Array<string>) =>
   (req: Request, res: Response, next: NextFunction) => {
     if (!req.user) return next();
     if (!roles.includes(req.user.role)) {
       return next(
-        new AppError(403, 'You do not have permission to perform this action ')
+        new AppError(
+          STATUS_CODE.FORBIDDEN,
+          [],
+          'You do not have permission to perform this action '
+        )
       );
     }
     next();
@@ -64,10 +68,15 @@ export const restrictTo =
 export const forgotPassword = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email } = req.body;
+
     // 1) Search for the user
     const user = await User.findOne({ email });
     if (!user) {
-      return next(new AppError(404, 'There is no user with that email'));
+      return next(
+        new AppError(STATUS_CODE.NOT_FOUND, [
+          { message: 'There is no user with that email', path: ['email'] },
+        ])
+      );
     }
     // 2) Create reset token
     const resetToken = user.createPasswordResetToken();
@@ -75,13 +84,13 @@ export const forgotPassword = catchAsync(
     //3) Save the user with resetToken to the database to modify it
     await user.save({ validateBeforeSave: false });
     //Reset URL
-    const resetUrl = `${req.protocol}://${req.get(
-      'host'
-    )}/resetPassword/${resetToken}`;
+    // const resetUrl = `${req.protocol}://${req.get(
+    //   'host'
+    // )}/resetPassword/${c}`;
     // 4) Send the email
     try {
-      await new Email(user, resetUrl).sendPasswordReset();
-      res.status(200).json({
+      await new Email(user, resetToken).sendPasswordReset();
+      res.status(STATUS_CODE.SUCCESS).json({
         status: 'success',
         message: 'Token sent to email',
       });
@@ -92,7 +101,8 @@ export const forgotPassword = catchAsync(
       await user.save({ validateBeforeSave: false });
       return next(
         new AppError(
-          500,
+          STATUS_CODE.INTERNAL_SERVER_ERROR,
+          [],
           'There was an error sending the email. Try again later!'
         )
       );
@@ -105,15 +115,18 @@ export const isTokenValid = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const hashToken = crypto
       .createHash('sha256')
-      .update(req.params.token)
+      .update(req.body.token)
       .digest('hex');
     const user = await User.findOne({
       passwordResetToken: hashToken,
       passwordResetExpires: { $gt: new Date(Date.now()) },
     });
-    if (!user) return next(new AppError(404, 'Token is invalid or expired'));
+    if (!user)
+      return next(
+        new AppError(STATUS_CODE.NOT_FOUND, [], 'Token is invalid or expired')
+      );
 
-    res.status(200).json({ status: 'success' });
+    res.status(STATUS_CODE.SUCCESS).json({ status: 'success' });
   }
 );
 
@@ -122,7 +135,7 @@ export const resetPassword = catchAsync(
     //1) encode the token
     const hashToken = crypto
       .createHash('sha256')
-      .update(req.params.token)
+      .update(req.body.token)
       .digest('hex');
     //2) Find user with that resetToken and does not expire
     const user = await User.findOne({
@@ -130,7 +143,9 @@ export const resetPassword = catchAsync(
       passwordResetExpires: { $gt: new Date(Date.now()) },
     });
     if (!user) {
-      return next(new AppError(400, 'Token is invalid or expired'));
+      return next(
+        new AppError(STATUS_CODE.NOT_FOUND, [], 'Token is invalid or expired')
+      );
     }
     //3) Save the new data
     user.password = req.body.password;
@@ -138,7 +153,7 @@ export const resetPassword = catchAsync(
     const home = `${req.protocol}://${req.get('host')}/`;
     await new Email(user, home).sendResetMessage();
 
-    sendUser(user, 200, res);
+    sendUser(user, STATUS_CODE.SUCCESS, res);
   }
 );
 
@@ -149,10 +164,17 @@ export const updateMyPassword = catchAsync(
     const { passwordCurrent, password } = req.body;
     // 1) get the logged in user
     const user = await User.findById(req.user.id).select('+password');
-    if (!user) return next(new AppError(404, 'this is now user'));
+    if (!user)
+      return next(new AppError(STATUS_CODE.NOT_FOUND, [], 'User not found'));
     // 2)check if the passwordConfirm is correct
-    if (!user.correctPassword(passwordCurrent)) {
-      return next(new AppError(401, 'Your current password is wrong'));
+    if (!(await user.correctPassword(passwordCurrent))) {
+      return next(
+        new AppError(
+          STATUS_CODE.UNAUTHORIZE,
+          [],
+          'Your current password is wrong'
+        )
+      );
     }
     //3) Change the password to the new one
     user.password = password;
@@ -160,6 +182,6 @@ export const updateMyPassword = catchAsync(
     const me = `${req.protocol}://${req.get('host')}/me`;
     await new Email(user, me).sendResetMessage();
     //Logging in the user
-    sendUser(user, 200, res);
+    sendUser(user, STATUS_CODE.SUCCESS, res);
   }
 );

@@ -9,6 +9,7 @@ import {
 import User from '@models/user.model';
 import catchAsync from '@utils/catchAsync';
 import AppError from '@utils/appError';
+import { STATUS_CODE } from '../types/helper.types';
 
 const filterObj = (obj: any, ...allowedFields: any) => {
   const newObj: any = {};
@@ -30,7 +31,8 @@ export const updateMe = catchAsync(
     if (req.body.password || req.body.passwordConfirm)
       return next(
         new AppError(
-          400,
+          STATUS_CODE.BAD_REQUEST,
+          [],
           'This route is not for updates password. Please use /updateMyPassword to update password'
         )
       );
@@ -43,7 +45,7 @@ export const updateMe = catchAsync(
       { new: true, runValidators: true }
       //run validator for normal like minlength or enum but not required
     );
-    res.status(200).json({ status: 'success', data: { user } });
+    res.status(STATUS_CODE.SUCCESS).json({ status: 'success', data: { user } });
   }
 );
 
@@ -52,7 +54,7 @@ export const deleteMe = catchAsync(
     if (!req.user) return next();
 
     await User.findByIdAndUpdate(req.user.id, { active: false });
-    res.status(204).json({
+    res.status(STATUS_CODE.DELETED).json({
       status: 'success',
       data: null,
     });

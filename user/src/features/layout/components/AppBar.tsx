@@ -11,7 +11,7 @@ export const AppBar: FC<AppBarProps> = forwardRef(function Fr(
   { children, ...props }: AppBarProps,
   ref
 ) {
-  const appBarRef = useRef<HTMLDivElement | null>(null);
+  const appBarRef = useRef<HTMLElement | null>(null);
   const [appBarHeight, setAppBarHeight] = useState(0);
   const isDesktop = useMediaQuery(useTheme().breakpoints.up("sm"));
   useEffect(() => {
@@ -51,7 +51,7 @@ export const AppBar: FC<AppBarProps> = forwardRef(function Fr(
             {isDesktop && <AppBarNavigator />}
           </Stack>
           <Stack alignItems={"end"} justifyContent={"center"}>
-            <RouterLink href="/profile">
+            <RouterLink to="/profile">
               <AccountCircleRoundedIcon />
             </RouterLink>
           </Stack>

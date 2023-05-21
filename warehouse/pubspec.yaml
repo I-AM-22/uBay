@@ -18,12 +18,25 @@ dependencies:
   cupertino_icons: ^1.0.2
   barcode_widget: ^2.0.3
   flutter_barcode_scanner: ^2.0.0
+  internet_connection_checker: any
+  dartz: ^0.10.1
+  dio: ^5.1.2
+  bloc: ^8.1.0
+  flutter_bloc: ^8.1.1
+  get_it: ^7.2.0
+  image_picker: ^0.8.4+11
+  shared_preferences: ^2.0.15
+  freezed_annotation: ^2.2.0
+  json_annotation: ^4.8.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  build_runner: ^2.4.4
+  freezed: ^2.3.4
+  json_serializable: ^6.7.0
 
 
 flutter:

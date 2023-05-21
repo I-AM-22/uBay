@@ -35,7 +35,10 @@
     "vite-tsconfig-paths": "^4.0.3",
     "workbox-build": "^6.5.4",
     "workbox-window": "^6.5.4",
+<<<<<<< HEAD
     "yup": "^0.32.11",
+=======
+>>>>>>> 00be03afac24b8d7af529de05f0e677474c1fa50
     "zod": "^3.21.4"
   },
   "devDependencies": {
