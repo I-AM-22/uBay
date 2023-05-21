@@ -4,7 +4,6 @@ import 'package:warehouse/core/util/validation.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/features/auth/presentation/pages/signup_page.dart';
 import 'package:warehouse/features/auth/presentation/widget/text_form.dart';
-import 'package:warehouse/injection_container.dart' as di;
 import '../../../../core/theme.dart';
 import '../../../../core/util/snackbar_message.dart';
 import '../bloc/auth/auth_bloc.dart';
