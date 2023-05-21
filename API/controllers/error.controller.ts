@@ -9,7 +9,7 @@ const handleCastErrorDB = (err: any) => {
 
 const handleDuplicateErrorDB = (err: any) => {
   let field = Object.entries(err.keyValue);
-  const message = `${field[0][0]}:${field[0][1]} already exist, please use another value!`;
+  const message = `${field[0][1]} already exist, please use another value!`;
   return new AppError(STATUS_CODE.BAD_REQUEST, [
     { message, path: [field[0][0]] },
   ]);
@@ -70,6 +70,7 @@ const sendErrorProd = (err: any, req: Request, res: Response) => {
   //Operational, trusted errors:send message to the client
   if (err.isOperational) {
     return res.status(err.statusCode).json({
+      type:err.type,
       errors: err.errors,
       message: err?.message,
     });

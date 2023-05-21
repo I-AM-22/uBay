@@ -1,12 +1,12 @@
-import { object, string } from 'zod';
+import { z } from 'zod';
 
-export const storeSchema = object({
-  body: object({
-    name: string({
-      required_error: 'Store must have a name',
+export const storeSchema = z.object({
+  body: z.object({
+    name: z.string({
+      required_error: 'يجب أن يحتوي المتجر على اسم',
     }),
-    address: string({
-      required_error: 'Store must have a address',
+    address: z.string({
+      required_error: 'يجب أن يحتوي المتجر على عنوان',
     }),
   }),
 });

@@ -1,12 +1,12 @@
-import { object, string } from 'zod';
+import { z } from 'zod';
 
-export const chatSchema = object({
-  body: object({
-    user: string({
-      required_error: 'Chat must have a user',
+export const chatSchema = z.object({
+  body: z.object({
+    user: z.string({
+      required_error: 'يجب أن يحتوي الدردشة على مستخدم',
     }),
-    product: string({
-      required_error: 'Chat must have a product',
+    product: z.string({
+      required_error: 'يجب أن يحتوي الدردشة على منتج',
     }),
   }),
 });

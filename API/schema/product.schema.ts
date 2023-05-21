@@ -1,43 +1,21 @@
-// description: {
-//     type: String,
-//     required: true,
-//   },
-//   user: {
-//     type: Types.ObjectId,
-//     required: true,
-//     ref: 'User',
-//   },
-//   likes: { type: Number, default: 0, min: 0 },
-//   photos: {
-//     type: [String],
-//     required: true,
-//   },
+import { z } from 'zod';
 
-//   price: { type: Number, required: true },
-//   category: {
-//     type: Types.ObjectId,
-//     required: true,
-//     ref: 'Category',
-
-import { object, array, string } from 'zod';
-
-export const productSchema = object({
-  body: object({
-    content: string({
-      required_error: 'Product must have a content',
+export const productSchema = z.object({
+  body: z.object({
+    content: z.string({
+      required_error: 'يجب أن يحتوي المنتج على محتوى',
     }),
-    user: string({
-      required_error: 'Product must have a user',
+    user: z.string({
+      required_error: 'يجب أن يحتوي المنتج على مستخدم',
     }),
-    photos: array(string(), { required_error: 'Product must have a photos' }).min(
-      1,
-      'Product must have at least one photo'
-    ),
-    price: string({
-      required_error: 'Product must have a price',
+    photos: z
+      .array(z.string(), { required_error: 'يجب أن يحتوي المنتج على صور' })
+      .min(1, 'يجب أن يحتوي المنتج على صورة واحدة على الأقل'),
+    price: z.string({
+      required_error: 'يجب أن يحتوي المنتج على سعر',
     }),
-    category: string({
-      required_error: 'Product must have a category',
+    category: z.string({
+      required_error: 'يجب أن يحتوي المنتج على فئة',
     }),
   }),
 });

@@ -1,15 +1,15 @@
-import { object, string } from 'zod';
+import { z } from 'zod';
 
-export const commentSchema = object({
-  body: object({
-    content: string({
-      required_error: 'Comment must have a content',
+export const commentSchema = z.object({
+  body: z.object({
+    content: z.string({
+      required_error: 'يجب أن يحتوي التعليق على محتوى',
     }),
-    user: string({
-      required_error: 'Comment must have a user',
+    user: z.string({
+      required_error: 'يجب أن يحتوي التعليق على مستخدم',
     }),
-    product: string({
-      required_error: 'Comment must have a product',
+    product: z.string({
+      required_error: 'يجب أن يحتوي التعليق على منتج',
     }),
   }),
 });

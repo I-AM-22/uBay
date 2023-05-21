@@ -5,8 +5,6 @@ import { settings } from '@config/settings';
 import connDB from '@config/database';
 import { Server } from 'socket.io';
 import http from 'http';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import dec from './types/custom';
 
 connDB();
 const port = settings.PORT;

@@ -1,15 +1,15 @@
-import { object, string } from 'zod';
+import { z } from 'zod';
 
-export const messageSchema = object({
-  body: object({
-    content: string({
-      required_error: 'Message must have a content',
+export const messageSchema = z.object({
+  body: z.object({
+    content: z.string({
+      required_error: 'يجب أن يحتوي الرسالة على محتوى',
     }),
-    user: string({
-      required_error: 'Message must have a user',
+    user: z.string({
+      required_error: 'يجب أن يحتوي الرسالة على مستخدم',
     }),
-    chat: string({
-      required_error: 'Message must have a chat',
+    chat: z.string({
+      required_error: 'يجب أن يحتوي الرسالة على محادثة',
     }),
   }),
 });

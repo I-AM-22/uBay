@@ -1,12 +1,12 @@
-import { object, string } from 'zod';
+import { z } from 'zod';
 
-export const categorySchema = object({
-  body: object({
-    name: string({
-      required_error: 'Category name is required',
+export const categorySchema = z.object({
+  body: z.object({
+    name: z.string({
+      required_error: 'اسم الفئة مطلوب',
     }),
-    description: string({
-      required_error: 'Category name is required',
+    description: z.string({
+      required_error: 'اسم الفئة مطلوب',
     }),
   }),
 });

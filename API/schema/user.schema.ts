@@ -1,51 +1,60 @@
-import { object, string } from 'zod';
+import { z } from 'zod';
 
-export const userSchema = object({
-  body: object({
-    name: string({
-      required_error: 'Name is required',
+export const userSchema = z.object({
+  body: z.object({
+    name: z.string({
+      required_error: 'الاسم مطلوب',
     }),
-    password: string({
-      required_error: 'Password is required',
-    }).min(6, 'Password too short - should be 6 chars minimum'),
-    email: string({
-      required_error: 'Email is required',
-    }).email('Not a valid email'),
+    password: z
+      .string({
+        required_error: 'كلمة المرور مطلوبة',
+      })
+      .min(6, 'كلمة المرور قصيرة جدًا - يجب أن تحتوي على 6 أحرف على الأقل'),
+    email: z
+      .string({
+        required_error: 'البريد الإلكتروني مطلوب',
+      })
+      .email('البريد الإلكتروني غير صالح'),
   }),
 });
 
-export const loginInput = object({
-  body: object({
-    email: string({
-      required_error: 'Email is required',
-    }),
-    password: string({
-      required_error: 'Password is required',
-    }).min(6, 'Password too short - should be 6 chars minimum'),
+export const loginInput = z.object({
+  body: z.object({
+    email: z
+      .string({
+        required_error: 'البريد الإلكتروني مطلوب',
+      })
+    ,
+    password: z
+      .string({
+        required_error: 'كلمة المرور مطلوبة',
+      })
+      .min(6, 'كلمة المرور قصيرة جدًا - يجب أن تحتوي على 6 أحرف على الأقل'),
   }),
 });
 
-export const forgotPasswordSchema = object({
-  body: object({
-    email: string({
-      required_error: 'Email is required',
+export const forgotPasswordSchema = z.object({
+  body: z.object({
+    email: z.string({
+      required_error: 'البريد الإلكتروني مطلوب',
     }),
   }),
 });
 
-export const resetPasswordSchema = object({
-  body: object({
-    password: string({ required_error: 'Please provide password ' }),
-    token: string({
-      required_error: 'Please provide reset token ',
+export const resetPasswordSchema = z.object({
+  body: z.object({
+    password: z.string({ required_error: 'يرجى تقديم كلمة المرور' }),
+    token: z.string({
+      required_error: 'يرجى تقديم رمز إعادة التعيين',
     }),
   }),
 });
-export const updatePasswordSchema = object({
-  body: object({
-    password: string({ required_error: 'Please provide password ' }),
-    passwordCurrent: string({
-      required_error: 'Please provide current password ',
+
+export const updatePasswordSchema = z.object({
+  body: z.object({
+    password: z.string({ required_error: 'يرجى تقديم كلمة المرور' }),
+    passwordCurrent: z.string({
+      required_error: 'يرجى تقديم كلمة المرور الحالية',
     }),
   }),
 });
