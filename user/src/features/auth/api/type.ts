@@ -18,3 +18,27 @@ export interface UserLogin {
     };
   };
 }
+
+export type UserSignupBody = {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+};
+
+export interface UserSignup {
+  status: string;
+  token: string;
+  data: {
+    user: {
+      _id: string;
+      name: string;
+      email: string;
+      photo: string;
+      role: string;
+      createdAt: Date;
+      updatedAt: Date;
+      id: string;
+    };
+  };
+}

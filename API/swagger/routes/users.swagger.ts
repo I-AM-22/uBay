@@ -71,7 +71,7 @@
  *       requestBody:
  *         required: true
  *         content:
- *           application/json:
+ *           multipart/form-data:
  *             schema:
  *              type: object
  *              properties:
@@ -79,7 +79,7 @@
  *                   type: string
  *                  email:
  *                   type: string
- *
+ *                   format: binary
  *       responses:
  *         "400":
  *           $ref: '#/components/responses/400'
@@ -87,8 +87,14 @@
  *           $ref: '#/components/responses/401'
  *         "200":
  *           description: User updated successfully
- *           contents:
- *             application/json
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: object
+ *                 properties:
+ *                   message:
+ *                     type: string
+ *                     description: user updated successfully.
  */
 
 //                                   Delete Current User
@@ -108,3 +114,89 @@
  *         "204":
  *           description: User deleted successfully
  */
+
+//                                                   TODO: Admin routes
+/**
+ * @swagger
+ *   /users/{id}:
+ *     get:
+ *       summary: Get User For Admin Access
+ *       tags: [Users]
+ *       security:
+ *         - Bearer: []
+ *       parameters:
+ *         - name: id
+ *           in: path
+ *           description: ID of the user to retrieve
+ *           required: true
+ *           schema:
+ *             type: string
+ *       responses:
+ *         "200":
+ *           description: Get One User
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/User'
+ *         "400":
+ *           $ref: '#/components/responses/400'
+ *         "401":
+ *           $ref: '#/components/responses/401'
+ */
+
+/**
+ * @swagger
+ *   /Users/{id}:
+ *     delete:
+ *       summary: Delete User For Admin Access
+ *       security:
+ *         - Bearer: []
+ *       parameters:
+ *        - name: id
+ *          in: path
+ *          description: ID of the user to retrieve
+ *          required: true
+ *       tags: [Users]
+ *       responses:
+ *         "400":
+ *           $ref: '#/components/responses/400'
+ *         "401":
+ *           $ref: '#/components/responses/401'
+ *         "204":
+ *           description: User deleted successfully
+*/
+
+/**
+ * @swagger
+ *   /users/{id}:
+ *     patch:
+ *       summary: Update User For Admin Access
+ *       tags: [Users]
+ *       security:
+ *         - Bearer: []
+ *       parameters:
+ *         - name: id
+ *           in: path
+ *           description: ID of the user to retrieve
+ *           required: true
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                 email:
+ *                   type: string     
+ *       responses:
+ *         "400":
+ *           $ref: '#/components/responses/400'
+ *         "401":
+ *           $ref: '#/components/responses/401'
+ *         "200":
+ *           description: User updated successfully
+ */
+
+

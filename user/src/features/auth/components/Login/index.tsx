@@ -1,8 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Paper, Slide, Typography, colors } from "@mui/material";
 import { Stack } from "@mui/system";
-import PasswordInput from "components/Inputs/PasswordInput";
-import UsernameInput from "components/Inputs/UsernameInput";
 import Submit from "components/buttons/Submit";
 import RouterLink from "components/links/RouterLink";
 import { authQueries } from "features/auth";
@@ -12,9 +10,11 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { storage } from "utils/storage";
 import { UserLoginBody } from "../../api/type";
+import EmailInput from "../EmailInput";
+import PasswordInput from "../PasswordInput";
 import loginSchema, { loginDefault } from "./validation";
 export const Login = () => {
-  const { control, handleSubmit, watch } = useForm<z.infer<typeof loginSchema>>({
+  const { control, handleSubmit } = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: loginDefault,
   });
@@ -93,7 +93,7 @@ export const Login = () => {
                     },
                   }}
                 >
-                  <UsernameInput control={control} name="email" />
+                  <EmailInput control={control} name="email" />
                   <PasswordInput sx={{ mb: 5 }} control={control} name="password" />
                   <Submit
                     sx={{ px: 5, py: 1.5, mt: "auto" }}

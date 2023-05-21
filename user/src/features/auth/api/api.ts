@@ -1,10 +1,10 @@
 import API_ROUTES from "constants/apiRoutes";
 import axios from "lib/axios";
-import { UserLogin, UserLoginBody } from "./type";
+import { UserLogin, UserLoginBody, UserSignup, UserSignupBody } from "./type";
 
 const API = {
-  signup: async (body: {}) => {
-    const { data } = await axios.post<{}>(API_ROUTES.USERS.SIGNUP, body);
+  signup: async (body: UserSignupBody) => {
+    const { data } = await axios.post<UserSignup>(API_ROUTES.USERS.SIGNUP, body);
     return data;
   },
   login: async (body: UserLoginBody) => {
