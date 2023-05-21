@@ -6,12 +6,13 @@ import connDB from '@config/database';
 import { Server } from 'socket.io';
 import http from 'http';
 
-connDB();
 const port = settings.PORT;
 
-const server: http.Server = app.listen(port, () =>
-  console.log(`Example app listening on port ${port}!`)
-);
+const server: http.Server = app.listen(port, async () => {
+  await connDB();
+  console.log(`Example app listening on port ${port}!`);
+  console.log(`Docs available at http://localhost:${port}/docs`);
+});
 
 const io = new Server(server, {
   pingTimeout: 60000,
