@@ -1,32 +1,14 @@
-import 'dart:io';
+part of 'auth_bloc.dart';
 
-import 'package:image_picker/image_picker.dart';
-
-abstract class AuthEvent {
-  const AuthEvent();
-
-  @override
-  List<Object?> get props => [];
-}
-
-class LoginEvent extends AuthEvent {
-  final String email;
-  final String password;
-
-  const LoginEvent(this.email, this.password);
-}
-
-class SignupEvent extends AuthEvent {
-  final String userName;
-  final String email;
-  final String password;
-  final String passwordConfirm;
-
-  SignupEvent(this.userName, this.email, this.password, this.passwordConfirm);
-}
-
-class PickProfileImageEvent extends AuthEvent {
-  final ImageSource source;
-
-  const PickProfileImageEvent(this.source);
+@freezed
+abstract class AuthEvent with _$AuthEvent {
+  const factory AuthEvent.loginEvent(
+      {required String email, required String password}) = _loginEvent;
+  const factory AuthEvent.signupEvent(
+      {required String userName,
+      required String email,
+      required String password,
+      required String passwordConfirm}) = _signupEvent;
+  const factory AuthEvent.changeIconVisibilityEvent(bool isVisible) =
+      _changeIconVisibilityEvent;
 }

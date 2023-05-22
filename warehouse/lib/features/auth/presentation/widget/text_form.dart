@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/theme.dart';
 
+// ignore: must_be_immutable
 class TextFormFileWidget extends StatelessWidget {
   final TextEditingController controller;
   final FormFieldValidator<String> validate;
@@ -9,13 +10,17 @@ class TextFormFileWidget extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final TextInputType textInputType;
-  const TextFormFileWidget(
+  void Function()? onPressed;
+  IconData? suffixIcon;
+ TextFormFileWidget(
       {super.key,
       required this.controller,
       required this.validate,
       required this.hintText,
       required this.icon,
       required this.textInputType,
+      this.onPressed,
+      this.suffixIcon,
       this.obscureText = false});
 
   @override
@@ -31,8 +36,9 @@ class TextFormFileWidget extends StatelessWidget {
             color: primaryColor,
           ),
           hintText: hintText,
-          hintStyle: Theme.of(context).textTheme.subtitle2,
+          hintStyle: Theme.of(context).textTheme.titleSmall,
           border: const OutlineInputBorder(),
+          suffixIcon: IconButton(color: primaryColor,icon: Icon(suffixIcon),onPressed: onPressed,),
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey),
             borderRadius: BorderRadius.all(Radius.circular(10.0)),

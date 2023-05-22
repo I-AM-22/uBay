@@ -1,3 +1,11 @@
 {
-  "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "cSpell.words": [
+    "dartz",
+    "datasource",
+    "datasources",
+    "signup",
+    "usecase",
+    "usecases"
+  ]
 }

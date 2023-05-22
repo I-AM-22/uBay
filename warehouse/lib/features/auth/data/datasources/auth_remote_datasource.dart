@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:warehouse/core/dio_helper.dart';
 import 'package:warehouse/core/errors/exceptions.dart';
 import 'package:warehouse/core/strings/end_points.dart';
@@ -10,29 +9,44 @@ import 'package:warehouse/features/auth/data/model/user_login_model.dart';
 abstract class AuthRemoteDataSource {
   Future<UserLogin> login(String email, String password);
 
-  Future<Unit> signup(
+  Future<UserLogin> signup(
       String userName, String email, String password, String passwordConfirm);
 }
 
-class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
+  UserLogin? userModel;
   @override
   Future<UserLogin> login(String email, String password) async {
-    final response = await DioHelper.postData(
-        url: LOGIN, data: {'email': email, 'password': password});
-    if (response.statusCode == 201) {
-      print(response.data);
-      final userModel = UserLogin.fromJson(response.data);
+    await DioHelper.postData(
+        url: LOGIN, data: {'email': email, 'password': password}).then((value) {
+      userModel = UserLogin.fromJson(value.data);
       return Future.value(userModel);
-    } else {
-      SERVER_FAILURE = response.statusMessage!;
-      print(response.statusMessage);
+    }).catchError((error) {
+      DioError errorBody = error;
+      SERVER_FAILURE = errorBody.response!.data['message'];
+
       throw ServerException();
-    }
+    });
+    return Future.value(userModel);
   }
 
   @override
-  Future<Unit> signup(String userName, String email, String password,
+  Future<UserLogin> signup(String userName, String email, String password,
       String passwordConfirm) async {
-    return Future.value(unit);
+    UserLogin? userLogin;
+    await DioHelper.postData(url: SIGN_UP, data: {
+      'name': userName,
+      'email': email,
+      'password': password,
+      'passwordConfirm': passwordConfirm
+    }).then((value) {
+      userLogin = UserLogin.fromJson(value.data);
+      return Future.value(userLogin);
+    }).catchError((error) {
+      DioError dioError = error;
+      SERVER_FAILURE = dioError.response!.data['errors'][0]['message'];
+      throw ServerException();
+    });
+    return Future.value(userLogin);
   }
 }

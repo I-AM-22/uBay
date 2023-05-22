@@ -1,54 +1,12 @@
-import 'dart:io';
+part of 'auth_bloc.dart';
 
-abstract class AuthState {
-  const AuthState();
-}
-
-class AuthInitial extends AuthState {}
-
-class LoadingLoginState extends AuthState {}
-
-class SuccessLoginState extends AuthState {
-  final String message;
-
-  const SuccessLoginState(this.message);
-}
-
-class ErrorLoginState extends AuthState {
-  final String error;
-
-  const ErrorLoginState(this.error);
-}
-
-class SuccessSignupState extends AuthState {
-  final String message;
-
-  SuccessSignupState(this.message);
-}
-
-class ErrorSignupState extends AuthState {
-  final String error;
-
-  const ErrorSignupState(this.error);
-}
-
-class SuccessCreateUserState extends AuthState {
-  final String message;
-
-  const SuccessCreateUserState(this.message);
-}
-
-class ErrorCreateUserState extends AuthState {
-  final String error;
-
-  const ErrorCreateUserState(this.error);
-}
-
-class SuccessPickImageState extends AuthState {
-  final File image;
-  const SuccessPickImageState(this.image);
-}
-
-class ErrorPickImageState extends AuthState {
-  const ErrorPickImageState();
+@freezed
+abstract class AuthState with _$AuthState {
+  const factory AuthState.authInitial() = _authInitial;
+  const factory AuthState.loading() = _loading;
+  const factory AuthState.successLoginState(String message) =
+      _successLoginState;
+  const factory AuthState.errorLoginState(String message) = _errorLoginState;
+  const factory AuthState.changeIconVisibilityState(bool isVisible) =
+      _changeIconVisibilityState;
 }

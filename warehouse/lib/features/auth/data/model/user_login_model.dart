@@ -29,8 +29,7 @@ class Data with _$Data {
 @freezed
 class User with _$User {
   factory User(
-      {required String userId,
-      required String name,
+      {required String name,
       required String email,
       required String photo,
       required String role,
