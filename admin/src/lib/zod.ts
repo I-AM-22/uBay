@@ -1,21 +1,13 @@
-import { t } from "i18next";
+import * as z from "zod";
+import { zodI18nMap } from "zod-i18n-map";
 import "./i18next";
-import { z } from "zod";
-import { string } from "yup";
+import i18n from "./i18next";
+const customErrorMap: z.ZodErrorMap = (issue, ctx) => {
+  if (issue.code === z.ZodIssueCode.too_small && issue.minimum == 1) {
+    return { message: i18n.t("validation:required") };
+  }
 
-z.object<any>({
-    // name:z.string().min(1),
-    // password:z.string().min(8).max(16),
-    mixed: {
-        required: () => t("validation:required"),
-    },
-    string: {
-        min: ({ min }: any) => t("validation:minStr", { value: min }),
-        max: ({ max }: any) => t("validation:maxStr", { value: max }),
-    },
-    array: {
-        min: ({ min }: any) => t("validation:minArr", { value: min }),
-        max: ({ max }: any) => t("validation:maxArr", { value: max }),
-    },
-});
+  return zodI18nMap(issue, ctx);
+};
+z.setErrorMap(customErrorMap);
 export default z;
