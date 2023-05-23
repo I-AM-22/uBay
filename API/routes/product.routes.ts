@@ -34,42 +34,30 @@ router
   .post(
     passport.authenticate('jwt', { session: false, failWithError: true }),
     restrictTo('user'),
-    // uploadProductPhotos,
-    // resizeProductPhotos,
+    uploadProductPhotos,
+    resizeProductPhotos,
     setUserId,
     validate(productSchema),
     createProduct
   );
 
-router.post(
-  '/:id/likes',
-  passport.authenticate('jwt', { session: false, failWithError: true }),
-  restrictTo('user'),
-  like
+router.use(
+  passport.authenticate('jwt', { session: false, failWithError: true })
 );
-router.delete(
-  '/:id/likes',
-  passport.authenticate('jwt', { session: false, failWithError: true }),
-  restrictTo('user'),
-  dislike
-);
+
+router.post('/:id/likes', restrictTo('user'), like);
+router.delete('/:id/likes', restrictTo('user'), dislike);
 
 router
   .route('/:id')
   .get(getProduct)
   .patch(
-    passport.authenticate('jwt', { session: false, failWithError: true }),
     restrictTo('admin', 'user'),
     checkIsOwnerProduct,
     uploadProductPhotos,
     resizeProductPhotos,
     updateProduct
   )
-  .delete(
-    passport.authenticate('jwt', { session: false, failWithError: true }),
-    checkIsOwnerProduct,
-    restrictTo('admin', 'user'),
-    deleteProduct
-  );
+  .delete(checkIsOwnerProduct, restrictTo('admin', 'user'), deleteProduct);
 
 export default router;

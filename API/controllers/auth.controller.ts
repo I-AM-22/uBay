@@ -180,7 +180,7 @@ export const updateMyPassword = catchAsync(
     user.password = password;
     await user.save();
     const me = `${req.protocol}://${req.get('host')}/me`;
-    await new Email(user, me).sendResetMessage();
+    // await new Email(user, me).sendResetMessage();
     //Logging in the user
     sendUser(user, STATUS_CODE.SUCCESS, res);
   }

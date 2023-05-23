@@ -1,12 +1,16 @@
-import swaggerJsdoc from 'swagger-jsdoc';
-const options: swaggerJsdoc.Options = {
+import swaggerJsdoc, { Options } from 'swagger-jsdoc';
+import { productSchema } from './routes/products.swagger';
+import { updateMe, signUp } from './routes/auth.swagger';
+import { commentSchema } from './routes/comments.swagger';
+const options: Options = {
+  url: '',
   definition: {
     openapi: '3.0.0',
     info: {
       title: 'REST API Docs',
       version: '1.0.0',
       description:
-        'This is a API store application made with Express and documented with Swagger',
+        'This is an API store application made with Express and documented with Swagger',
     },
     servers: [
       {
@@ -16,45 +20,10 @@ const options: swaggerJsdoc.Options = {
     ],
     components: {
       schemas: {
-        signUp: {
-          type: 'object',
-          required: ['name', 'email', 'password', 'passwordConfirm'],
-          properties: {
-            name: {
-              type: 'string',
-            },
-            email: {
-              type: 'string',
-            },
-            password: {
-              type: 'string',
-            },
-            passwordConfirm: {
-              type: 'string',
-            },
-          },
-          example: {
-            name: 'bahaa',
-            email: 'bahaa@gmail.com',
-            password: 'test1234',
-            passwordConfirm: 'test1234',
-          },
-        },
-        updateMe: {
-          type: 'object',
-          properties: {
-            name: {
-              type: 'string',
-            },
-            email: {
-              type: 'string',
-            },
-          },
-          example: {
-            name: 'bahaa',
-            email: 'bahaa@gmail.com',
-          },
-        },
+        signUp,
+        updateMe,
+        productSchema,
+        commentSchema,
       },
       securitySchemes: {
         Bearer: {
@@ -62,23 +31,45 @@ const options: swaggerJsdoc.Options = {
           name: 'Authorization',
           in: 'header',
           description:
-            '>-Enter the token with the `Bearer: ` prefix, e.g. "Bearer abcde12345".',
+            'Enter the token with the `Bearer: ` prefix, e.g. "Bearer abcde12345".',
         },
       },
-
       responses: {
+        201: {
+          description: 'created',
+          contents: {
+            'application/json': {},
+          },
+        },
+        200: {
+          description: 'ok',
+          contents: {
+            'application/json': {},
+          },
+        },
+        204: {
+          description: 'No content',
+          contents: {
+            'application/json': {},
+          },
+        },
         400: {
-          description:
-            'Missing API key - include it in the Authorization header',
-          contents: 'application/json',
+          description: 'Bad request',
+          contents: {
+            'application/json': {},
+          },
         },
         401: {
-          description: 'Unauthorized - incorrect API key or incorrect format',
-          contents: 'application/json',
+          description: 'Unauthorized',
+          contents: {
+            'application/json': {},
+          },
         },
         404: {
           description: 'Not found - the user was not found',
-          contents: 'application/json',
+          contents: {
+            'application/json': {},
+          },
         },
       },
     },
@@ -86,6 +77,8 @@ const options: swaggerJsdoc.Options = {
   apis: [
     './swagger/routes/auth.swagger.ts',
     './swagger/routes/users.swagger.ts',
+    './swagger/routes/products.swagger.ts',
+    './swagger/routes/comments.swagger.ts',
   ],
 };
 

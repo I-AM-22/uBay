@@ -62,7 +62,7 @@
 //                                 Update Current User
 /**
  * @swagger
- *   /users/updateMe:
+ *   /users/me:
  *     patch:
  *       summary: Update Current User
  *       tags: [Users]
@@ -78,6 +78,8 @@
  *                  name:
  *                   type: string
  *                  email:
+ *                   type: string
+ *                  photo:
  *                   type: string
  *                   format: binary
  *       responses:
@@ -100,7 +102,7 @@
 //                                   Delete Current User
 /**
  * @swagger
- *   /users/deleteMe:
+ *   /users/me:
  *     delete:
  *       summary: Delete Current User
  *       security:
@@ -146,7 +148,7 @@
 
 /**
  * @swagger
- *   /Users/{id}:
+ *   /users/{id}:
  *     delete:
  *       summary: Delete User For Admin Access
  *       security:
