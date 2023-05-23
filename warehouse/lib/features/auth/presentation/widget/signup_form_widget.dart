@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:warehouse/core/util/validation.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/features/auth/presentation/pages/signup_page.dart';
-import 'package:warehouse/features/auth/presentation/widget/text_form.dart';
+import 'package:warehouse/features/auth/presentation/widget/reactiv_text_filed_widget.dart';
 import '../../../../core/theme.dart';
 import '../../../../core/util/snackbar_message.dart';
 import '../bloc/auth/auth_bloc.dart';
@@ -12,11 +12,16 @@ import '../bloc/auth/auth_bloc.dart';
 class SignupFormWidget extends StatelessWidget {
   SignupFormWidget({Key? key}) : super(key: key);
 
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-  var passwordConfirmController = TextEditingController();
-  var nameController = TextEditingController();
-  var formKey = GlobalKey<FormState>();
+  final form = FormGroup({
+    'name': FormControl<String>(validators: [Validators.required]),
+    'email': FormControl<String>(
+        validators: [Validators.required, Validators.email]),
+    'password': FormControl<String>(
+        validators: [Validators.required, Validators.minLength(8)]),
+    'passwordConfirmation': FormControl<String>(),
+  }, validators: [
+    Validators.mustMatch('password', 'passwordConfirmation'),
+  ]);
 
   bool isVisibility = true;
 
@@ -46,16 +51,17 @@ class SignupFormWidget extends StatelessWidget {
   }
 
   Widget _buildSignupWidget(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(20.0),
         child: Center(
           child: SingleChildScrollView(
-            child: Form(
-              key: formKey,
+            child: ReactiveForm(
+              formGroup: form,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    'Sign Up',
+                    'انشاء حساب',
                     style: TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
@@ -64,76 +70,93 @@ class SignupFormWidget extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  TextFormFileWidget(
-                      controller: nameController,
-                      validate: Validation.validateName,
-                      hintText: 'name',
-                      icon: Icons.person,
-                      textInputType: TextInputType.name),
+                  ReactiveTextFieldWidget(
+                    controller: 'name',
+                    hintText: 'الاسم',
+                    suffixIcon: Icons.person,
+                    textInputType: TextInputType.name,
+                    validationMessageRequired: 'يجب ألا يكون حقل الاسم فارغا',
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormFileWidget(
-                      controller: emailController,
-                      validate: Validation.validateEmail,
-                      hintText: 'Email',
-                      icon: Icons.email,
-                      textInputType: TextInputType.emailAddress),
+                  ReactiveTextFieldWidget(
+                    controller: 'email',
+                    hintText: 'البريد الالكتروني',
+                    validationMessageRequired:
+                        'يجب ألا يكون البريد الالكتروني فارغا',
+                    typeValidate: 'email',
+                    validationMessage:
+                        'يجب أن تكون كلمة البريد الالكتروني بريدًا إلكترونيًا صالحًا',
+                    suffixIcon: Icons.email_outlined,
+                    textInputType: TextInputType.emailAddress,
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormFileWidget(
-                    controller: passwordController,
-                    obscureText: isVisibility,
-                    validate: Validation.validatePassword,
-                    hintText: 'Password',
-                    icon: Icons.lock,
+                  ReactiveTextFieldWidget(
+                    controller: 'password',
+                    hintText: 'كلمة المرور',
+                    suffixIcon: Icons.lock,
                     textInputType: TextInputType.visiblePassword,
-                    suffixIcon:
-                        isVisibility ? Icons.visibility_off : Icons.visibility,
+                    obscureText: isVisibility,
+                    validationMessageRequired: 'يجب ألا تكون كلمة المرور فارغة',
+                    typeValidate: 'minLength',
+                    validationMessage:
+                        'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل',
                     onPressed: () {
                       BlocProvider.of<AuthBloc>(context).add(
                           AuthEvent.changeIconVisibilityEvent(isVisibility));
                     },
+                    prefixIcon:
+                        isVisibility ? Icons.visibility : Icons.visibility_off,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormFileWidget(
-                      controller: passwordConfirmController,
-                      obscureText: isVisibility,
-                      validate: Validation.validatePasswordConfirm,
-                      hintText: 'Confirm Password',
-                      icon: Icons.lock,
-                      suffixIcon: isVisibility
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                      onPressed: () {
-                        BlocProvider.of<AuthBloc>(context).add(
-                            AuthEvent.changeIconVisibilityEvent(isVisibility));
-                      },
-                      textInputType: TextInputType.visiblePassword),
+                  ReactiveTextFieldWidget(
+                    controller: 'passwordConfirmation',
+                    hintText: 'تأكيد كلمة المرور',
+                    suffixIcon: Icons.lock,
+                    textInputType: TextInputType.visiblePassword,
+                    obscureText: isVisibility,
+                    validationMessageRequired: 'يجب ألا تكون كلمة المرور فارغة',
+                    typeValidate: 'mustMatch',
+                    validationMessage: 'يجب أن تتكون كلمة المرور متطابقة',
+                    onPressed: () {
+                      BlocProvider.of<AuthBloc>(context).add(
+                          AuthEvent.changeIconVisibilityEvent(isVisibility));
+                    },
+                    prefixIcon:
+                        isVisibility ? Icons.visibility : Icons.visibility_off,
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
                   Container(
                     width: double.infinity,
-                    color: primaryColor,
-                    child: TextButton(
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          BlocProvider.of<AuthBloc>(context).add(
-                              AuthEvent.signupEvent(
-                                  userName: nameController.text,
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                  passwordConfirm:
-                                      passwordConfirmController.text));
-                        }
-                      },
-                      child: const Text(
-                        'SIGN UP',
-                        style: TextStyle(fontSize: 25, color: Colors.white),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: primaryColor,
+                    ),
+                    child: ReactiveFormConsumer(
+                      builder: (context, form, child) => MaterialButton(
+                        onPressed: () {
+                          if (form.valid) {
+                            BlocProvider.of<AuthBloc>(context).add(
+                                AuthEvent.signupEvent(
+                                    userName: form.value['name'].toString(),
+                                    email: form.value['email'].toString(),
+                                    password: form.value['password'].toString(),
+                                    passwordConfirm: form
+                                        .value['passwordConfirmation']
+                                        .toString()));
+                          }
+                        },
+                        child: const Text(
+                          'تسجيل الدخول',
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
