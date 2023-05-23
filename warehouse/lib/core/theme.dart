@@ -14,10 +14,4 @@ final lightTheme = ThemeData(
         backgroundColor: primaryColor,
         systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: primaryColor,
-            statusBarIconBrightness: Brightness.light)),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.grey,
-        backgroundColor: primaryColor,
-        elevation: 10));
+            statusBarIconBrightness: Brightness.light)),);

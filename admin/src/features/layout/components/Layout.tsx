@@ -4,15 +4,15 @@ import { Outlet } from "react-router-dom";
 import { TopBarProgressIndicator } from "../../../Wrapper/TopBarProgressProvider";
 import AppBar from "./AppBar";
 import Main from "./Main";
-import Sidebar from "./SideBar";
+import Sidebar from "./Sidebar";
 export const drawerWidth = 240;
 
 type Props = {};
-const Layout: FC<Props> = ({}) => {
+const Layout: FC<Props> = ({ }) => {
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("md"));
 
-  const [open, setOpen] = useState(isLargeScreen);
+  const [open, setOpen] = useState<boolean>(isLargeScreen);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -22,7 +22,9 @@ const Layout: FC<Props> = ({}) => {
   return (
     <Box>
       <AppBar open={open} onDrawerOpen={handleDrawerOpen} onDrawerClose={handleDrawerClose} />
-      <Sidebar open={open} setOpen={setOpen} />
+      <Sidebar open={open}
+      // setOpen={setOpen}
+      />
       <Toolbar />
       <Main open={open} sx={{ px: { xs: 1, sm: 5 }, py: 3 }}>
         <Suspense fallback={<TopBarProgressIndicator />}>

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:warehouse/core/theme.dart';
 import 'package:warehouse/features/page/qr_create.dart';
 import 'package:warehouse/features/page/qr_scan.dart';
 
@@ -15,7 +16,8 @@ class GenerateOrScanQR extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
+            MaterialButton(
+              color: primaryColor,
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => GenerateQR()));
@@ -24,7 +26,8 @@ class GenerateOrScanQR extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            ElevatedButton(
+            MaterialButton(
+              color: primaryColor,
                 onPressed: () => Navigator.push(
                     context, MaterialPageRoute(builder: (context) => QrScan())),
                 child: const Text('Scan QR')),

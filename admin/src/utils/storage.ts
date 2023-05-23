@@ -1,7 +1,7 @@
 import { refreshAxiosToken } from "lib/axios";
 
 export const storage = {
-  storeToken(token: string) {
+  setToken(token: string) {
     localStorage.setItem("token", token);
     refreshAxiosToken();
   },

@@ -1,3 +1,5 @@
-const String BASE_URL = 'http://localhost:3000/api/v1';
+// ignore_for_file: constant_identifier_names
+
+const String BASE_URL = 'http://192.168.1.108:3000/api/v1';
 const String SIGN_UP = '/users/signup';
 const String LOGIN = '/users/login';

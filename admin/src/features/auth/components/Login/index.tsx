@@ -1,28 +1,39 @@
-import { yupResolver } from "@hookform/resolvers/yup";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Checkbox, FormControlLabel, Paper, Slide, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import logo from "assets/img/logo.svg";
 import Submit from "components/buttons/Submit";
-import PasswordInput from "components/Inputs/PasswordInput";
-import UsernameInput from "components/Inputs/UsernameInput";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { AccountLoginBody } from "../../api/type";
+import { UserLoginBody } from "../../api/type";
 import loginSchema, { loginDefault } from "./validation";
+import EmailInput from "features/auth/EmailInput";
+import PasswordInput from "components/Inputs/PasswordInput";
+import { authQueries } from "features/auth";
+import { storage } from "utils/storage";
+import { useNavigate } from "react-router-dom";
 export const Login = () => {
   const {
     control,
     handleSubmit,
-    formState: { isSubmitting },
-  } = useForm<AccountLoginBody>({
-    resolver: yupResolver(loginSchema),
+  } = useForm<UserLoginBody>({
+    resolver: zodResolver(loginSchema),
     defaultValues: loginDefault,
   });
 
   const { t } = useTranslation("auth");
-
-  const onSubmit = async (data: AccountLoginBody) => {
-    console.log(data);
+  const navigate = useNavigate()
+  const login = authQueries.useLogin()
+  const onSubmit = async (data: UserLoginBody) => {
+    login.mutate(data, {
+      onSuccess: (data) => {
+        storage.setToken(data.token);
+        navigate("/");
+      },
+      onError: (err) => {
+        console.log(err);
+      },
+    })
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -65,15 +76,10 @@ export const Login = () => {
                   {t("login.title")}
                 </Typography>
                 <Stack gap={2} width="80%" mx="auto">
-                  <UsernameInput control={control} name="username" />
+                  <EmailInput control={control} name="email" />
                   <PasswordInput control={control} name="password" />
-                  <FormControlLabel
-                    sx={{ mx: 2, width: "fit-content" }}
-                    control={<Checkbox />}
-                    label={t`login.remember`}
-                  />
                   <Box m="auto" width="fit-content">
-                    <Submit sx={{ px: 5 }} isSubmitting={isSubmitting}>{t`login.submit`}</Submit>
+                    <Submit sx={{ px: 5 }} isSubmitting={login.isLoading}>{t`login.submit`}</Submit>
                   </Box>
                 </Stack>
               </Stack>
