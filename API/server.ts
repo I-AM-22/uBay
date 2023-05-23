@@ -5,6 +5,7 @@ import { settings } from '@config/settings';
 import connDB from '@config/database';
 import { Server } from 'socket.io';
 import http from 'http';
+import dec from './types/custom';
 
 const port = settings.PORT;
 

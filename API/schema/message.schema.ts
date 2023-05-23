@@ -3,13 +3,13 @@ import { z } from 'zod';
 export const messageSchema = z.object({
   body: z.object({
     content: z.string({
-      required_error: 'يجب أن يحتوي الرسالة على محتوى',
+      required_error: 'يجب أن تحتوي الرسالة على محتوى',
     }),
     user: z.string({
-      required_error: 'يجب أن يحتوي الرسالة على مستخدم',
+      required_error: 'يجب أن تحتوي الرسالة على مستخدم',
     }),
     chat: z.string({
-      required_error: 'يجب أن يحتوي الرسالة على محادثة',
+      required_error: 'يجب أن تحتوي الرسالة على محادثة',
     }),
   }),
 });

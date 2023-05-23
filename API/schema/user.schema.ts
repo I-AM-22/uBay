@@ -2,9 +2,11 @@ import { z } from 'zod';
 
 export const userSchema = z.object({
   body: z.object({
-    name: z.string({
-      required_error: 'الاسم مطلوب',
-    }),
+    name: z
+      .string({
+        required_error: 'الاسم مطلوب',
+      })
+      .trim(),
     password: z
       .string({
         required_error: 'كلمة المرور مطلوبة',
@@ -14,7 +16,8 @@ export const userSchema = z.object({
       .string({
         required_error: 'البريد الإلكتروني مطلوب',
       })
-      .email('البريد الإلكتروني غير صالح'),
+      .email('البريد الإلكتروني غير صالح')
+      .trim(),
   }),
 });
 
@@ -24,7 +27,8 @@ export const loginInput = z.object({
       .string({
         required_error: 'البريد الإلكتروني مطلوب',
       })
-    ,
+      .email('البريد الإلكتروني غير صالح')
+      .trim(),
     password: z
       .string({
         required_error: 'كلمة المرور مطلوبة',
@@ -35,15 +39,20 @@ export const loginInput = z.object({
 
 export const forgotPasswordSchema = z.object({
   body: z.object({
-    email: z.string({
-      required_error: 'البريد الإلكتروني مطلوب',
-    }),
+    email: z
+      .string({
+        required_error: 'البريد الإلكتروني مطلوب',
+      })
+      .email('البريد الإلكتروني غير صالح'),
   }),
 });
 
 export const resetPasswordSchema = z.object({
   body: z.object({
-    password: z.string({ required_error: 'يرجى تقديم كلمة المرور' }),
+    password: z
+      .string({ required_error: 'يرجى تقديم كلمة المرور' })
+      .min(6, 'كلمة المرور قصيرة جدًا - يجب أن تحتوي على 6 أحرف على الأقل'),
+
     token: z.string({
       required_error: 'يرجى تقديم رمز إعادة التعيين',
     }),
@@ -52,7 +61,10 @@ export const resetPasswordSchema = z.object({
 
 export const updatePasswordSchema = z.object({
   body: z.object({
-    password: z.string({ required_error: 'يرجى تقديم كلمة المرور' }),
+    password: z
+      .string({ required_error: 'يرجى تقديم كلمة المرور' })
+      .min(6, 'كلمة المرور قصيرة جدًا - يجب أن تحتوي على 6 أحرف على الأقل'),
+
     passwordCurrent: z.string({
       required_error: 'يرجى تقديم كلمة المرور الحالية',
     }),
