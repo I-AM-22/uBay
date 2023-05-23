@@ -1,44 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../../core/theme.dart';
 
 // ignore: must_be_immutable
-class TextFormFileWidget extends StatelessWidget {
-  final TextEditingController controller;
-  final FormFieldValidator<String> validate;
+class ReactiveTextFieldWidget extends StatelessWidget {
+  final String controller;
   final bool obscureText;
   final String hintText;
-  final IconData icon;
+  String? typeValidate;
+  String? validationMessageRequired;
+  String? validationMessage;
+  IconData? prefixIcon;
   final TextInputType textInputType;
   void Function()? onPressed;
-  IconData? suffixIcon;
- TextFormFileWidget(
+  final IconData suffixIcon;
+  ReactiveTextFieldWidget(
       {super.key,
       required this.controller,
-      required this.validate,
+      this.validationMessageRequired,
+      this.validationMessage,
+      this.typeValidate,
       required this.hintText,
-      required this.icon,
+      this.prefixIcon,
       required this.textInputType,
       this.onPressed,
-      this.suffixIcon,
+      required this.suffixIcon,
       this.obscureText = false});
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      keyboardType: textInputType,
-      validator: validate,
+    return ReactiveTextField(
+      formControlName: controller,
       obscureText: obscureText,
+      textAlign: TextAlign.end,
+      validationMessages: {
+        'required': (error) => validationMessageRequired!,
+        ValidationMessage.email: (error) => validationMessage!,
+        ValidationMessage.mustMatch: (error) => validationMessage!,
+        ValidationMessage.minLength: (error) => validationMessage!,
+      },
       decoration: InputDecoration(
-          prefixIcon: Icon(
-            icon,
+          prefixIcon: IconButton(
+            onPressed: onPressed,
+            icon: Icon(prefixIcon),
             color: primaryColor,
           ),
           hintText: hintText,
           hintStyle: Theme.of(context).textTheme.titleSmall,
           border: const OutlineInputBorder(),
-          suffixIcon: IconButton(color: primaryColor,icon: Icon(suffixIcon),onPressed: onPressed,),
+          suffixIcon: Icon(
+            color: primaryColor,
+            suffixIcon,
+          ),
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey),
             borderRadius: BorderRadius.all(Radius.circular(10.0)),

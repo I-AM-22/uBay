@@ -25,12 +25,9 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _buildBody() {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: BlocProvider(
-        create: (_) => di.getIt<AuthBloc>(),
-        child: LoginFormWidget(),
-      ),
+    return BlocProvider(
+      create: (_) => di.getIt<AuthBloc>(),
+      child: LoginFormWidget(),
     );
   }
 }

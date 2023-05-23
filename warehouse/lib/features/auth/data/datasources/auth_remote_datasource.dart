@@ -23,8 +23,10 @@ class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
       return Future.value(userModel);
     }).catchError((error) {
       DioError errorBody = error;
-      SERVER_FAILURE = errorBody.response!.data['message'];
-
+      if (errorBody.response != null) {
+        print(errorBody.response!.data['message']);
+        SERVER_FAILURE = errorBody.response!.data['message'];
+      }
       throw ServerException();
     });
     return Future.value(userModel);
@@ -44,7 +46,10 @@ class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
       return Future.value(userLogin);
     }).catchError((error) {
       DioError dioError = error;
-      SERVER_FAILURE = dioError.response!.data['errors'][0]['message'];
+      if (dioError.response != null) {
+        SERVER_FAILURE = dioError.response!.data['errors'][0]['message'];
+      }
+
       throw ServerException();
     });
     return Future.value(userLogin);

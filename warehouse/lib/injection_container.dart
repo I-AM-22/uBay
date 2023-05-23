@@ -8,10 +8,6 @@ final getIt = GetIt.instance;
 @InjectableInit()
 Future<void> init() async {
   getIt.init();
-}
-
-@module
-abstract class RegisterModule {
-  Future<SharedPreferences> get sharedPreferences =>
-      SharedPreferences.getInstance();
+  final sharedPreferences = await SharedPreferences.getInstance();
+  getIt.registerLazySingleton(() => sharedPreferences);
 }

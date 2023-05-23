@@ -8,6 +8,7 @@ import 'package:warehouse/core/theme.dart';
 import 'package:warehouse/features/auth/data/model/user_login_model.dart';
 import 'package:warehouse/features/auth/presentation/pages/login_page.dart';
 import 'package:warehouse/temp.dart';
+import 'features/auth/presentation/pages/signup_page.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       routes: {
         '/loginScreen': (context) => const LoginPage(),
+        '/SignupScreen': (context) => const SignupPage()
       },
       initialRoute: '/loginScreen',
     );
