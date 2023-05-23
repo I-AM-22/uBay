@@ -37,7 +37,7 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Comment'
+ *             $ref: '#/components/schemas/commentSchema'
  *     responses:
  *       '201':
  *         $ref: '#/components/responses/201'
@@ -93,7 +93,7 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Comment'
+ *             $ref: '#/components/schemas/commentSchema'
  *     responses:
  *       '200':
  *         description: Comment has been updated
