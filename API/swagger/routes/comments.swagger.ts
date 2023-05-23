@@ -14,6 +14,10 @@
  *     parameters:
  *       - in: path
  *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The product Id of comments
  *     security:
  *       - Bearer: []
  *     responses:
@@ -37,10 +41,14 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Comment'
+ *             $ref: '#/components/schemas/commentSchema'
  *     responses:
  *       '201':
- *         $ref: '#/components/responses/201'
+ *         description: created
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/commentSchema'
  *       '401':
  *         $ref: '#/components/responses/401'
  *       '400':
@@ -64,7 +72,11 @@
  *         description: ID of the comment
  *     responses:
  *       '200':
- *         $ref: '#/components/responses/200'
+ *         description: ok
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/commentSchema'
  *       '404':
  *         description: Comment not found
  *       '401':
@@ -93,10 +105,14 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Comment'
+ *             $ref: '#/components/schemas/commentSchema'
  *     responses:
  *       '200':
- *         description: Comment has been updated
+ *         description: comment has been updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/commentSchema'
  *       '404':
  *         description: Product not found
  *       '401':
@@ -146,10 +162,10 @@ export const commentSchema = {
       description: 'The ID of the product the comment belongs to',
       example: 'product-id',
     },
-    example: {
-      content: 'Comment content',
-      user: 'user-id',
-      product: 'product-id',
-    },
+  },
+  example: {
+    content: 'Comment content',
+    user: 'user-id',
+    product: 'product-id',
   },
 };

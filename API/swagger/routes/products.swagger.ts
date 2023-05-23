@@ -13,13 +13,13 @@
  *     tags: [Products]
  *     responses:
  *       '200':
- *         description: The list of Users
+ *         description: The list of products
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Product'
+ *                 $ref: '#/components/schemas/productSchema'
  *       '401':
  *         $ref: '#/components/responses/401'
  */
@@ -41,7 +41,11 @@
  *         description: ID of the product
  *     responses:
  *       '200':
- *         $ref: '#/components/responses/200'
+ *         description: ok
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/productSchema'
  *       '404':
  *         description: Comment not found
  *       '401':
@@ -61,10 +65,14 @@
  *       content:
  *         multipart/form-data:
  *           schema:
- *             $ref: '#/components/schemas/Product'
+ *             $ref: '#/components/schemas/productSchema'
  *     responses:
  *       '201':
- *         $ref: '#/components/responses/201'
+ *         description: created
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/productSchema'
  *       '401':
  *         $ref: '#/components/responses/401'
  *       '400':
@@ -91,10 +99,14 @@
  *       content:
  *         multipart/form-data:
  *           schema:
- *             $ref: '#/components/schemas/Product'
+ *             $ref: '#/components/schemas/productSchema'
  *     responses:
  *       '200':
- *         $ref: '#/components/responses/200'
+ *         description: Product has been updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/productSchema'
  *       '404':
  *         description: Comment not found
  *       '401':

@@ -37,39 +37,21 @@ const options: Options = {
       responses: {
         201: {
           description: 'created',
-          contents: {
-            'application/json': {},
-          },
         },
         200: {
           description: 'ok',
-          contents: {
-            'application/json': {},
-          },
         },
         204: {
           description: 'No content',
-          contents: {
-            'application/json': {},
-          },
         },
         400: {
           description: 'Bad request',
-          contents: {
-            'application/json': {},
-          },
         },
         401: {
           description: 'Unauthorized',
-          contents: {
-            'application/json': {},
-          },
         },
         404: {
           description: 'Not found - the user was not found',
-          contents: {
-            'application/json': {},
-          },
         },
       },
     },
