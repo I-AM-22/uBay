@@ -13,13 +13,13 @@
  *     tags: [Products]
  *     responses:
  *       '200':
- *         description: The list of products
+ *         description: The list of Users
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/productSchema'
+ *                 $ref: '#/components/schemas/Product'
  *       '401':
  *         $ref: '#/components/responses/401'
  */
@@ -61,7 +61,7 @@
  *       content:
  *         multipart/form-data:
  *           schema:
- *             $ref: '#/components/schemas/productSchema'
+ *             $ref: '#/components/schemas/Product'
  *     responses:
  *       '201':
  *         $ref: '#/components/responses/201'
@@ -91,7 +91,7 @@
  *       content:
  *         multipart/form-data:
  *           schema:
- *             $ref: '#/components/schemas/productSchema'
+ *             $ref: '#/components/schemas/Product'
  *     responses:
  *       '200':
  *         $ref: '#/components/responses/200'
