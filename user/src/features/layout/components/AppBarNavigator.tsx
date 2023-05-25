@@ -1,7 +1,6 @@
 import { Tab, Tabs } from "@mui/material";
 import { navLinks } from "constants/navLinks";
 import { FC, useCallback, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 function getIndexFromLink(pathname: string) {
   pathname = pathname.slice(1);
@@ -13,7 +12,6 @@ function getLinkFromIndex(index: number) {
 }
 export const AppBarNavigator: FC<{}> = ({}) => {
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
-  const { t } = useTranslation("layout", { keyPrefix: "navigator" });
   const navigate = useNavigate();
   const handlePageChange = useCallback(
     (_: any, index: number) => {
@@ -31,12 +29,13 @@ export const AppBarNavigator: FC<{}> = ({}) => {
   return (
     <>
       {currentIndex !== null && (
-        <Tabs onChange={handlePageChange} value={currentIndex}>
+        <Tabs onChange={handlePageChange} value={currentIndex} sx={{ height: 1 }}>
           {navLinks.map((navLink, index) => (
             <Tab
               sx={{
                 py: 0.5,
-                borderRadius: 1,
+                borderRadius: "0px 0px 2px 2px",
+                ml: index === navLinks.length - 1 ? "auto" : 0,
                 svg: {
                   flex: 1,
                   fontSize: 25,
@@ -45,6 +44,7 @@ export const AppBarNavigator: FC<{}> = ({}) => {
               }}
               key={navLink.href}
               icon={<navLink.Icon />}
+
             />
           ))}
         </Tabs>

@@ -2,7 +2,6 @@ import { BottomNavigationAction, Box, Paper } from "@mui/material";
 import MuiBottomNavigation from "@mui/material/BottomNavigation";
 import { navLinks } from "constants/navLinks";
 import { FC, useCallback, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 function getIndexFromLink(pathname: string) {
@@ -15,7 +14,6 @@ function getLinkFromIndex(index: number) {
 }
 export const BottomNavigator: FC<{}> = ({}) => {
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
-  const { t } = useTranslation("layout", { keyPrefix: "bottomNavigator" });
   const navigate = useNavigate();
   const handlePageChange = useCallback(
     (index: number) => {
@@ -67,6 +65,7 @@ export const BottomNavigator: FC<{}> = ({}) => {
                   fontSize: 25,
                   fill: index === currentIndex ? "primary.main" : "gray",
                 },
+                display: index === navLinks.length - 1 ? "none" : "default",
               }}
               key={navLink.href}
               icon={<navLink.Icon />}

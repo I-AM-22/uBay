@@ -1,10 +1,12 @@
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
-import { Box, Stack, useMediaQuery, useTheme } from "@mui/material";
+import { Box, IconButton, Stack } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import SearchInput from "components/Inputs/SearchInput";
-import RouterLink from "components/links/RouterLink";
+import { useIsDesktop } from "hooks/useIsDesktop";
 import { FC, forwardRef, useEffect, useRef, useState } from "react";
+
+import RouterLink from "components/links/RouterLink";
 import { AppBarNavigator } from "./AppBarNavigator";
 export type AppBarProps = MuiAppBarProps;
 export const AppBar: FC<AppBarProps> = forwardRef(function Fr(
@@ -13,9 +15,9 @@ export const AppBar: FC<AppBarProps> = forwardRef(function Fr(
 ) {
   const appBarRef = useRef<HTMLElement | null>(null);
   const [appBarHeight, setAppBarHeight] = useState(0);
-  const isDesktop = useMediaQuery(useTheme().breakpoints.up("sm"));
+  const isDesktop = useIsDesktop();
   useEffect(() => {
-    setAppBarHeight((appBarRef.current?.offsetHeight ?? 20) - 20);
+    setAppBarHeight(appBarRef.current?.offsetHeight ?? 20);
   }, [appBarRef.current?.offsetHeight]);
   return (
     <>
@@ -34,30 +36,35 @@ export const AppBar: FC<AppBarProps> = forwardRef(function Fr(
       >
         <Toolbar
           sx={{
+            minHeight: "fit-content !important",
             bgcolor: "white",
-            py: 0,
+            pt: 0.5,
             px: 3,
             display: "flex",
-            width: "100%",
-            "&>*": { flex: 1 },
+            width: 1,
             justifyContent: "space-between",
           }}
         >
-          <Box>
+          <Box flex={1} py={0.5}>
             <SearchInput fullWidth={false} />
           </Box>
           {children}
-          <Stack alignItems={"center"} mx={1}>
+          <Stack mx={1} alignSelf={"end"} flex={2}>
             {isDesktop && <AppBarNavigator />}
           </Stack>
-          <Stack alignItems={"end"} justifyContent={"center"}>
-            <RouterLink to="/profile">
-              <AccountCircleRoundedIcon />
-            </RouterLink>
-          </Stack>
+
+          {!isDesktop && (
+            <Stack alignItems={"end"} justifyContent={"center"}>
+              <RouterLink to="/profile">
+                <IconButton sx={{ svg: { height: 30, width: 30 } }}>
+                  <AccountCircleRoundedIcon />
+                </IconButton>
+              </RouterLink>
+            </Stack>
+          )}
         </Toolbar>
       </MuiAppBar>
-      <Box sx={{ height: appBarHeight }} />
+      <Box sx={{ minHeight: appBarHeight }} />
     </>
   );
 });

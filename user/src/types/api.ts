@@ -1,3 +1,13 @@
+export type ResponseError =
+  | {
+      type: "default";
+      message: string;
+    }
+  | {
+      type: "form";
+      errors: { message: string; path: string[] }[];
+      message: string;
+    };
 export interface Pagination<T> {
   pageNumber: number;
   totalPages: number;

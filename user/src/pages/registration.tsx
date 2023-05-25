@@ -3,8 +3,7 @@ import RouterLink from "components/links/RouterLink";
 import themeConstants from "constants/themeConstants";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-export type RegistrationProps = {};
-export const Registration: FC<RegistrationProps> = ({}) => {
+export const RegistrationPage: FC<{}> = ({}) => {
   const { t } = useTranslation("auth", { keyPrefix: "registration" });
   return (
     <Box

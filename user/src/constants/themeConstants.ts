@@ -21,7 +21,7 @@ const themeConstants = {
   secondary7: "#be185d",
   secondary8: "#9d174d",
   secondary9: "#831843",
-  background: "#EFF5F5",
+  background: "#f1f1f1",
   borderRadius: "12px",
 };
 export default themeConstants;

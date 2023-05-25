@@ -2,8 +2,10 @@ import NotFound from "components/feedback/NotFound";
 import SomethingWentWrong from "components/feedback/SomethingWentWrong";
 import AuthenticatedRoute from "components/routes/AuthenticatedRoute";
 import NotAuthenticatedRoute from "components/routes/NotAuthenticatedRoute";
-import { Login, Registration, Signup } from "features/auth";
+import { LoginForm, SignupForm } from "features/auth";
 import { AppBar, MobileNavigator } from "features/layout";
+import { ProfilePage } from "pages/profile";
+import { RegistrationPage } from "pages/registration";
 import {
   Outlet,
   Route,
@@ -16,9 +18,9 @@ export default createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<WithScroll />} errorElement={<ErrorBoundary />}>
       <Route element={<NotAuthenticatedRoute />}>
-        <Route path="registration" element={<Registration />} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
+        <Route path="registration" element={<RegistrationPage />} />
+        <Route path="login" element={<LoginForm />} />
+        <Route path="signup" element={<SignupForm />} />
       </Route>
       <Route element={<AuthenticatedRoute />}>
         <Route
@@ -31,6 +33,7 @@ export default createBrowserRouter(
           }
         >
           <Route path="" element={<NotFound />} />
+          <Route path="profile/*" element={<ProfilePage />} />
           <Route path="*" element={<SomethingWentWrong />} />
         </Route>
       </Route>
