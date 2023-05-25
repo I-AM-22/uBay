@@ -28,7 +28,7 @@ export const Registration: FC<RegistrationProps> = ({}) => {
       >
         <Slide in={true} direction="down" timeout={300}>
           <Paper
-            elevation={0}
+            elevation={2}
             sx={{
               width: { xs: "100vw", sm: "75%", md: "60%" },
               height: { xs: "100vh", sm: "50vh" },
@@ -49,7 +49,7 @@ export const Registration: FC<RegistrationProps> = ({}) => {
                 component="img"
                 src={"images/registration.png"}
                 sx={{
-                  borderRadius: { xs: "0 0 30px 30px", sm: "0 30px 30px 0" },
+                  borderRadius: themeConstants.borderRadius,
                   width: { xs: "100%", sm: "40%" },
                   aspectRatio: { xs: "1", sm: "1" },
                   objectFit: "cover",
@@ -76,9 +76,11 @@ export const Registration: FC<RegistrationProps> = ({}) => {
                     bgcolor: "primary.50",
                     mt: "auto",
                     mb: 5,
+
                     ".MuiLink-root": {
                       fontSize: { xs: 14, sm: 16, md: 17 },
                       textDecoration: "none",
+                      py: 1,
                     },
                   }}
                 >
@@ -90,7 +92,7 @@ export const Registration: FC<RegistrationProps> = ({}) => {
                       bgcolor: "primary.main",
                       color: "white",
                       mr: -2,
-                      p: 1,
+                      px: 2,
                       zIndex: 1,
                       "&:hover, &:focus": {
                         bgcolor: "secondary.main",
@@ -106,7 +108,7 @@ export const Registration: FC<RegistrationProps> = ({}) => {
                     to="/login"
                     sx={{
                       color: "primary.900",
-                      p: 1,
+                      px: 2,
                       pl: 3,
                       borderRadius: `0 ${themeConstants.borderRadius} ${themeConstants.borderRadius}  0`,
                     }}

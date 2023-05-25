@@ -5,22 +5,25 @@ import { Stack } from "@mui/system";
 import TextField from "components/Inputs/TextField";
 import Submit from "components/buttons/Submit";
 import RouterLink from "components/links/RouterLink";
+import { useSnackbar } from "context/snackbarContext";
 import { authQueries } from "features/auth";
 import z from "lib/zod";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { parseResponseError } from "utils/apiHelpers";
 import { storage } from "utils/storage";
 import { UserSignupBody } from "../../api/type";
 import EmailInput from "../EmailInput";
 import PasswordInput from "../PasswordInput";
 import signupSchema, { signupDefault } from "./validation";
 export const Signup = () => {
-  const { control, handleSubmit } = useForm<z.infer<typeof signupSchema>>({
+  const { control, handleSubmit, setError } = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     defaultValues: signupDefault,
   });
   const navigate = useNavigate();
+  const snackbar = useSnackbar();
   const signup = authQueries.useSignup();
   const { t } = useTranslation("auth", { keyPrefix: "signup" });
   const onSubmit = async (data: UserSignupBody) => {
@@ -29,9 +32,7 @@ export const Signup = () => {
         storage.setToken(data.token);
         navigate("/");
       },
-      onError: (err) => {
-        console.log(err);
-      },
+      onError: (err) => parseResponseError(err, { setFormError: setError, snackbar }),
     });
   };
   return (
@@ -59,9 +60,9 @@ export const Signup = () => {
           <Slide in={true} direction="up" timeout={300}>
             <Paper
               sx={{
-                width: { xs: "100vw", sm: "50%" },
-                height: { xs: "100vh", sm: "100%" },
-                background: { xs: "#fff9", sm: "white" },
+                width: { xs: "100vw", md: "50%" },
+                height: { xs: "100vh", md: "100%" },
+                background: { xs: "#fff9", md: "white" },
                 mx: "auto",
                 borderRadius: 2,
                 overflow: "hidden",
@@ -90,7 +91,7 @@ export const Signup = () => {
                       zIndex: 1,
                     },
                     ".MuiFormLabel-root": {
-                      zIndex: 1,
+                      zIndex: 2,
                       color: colors.grey["800"],
                     },
                   }}

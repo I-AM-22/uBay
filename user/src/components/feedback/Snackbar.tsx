@@ -1,4 +1,4 @@
-import { AlertTitle, Slide, Typography } from "@mui/material";
+import { Slide, Typography } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import { FC, ReactNode } from "react";
@@ -21,16 +21,15 @@ const SnackbarComponent: FC<Props> = ({
 }) => {
   return (
     <Snackbar
-      anchorOrigin={{ horizontal: "left", vertical: "top" }}
+      anchorOrigin={{ horizontal: "center", vertical: "top" }}
       open={open}
       autoHideDuration={autoHideDuration}
       onClose={onClose}
       TransitionComponent={Slide}
+      sx={{ ".MuiPaper-root": { px: 0 } }}
     >
       <Alert sx={{ bgcolor: "primary.100" }} severity={severity} elevation={5} onClose={onClose}>
-        <AlertTitle>
-          <Typography px={1}>{message}</Typography>
-        </AlertTitle>
+        <Typography px={2}>{message}</Typography>
       </Alert>
     </Snackbar>
   );

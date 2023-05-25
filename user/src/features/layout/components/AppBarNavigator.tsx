@@ -30,23 +30,25 @@ export const AppBarNavigator: FC<{}> = ({}) => {
   }, [currentIndex]);
   return (
     <>
-      <Tabs onChange={handlePageChange}>
-        {navLinks.map((navLink, index) => (
-          <Tab
-            sx={{
-              py: 0.5,
-              borderRadius: 1,
-              svg: {
-                flex: 1,
-                fontSize: 25,
-                fill: index === currentIndex ? "primary.main" : "gray",
-              },
-            }}
-            key={navLink.href}
-            icon={<navLink.Icon />}
-          />
-        ))}
-      </Tabs>
+      {currentIndex !== null && (
+        <Tabs onChange={handlePageChange} value={currentIndex}>
+          {navLinks.map((navLink, index) => (
+            <Tab
+              sx={{
+                py: 0.5,
+                borderRadius: 1,
+                svg: {
+                  flex: 1,
+                  fontSize: 25,
+                  fill: index === currentIndex ? "primary.main" : "gray",
+                },
+              }}
+              key={navLink.href}
+              icon={<navLink.Icon />}
+            />
+          ))}
+        </Tabs>
+      )}
     </>
   );
 };
