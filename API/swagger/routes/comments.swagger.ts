@@ -18,6 +18,17 @@
  *           type: string
  *         required: true
  *         description: The product Id of comments
+ *       - in: query
+ *         name: params
+ *         schema:
+ *           type: object
+ *           properties:
+ *            page:
+ *             type: integer
+ *             minimum: 1
+ *            limit:
+ *             type: integer
+ *         required: false
  *     security:
  *       - Bearer: []
  *     responses:

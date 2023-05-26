@@ -11,6 +11,17 @@
  *   get:
  *     summary: Get all products
  *     tags: [Products]
+ *     parameters:
+ *      - name: params
+ *        in: query
+ *        required: false
+ *        schema:
+ *         type: object
+ *         properties:
+ *           page:
+ *            type: string
+ *           limit:
+ *            type: string
  *     responses:
  *       '200':
  *         description: The list of products

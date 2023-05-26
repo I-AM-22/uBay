@@ -63,7 +63,7 @@ class Email {
   }
 
   async sendWelcome() {
-    await this.send('welcome', 'Welcome to the natours family');
+    await this.send('welcome', 'Welcome to the Nazif family');
   }
 
   async sendPasswordReset() {

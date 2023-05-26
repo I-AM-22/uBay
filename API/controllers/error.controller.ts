@@ -9,7 +9,7 @@ const handleCastErrorDB = (err: any) => {
 
 const handleDuplicateErrorDB = (err: any) => {
   let field = Object.entries(err.keyValue);
-  const message = `${field[0][1]} already exist, please use another value!`;
+  const message = `!موجود مسبقا الرجاء استخدام قيمة اخرى ,${field[0][1]}`;
   return new AppError(STATUS_CODE.BAD_REQUEST, [
     { message, path: [field[0][0]] },
   ]);
@@ -34,7 +34,7 @@ const handleJWTExpiredError = () =>
   new AppError(
     STATUS_CODE.UNAUTHORIZE,
     [],
-    'Your token has expired!, please log in again'
+    'انتهت صلاحية الجلسة, الرجاء اعادة تسجيل الدخول'
   );
 
 const handelPassportError = () =>
@@ -70,7 +70,7 @@ const sendErrorProd = (err: any, req: Request, res: Response) => {
   //Operational, trusted errors:send message to the client
   if (err.isOperational) {
     return res.status(err.statusCode).json({
-      type:err.type,
+      type: err.type,
       errors: err.errors,
       message: err?.message,
     });

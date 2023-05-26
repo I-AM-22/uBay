@@ -27,11 +27,11 @@ const options: Options = {
       },
       securitySchemes: {
         Bearer: {
-          type: 'apiKey',
-          name: 'Authorization',
-          in: 'header',
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
           description:
-            'Enter the token with the `Bearer: ` prefix, e.g. "Bearer abcde12345".',
+            'Enter the token : abcde12345".',
         },
       },
       responses: {
