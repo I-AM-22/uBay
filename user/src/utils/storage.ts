@@ -1,3 +1,4 @@
+import { MyData } from "features/auth";
 import { refreshAxiosToken } from "lib/axios";
 
 export const storage = {
@@ -11,6 +12,16 @@ export const storage = {
   },
   getToken() {
     return localStorage.getItem("token");
+  },
+  setUser(user: MyData) {
+    localStorage.setItem("user", JSON.stringify(user));
+  },
+  getUser() {
+    try {
+      return JSON.parse(localStorage.get("user")) as MyData;
+    } catch {
+      console.error(localStorage.getItem("user") + " cannot be parsed");
+    }
   },
   setLanguage(language: string) {
     localStorage.setItem("language", language);

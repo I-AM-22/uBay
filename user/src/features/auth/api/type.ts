@@ -1,23 +1,26 @@
+export type AuthenticationResponse = {
+  status: string;
+  token: string;
+  data: {
+    user: MyData;
+  };
+};
+export type MyData = {
+  _id: string;
+  name: string;
+  email: string;
+  photo: string;
+  role: string;
+  createdAt: Date;
+  updatedAt: Date;
+  id: string;
+};
+
 export type UserLoginBody = {
   email: string;
   password: string;
 };
-export interface UserLogin {
-  status: string;
-  token: string;
-  data: {
-    user: {
-      _id: string;
-      name: string;
-      email: string;
-      photo: string;
-      role: string;
-      createdAt: Date;
-      updatedAt: Date;
-      id: string;
-    };
-  };
-}
+export type UserLogin = AuthenticationResponse;
 
 export type UserSignupBody = {
   name: string;
@@ -25,20 +28,17 @@ export type UserSignupBody = {
   password: string;
   passwordConfirm: string;
 };
+export type UserSignup = AuthenticationResponse;
 
-export interface UserSignup {
-  status: string;
+export type UserForgotPasswordBody = {
+  email: string;
+};
+
+export type UserResetPasswordBody = {
   token: string;
-  data: {
-    user: {
-      _id: string;
-      name: string;
-      email: string;
-      photo: string;
-      role: string;
-      createdAt: Date;
-      updatedAt: Date;
-      id: string;
-    };
-  };
-}
+  password: string;
+};
+export type UserResetPassword = AuthenticationResponse;
+
+export type UserUpdatePasswordBody = { passwordCurrent: string; password: string };
+export type UserUpdatePassword = AuthenticationResponse;

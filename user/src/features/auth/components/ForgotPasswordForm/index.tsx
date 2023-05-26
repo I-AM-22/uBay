@@ -1,8 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Divider, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import Submit from "components/buttons/Submit";
-import RouterLink from "components/links/RouterLink";
 import { useSnackbar } from "context/snackbarContext";
 import { authQueries } from "features/auth";
 import z from "lib/zod";
@@ -10,25 +9,22 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { parseResponseError } from "utils/apiHelpers";
-import { storage } from "utils/storage";
-import { UserLoginBody } from "../../api/type";
+import { UserForgotPasswordBody } from "../../api/type";
 import EmailInput from "../EmailInput";
-import PasswordInput from "../PasswordInput";
-import loginSchema, { loginDefault } from "./validation";
-export const LoginForm = () => {
-  const { control, handleSubmit, setError } = useForm<z.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: loginDefault,
+import forgotPasswordSchema, { forgotPasswordDefault } from "./validation";
+export const ForgotPasswordForm = () => {
+  const { control, handleSubmit, setError } = useForm<z.infer<typeof forgotPasswordSchema>>({
+    resolver: zodResolver(forgotPasswordSchema),
+    defaultValues: forgotPasswordDefault,
   });
   const navigate = useNavigate();
-  const login = authQueries.useLogin();
+  const forgotPassword = authQueries.useForgotPassword();
   const snackbar = useSnackbar();
-  const { t } = useTranslation("auth", { keyPrefix: "login" });
-  const onSubmit = async (data: UserLoginBody) => {
-    login.mutate(data, {
-      onSuccess: (data) => {
-        storage.setToken(data.token);
-        navigate("/");
+  const { t } = useTranslation("auth", { keyPrefix: "forgotPassword" });
+  const onSubmit = async (data: UserForgotPasswordBody) => {
+    forgotPassword.mutate(data, {
+      onSuccess: () => {
+        navigate("/reset-password");
       },
       onError: (err) => parseResponseError(err, { setFormError: setError, snackbar }),
     });
@@ -48,23 +44,16 @@ export const LoginForm = () => {
           gap={2}
           sx={{
             width: "80%",
+            mt: 5,
             mx: "auto",
           }}
         >
           <EmailInput control={control} name="email" />
-          <PasswordInput sx={{ mb: 5 }} control={control} name="password" />
           <Submit
-            sx={{ px: 5, py: 1.5, mt: "auto" }}
-            isSubmitting={login.isLoading}
+            sx={{ px: 5, py: 1.5 }}
+            isSubmitting={forgotPassword.isLoading}
           >{t`submit`}</Submit>
         </Stack>
-        <Typography textAlign={"center"}>
-          {t("notAMember")} <RouterLink to="/signup">{t("signup")}</RouterLink>
-        </Typography>
-        <Divider />
-        <Typography textAlign={"center"}>
-          {t("forgotPassword")} <RouterLink to="/forgot-password">{t("resetPassword")}</RouterLink>
-        </Typography>
       </Stack>
     </form>
   );

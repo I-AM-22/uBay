@@ -9,9 +9,7 @@ export const RegistrationPage: FC<{}> = ({}) => {
     <Box
       sx={{
         minHeight: "100vh",
-        boxSizing: "border-box",
         width: "100vw",
-        backgroundSize: { xs: 300, md: 1000 },
         position: "relative",
       }}
     >

@@ -5,13 +5,13 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 type Props = TextFieldProps<true>;
 const EmailInput: FC<Props> = ({ control, name, ...props }) => {
-  const { t } = useTranslation("auth");
+  const { t } = useTranslation("common");
   return (
     <TextField
       name={name}
       variant="outlined"
       control={control}
-      label={t("login.email")}
+      label={t("input.email")}
       fullWidth
       InputProps={{
         endAdornment: (
