@@ -5,6 +5,7 @@ import { Stack } from "@mui/system";
 import TextField from "components/Inputs/TextField";
 import Submit from "components/buttons/Submit";
 import RouterLink from "components/links/RouterLink";
+import { useProfile } from "context/profileContext";
 import { useSnackbar } from "context/snackbarContext";
 import { authQueries } from "features/auth";
 import z from "lib/zod";
@@ -25,11 +26,13 @@ export const SignupForm = () => {
   const navigate = useNavigate();
   const snackbar = useSnackbar();
   const signup = authQueries.useSignup();
+  const [, setProfile] = useProfile();
   const { t } = useTranslation("auth", { keyPrefix: "signup" });
-  const onSubmit = async (data: UserSignupBody) => {
-    signup.mutate(data, {
+  const onSubmit = async (body: UserSignupBody) => {
+    signup.mutate(body, {
       onSuccess: (data) => {
         storage.setToken(data.token);
+        setProfile(data.data.user);
         navigate("/");
       },
       onError: (err) => parseResponseError(err, { setFormError: setError, snackbar }),

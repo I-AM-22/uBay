@@ -1,4 +1,4 @@
-import { MyData } from "features/auth";
+import { Profile } from "features/auth";
 import { refreshAxiosToken } from "lib/axios";
 
 export const storage = {
@@ -13,12 +13,15 @@ export const storage = {
   getToken() {
     return localStorage.getItem("token");
   },
-  setUser(user: MyData) {
+  setUser(user: Profile | null) {
+    if (!user) localStorage.removeItem("user");
     localStorage.setItem("user", JSON.stringify(user));
   },
   getUser() {
     try {
-      return JSON.parse(localStorage.get("user")) as MyData;
+      const user = localStorage.getItem("user");
+      if (!user) return null;
+      return JSON.parse(user) as Profile;
     } catch {
       console.error(localStorage.getItem("user") + " cannot be parsed");
     }

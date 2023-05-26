@@ -21,7 +21,7 @@ export const navLinks = [
     Icon: NotificationsRoundedIcon,
   },
   {
-    href: "profile",
+    href: "settings",
     Icon: AccountCircleRoundedIcon,
   },
 ];

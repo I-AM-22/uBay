@@ -5,9 +5,9 @@ import NotAuthenticatedRoute from "components/routes/NotAuthenticatedRoute";
 import { AppBar, MobileNavigator } from "features/layout";
 import { ForgotPasswordPage } from "pages/forgot-password";
 import { LoginPage } from "pages/login";
-import { ProfilePage } from "pages/profile";
 import { RegistrationPage } from "pages/registration";
 import { ResetPasswordPage } from "pages/reset-password";
+import { SettingsPage } from "pages/settings";
 import { SignupPage } from "pages/signup";
 import {
   Outlet,
@@ -38,7 +38,7 @@ export default createBrowserRouter(
           }
         >
           <Route path="" element={<NotFound />} />
-          <Route path="profile/*" element={<ProfilePage />} />
+          <Route path="settings/*" element={<SettingsPage />} />
           <Route path="*" element={<SomethingWentWrong />} />
         </Route>
       </Route>

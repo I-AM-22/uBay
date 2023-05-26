@@ -1,12 +1,11 @@
 import { Tab, Tabs } from "@mui/material";
 import { settingsTabs } from "constants/settingsTabs";
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useLayoutEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 function getIndexFromLink(pathname: string) {
-  pathname = pathname.slice(1);
-  if (pathname === "") return 0;
-  return settingsTabs.findIndex((link) => pathname.includes(link.href));
+  const index = settingsTabs.findIndex((link) => pathname.includes(link.href));
+  return index !== -1 ? index : 0;
 }
 function getLinkFromIndex(index: number) {
   return settingsTabs[index].href;
@@ -27,11 +26,11 @@ export const SettingsTabs: FC<SettingsTabsProps> = ({}) => {
     [navigate]
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (currentIndex === null) setCurrentIndex(getIndexFromLink(window.location.pathname));
   }, [currentIndex]);
   return (
-    <Tabs onChange={handlePageChange} value={currentIndex} sx={{ mx: "auto" }}>
+    <Tabs onChange={handlePageChange} value={currentIndex ?? 0} sx={{ mx: "auto" }}>
       {settingsTabs.map((settingsTab, index) => (
         <Tab
           iconPosition="start"

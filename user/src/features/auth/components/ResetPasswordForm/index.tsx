@@ -4,6 +4,7 @@ import { InputAdornment, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import TextField from "components/Inputs/TextField";
 import Submit from "components/buttons/Submit";
+import { useProfile } from "context/profileContext";
 import { useSnackbar } from "context/snackbarContext";
 import { authQueries } from "features/auth";
 import z from "lib/zod";
@@ -24,12 +25,12 @@ export const ResetPasswordForm = () => {
   const resetPassword = authQueries.useResetPassword();
   const snackbar = useSnackbar();
   const { t } = useTranslation("auth", { keyPrefix: "resetPassword" });
-  const onSubmit = async (data: UserResetPasswordBody) => {
-    resetPassword.mutate(data, {
-      onSuccess: (response) => {
-        navigate("/reset-password");
-        storage.setToken(response.token);
-        storage.setUser(response.data.user);
+  const [, setProfile] = useProfile();
+  const onSubmit = async (body: UserResetPasswordBody) => {
+    resetPassword.mutate(body, {
+      onSuccess: (data) => {
+        storage.setToken(data.token);
+        setProfile(data.data.user);
         navigate("/");
       },
       onError: (err) => parseResponseError(err, { setFormError: setError, snackbar }),

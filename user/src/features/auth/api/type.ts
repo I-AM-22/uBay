@@ -2,10 +2,10 @@ export type AuthenticationResponse = {
   status: string;
   token: string;
   data: {
-    user: MyData;
+    user: Profile;
   };
 };
-export type MyData = {
+export type Profile = {
   _id: string;
   name: string;
   email: string;

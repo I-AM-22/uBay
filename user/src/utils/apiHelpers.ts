@@ -27,6 +27,11 @@ export function parseResponseError(err: unknown, feedbacks?: Feedbacks) {
         feedbacks?.setFormError?.(`${error.path.join(".")}`, { message: error.message })
       );
       break;
+    default:
+      feedbacks?.snackbar?.({
+        message: i18n.t("error.somethingWentWrong"),
+        severity: "error",
+      });
   }
   return err;
 }

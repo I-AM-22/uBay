@@ -1,4 +1,3 @@
-import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import { Box, IconButton, Stack } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,6 +6,7 @@ import { useIsDesktop } from "hooks/useIsDesktop";
 import { FC, forwardRef, useEffect, useRef, useState } from "react";
 
 import RouterLink from "components/links/RouterLink";
+import { ProfilePhoto } from "features/account";
 import { AppBarNavigator } from "./AppBarNavigator";
 export type AppBarProps = MuiAppBarProps;
 export const AppBar: FC<AppBarProps> = forwardRef(function Fr(
@@ -57,7 +57,7 @@ export const AppBar: FC<AppBarProps> = forwardRef(function Fr(
             <Stack alignItems={"end"} justifyContent={"center"}>
               <RouterLink to="/profile">
                 <IconButton sx={{ svg: { height: 30, width: 30 } }}>
-                  <AccountCircleRoundedIcon />
+                  <ProfilePhoto />
                 </IconButton>
               </RouterLink>
             </Stack>

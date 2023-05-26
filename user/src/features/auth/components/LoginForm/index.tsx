@@ -3,6 +3,7 @@ import { Divider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import Submit from "components/buttons/Submit";
 import RouterLink from "components/links/RouterLink";
+import { useProfile } from "context/profileContext";
 import { useSnackbar } from "context/snackbarContext";
 import { authQueries } from "features/auth";
 import z from "lib/zod";
@@ -23,11 +24,13 @@ export const LoginForm = () => {
   const navigate = useNavigate();
   const login = authQueries.useLogin();
   const snackbar = useSnackbar();
+  const [, setProfile] = useProfile();
   const { t } = useTranslation("auth", { keyPrefix: "login" });
-  const onSubmit = async (data: UserLoginBody) => {
-    login.mutate(data, {
+  const onSubmit = async (body: UserLoginBody) => {
+    login.mutate(body, {
       onSuccess: (data) => {
         storage.setToken(data.token);
+        setProfile(data.data.user);
         navigate("/");
       },
       onError: (err) => parseResponseError(err, { setFormError: setError, snackbar }),

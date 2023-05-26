@@ -1,5 +1,4 @@
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import SecurityRoundedIcon from "@mui/icons-material/SecurityRounded";
 import TuneIcon from "@mui/icons-material/Tune";
 export const settingsTabs = [
   {
@@ -7,11 +6,22 @@ export const settingsTabs = [
     Icon: PermIdentityIcon,
   },
   {
-    href: "dummy",
-    Icon: SecurityRoundedIcon,
-  },
-  {
     href: "preferences",
     Icon: TuneIcon,
   },
 ] as const;
+
+export const accountLists = [
+  {
+    title: "account",
+    items: [
+      { href: "profile" },
+      { href: "profile-update" },
+      { href: "profile-delete", color: "error.main" },
+    ],
+  },
+  {
+    title: "security",
+    items: [{ href: "password-change" }, { href: "password-forgot" }],
+  },
+];
