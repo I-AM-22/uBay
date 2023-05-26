@@ -5,6 +5,17 @@
       "account": "الحساب والأمن",
       "preferences": "تفضيلات المنشورات",
       "dummy": "الخصوصية"
+    },
+    "account": {
+      "title": "الحساب",
+      "profile": "الملف الشخصي",
+      "profile-update": "تحديث الملف الشخصي",
+      "profile-delete": "حذف الحساب"
+    },
+    "security": {
+      "title": "الخصوصية والأمان",
+      "password-change": "تغيير كلمة المرور",
+      "password-forgot": "طلب إعادة تعيين كلمة المرور"
     }
   }
 }

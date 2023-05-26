@@ -3,6 +3,9 @@ let API_ROUTES = {
     root: "users",
     SIGNUP: "signup",
     LOGIN: "login",
+    FORGOT_PASSWORD: "forgotPassword",
+    RESET_PASSWORD: "resetPassword",
+    UPDATE_MY_PASSWORD: "updateMyPassword",
   },
 } as const;
 

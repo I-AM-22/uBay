@@ -1,6 +1,20 @@
 import { createTheme } from "@mui/material";
 import themeConstants from "../constants/themeConstants";
-
+declare module "@mui/material/styles" {
+  interface PaletteColor {
+    ["50"]: string;
+    ["100"]: string;
+    ["200"]: string;
+    ["300"]: string;
+    ["400"]: string;
+    ["500"]: string;
+    ["600"]: string;
+    ["700"]: string;
+    ["800"]: string;
+    ["900"]: string;
+    ["900"]: string;
+  }
+}
 const theme = (language: string) => {
   const theme = createTheme({
     typography: {
@@ -43,14 +57,15 @@ const theme = (language: string) => {
       MuiCssBaseline: {
         styleOverrides: {
           "::-webkit-scrollbar": {
-            width: 8,
-            height: 8,
+            width: 4,
+            height: 4,
           },
           "::-webkit-scrollbar-track": {
             background: themeConstants.primary05,
           },
           "::-webkit-scrollbar-thumb": {
-            background: themeConstants.primary,
+            background: themeConstants.primary4,
+            borderRadius: 1,
           },
           "::-webkit-scrollbar-thumb:hover": {
             background: themeConstants.primary9,
@@ -68,9 +83,7 @@ const theme = (language: string) => {
         styleOverrides: {
           root: {
             borderRadius: themeConstants.borderRadius,
-            "& fieldset": {
-              borderColor: themeConstants.primary,
-            },
+            "& fieldset": {},
             "&:hover fieldset": {
               borderColor: themeConstants.primary,
             },
@@ -96,10 +109,10 @@ const theme = (language: string) => {
                 color: themeConstants.primary,
               },
             },
-            "& .MuiOutlinedInput-root": {},
           },
         },
       },
+
       MuiTableHead: {
         styleOverrides: {
           root: {

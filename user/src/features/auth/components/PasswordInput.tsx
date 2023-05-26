@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 type Props = TextFieldProps<true | false>;
 const PasswordInput: FC<Props> = ({ ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { t } = useTranslation("auth", { keyPrefix: "login" });
+  const { t } = useTranslation("common", { keyPrefix: "input" });
   return (
     <TextField
       label={t("password")}

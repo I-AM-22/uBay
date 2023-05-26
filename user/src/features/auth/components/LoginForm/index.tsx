@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Typography, colors } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import Submit from "components/buttons/Submit";
 import RouterLink from "components/links/RouterLink";
+import { useProfile } from "context/profileContext";
 import { useSnackbar } from "context/snackbarContext";
 import { authQueries } from "features/auth";
 import z from "lib/zod";
@@ -23,11 +24,13 @@ export const LoginForm = () => {
   const navigate = useNavigate();
   const login = authQueries.useLogin();
   const snackbar = useSnackbar();
+  const [, setProfile] = useProfile();
   const { t } = useTranslation("auth", { keyPrefix: "login" });
-  const onSubmit = async (data: UserLoginBody) => {
-    login.mutate(data, {
+  const onSubmit = async (body: UserLoginBody) => {
+    login.mutate(body, {
       onSuccess: (data) => {
         storage.setToken(data.token);
+        setProfile(data.data.user);
         navigate("/");
       },
       onError: (err) => parseResponseError(err, { setFormError: setError, snackbar }),
@@ -35,7 +38,7 @@ export const LoginForm = () => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack gap={8} height={"100%"}>
+      <Stack gap={3} height={"100%"}>
         <Stack gap={1}>
           <Typography color="primary.800" variant="h4" textAlign={"center"}>
             {t("title")}
@@ -49,17 +52,6 @@ export const LoginForm = () => {
           sx={{
             width: "80%",
             mx: "auto",
-            ".MuiOutlinedInput-notchedOutline": {
-              background: "white",
-              borderColor: { xs: colors.grey["300"] },
-            },
-            ".MuiInputBase-input, .MuiInputAdornment-root": {
-              zIndex: 1,
-            },
-            ".MuiFormLabel-root": {
-              zIndex: 2,
-              color: colors.grey["800"],
-            },
           }}
         >
           <EmailInput control={control} name="email" />
@@ -71,6 +63,10 @@ export const LoginForm = () => {
         </Stack>
         <Typography textAlign={"center"}>
           {t("notAMember")} <RouterLink to="/signup">{t("signup")}</RouterLink>
+        </Typography>
+        <Divider />
+        <Typography textAlign={"center"}>
+          {t("forgotPassword")} <RouterLink to="/forgot-password">{t("resetPassword")}</RouterLink>
         </Typography>
       </Stack>
     </form>
