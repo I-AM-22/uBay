@@ -40,7 +40,11 @@ export const login = catchAsync(
     const user = await User.findOne({ email }).select('+password ');
     if (!user || !(await user.correctPassword(password))) {
       return next(
-        new AppError(STATUS_CODE.UNAUTHORIZE, [], 'Incorrect password or email')
+        new AppError(
+          STATUS_CODE.UNAUTHORIZE,
+          [],
+          'كلمة المرور او البريد الالكتروني غير صحيح'
+        )
       );
     }
 
@@ -58,7 +62,7 @@ export const restrictTo =
         new AppError(
           STATUS_CODE.FORBIDDEN,
           [],
-          'You do not have permission to perform this action '
+          'You do not have permission to perform this action'
         )
       );
     }
@@ -74,7 +78,10 @@ export const forgotPassword = catchAsync(
     if (!user) {
       return next(
         new AppError(STATUS_CODE.NOT_FOUND, [
-          { message: 'There is no user with that email', path: ['email'] },
+          {
+            message: 'ليس هنالك مستخدم تابع لهذا البريد الالكتروني',
+            path: ['email'],
+          },
         ])
       );
     }
@@ -92,7 +99,7 @@ export const forgotPassword = catchAsync(
       await new Email(user, resetToken).sendPasswordReset();
       res.status(STATUS_CODE.SUCCESS).json({
         status: 'success',
-        message: 'Token sent to email',
+        message: 'تم ارسال رمز اعادة التعيين لبريدك الالكتروني',
       });
     } catch (err) {
       //If ann error happen get rid of reset info from database cause the message was not sent
@@ -123,7 +130,11 @@ export const isTokenValid = catchAsync(
     });
     if (!user)
       return next(
-        new AppError(STATUS_CODE.NOT_FOUND, [], 'Token is invalid or expired')
+        new AppError(
+          STATUS_CODE.NOT_FOUND,
+          [],
+          'الرمز غير صحيح او منتهي الصلاحية'
+        )
       );
 
     res.status(STATUS_CODE.SUCCESS).json({ status: 'success' });
@@ -144,7 +155,11 @@ export const resetPassword = catchAsync(
     });
     if (!user) {
       return next(
-        new AppError(STATUS_CODE.NOT_FOUND, [], 'Token is invalid or expired')
+        new AppError(
+          STATUS_CODE.NOT_FOUND,
+          [],
+          'الرمز غير صحيح او منتهي الصلاحية'
+        )
       );
     }
     //3) Save the new data
@@ -169,11 +184,12 @@ export const updateMyPassword = catchAsync(
     // 2)check if the passwordConfirm is correct
     if (!(await user.correctPassword(passwordCurrent))) {
       return next(
-        new AppError(
-          STATUS_CODE.UNAUTHORIZE,
-          [],
-          'Your current password is wrong'
-        )
+        new AppError(STATUS_CODE.UNAUTHORIZE, [
+          {
+            path: ['passwordCurrent'],
+            message: 'كلمة المرور الحالية غير صحيحة',
+          },
+        ])
       );
     }
     //3) Change the password to the new one
