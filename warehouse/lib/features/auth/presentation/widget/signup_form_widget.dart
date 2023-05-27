@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/features/auth/presentation/pages/signup_page.dart';
@@ -41,7 +42,7 @@ class SignupFormWidget extends StatelessWidget {
               },
               errorLoginState: (String message) {
                 SnackBarMessage().snackBarMessageError(context, message);
-                return const SignupPage();
+                return _buildSignupWidget(context);
               },
               changeIconVisibilityState: (bool isVisible) {
                 isVisibility = isVisible;
@@ -61,14 +62,16 @@ class SignupFormWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    'انشاء حساب',
+                    'مرحباً',
                     style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: primaryColor),
+                        color: primaryColor, fontFamily: 'Mont', fontSize: 25),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
+                  ),
+                  SvgPicture.asset('assets/images/register.svg'),
+                  const SizedBox(
+                    height: 40,
                   ),
                   ReactiveTextFieldWidget(
                     controller: 'name',
@@ -85,7 +88,6 @@ class SignupFormWidget extends StatelessWidget {
                     hintText: 'البريد الالكتروني',
                     validationMessageRequired:
                         'يجب ألا يكون البريد الالكتروني فارغا',
-                    typeValidate: 'email',
                     validationMessage:
                         'يجب أن تكون كلمة البريد الالكتروني بريدًا إلكترونيًا صالحًا',
                     suffixIcon: Icons.email_outlined,
@@ -101,7 +103,6 @@ class SignupFormWidget extends StatelessWidget {
                     textInputType: TextInputType.visiblePassword,
                     obscureText: isVisibility,
                     validationMessageRequired: 'يجب ألا تكون كلمة المرور فارغة',
-                    typeValidate: 'minLength',
                     validationMessage:
                         'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل',
                     onPressed: () {
@@ -121,7 +122,6 @@ class SignupFormWidget extends StatelessWidget {
                     textInputType: TextInputType.visiblePassword,
                     obscureText: isVisibility,
                     validationMessageRequired: 'يجب ألا تكون كلمة المرور فارغة',
-                    typeValidate: 'mustMatch',
                     validationMessage: 'يجب أن تتكون كلمة المرور متطابقة',
                     onPressed: () {
                       BlocProvider.of<AuthBloc>(context).add(
@@ -136,12 +136,13 @@ class SignupFormWidget extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(12),
                       color: primaryColor,
                     ),
                     child: ReactiveFormConsumer(
                       builder: (context, form, child) => MaterialButton(
                         onPressed: () {
+                          form.markAllAsTouched();
                           if (form.valid) {
                             BlocProvider.of<AuthBloc>(context).add(
                                 AuthEvent.signupEvent(
@@ -152,6 +153,9 @@ class SignupFormWidget extends StatelessWidget {
                                         .value['passwordConfirmation']
                                         .toString()));
                           }
+                          print(
+                              '${form.value} ${form.hasErrors} ${form.valid}');
+                          print(form.errors);
                         },
                         child: const Text(
                           'تسجيل الدخول',

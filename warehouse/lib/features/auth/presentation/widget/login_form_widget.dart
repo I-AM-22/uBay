@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:injectable/injectable.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
@@ -14,9 +15,10 @@ class LoginFormWidget extends StatelessWidget {
   LoginFormWidget({Key? key}) : super(key: key);
 
   final form = FormGroup({
-    'email': FormControl(validators: [Validators.required, Validators.email]),
-    'password':
-        FormControl(validators: [Validators.required, Validators.minLength(8)])
+    'email': FormControl<String>(
+        validators: [Validators.required, Validators.email]),
+    'password': FormControl<String>(
+        validators: [Validators.required, Validators.minLength(8)]),
   });
   bool isVisibility = true;
 
@@ -24,23 +26,22 @@ class LoginFormWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) => state.when(
-              authInitial: () => _buildLoginFormWidget(context),
-              loading: () => const LoadingWidget(),
-              successLoginState: (message) =>
-                  MessageDisplayWidget(message: message),
-              errorLoginState: (message) =>
-                  MessageDisplayWidget(message: message),
-              changeIconVisibilityState: (isVisible) {
-                isVisibility = isVisible;
-                return _buildLoginFormWidget(context);
-              },
-            ));
+            authInitial: () => _buildLoginFormWidget(context),
+            loading: () => const LoadingWidget(),
+            successLoginState: (message) =>
+                MessageDisplayWidget(message: message),
+            errorLoginState: (message) =>
+                MessageDisplayWidget(message: message),
+            changeIconVisibilityState: (isVisible) {
+              isVisibility = isVisible;
+              return _buildLoginFormWidget(context);
+            }));
   }
 
   Widget _buildLoginFormWidget(context) => Center(
-        child: SingleChildScrollView(
-          child: ReactiveForm(
-            formGroup: form,
+        child: ReactiveForm(
+          formGroup: form,
+          child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -51,10 +52,15 @@ class LoginFormWidget extends StatelessWidget {
                     'تسجيل الدخول',
                     textAlign: TextAlign.end,
                     style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 25,
+                        fontFamily: 'Mont',
                         fontWeight: FontWeight.bold,
                         color: primaryColor),
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SvgPicture.asset('assets/images/register.svg'),
                   const SizedBox(
                     height: 50,
                   ),
@@ -63,10 +69,9 @@ class LoginFormWidget extends StatelessWidget {
                       hintText: 'البريد الالكتروني',
                       suffixIcon: Icons.email_outlined,
                       validationMessageRequired:
-                          'يجب ألا تتكون البريد الالكتروني فارغة',
-                      typeValidate: 'email',
+                          'يجب ألا يكون حقل البريد الالكتروني فارغاً',
                       validationMessage:
-                          'يجب أن تتكون كلمة البريد الالكتروني بريدًا إلكترونيًا صالحًا',
+                          'يجب أن يكون البريد الالكتروني بريدًا إلكترونيًا صالحًا',
                       textInputType: TextInputType.emailAddress),
                   const SizedBox(
                     height: 10,
@@ -77,11 +82,9 @@ class LoginFormWidget extends StatelessWidget {
                     suffixIcon: Icons.lock,
                     textInputType: TextInputType.visiblePassword,
                     obscureText: isVisibility,
-                    validationMessageRequired:
-                        'يجب ألا تتكون كلمة المرور فارغة',
-                    typeValidate: 'minLength',
+                    validationMessageRequired: 'يجب ألا تكون كلمة المرور فارغة',
                     validationMessage:
-                        'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل',
+                        'يجب أن تكون كلمة المرور من 8 أحرف على الأقل',
                     onPressed: () {
                       BlocProvider.of<AuthBloc>(context).add(
                           AuthEvent.changeIconVisibilityEvent(isVisibility));
@@ -96,21 +99,25 @@ class LoginFormWidget extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                         color: primaryColor,
-                        borderRadius: BorderRadius.circular(5)),
+                        borderRadius: BorderRadius.circular(12)),
                     child: ReactiveFormConsumer(
                       builder: (context, form, child) => MaterialButton(
                         onPressed: () {
-                          if (form.valid) {
-                            BlocProvider.of<AuthBloc>(context).add(
-                                AuthEvent.loginEvent(
-                                    email: form.value['email'].toString(),
-                                    password:
-                                        form.value['password'].toString()));
-                          }
+                          print(form.value);
+                          // if (form.valid) {
+                          //   BlocProvider.of<AuthBloc>(context).add(
+                          //       AuthEvent.loginEvent(
+                          //           email: form.value['email'].toString(),
+                          //           password:
+                          //               form.value['password'].toString()));
+                          // }
                         },
                         child: const Text(
                           'تسجيل الدخول',
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontFamily: 'Mont'),
                         ),
                       ),
                     ),
@@ -119,12 +126,12 @@ class LoginFormWidget extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                      Text(
                         'ليس لديك حساب؟',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      const SizedBox(
-                        width: 10,
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'Mont',
+                            color: primaryColor5),
                       ),
                       TextButton(
                           onPressed: () {
@@ -132,7 +139,11 @@ class LoginFormWidget extends StatelessWidget {
                           },
                           child: Text(
                             'انشاء حساب',
-                            style: TextStyle(fontSize: 18, color: primaryColor),
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                fontSize: 13,
+                                color: primaryColor5,
+                                fontFamily: 'Mont'),
                           ))
                     ],
                   )

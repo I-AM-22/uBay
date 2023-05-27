@@ -41,7 +41,6 @@ extension GetItInjectableX on _i1.GetIt {
       environment,
       environmentFilter,
     );
-
     gh.factory(() => _i9.AuthBloc(
         signupUseCase: gh<_i8.SignupUseCase>(),
         loginUseCase: gh<_i7.LoginUseCase>()));

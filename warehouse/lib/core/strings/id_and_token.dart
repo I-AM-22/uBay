@@ -1,3 +1,2 @@
-String? userId;
-String? userImage;
-String? userName;
+String? token;
+String? uId;

@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:warehouse/core/dio_helper.dart';
 import 'package:warehouse/core/errors/exceptions.dart';
@@ -24,8 +23,8 @@ class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
     }).catchError((error) {
       DioError errorBody = error;
       if (errorBody.response != null) {
-        print(errorBody.response!.data['message']);
-        SERVER_FAILURE = errorBody.response!.data['message'];
+        SERVER_FAILURE = _mapResponseError(errorBody.response!);
+        print(SERVER_FAILURE);
       }
       throw ServerException();
     });
@@ -46,12 +45,23 @@ class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
       return Future.value(userLogin);
     }).catchError((error) {
       DioError dioError = error;
-      if (dioError.response != null) {
-        SERVER_FAILURE = dioError.response!.data['errors'][0]['message'];
+      if (error.response != null) {
+        SERVER_FAILURE = _mapResponseError(dioError.response!);
+        print(SERVER_FAILURE);
       }
-
       throw ServerException();
     });
     return Future.value(userLogin);
+  }
+}
+
+String _mapResponseError(Response response) {
+  switch (response.data['type']) {
+    case 'default':
+      return response.data['message'];
+    case 'form':
+      return response.data['errors'][0]['message'];
+    default:
+      return SERVER_FAILURE;
   }
 }

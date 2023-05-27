@@ -26,9 +26,10 @@ class SignupPage extends StatelessWidget {
           color: Colors.white,
         ),
       ),
+      centerTitle: true,
       title: const Text(
-        'Warehouse',
-        style: TextStyle(color: Colors.white),
+        'نظيف',
+        style: TextStyle(color: Colors.white, fontFamily: 'Mont'),
       ),
     );
   }
