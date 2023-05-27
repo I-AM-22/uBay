@@ -1,8 +1,8 @@
-import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
 import QuestionAnswerRoundedIcon from "@mui/icons-material/QuestionAnswerRounded";
+import { ProfilePhoto } from "features/account";
 export const navLinks = [
   {
     href: "",
@@ -22,6 +22,6 @@ export const navLinks = [
   },
   {
     href: "settings",
-    Icon: AccountCircleRoundedIcon,
+    Icon: ProfilePhoto,
   },
 ];

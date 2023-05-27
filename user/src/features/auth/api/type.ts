@@ -1,19 +1,11 @@
+import { User } from "features/account";
+
 export type AuthenticationResponse = {
   status: string;
   token: string;
   data: {
-    user: Profile;
+    user: User;
   };
-};
-export type Profile = {
-  _id: string;
-  name: string;
-  email: string;
-  photo: string;
-  role: string;
-  createdAt: Date;
-  updatedAt: Date;
-  id: string;
 };
 
 export type UserLoginBody = {
