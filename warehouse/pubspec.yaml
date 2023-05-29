@@ -28,6 +28,7 @@ dependencies:
   internet_connection_checker: any
   json_annotation: ^4.8.1
   reactive_forms: ^15.0.0
+  form_builder_validators: ^9.0.0
   shared_preferences: ^2.0.15
 
 dev_dependencies:

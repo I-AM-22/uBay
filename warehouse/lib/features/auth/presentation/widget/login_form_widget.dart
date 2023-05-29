@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:injectable/injectable.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/core/widget/message_display_widget.dart';
-import 'package:warehouse/features/auth/presentation/widget/reactiv_text_filed_widget.dart';
+import 'package:warehouse/features/auth/presentation/widget/text_form_widget.dart';
 
 import '../../../../core/theme.dart';
 import '../bloc/auth/auth_bloc.dart';
@@ -14,38 +14,37 @@ import '../bloc/auth/auth_bloc.dart';
 class LoginFormWidget extends StatelessWidget {
   LoginFormWidget({Key? key}) : super(key: key);
 
-  final form = FormGroup({
-    'email': FormControl<String>(
-        validators: [Validators.required, Validators.email]),
-    'password': FormControl<String>(
-        validators: [Validators.required, Validators.minLength(8)]),
-  });
   bool isVisibility = true;
+  final form = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) => state.when(
-            authInitial: () => _buildLoginFormWidget(context),
-            loading: () => const LoadingWidget(),
-            successLoginState: (message) =>
-                MessageDisplayWidget(message: message),
-            errorLoginState: (message) =>
-                MessageDisplayWidget(message: message),
-            changeIconVisibilityState: (isVisible) {
+    return BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {},
+        builder: (context, state) => state.when(authInitial: () {
+              return _buildLoginFormWidget(context);
+            }, loading: () {
+              return const LoadingWidget();
+            }, successLoginState: (message) {
+              return MessageDisplayWidget(message: message);
+            }, errorLoginState: (message) {
+              return MessageDisplayWidget(message: message);
+            }, changeIconVisibilityState: (isVisible) {
               isVisibility = isVisible;
               return _buildLoginFormWidget(context);
             }));
   }
 
   Widget _buildLoginFormWidget(context) => Center(
-        child: ReactiveForm(
-          formGroup: form,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
+        child: Form(
+          key: form,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
@@ -64,33 +63,40 @@ class LoginFormWidget extends StatelessWidget {
                   const SizedBox(
                     height: 50,
                   ),
-                  ReactiveTextFieldWidget(
-                      controller: 'email',
-                      hintText: 'البريد الالكتروني',
-                      suffixIcon: Icons.email_outlined,
-                      validationMessageRequired:
-                          'يجب ألا يكون حقل البريد الالكتروني فارغاً',
-                      validationMessage:
-                          'يجب أن يكون البريد الالكتروني بريدًا إلكترونيًا صالحًا',
-                      textInputType: TextInputType.emailAddress),
+                  TextFormWidget(
+                    obscureText: false,
+                    controller: emailController,
+                    validate: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(
+                          errorText:
+                              'حقل البريد الالكتروني يجب الا يكون فارغا'),
+                      FormBuilderValidators.minLength(8,
+                          errorText:
+                              'البريد الالكتروني يجب ان يكون بريدا الكترونيا صالحا')
+                    ]),
+                    hintText: 'البريد الالكتروني',
+                    suffixIcon: Icons.email_outlined,
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
-                  ReactiveTextFieldWidget(
-                    controller: 'password',
+                  TextFormWidget(
+                    controller: passwordController,
+                    obscureText: isVisibility,
+                    validate: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(
+                          errorText: 'حقل كلمة المرور يجب الا يكون فارغا'),
+                      FormBuilderValidators.minLength(8,
+                          errorText: 'كلمة المرور يجب ان تكون على الاقل 8 رموز')
+                    ]),
                     hintText: 'كلمة المرور',
                     suffixIcon: Icons.lock,
-                    textInputType: TextInputType.visiblePassword,
-                    obscureText: isVisibility,
-                    validationMessageRequired: 'يجب ألا تكون كلمة المرور فارغة',
-                    validationMessage:
-                        'يجب أن تكون كلمة المرور من 8 أحرف على الأقل',
+                    prefixIcon:
+                        isVisibility ? Icons.visibility : Icons.visibility_off,
                     onPressed: () {
                       BlocProvider.of<AuthBloc>(context).add(
                           AuthEvent.changeIconVisibilityEvent(isVisibility));
                     },
-                    prefixIcon:
-                        isVisibility ? Icons.visibility : Icons.visibility_off,
                   ),
                   const SizedBox(
                     height: 20,
@@ -100,25 +106,23 @@ class LoginFormWidget extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: primaryColor,
                         borderRadius: BorderRadius.circular(12)),
-                    child: ReactiveFormConsumer(
-                      builder: (context, form, child) => MaterialButton(
-                        onPressed: () {
-                          print(form.value);
-                          // if (form.valid) {
-                          //   BlocProvider.of<AuthBloc>(context).add(
-                          //       AuthEvent.loginEvent(
-                          //           email: form.value['email'].toString(),
-                          //           password:
-                          //               form.value['password'].toString()));
-                          // }
-                        },
-                        child: const Text(
-                          'تسجيل الدخول',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontFamily: 'Mont'),
-                        ),
+                    child: MaterialButton(
+                      onPressed: () {
+                        print(form.currentState!.validate());
+                        // if (form.valid) {
+                        //   BlocProvider.of<AuthBloc>(context).add(
+                        //       AuthEvent.loginEvent(
+                        //           email: form.value['email'].toString(),
+                        //           password:
+                        //               form.value['password'].toString()));
+                        // }
+                      },
+                      child: const Text(
+                        'تسجيل الدخول',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontFamily: 'Mont'),
                       ),
                     ),
                   ),
@@ -145,6 +149,28 @@ class LoginFormWidget extends StatelessWidget {
                                 color: primaryColor5,
                                 fontFamily: 'Mont'),
                           ))
+                    ],
+                  ),
+                  Divider(),
+                  Row(
+                    textDirection: TextDirection.rtl,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'نسيت كلمة المرور؟',
+                        style: TextStyle(fontFamily: 'Mont'),
+                      ),
+                      TextButton(
+                        child: const Text(
+                          'إعادة تعيين كلمة المرور',
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              fontFamily: 'Mont'),
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/ForgetPasswordPage');
+                        },
+                      ),
                     ],
                   )
                 ],

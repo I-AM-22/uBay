@@ -286,6 +286,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -312,6 +317,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  form_builder_validators:
+    dependency: "direct main"
+    description:
+      name: form_builder_validators
+      sha256: e04998b1597d76a51da7f009ed3b2f12d4173f13e146e8744fd2453e8595a2c9
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.0.0"
   freezed:
     dependency: "direct dev"
     description:
@@ -460,10 +473,10 @@ packages:
     dependency: transitive
     description:
       name: intl
-      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
+      sha256: a3715e3bc90294e971cb7dc063fbf3cd9ee0ebf8604ffeafabd9e6f16abbdbe6
       url: "https://pub.dev"
     source: hosted
-    version: "0.18.1"
+    version: "0.18.0"
   io:
     dependency: transitive
     description:
@@ -700,10 +713,10 @@ packages:
     dependency: "direct main"
     description:
       name: reactive_forms
-      sha256: "5aa9c48a0626c20d00a005e597cb10efbdebbfeecb9c4227b03a5945fbb91ec4"
+      sha256: "7f3c7b53d5a875f002658bf675313d0d11795ee58cf8591f26c906b7a86c2b0a"
       url: "https://pub.dev"
     source: hosted
-    version: "14.3.0"
+    version: "15.0.0"
   recase:
     dependency: transitive
     description:
@@ -959,4 +972,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.0.0 <4.0.0"
-  flutter: ">=3.7.0-0"
+  flutter: ">=3.10.0"

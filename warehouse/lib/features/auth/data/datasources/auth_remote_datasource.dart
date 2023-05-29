@@ -3,7 +3,7 @@ import 'package:warehouse/core/dio_helper.dart';
 import 'package:warehouse/core/errors/exceptions.dart';
 import 'package:warehouse/core/strings/end_points.dart';
 import 'package:warehouse/core/strings/failure.dart';
-import 'package:warehouse/features/auth/data/model/user_login_model.dart';
+import 'package:warehouse/features/auth/data/model/user_login/user_login_model.dart';
 
 abstract class AuthRemoteDataSource {
   Future<UserLogin> login(String email, String password);
