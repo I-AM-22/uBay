@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warehouse/core/dio_helper.dart';
 import 'package:warehouse/core/theme.dart';
+import 'package:warehouse/features/auth/presentation/pages/forget_password_page.dart';
 import 'package:warehouse/features/auth/presentation/pages/login_page.dart';
 import 'package:warehouse/temp.dart';
 import 'features/auth/presentation/pages/signup_page.dart';
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       routes: {
         '/loginScreen': (context) => const LoginPage(),
-        '/SignupScreen': (context) => const SignupPage()
+        '/SignupScreen': (context) => const SignupPage(),
+        '/ForgetPasswordPage': (context) => PasswordResetPage()
       },
       initialRoute: '/loginScreen',
     );

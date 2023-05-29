@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:warehouse/features/auth/data/model/user_login_model.dart';
+import 'package:warehouse/features/auth/data/model/user_login/user_login_model.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network_info.dart';
