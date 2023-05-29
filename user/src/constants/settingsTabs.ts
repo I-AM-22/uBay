@@ -15,13 +15,16 @@ export const accountLists = [
   {
     title: "account",
     items: [
-      { href: "profile" },
-      { href: "profile-update" },
-      { href: "profile-delete", color: "error.main" },
+      { href: "/settings/profile", name: "profile" },
+      { href: "/settings/profile-update", name: "profile-update" },
+      { href: "/settings/profile-delete", name: "profile-delete", color: "error.main" },
     ],
   },
   {
     title: "security",
-    items: [{ href: "password-change" }, { href: "password-forgot" }],
+    items: [
+      { href: "/settings/password-change", name: "password-change" },
+      { href: "/settings/password-forgot", name: "password-forgot" },
+    ],
   },
 ];

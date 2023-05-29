@@ -1,4 +1,9 @@
 {
+  "profile": {
+    "name": "الاسم",
+    "email": "الإيميل",
+    "createdAt": "مستخدم منذ"
+  },
   "settings": {
     "title": "الأعدادات",
     "tabs": {
@@ -15,7 +20,7 @@
     "security": {
       "title": "الخصوصية والأمان",
       "password-change": "تغيير كلمة المرور",
-      "password-forgot": "طلب إعادة تعيين كلمة المرور"
+      "password-forgot": "نسيت كلمة المرور الخاصة بي"
     }
   }
 }

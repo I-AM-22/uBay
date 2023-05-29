@@ -4,7 +4,7 @@ export type User = {
   email: string;
   photo: string;
   role: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   id: string;
 };
