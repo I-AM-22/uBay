@@ -11,6 +11,6 @@ export const keys = createQueryKeys("account", {
 export const queries = {
   useProfile: () => useQuery({ ...keys.profile, staleTime: Infinity, refetchOnWindowFocus: false }),
 
-  useUpdate: () => useMutation(API.update),
+  useEdit: () => useMutation(API.edit),
   useDelete: () => useMutation(API.delete),
 };

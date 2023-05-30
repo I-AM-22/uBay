@@ -45,7 +45,7 @@ export const AppBar: FC<AppBarProps> = forwardRef(function Fr(
             justifyContent: "space-between",
           }}
         >
-          <Box flex={isDesktop ? 1 : 10} py={0.5}>
+          <Box flex={isDesktop ? 1.3 : 10} py={0.5}>
             <SearchInput fullWidth={false} />
           </Box>
           {children}

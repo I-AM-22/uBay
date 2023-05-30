@@ -1,5 +1,17 @@
-import { Box, Grid, Paper, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import {
+  Box,
+  Divider,
+  Grid,
+  IconButton,
+  Paper,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import Skeleton from "components/feedback/Skeleton";
+import RouterLink from "components/links/RouterLink";
 import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { accountQueries } from "..";
@@ -33,7 +45,16 @@ export const ProfileBasicInformation: FC<ProfileBasicInformationProps> = ({}) =>
             `linear-gradient(0deg, ${th.palette.primary["700"]}, ${th.palette.primary["500"]})`,
         }}
       />
-      <Stack sx={{ width: 1, position: "relative", alignItems: "center", mt: "170px" }}>
+      <Stack
+        sx={{
+          width: "fit-content",
+          mx: "auto",
+          position: "relative",
+          alignItems: "center",
+          mt: "150px",
+          borderRadius: "50%",
+        }}
+      >
         <ProfilePhoto
           sx={{
             width: 100,
@@ -51,6 +72,12 @@ export const ProfileBasicInformation: FC<ProfileBasicInformationProps> = ({}) =>
           skeleton={query.isInitialLoading}
         />
       </Grid>
+      <Divider />
+      <Stack sx={{ py: 1, px: 3, alignItems: { xs: "start", sm: "end" } }}>
+        <IconButton component={RouterLink} to={"edit"} sx={{}}>
+          <EditIcon />
+        </IconButton>
+      </Stack>
     </Paper>
   );
 };

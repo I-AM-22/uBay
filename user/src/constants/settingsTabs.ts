@@ -16,7 +16,7 @@ export const accountLists = [
     title: "account",
     items: [
       { href: "/settings/profile", name: "profile" },
-      { href: "/settings/profile-update", name: "profile-update" },
+      { href: "/settings/profile/edit", name: "profile-edit" },
       { href: "/settings/profile-delete", name: "profile-delete", color: "error.main" },
     ],
   },

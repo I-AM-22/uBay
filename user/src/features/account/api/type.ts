@@ -8,3 +8,8 @@ export type User = {
   updatedAt: string;
   id: string;
 };
+export type UserEditBody = {
+  name: string;
+  email: string;
+  photo?: File;
+};

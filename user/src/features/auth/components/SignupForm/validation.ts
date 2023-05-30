@@ -1,6 +1,6 @@
 import i18n from "lib/i18next";
 import z from "lib/zod";
-import { emailSchema, passwordSchema } from "utils/validation";
+import { emailSchema, nameSchema, passwordSchema } from "utils/validation";
 import { UserSignupBody } from "../../api/type";
 
 export const signupDefault: UserSignupBody = {
@@ -11,7 +11,7 @@ export const signupDefault: UserSignupBody = {
 };
 const signupSchema: z.ZodType<UserSignupBody> = z
   .object({
-    name: z.string().trim().nonempty(),
+    name: nameSchema,
     email: emailSchema,
     password: passwordSchema,
     passwordConfirm: z.string().nonempty(),

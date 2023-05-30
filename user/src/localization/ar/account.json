@@ -1,8 +1,11 @@
 {
   "profile": {
     "name": "الاسم",
-    "email": "الإيميل",
+    "email": "البريد الإلكتروني",
     "createdAt": "مستخدم منذ"
+  },
+  "profileEdit": {
+    "name": "الاسم"
   },
   "settings": {
     "title": "الأعدادات",
@@ -14,7 +17,7 @@
     "account": {
       "title": "الحساب",
       "profile": "الملف الشخصي",
-      "profile-update": "تحديث الملف الشخصي",
+      "profile-edit": "تحديث الملف الشخصي",
       "profile-delete": "حذف الحساب"
     },
     "security": {

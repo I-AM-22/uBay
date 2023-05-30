@@ -19,5 +19,8 @@ const intlWithTime = new Intl.DateTimeFormat("ar", {
 export const DateFormatter = (date: string | Date | undefined, { withTime = false } = {}) =>
   (withTime ? intlWithTime : intl).format(new Date(Date.parse((date ?? new Date()).toString())));
 
-export const mapLink = (latitude: number, longitude: number, zoom?: number) =>
-  `https://www.google.com/maps/@${latitude},${longitude},${zoom ?? "9"}z`;
+export const objectToFormData = (object: { [k: string]: any }) => {
+  const formData = new FormData();
+  Object.keys(object).forEach((key) => formData.append(key, object[key]));
+  return formData;
+};

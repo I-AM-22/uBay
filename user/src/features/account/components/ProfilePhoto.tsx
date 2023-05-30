@@ -2,15 +2,15 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import { Box, BoxProps, Skeleton } from "@mui/material";
 import { FC } from "react";
 import { accountQueries } from "..";
-export type ProfilePhotoProps = BoxProps;
-export const ProfilePhoto: FC<ProfilePhotoProps> = (props) => {
+export type ProfilePhotoProps = BoxProps & { src?: string };
+export const ProfilePhoto: FC<ProfilePhotoProps> = ({ src, ...props }) => {
   const query = accountQueries.useProfile();
   return (
     <>
-      {query.isSuccess && (
+      {(query.isSuccess || src !== undefined) && (
         <Box
           component={"img"}
-          src={query.data.photo}
+          src={src ?? query.data?.photo}
           {...props}
           sx={{ borderRadius: "50%", width: 30, height: 30, ...props.sx }}
         />

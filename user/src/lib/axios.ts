@@ -7,7 +7,6 @@ const axios = ax.create({
 axios.interceptors.request.use(
   (config) => {
     config.headers["Accept"] = `*/*`;
-    config.headers["Content-Type"] = "application/json";
     config.headers["Authorization"] = `Bearer ${token}`;
     return config;
   },
