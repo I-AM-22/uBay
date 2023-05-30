@@ -4,7 +4,6 @@ import 'package:warehouse/injection_container.dart' as di;
 import '../bloc/auth/auth_bloc.dart';
 import '../widget/login_form_widget.dart';
 
-
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
   @override
