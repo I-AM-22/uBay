@@ -7,6 +7,12 @@
   "profileEdit": {
     "name": "الاسم"
   },
+  "profileRemove": {
+    "title": "هل أنت متأكد؟",
+    "subtitle": "سيتم حذف حساب نظيف الخاص بك ، هذا الفعل لا عودة فيه",
+    "submit": "نعم احذف حسابي",
+    "cancel": "إلغاء"
+  },
   "settings": {
     "title": "الأعدادات",
     "tabs": {
@@ -18,7 +24,7 @@
       "title": "الحساب",
       "profile": "الملف الشخصي",
       "profile-edit": "تحديث الملف الشخصي",
-      "profile-delete": "حذف الحساب"
+      "profile-remove": "حذف الحساب"
     },
     "security": {
       "title": "الخصوصية والأمان",

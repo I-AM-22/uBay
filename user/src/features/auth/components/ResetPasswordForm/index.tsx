@@ -34,7 +34,7 @@ export const ResetPasswordForm = () => {
         queryClient.setQueryData(queryStore.account.profile.queryKey, data.data.user);
         navigate("/");
       },
-      onError: (err) => parseResponseError(err, { setFormError: setError, snackbar }),
+      onError: parseResponseError({ setFormError: setError, snackbar }),
     });
   };
   return (

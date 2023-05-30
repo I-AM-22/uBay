@@ -12,7 +12,7 @@ export const ProfilePhoto: FC<ProfilePhotoProps> = ({ src, ...props }) => {
           component={"img"}
           src={src ?? query.data?.photo}
           {...props}
-          sx={{ borderRadius: "50%", width: 30, height: 30, ...props.sx }}
+          sx={{ borderRadius: "50%", bgcolor: "white", width: 30, height: 30, ...props.sx }}
         />
       )}
       {query.isInitialLoading && (

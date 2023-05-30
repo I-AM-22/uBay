@@ -54,7 +54,7 @@ export const ProfileEditForm: FC<ProfileEditFormProps> = ({ initial }) => {
         queryClient.setQueryData(queryStore.account.profile.queryKey, data.data.user);
         navigate("/settings/profile");
       },
-      onError: (err) => parseResponseError(err, { setFormError: setError, snackbar }),
+      onError: parseResponseError({ setFormError: setError, snackbar }),
     });
   };
   return (

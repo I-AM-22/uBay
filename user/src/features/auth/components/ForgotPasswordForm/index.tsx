@@ -26,7 +26,7 @@ export const ForgotPasswordForm = () => {
       onSuccess: () => {
         navigate("/reset-password");
       },
-      onError: (err) => parseResponseError(err, { setFormError: setError, snackbar }),
+      onError: parseResponseError({ setFormError: setError, snackbar }),
     });
   };
   return (

@@ -15,7 +15,7 @@ const API = {
     );
     return data;
   },
-  delete: async () => {
+  remove: async () => {
     const { data } = await axios.delete(API_ROUTES.USERS.ME);
     return data;
   },

@@ -12,5 +12,5 @@ export const queries = {
   useProfile: () => useQuery({ ...keys.profile, staleTime: Infinity, refetchOnWindowFocus: false }),
 
   useEdit: () => useMutation(API.edit),
-  useDelete: () => useMutation(API.delete),
+  useRemove: () => useMutation(API.remove),
 };

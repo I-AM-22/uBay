@@ -36,7 +36,7 @@ export const LoginForm = () => {
 
         navigate("/");
       },
-      onError: (err) => parseResponseError(err, { setFormError: setError, snackbar }),
+      onError: parseResponseError({ setFormError: setError, snackbar }),
     });
   };
   return (
