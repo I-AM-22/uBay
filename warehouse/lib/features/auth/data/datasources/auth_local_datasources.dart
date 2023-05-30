@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warehouse/features/auth/data/model/user_login/user_login_model.dart';
 
@@ -8,6 +9,7 @@ abstract class AuthLocalDataSource {
   Future<Unit> cacheLogin({required UserLogin userLogin});
 }
 
+@LazySingleton(as: AuthLocalDataSource)
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   final SharedPreferences sharedPreferences;
 

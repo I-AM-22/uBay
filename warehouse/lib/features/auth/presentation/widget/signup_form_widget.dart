@@ -33,26 +33,34 @@ class SignupFormWidget extends StatelessWidget {
               errorLoginState: (String message) {
                 SnackBarMessage().snackBarMessageError(context, message);
               },
-              changeIconVisibilityState: (bool isVis) {});
-        },
-        builder: (context, state) => state.when(
-              authInitial: () {
-                return _buildSignupWidget(context);
-              },
-              loading: () {
-                return const LoadingWidget();
-              },
-              successLoginState: (String message) {
+              changeIconVisibilityState: (bool isVis) {},
+              successForgetPasswordState: (String message) {
                 return Container();
               },
-              errorLoginState: (String message) {
-                return _buildSignupWidget(context);
-              },
-              changeIconVisibilityState: (bool isVisible) {
-                isVisibility = isVisible;
-                return _buildSignupWidget(context);
-              },
-            ));
+              errorForgetPasswordState: (String message) {},
+              successResetPasswordState: (String message) {},
+              errorResetPasswordState: (String message) {});
+        },
+        builder: (context, state) => state.when(authInitial: () {
+              return _buildSignupWidget(context);
+            }, loading: () {
+              return const LoadingWidget();
+            }, successLoginState: (String message) {
+              return Container();
+            }, errorLoginState: (String message) {
+              return _buildSignupWidget(context);
+            }, changeIconVisibilityState: (bool isVisible) {
+              isVisibility = isVisible;
+              return _buildSignupWidget(context);
+            }, successForgetPasswordState: (String message) {
+              return Container();
+            }, errorForgetPasswordState: (String message) {
+              return Container();
+            }, successResetPasswordState: (String message) {
+              return Container();
+            }, errorResetPasswordState: (String message) {
+              return Container();
+            }));
   }
 
   Widget _buildSignupWidget(BuildContext context) => Padding(

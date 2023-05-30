@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:warehouse/core/dio_helper.dart';
 import 'package:warehouse/core/errors/exceptions.dart';
 import 'package:warehouse/core/strings/end_points.dart';
@@ -14,6 +15,7 @@ abstract class AuthRemoteDataSource {
   Future<UserLogin> resetPassword(String token, String password);
 }
 
+@Injectable(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
   UserLogin? userModel;
   @override
@@ -57,24 +59,28 @@ class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
   }
 
   @override
-  Future<String> forgetPassword(String email) {
+  Future<String> forgetPassword(String email) async {
     String? token;
-    DioHelper.postData(url: FORGET_PASSWORD, data: {'email': email})
+    await DioHelper.postData(url: FORGET_PASSWORD, data: {'email': email})
         .then((value) {
+      print('success');
       token = value.data['message'];
       return Future.value(token);
     }).catchError((error) {
       DioError dioError = error;
-      SERVER_FAILURE = _mapResponseError(dioError.response!);
+      if (error.response != null) {
+        SERVER_FAILURE = _mapResponseError(dioError.response!);
+        print(SERVER_FAILURE);
+      }
       throw ServerException();
     });
     return Future.value(token);
   }
 
   @override
-  Future<UserLogin> resetPassword(String token, String password) {
+  Future<UserLogin> resetPassword(String token, String password) async {
     UserLogin? userLogin;
-    DioHelper.patchData(
+    await DioHelper.patchData(
         url: RESET_PASSWORD,
         data: {'token': token, 'password': password}).then((value) {
       userLogin = UserLogin.fromJson(value.data);

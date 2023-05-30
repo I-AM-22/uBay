@@ -31,6 +31,7 @@ class TextFormWidget extends StatelessWidget {
       controller: controller,
       validator: validate,
       obscureText: obscureText,
+      textDirection: TextDirection.ltr,
       textAlign: TextAlign.end,
       onSaved: onSaved,
       decoration: InputDecoration(

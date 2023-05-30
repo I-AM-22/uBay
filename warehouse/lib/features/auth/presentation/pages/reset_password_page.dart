@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:warehouse/features/auth/presentation/widget/forget_password_page_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:warehouse/core/theme.dart';
+import 'package:warehouse/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:warehouse/features/auth/presentation/widget/reset_password_page_widget.dart';
+import 'package:warehouse/features/auth/presentation/widget/text_form_widget.dart';
 
-class ForgetPasswordPage extends StatelessWidget {
-  ForgetPasswordPage({Key? key}) : super(key: key);
-  final emailController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+class ResetPasswordPage extends StatelessWidget {
+  ResetPasswordPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(context),
-      body: _buildBody(context),
+      body: const ResetPasswordWidget(),
     );
   }
 
@@ -30,6 +33,4 @@ class ForgetPasswordPage extends StatelessWidget {
           },
         ),
       );
-
-  Widget _buildBody(BuildContext context) => ForgetPasswordPageWidget();
 }

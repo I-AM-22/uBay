@@ -33,6 +33,14 @@ class LoginFormWidget extends StatelessWidget {
             }, changeIconVisibilityState: (isVisible) {
               isVisibility = isVisible;
               return _buildLoginFormWidget(context);
+            }, successForgetPasswordState: (String message) {
+              return Container();
+            }, errorForgetPasswordState: (String message) {
+              return Container();
+            }, successResetPasswordState: (String message) {
+              return Container();
+            }, errorResetPasswordState: (String message) {
+              return Container();
             }));
   }
 
