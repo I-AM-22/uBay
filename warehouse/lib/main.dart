@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,6 +14,7 @@ void main() async {
   DioHelper.init();
   Bloc.observer = MyBlocObserver();
   await di.init();
+  // ignore: unused_local_variable
   final userLogin = di.getIt<SharedPreferences>().getString('USER_LOGIN');
   //UserLogin jsonToModel = UserLogin.fromJson(json.decode(userLogin!));
   runApp(const MyApp());

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:warehouse/core/strings/failure.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/features/auth/presentation/widget/text_form_widget.dart';
 import '../../../../core/theme.dart';

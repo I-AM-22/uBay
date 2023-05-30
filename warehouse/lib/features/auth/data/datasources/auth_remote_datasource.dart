@@ -10,6 +10,8 @@ abstract class AuthRemoteDataSource {
 
   Future<UserLogin> signup(
       String userName, String email, String password, String passwordConfirm);
+  Future<String> forgetPassword(String email);
+  Future<UserLogin> resetPassword(String token, String password);
 }
 
 class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
@@ -49,6 +51,37 @@ class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
         SERVER_FAILURE = _mapResponseError(dioError.response!);
         print(SERVER_FAILURE);
       }
+      throw ServerException();
+    });
+    return Future.value(userLogin);
+  }
+
+  @override
+  Future<String> forgetPassword(String email) {
+    String? token;
+    DioHelper.postData(url: FORGET_PASSWORD, data: {'email': email})
+        .then((value) {
+      token = value.data['message'];
+      return Future.value(token);
+    }).catchError((error) {
+      DioError dioError = error;
+      SERVER_FAILURE = _mapResponseError(dioError.response!);
+      throw ServerException();
+    });
+    return Future.value(token);
+  }
+
+  @override
+  Future<UserLogin> resetPassword(String token, String password) {
+    UserLogin? userLogin;
+    DioHelper.patchData(
+        url: RESET_PASSWORD,
+        data: {'token': token, 'password': password}).then((value) {
+      userLogin = UserLogin.fromJson(value.data);
+      return Future.value(userLogin);
+    }).catchError((error) {
+      DioError dioError = error;
+      SERVER_FAILURE = _mapResponseError(dioError.response!);
       throw ServerException();
     });
     return Future.value(userLogin);

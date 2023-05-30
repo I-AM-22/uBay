@@ -50,4 +50,35 @@ class AuthRepositoryImplement implements AuthRepository {
       return Left(OfflineFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, String>> forgetPassword(String email) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final token = await authRemoteDataSource.forgetPassword(email);
+        return Right(token);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserLogin>> resetPassword(
+      String token, String password) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final userLogin =
+            await authRemoteDataSource.resetPassword(token, password);
+        await authLocalDataSource.cacheLogin(userLogin: userLogin);
+        return Right(userLogin);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
 }
