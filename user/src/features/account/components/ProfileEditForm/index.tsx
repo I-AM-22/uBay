@@ -29,9 +29,7 @@ import { parseResponseError } from "utils/apiHelpers";
 import profileEditSchema from "./validation";
 export type ProfileEditFormProps = { initial: User | undefined };
 export const ProfileEditForm: FC<ProfileEditFormProps> = ({ initial }) => {
-  const { setValue, watch, control, handleSubmit, setError } = useForm<
-    z.infer<typeof profileEditSchema>
-  >({
+  const { setValue, control, handleSubmit, setError } = useForm<z.infer<typeof profileEditSchema>>({
     resolver: zodResolver(profileEditSchema),
     defaultValues: { email: initial?.email, name: initial?.name, photo: undefined },
   });

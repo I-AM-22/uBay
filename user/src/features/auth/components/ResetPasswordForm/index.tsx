@@ -17,7 +17,7 @@ import { storage } from "utils/storage";
 import { UserResetPasswordBody } from "../../api/type";
 import PasswordInput from "../PasswordInput";
 import resetPasswordSchema, { resetPasswordDefault } from "./validation";
-export const ResetPasswordForm = () => {
+export const ResetPasswordForm = ({ navToOnSuccess = "/" }: { navToOnSuccess?: string }) => {
   const { control, handleSubmit, setError } = useForm<z.infer<typeof resetPasswordSchema>>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: resetPasswordDefault,
@@ -32,14 +32,14 @@ export const ResetPasswordForm = () => {
       onSuccess: (data) => {
         storage.setToken(data.token);
         queryClient.setQueryData(queryStore.account.profile.queryKey, data.data.user);
-        navigate("/");
+        navigate(navToOnSuccess);
       },
       onError: parseResponseError({ setFormError: setError, snackbar }),
     });
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack gap={3} height={"100%"}>
+      <Stack gap={6} height={"100%"}>
         <Stack gap={1}>
           <Typography color="primary.800" variant="h4" textAlign={"center"}>
             {t("title")}
