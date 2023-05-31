@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:warehouse/core/util/snackbar_message.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
-import 'package:warehouse/core/widget/message_display_widget.dart';
+import 'package:warehouse/features/auth/presentation/pages/login_page.dart';
 import 'package:warehouse/features/auth/presentation/widget/text_form_widget.dart';
+import 'package:warehouse/main.dart';
 
 import '../../../../core/theme.dart';
 import '../bloc/auth/auth_bloc.dart';
@@ -21,15 +23,31 @@ class LoginFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          state.when(
+              authInitial: () => null,
+              loading: () => null,
+              successLoginState: (message) {
+                SnackBarMessage().snackBarMessageSuccess(context, message);
+                Navigator.pushNamedAndRemoveUntil(context, '/EmployeePage', (route) => false);
+              },
+              errorLoginState: (message) {
+                SnackBarMessage().snackBarMessageError(context, message);
+              },
+              changeIconVisibilityState: (message) => null,
+              successForgetPasswordState: (message) => null,
+              errorForgetPasswordState: (message) => null,
+              successResetPasswordState: (message) => null,
+              errorResetPasswordState: (message) => null);
+        },
         builder: (context, state) => state.when(authInitial: () {
               return _buildLoginFormWidget(context);
             }, loading: () {
               return const LoadingWidget();
             }, successLoginState: (message) {
-              return MessageDisplayWidget(message: message);
+              return Employee();
             }, errorLoginState: (message) {
-              return MessageDisplayWidget(message: message);
+              return const LoginPage();
             }, changeIconVisibilityState: (isVisible) {
               isVisibility = isVisible;
               return _buildLoginFormWidget(context);
@@ -115,14 +133,12 @@ class LoginFormWidget extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12)),
                     child: MaterialButton(
                       onPressed: () {
-                        print(form.currentState!.validate());
-                        // if (form.valid) {
-                        //   BlocProvider.of<AuthBloc>(context).add(
-                        //       AuthEvent.loginEvent(
-                        //           email: form.value['email'].toString(),
-                        //           password:
-                        //               form.value['password'].toString()));
-                        // }
+                        if (form.currentState!.validate()) {
+                          BlocProvider.of<AuthBloc>(context).add(
+                              AuthEvent.loginEvent(
+                                  email: emailController.text,
+                                  password: passwordController.text));
+                        }
                       },
                       child: const Text(
                         'تسجيل الدخول',

@@ -25,10 +25,10 @@ class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
       userModel = UserLogin.fromJson(value.data);
       return Future.value(userModel);
     }).catchError((error) {
+
       DioError errorBody = error;
       if (errorBody.response != null) {
         SERVER_FAILURE = _mapResponseError(errorBody.response!);
-        print(SERVER_FAILURE);
       }
       throw ServerException();
     });
@@ -51,7 +51,6 @@ class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
       DioError dioError = error;
       if (error.response != null) {
         SERVER_FAILURE = _mapResponseError(dioError.response!);
-        print(SERVER_FAILURE);
       }
       throw ServerException();
     });
@@ -63,14 +62,12 @@ class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
     String? token;
     await DioHelper.postData(url: FORGET_PASSWORD, data: {'email': email})
         .then((value) {
-      print('success');
       token = value.data['message'];
       return Future.value(token);
     }).catchError((error) {
       DioError dioError = error;
       if (error.response != null) {
         SERVER_FAILURE = _mapResponseError(dioError.response!);
-        print(SERVER_FAILURE);
       }
       throw ServerException();
     });
@@ -87,7 +84,9 @@ class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
       return Future.value(userLogin);
     }).catchError((error) {
       DioError dioError = error;
-      SERVER_FAILURE = _mapResponseError(dioError.response!);
+      if (error.response != null) {
+        SERVER_FAILURE = _mapResponseError(dioError.response!);
+      }
       throw ServerException();
     });
     return Future.value(userLogin);

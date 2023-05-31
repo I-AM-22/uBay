@@ -10,6 +10,7 @@ class DioHelper {
         receiveDataWhenStatusError: true,
         headers: {
           'Content-Type': 'application/json',
+          'accept': ' application/json'
         }));
   }
 
@@ -23,9 +24,10 @@ class DioHelper {
 
   static Future<Response> patchData(
       {required String url, Map<String, dynamic>? data, String? token}) async {
-    return await dio.patch(
-      url,
-      data: data,
-    );
+    return await dio.patch(url,
+        data: data,
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+        }));
   }
 }

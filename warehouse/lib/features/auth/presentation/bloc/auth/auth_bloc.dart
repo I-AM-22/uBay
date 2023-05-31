@@ -31,7 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       login.fold((failure) {
         emit(AuthState.errorLoginState(_mapFailureToString(failure)));
       }, (success) {
-        emit(const AuthState.successLoginState("Login Successfully"));
+        emit(const AuthState.successLoginState("تم تسجيل الدخول بنجاح"));
       });
     });
     on<_$_signupEvent>((event, emit) async {
@@ -41,7 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       signup.fold((failure) {
         emit(AuthState.errorLoginState(_mapFailureToString(failure)));
       }, (_) {
-        emit(const AuthState.successLoginState("Signup Successfully"));
+        emit(const AuthState.successLoginState("تم تسجيل الدخول بنجاح"));
       });
     });
     on<_$_changeIconVisibilityEvent>((event, emit) {
@@ -63,7 +63,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       successOrFailure.fold((failure) {
         emit(_$_errorResetPasswordState(_mapFailureToString(failure)));
       }, (success) {
-        emit(const _$_successResetPasswordState('تم تعيين كلمة مرورك'));
+        emit(const _$_successResetPasswordState('تم تغيير كلمة المرور بنجاح'));
       });
     });
   }

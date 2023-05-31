@@ -1,8 +1,8 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:warehouse/core/util/snackbar_message.dart';
-import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:warehouse/features/auth/presentation/pages/reset_password_page.dart';
 import 'package:warehouse/features/auth/presentation/widget/text_form_widget.dart';
@@ -13,6 +13,7 @@ class ForgetPasswordPageWidget extends StatelessWidget {
   ForgetPasswordPageWidget({Key? key}) : super(key: key);
   final emailController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +38,21 @@ class ForgetPasswordPageWidget extends StatelessWidget {
         },
         builder: (context, state) => state.when(
             authInitial: () => _buildBuilder(context),
-            loading: () => const LoadingWidget(),
+            loading: () {
+              isLoading = true;
+              return _buildBuilder(context);
+            },
             successLoginState: (message) => Container(),
             errorLoginState: (message) => Container(),
             changeIconVisibilityState: (isVis) => Container(),
-            successForgetPasswordState: (message) => ResetPasswordPage(),
-            errorForgetPasswordState: (message) => _buildBuilder(context),
+            successForgetPasswordState: (message) {
+              isLoading = false;
+              return const ResetPasswordPage();
+            },
+            errorForgetPasswordState: (message) {
+              isLoading = false;
+              return _buildBuilder(context);
+            },
             successResetPasswordState: (message) => Container(),
             errorResetPasswordState: (message) => Container()),
       ),
@@ -94,23 +104,29 @@ class ForgetPasswordPageWidget extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                        color: primaryColor,
+                        color: isLoading ? Colors.grey : primaryColor,
                         borderRadius: BorderRadius.circular(12)),
-                    child: MaterialButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/ResetPasswordPage');
-                        if (formKey.currentState!.validate()) {
-                          BlocProvider.of<AuthBloc>(context).add(
-                              AuthEvent.forgetPasswordEvent(
-                                  emailController.text));
-                        }
-                      },
-                      color: primaryColor,
-                      textColor: Colors.white,
-                      child: const Text(
-                        'ارسال رمز اعادة التعيين',
-                        style: TextStyle(fontFamily: 'Mont'),
+                    child: ConditionalBuilder(
+                      condition: !isLoading,
+                      builder: (_) => MaterialButton(
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            BlocProvider.of<AuthBloc>(context).add(
+                                AuthEvent.forgetPasswordEvent(
+                                    emailController.text));
+                          }
+                        },
+                        color: primaryColor,
+                        textColor: Colors.white,
+                        child: const Text(
+                          'ارسال رمز اعادة التعيين',
+                          style: TextStyle(fontFamily: 'Mont'),
+                        ),
                       ),
+                      fallback: (_) => Center(
+                          child: CircularProgressIndicator(
+                        color: primaryColor,
+                      )),
                     ),
                   )
                 ],
