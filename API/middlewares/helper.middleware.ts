@@ -21,6 +21,12 @@ export const checkQuerySearch = (
 export const checkIsOwner = (Model: any) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     if (!req.user) return next();
-    await Model.findByIdAndCheckAuthorization(req.params.id, req.user);
+    const id = req.params.id;
+    await Model.findByIdAndCheckAuthorization(id, req.user);
     next();
   });
+
+export const setUserId = (req: Request, res: Response, next: NextFunction) => {
+  if (!req.body.user) req.body.user = req.user?.id;
+  next();
+};

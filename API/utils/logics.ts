@@ -7,15 +7,9 @@ export const isOwner = async function (
   id: string,
   user: Express.User
 ) {
-  const item = await Model.findById(id);
-  if (!item) {
-    throw new AppError(
-      STATUS_CODE.NOT_FOUND,
-      [],
-      `There is no ${Model.modelName} with that Id`
-    );
-  }
-  if (item.user.id.toString() !== user.id.toString() && user.role !== 'admin') {
+  const item = await Model.findOne({ _id: id, user });
+
+  if (!item && user.role !== 'admin') {
     throw new AppError(
       STATUS_CODE.FORBIDDEN,
       [],

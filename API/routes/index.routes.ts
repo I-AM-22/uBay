@@ -7,6 +7,8 @@ import chatRouter from '@routes/chat.routes';
 import messageRouter from '@routes/message.routes';
 import notificationRouter from '@routes/notification.routes';
 import storeRouter from '@routes/store.routes';
+import couponRouter from '@routes/coupon.routes';
+
 import { settings } from '@config/settings';
 import { Request, Response, NextFunction } from 'express';
 import swaggerUi from 'swagger-ui-express';
@@ -23,6 +25,8 @@ api.use('/stores', storeRouter);
 api.use('/chats', chatRouter);
 api.use('/messages', messageRouter);
 api.use('/notifications', notificationRouter);
+api.use('/coupons', couponRouter);
+
 
 //API ROUTES
 router.use('/api/v1', api);

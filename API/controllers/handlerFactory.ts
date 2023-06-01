@@ -39,9 +39,7 @@ export const updateOne = (Model: Model<any>) =>
     }
     res.status(STATUS_CODE.SUCCESS).json({
       status: 'success',
-      data: {
-        data: doc,
-      },
+      data: doc,
     });
   });
 
@@ -51,9 +49,7 @@ export const createOne = (Model: Model<any>) =>
 
     res.status(STATUS_CODE.CREATED).json({
       status: 'success',
-      data: {
-        data: newDoc,
-      },
+      data: newDoc,
     });
   });
 
@@ -71,9 +67,7 @@ export const getOne = (Model: Model<any>, ...popOptions: Array<any>) =>
     }
     res.status(STATUS_CODE.SUCCESS).json({
       status: 'success',
-      data: {
-        data: doc,
-      },
+      data: doc,
     });
   });
 
@@ -106,8 +100,6 @@ export const getAll = (Model: Model<any>) =>
     res.status(STATUS_CODE.SUCCESS).json({
       status: 'success',
       result: docs.length,
-      data: {
-        data: docs,
-      },
+      data: docs,
     });
   });

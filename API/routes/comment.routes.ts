@@ -32,6 +32,6 @@ router
 router
   .route('/:id')
   .get(getComment)
-  .patch(restrictTo('user', 'admin'), checkIsOwnerComment, updateComment)
-  .delete(restrictTo('user', 'admin'), checkIsOwnerComment, deleteComment);
+  .patch(checkIsOwnerComment, updateComment)
+  .delete(checkIsOwnerComment, deleteComment);
 export default router;

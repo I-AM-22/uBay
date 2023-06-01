@@ -12,11 +12,6 @@ import catchAsync from '@utils/catchAsync';
 import AppError from '@utils/appError';
 import { STATUS_CODE } from '../types/helper.types';
 
-export const setUserId = (req: Request, res: Response, next: NextFunction) => {
-  if (!req.body.user) req.body.user = req.user?.id;
-  next();
-};
-
 export const like = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     await Product.findByIdAndUpdate(

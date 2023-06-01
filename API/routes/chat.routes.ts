@@ -12,6 +12,7 @@ import {
 } from '@controllers/chat.controller';
 import validate from '@middlewares/validateResource';
 import { chatSchema } from './../schema/chat.schema';
+import { restrictTo } from '@controllers/auth.controller';
 
 const router = Router();
 
@@ -25,8 +26,12 @@ router.use(
 router
   .route('/')
   .get(getAllChats)
-  .post(validate(chatSchema), isSeller, accessChat);
+  .post(restrictTo('user'), validate(chatSchema), isSeller, accessChat);
 
-router.route('/:id').get(getChat).patch(updateChat).delete(deleteChat);
+router
+  .route('/:id')
+  .get(getChat)
+  .patch(restrictTo('user', 'admin'), updateChat)
+  .delete(restrictTo('user', 'admin'), deleteChat);
 
 export default router;

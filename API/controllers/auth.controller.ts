@@ -62,7 +62,7 @@ export const restrictTo =
         new AppError(
           STATUS_CODE.FORBIDDEN,
           [],
-          'You do not have permission to perform this action'
+          'You are not authorized to perform this action'
         )
       );
     }

@@ -10,7 +10,6 @@ import {
   getAllProducts,
   getProduct,
   like,
-  setUserId,
   updateProduct,
 } from '@controllers/product.controller';
 import {
@@ -19,6 +18,7 @@ import {
 } from '@middlewares/uploadingImage';
 import validate from '@middlewares/validateResource';
 import { productSchema } from './../schema/product.schema';
+import { setUserId } from '@middlewares/helper.middleware';
 
 const router = Router({ mergeParams: true });
 /*
@@ -52,12 +52,11 @@ router
   .route('/:id')
   .get(getProduct)
   .patch(
-    restrictTo('admin', 'user'),
     checkIsOwnerProduct,
     uploadProductPhotos,
     resizeProductPhotos,
     updateProduct
   )
-  .delete(checkIsOwnerProduct, restrictTo('admin', 'user'), deleteProduct);
+  .delete(checkIsOwnerProduct, deleteProduct);
 
 export default router;
