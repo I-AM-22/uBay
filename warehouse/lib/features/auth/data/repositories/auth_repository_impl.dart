@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:warehouse/features/auth/data/model/user_login_model.dart';
+import 'package:injectable/injectable.dart';
+import 'package:warehouse/features/auth/data/model/user_login/user_login_model.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network_info.dart';
@@ -7,6 +8,7 @@ import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_local_datasources.dart';
 import '../datasources/auth_remote_datasource.dart';
 
+@Injectable(as: AuthRepository)
 class AuthRepositoryImplement implements AuthRepository {
   final AuthRemoteDataSource authRemoteDataSource;
   final AuthLocalDataSource authLocalDataSource;
@@ -41,6 +43,37 @@ class AuthRepositoryImplement implements AuthRepository {
       try {
         final userLogin = await authRemoteDataSource.signup(
             userName, email, password, passwordConfirm);
+        await authLocalDataSource.cacheLogin(userLogin: userLogin);
+        return Right(userLogin);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> forgetPassword(String email) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final token = await authRemoteDataSource.forgetPassword(email);
+        return Right(token);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserLogin>> resetPassword(
+      String token, String password) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final userLogin =
+            await authRemoteDataSource.resetPassword(token, password);
         await authLocalDataSource.cacheLogin(userLogin: userLogin);
         return Right(userLogin);
       } on ServerException {

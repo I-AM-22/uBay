@@ -8,3 +8,8 @@ body {
   font-display: swap;
   src: url("fonts/Montserrat-Arabic-Regular.ttf") format("truetype");
 }
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

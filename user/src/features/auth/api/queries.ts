@@ -6,5 +6,5 @@ export const queries = {
   useSignup: () => useMutation(API.signup),
   useForgotPassword: () => useMutation(API.forgotPassword),
   useResetPassword: () => useMutation(API.resetPassword),
-  useUpdatePassword: () => useMutation(API.updatePassword),
+  useChangePassword: () => useMutation(API.updatePassword),
 };

@@ -4,7 +4,6 @@ import 'package:warehouse/injection_container.dart' as di;
 import '../bloc/auth/auth_bloc.dart';
 import '../widget/login_form_widget.dart';
 
-// ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
   @override
@@ -17,9 +16,10 @@ class LoginPage extends StatelessWidget {
 
   AppBar _buildAppBar() {
     return AppBar(
+      centerTitle: true,
       title: const Text(
-        'Warehouse',
-        style: TextStyle(color: Colors.white),
+        'نظيف',
+        style: TextStyle(color: Colors.white, fontFamily: 'Mont'),
       ),
     );
   }

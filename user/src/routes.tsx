@@ -8,6 +8,10 @@ import { LoginPage } from "pages/login";
 import { RegistrationPage } from "pages/registration";
 import { ResetPasswordPage } from "pages/reset-password";
 import { SettingsPage } from "pages/settings";
+import { PasswordChangePage } from "pages/settings/password-change";
+import { PasswordForgotPage } from "pages/settings/password-forgot";
+import { ProfilePage } from "pages/settings/profile";
+import { ProfileEditPage } from "pages/settings/profile/edit";
 import { SignupPage } from "pages/signup";
 import {
   Outlet,
@@ -38,6 +42,10 @@ export default createBrowserRouter(
           }
         >
           <Route path="" element={<NotFound />} />
+          <Route path="settings/profile" element={<ProfilePage />} />
+          <Route path="settings/profile/edit" element={<ProfileEditPage />} />
+          <Route path="settings/password-change" element={<PasswordChangePage />} />
+          <Route path="settings/password-forgot" element={<PasswordForgotPage />} />
           <Route path="settings/*" element={<SettingsPage />} />
           <Route path="*" element={<SomethingWentWrong />} />
         </Route>

@@ -12,7 +12,7 @@ declare module "@mui/material/styles" {
     ["700"]: string;
     ["800"]: string;
     ["900"]: string;
-    ["900"]: string;
+    ["`900`"]: string;
   }
 }
 const theme = (language: string) => {
@@ -140,6 +140,7 @@ const theme = (language: string) => {
       },
     },
   });
+  theme.shadows[1] = "0 0 4px RGBA( 170, 170, 170, 0.4)";
   return theme;
 };
 export default theme;

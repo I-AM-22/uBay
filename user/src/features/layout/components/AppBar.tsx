@@ -45,7 +45,7 @@ export const AppBar: FC<AppBarProps> = forwardRef(function Fr(
             justifyContent: "space-between",
           }}
         >
-          <Box flex={1} py={0.5}>
+          <Box flex={isDesktop ? 1.3 : 10} py={0.5}>
             <SearchInput fullWidth={false} />
           </Box>
           {children}
@@ -55,7 +55,7 @@ export const AppBar: FC<AppBarProps> = forwardRef(function Fr(
 
           {!isDesktop && (
             <Stack alignItems={"end"} justifyContent={"center"}>
-              <RouterLink to="/profile">
+              <RouterLink to="/settings">
                 <IconButton sx={{ svg: { height: 30, width: 30 } }}>
                   <ProfilePhoto />
                 </IconButton>

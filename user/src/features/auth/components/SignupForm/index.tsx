@@ -2,12 +2,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import PersonIcon from "@mui/icons-material/Person";
 import { InputAdornment, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
+import { useQueryClient } from "@tanstack/react-query";
 import TextField from "components/Inputs/TextField";
 import Submit from "components/buttons/Submit";
 import RouterLink from "components/links/RouterLink";
-import { useProfile } from "context/profileContext";
 import { useSnackbar } from "context/snackbarContext";
 import { authQueries } from "features/auth";
+import { queryStore } from "features/shared";
 import z from "lib/zod";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -26,16 +27,17 @@ export const SignupForm = () => {
   const navigate = useNavigate();
   const snackbar = useSnackbar();
   const signup = authQueries.useSignup();
-  const [, setProfile] = useProfile();
+  const queryClient = useQueryClient();
+
   const { t } = useTranslation("auth", { keyPrefix: "signup" });
   const onSubmit = async (body: UserSignupBody) => {
     signup.mutate(body, {
       onSuccess: (data) => {
         storage.setToken(data.token);
-        setProfile(data.data.user);
+        queryClient.setQueryData(queryStore.account.profile.queryKey, data.data.user);
         navigate("/");
       },
-      onError: (err) => parseResponseError(err, { setFormError: setError, snackbar }),
+      onError: parseResponseError({ setFormError: setError, snackbar }),
     });
   };
   return (

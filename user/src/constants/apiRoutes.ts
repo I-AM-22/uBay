@@ -6,6 +6,7 @@ let API_ROUTES = {
     FORGOT_PASSWORD: "forgotPassword",
     RESET_PASSWORD: "resetPassword",
     UPDATE_MY_PASSWORD: "updateMyPassword",
+    ME: "me",
   },
 } as const;
 

@@ -2,11 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import QrCodeIcon from "@mui/icons-material/QrCode";
 import { InputAdornment, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
+import { useQueryClient } from "@tanstack/react-query";
 import TextField from "components/Inputs/TextField";
 import Submit from "components/buttons/Submit";
-import { useProfile } from "context/profileContext";
 import { useSnackbar } from "context/snackbarContext";
 import { authQueries } from "features/auth";
+import { queryStore } from "features/shared";
 import z from "lib/zod";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -16,7 +17,7 @@ import { storage } from "utils/storage";
 import { UserResetPasswordBody } from "../../api/type";
 import PasswordInput from "../PasswordInput";
 import resetPasswordSchema, { resetPasswordDefault } from "./validation";
-export const ResetPasswordForm = () => {
+export const ResetPasswordForm = ({ navToOnSuccess = "/" }: { navToOnSuccess?: string }) => {
   const { control, handleSubmit, setError } = useForm<z.infer<typeof resetPasswordSchema>>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: resetPasswordDefault,
@@ -24,21 +25,21 @@ export const ResetPasswordForm = () => {
   const navigate = useNavigate();
   const resetPassword = authQueries.useResetPassword();
   const snackbar = useSnackbar();
+  const queryClient = useQueryClient();
   const { t } = useTranslation("auth", { keyPrefix: "resetPassword" });
-  const [, setProfile] = useProfile();
   const onSubmit = async (body: UserResetPasswordBody) => {
     resetPassword.mutate(body, {
       onSuccess: (data) => {
         storage.setToken(data.token);
-        setProfile(data.data.user);
-        navigate("/");
+        queryClient.setQueryData(queryStore.account.profile.queryKey, data.data.user);
+        navigate(navToOnSuccess);
       },
-      onError: (err) => parseResponseError(err, { setFormError: setError, snackbar }),
+      onError: parseResponseError({ setFormError: setError, snackbar }),
     });
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack gap={3} height={"100%"}>
+      <Stack gap={6} height={"100%"}>
         <Stack gap={1}>
           <Typography color="primary.800" variant="h4" textAlign={"center"}>
             {t("title")}

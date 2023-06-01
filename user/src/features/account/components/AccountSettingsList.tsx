@@ -18,11 +18,11 @@ export const AccountSettingsList: FC<AccountSettingsListProps> = ({}) => {
         <SettingsList title={t(`${list.title}.title`)} key={list.title}>
           {list.items.map((item) => (
             <RouterButton
-              to={`/settings/${item.href}`}
+              to={item.href}
               key={item.href}
-              sx={{ color: item.color ?? "default" }}
+              sx={{ "*": { color: item.color ?? "default" } }}
             >
-              {t(`${list.title}.${item.href}`)}
+              {t(`${list.title}.${item.name}`)}
             </RouterButton>
           ))}
         </SettingsList>

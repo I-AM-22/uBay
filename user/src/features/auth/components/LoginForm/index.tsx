@@ -1,11 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Divider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
+import { useQueryClient } from "@tanstack/react-query";
 import Submit from "components/buttons/Submit";
 import RouterLink from "components/links/RouterLink";
-import { useProfile } from "context/profileContext";
 import { useSnackbar } from "context/snackbarContext";
 import { authQueries } from "features/auth";
+import { queryStore } from "features/shared";
 import z from "lib/zod";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -24,16 +25,18 @@ export const LoginForm = () => {
   const navigate = useNavigate();
   const login = authQueries.useLogin();
   const snackbar = useSnackbar();
-  const [, setProfile] = useProfile();
+  const queryClient = useQueryClient();
+
   const { t } = useTranslation("auth", { keyPrefix: "login" });
   const onSubmit = async (body: UserLoginBody) => {
     login.mutate(body, {
       onSuccess: (data) => {
         storage.setToken(data.token);
-        setProfile(data.data.user);
+        queryClient.setQueryData(queryStore.account.profile.queryKey, data.data.user);
+
         navigate("/");
       },
-      onError: (err) => parseResponseError(err, { setFormError: setError, snackbar }),
+      onError: parseResponseError({ setFormError: setError, snackbar }),
     });
   };
   return (

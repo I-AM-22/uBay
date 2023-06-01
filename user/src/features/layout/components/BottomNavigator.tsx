@@ -30,7 +30,7 @@ export const BottomNavigator: FC<{}> = ({}) => {
   }, [currentIndex]);
   return (
     <>
-      <Box mt={10} />
+      <Box mt={6} />
       <Paper
         sx={{
           position: "fixed",

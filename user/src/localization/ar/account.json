@@ -1,4 +1,18 @@
 {
+  "profile": {
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "createdAt": "مستخدم منذ"
+  },
+  "profileEdit": {
+    "name": "الاسم"
+  },
+  "profileRemove": {
+    "title": "هل أنت متأكد؟",
+    "subtitle": "سيتم حذف حساب نظيف الخاص بك ، هذا الفعل لا عودة فيه",
+    "submit": "نعم احذف حسابي",
+    "cancel": "إلغاء"
+  },
   "settings": {
     "title": "الأعدادات",
     "tabs": {
@@ -9,13 +23,13 @@
     "account": {
       "title": "الحساب",
       "profile": "الملف الشخصي",
-      "profile-update": "تحديث الملف الشخصي",
-      "profile-delete": "حذف الحساب"
+      "profile-edit": "تحديث الملف الشخصي",
+      "profile-remove": "حذف الحساب"
     },
     "security": {
       "title": "الخصوصية والأمان",
       "password-change": "تغيير كلمة المرور",
-      "password-forgot": "طلب إعادة تعيين كلمة المرور"
+      "password-forgot": "نسيت كلمة المرور الخاصة بي"
     }
   }
 }
