@@ -12,7 +12,7 @@ const AddFab: FC<Props> = (props) => {
     setSearchParams(searchParams);
   };
   return (
-    <Tooltip title={t("generic.add")}>
+    <Tooltip title={t("add")}>
       <Fab
         color="primary"
         onClick={handleClick}

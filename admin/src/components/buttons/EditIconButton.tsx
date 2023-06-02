@@ -6,7 +6,7 @@ type Props = IconButtonProps;
 const EditIconButton: FC<Props> = (props) => {
   const { t } = useTranslation();
   return (
-    <Tooltip title={t("generic.edit")}>
+    <Tooltip title={t("edit")}>
       <IconButton {...props}>
         <EditIcon sx={{ color: "warning.main" }} />
       </IconButton>

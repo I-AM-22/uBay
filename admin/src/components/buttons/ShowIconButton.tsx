@@ -6,7 +6,7 @@ type Props = IconButtonProps;
 const ShowIconButton: FC<Props> = (props) => {
   const { t } = useTranslation();
   return (
-    <Tooltip title={t("generic.details")}>
+    <Tooltip title={t("details")}>
       <IconButton {...props}>
         <VisibilityIcon sx={{ color: "primary" }} />
       </IconButton>
