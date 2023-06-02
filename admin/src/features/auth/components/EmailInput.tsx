@@ -4,7 +4,7 @@ import TextField, { TextFieldProps } from "components/Inputs/TextField";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 type Props = TextFieldProps<true>;
-const EmailInput: FC<Props> = ({ control, name, ...props }) => {
+export const EmailInput: FC<Props> = ({ control, name, ...props }) => {
   const { t } = useTranslation("auth");
   return (
     <TextField

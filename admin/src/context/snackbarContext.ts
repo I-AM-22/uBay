@@ -1,6 +1,5 @@
 import { AlertSeverity } from "components/feedback/Snackbar";
-import React, { useContext } from "react";
-import { ReactNode } from "react";
+import React, { ReactNode, useContext } from "react";
 
 export type SnackbarProps = {
   severity: AlertSeverity;
@@ -16,7 +15,7 @@ export const initialSnackbarState = {
 };
 export const SnackbarContext = React.createContext<SnackBarContextValue>(initialSnackbarState);
 
-export const useSnackbarContext = () => {
+export const useSnackbar = () => {
   const { setSnackbarProps, handleOpenSnackbar } = useContext(SnackbarContext);
   const showSnackbar = (props: SnackbarProps) => {
     setSnackbarProps(props);

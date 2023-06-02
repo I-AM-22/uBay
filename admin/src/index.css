@@ -1,6 +1,9 @@
 body {
   overflow-x: hidden;
 }
+fieldset {
+  border: none;
+}
 @font-face {
   font-family: "MontserratArabic";
   font-style: normal;

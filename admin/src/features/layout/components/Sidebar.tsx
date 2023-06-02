@@ -8,7 +8,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { CSSObject, styled, SxProps, Theme } from "@mui/material/styles";
+import { CSSObject, SxProps, Theme, styled } from "@mui/material/styles";
 import { Stack } from "@mui/system";
 import OptionalLink from "components/links/OptionalLink";
 import RouterLink from "components/links/RouterLink";
@@ -231,7 +231,6 @@ const ResponsiveDrawer: FC<ResponsiveDrawerProps> = ({ open, children }) => {
   const theme = useTheme();
   const small = useMediaQuery(theme.breakpoints.down("sm"));
   const ltr = useTheme().direction === "ltr";
-  console.log(ltr);
   return (
     <>
       {small ? (

@@ -67,7 +67,7 @@ const AppBar: FC<Props> = ({ open, onDrawerOpen, onDrawerClose }) => {
             </MenuItem>
           ))}
         </Select>
-        <Tooltip title={t("generic.logout")}>
+        <Tooltip title={t("logout")}>
           <IconButton onClick={handleLogout}>
             <LogoutIcon sx={{ color: "white" }} />
           </IconButton>

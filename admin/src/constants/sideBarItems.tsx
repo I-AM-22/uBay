@@ -15,7 +15,7 @@ export const sideBarItems: SideBarItem[][] = [
       icon: <AppsIcon />,
     },
     {
-      href: "customers",
+      href: "users",
       icon: <PeopleIcon />,
     },
   ],
