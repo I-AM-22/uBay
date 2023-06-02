@@ -20,18 +20,15 @@ router.use('/:chatId/messages', messageRouter);
 router.use('/:chatId/notifications', notificationRouter);
 
 router.use(
-  passport.authenticate('jwt', { session: false, failWithError: true })
+  passport.authenticate('jwt', { session: false, failWithError: true }),
+  restrictTo('user')
 );
 
 router
   .route('/')
   .get(getAllChats)
-  .post(restrictTo('user'), validate(chatSchema), isSeller, accessChat);
+  .post(validate(chatSchema), isSeller, accessChat);
 
-router
-  .route('/:id')
-  .get(getChat)
-  .patch(restrictTo('user', 'admin'), updateChat)
-  .delete(restrictTo('user', 'admin'), deleteChat);
+router.route('/:id').get(getChat).patch(updateChat).delete(deleteChat);
 
 export default router;

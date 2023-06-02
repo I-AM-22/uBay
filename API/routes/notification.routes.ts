@@ -1,3 +1,4 @@
+import { restrictTo } from '@controllers/auth.controller';
 import {
   createNotification,
   deleteNotification,
@@ -12,7 +13,8 @@ import passport from 'passport';
 const router = Router({ mergeParams: true });
 
 router.use(
-  passport.authenticate('jwt', { session: false, failWithError: true })
+  passport.authenticate('jwt', { session: false, failWithError: true }),
+  restrictTo('user')
 );
 
 router.route('/').get(getAllNotification).post(createNotification);

@@ -3,8 +3,7 @@ import { MessageModel, MessageDoc, IMessage } from '../types/message.types';
 import Chat from './chat.model';
 import Notification from './notification.model';
 import AppError from '@utils/appError';
-import { CustomModel, STATUS_CODE } from '../types/helper.types';
-import { isOwner } from '@utils/logics';
+import { STATUS_CODE } from '../types/helper.types';
 
 const messageSchema = new Schema<MessageDoc, MessageModel, any>(
   {
@@ -72,15 +71,5 @@ messageSchema.pre<Query<IMessage, IMessage>>(/^find/, function (next) {
   next();
 });
 
-messageSchema.statics.findByIdAndCheckAuthorization = async function (
-  id: string,
-  user: Express.User
-) {
-  await isOwner(this, id, user);
-};
-
-const Message = model<MessageDoc, MessageModel>(
-  'Message',
-  messageSchema
-) as CustomModel<MessageDoc>;
+const Message = model<MessageDoc, MessageModel>('Message', messageSchema);
 export default Message;

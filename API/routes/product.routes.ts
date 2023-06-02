@@ -18,7 +18,7 @@ import {
 } from '@middlewares/uploadingImage';
 import validate from '@middlewares/validateResource';
 import { productSchema } from './../schema/product.schema';
-import { setUserId } from '@middlewares/helper.middleware';
+import { setIds } from '@middlewares/helper.middleware';
 
 const router = Router({ mergeParams: true });
 /*
@@ -36,7 +36,7 @@ router
     restrictTo('user'),
     uploadProductPhotos,
     resizeProductPhotos,
-    setUserId,
+    setIds,
     validate(productSchema),
     createProduct
   );

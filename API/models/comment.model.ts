@@ -1,7 +1,5 @@
 import { Query, Schema, Types, model } from 'mongoose';
 import { CommentDoc, CommentModel, IComment } from '../types/comment.types';
-import { CustomModel } from '../types/helper.types';
-import { isOwner } from '@utils/logics';
 
 const commentSchema = new Schema<CommentDoc, CommentModel, any>(
   {
@@ -39,15 +37,6 @@ commentSchema.pre<Query<IComment, IComment>>(/^find/, function (next) {
   });
   next();
 });
-commentSchema.statics.findByIdAndCheckAuthorization = async function (
-  id: string,
-  user: Express.User
-) {
-  await isOwner(this, id, user);
-};
 
-const Comment = model<CommentDoc, CommentModel>(
-  'Comment',
-  commentSchema
-) as CustomModel<CommentDoc>;
+const Comment = model<CommentDoc, CommentModel>('Comment', commentSchema);
 export default Comment;

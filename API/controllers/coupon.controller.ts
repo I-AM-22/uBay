@@ -1,3 +1,4 @@
+import Product from '@models/product.model';
 // @desc    Get list of coupons
 // @route   GET /api/v1/coupons
 
@@ -9,30 +10,9 @@ import {
   getOne,
   updateOne,
 } from './handlerFactory';
-import catchAsync from '@utils/catchAsync';
-import { NextFunction, Request, Response } from 'express';
-import Product from '@models/product.model';
-import { STATUS_CODE } from './../types/helper.types';
-import AppError from '@utils/appError';
+import { checkIsOwner } from '../middlewares/helper.middleware';
 
-export const isProductOwner = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const product = await Product.findOne({
-      _id: req.body.product,
-      user: req.body.user,
-    });
-    if (!product)
-      return next(
-        new AppError(
-          STATUS_CODE.FORBIDDEN,
-          [],
-          'You are not authorized to perform this action'
-        )
-      );
-
-    next();
-  }
-);
+export const checkIsOwnerProdCoup = checkIsOwner(Product, 'product');
 // @access  Private/Admin-Manager
 export const getCoupons = getAll(Coupon);
 

@@ -1,7 +1,5 @@
 import { Query, Schema, Types, model } from 'mongoose';
 import { IProduct, ProductDoc, ProductModel } from '../types/product.types';
-import { CustomModel } from '../types/helper.types';
-import { isOwner } from '@utils/logics';
 
 const productSchema = new Schema<ProductDoc, ProductModel, any>(
   {
@@ -56,16 +54,6 @@ productSchema.pre<Query<IProduct, IProduct>>(/^find/, function (next) {
   next();
 });
 
-productSchema.statics.findByIdAndCheckAuthorization = async function (
-  id: string,
-  user: Express.User
-) {
-  await isOwner(this, id, user);
-};
-
-const Product = model<ProductDoc, ProductModel>(
-  'Product',
-  productSchema
-) as CustomModel<ProductDoc>;
+const Product = model<ProductDoc, ProductModel>('Product', productSchema);
 
 export default Product;

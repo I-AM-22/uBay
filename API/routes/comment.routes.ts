@@ -5,13 +5,13 @@ import {
   deleteComment,
   getAllComments,
   getComment,
-  setProductAndUserIds,
   updateComment,
 } from '@controllers/comment.controller';
 import { restrictTo } from '@controllers/auth.controller';
 import passport from 'passport';
 import validate from '@middlewares/validateResource';
 import { commentSchema } from './../schema/comment.schema';
+import { setIds } from '@middlewares/helper.middleware';
 
 const router = Router({ mergeParams: true });
 
@@ -24,7 +24,7 @@ router
   .get(getAllComments)
   .post(
     restrictTo('user'),
-    setProductAndUserIds,
+    setIds('productId'),
     validate(commentSchema),
     createComment
   );

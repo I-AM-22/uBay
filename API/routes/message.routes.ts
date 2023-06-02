@@ -6,23 +6,23 @@ import {
   getAllMessages,
   updateMessage,
   deleteMessage,
-  setSenderAndChat,
   checkIsOwnerMessage,
 } from '@controllers/message.controller';
 import validate from '@middlewares/validateResource';
 import { messageSchema } from './../schema/message.schema';
 import { restrictTo } from '@controllers/auth.controller';
+import { setIds } from '@middlewares/helper.middleware';
 
 const router = Router({ mergeParams: true });
 
 router.use(
   passport.authenticate('jwt', { session: false, failWithError: true }),
-  restrictTo('user', 'admin')
+  restrictTo('user')
 );
 router
   .route('/')
   .get(getAllMessages)
-  .post(setSenderAndChat, validate(messageSchema), CreateMessage);
+  .post(setIds('chatId'), validate(messageSchema), CreateMessage);
 router
   .route('/:id')
   .get(getMessage)

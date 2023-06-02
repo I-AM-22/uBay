@@ -9,15 +9,6 @@ import {
 import { checkIsOwner } from '@middlewares/helper.middleware';
 import { Request, Response, NextFunction } from 'express';
 
-export const setSenderAndChat = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  if (!req.body.chat) req.body.chat = req.params.chatId;
-  req.body.user = req.user?.id;
-  next();
-};
 
 export const checkIsOwnerMessage = checkIsOwner(Message);
 

@@ -2,6 +2,7 @@ import swaggerJsdoc, { Options } from 'swagger-jsdoc';
 import { productSchema } from './routes/products.swagger';
 import { updateMe, signUp } from './routes/auth.swagger';
 import { commentSchema } from './routes/comments.swagger';
+import { categorySchema } from './routes/categories.swagger';
 const options: Options = {
   url: '',
   definition: {
@@ -24,14 +25,14 @@ const options: Options = {
         updateMe,
         productSchema,
         commentSchema,
+        categorySchema,
       },
       securitySchemes: {
         Bearer: {
           type: 'http',
           scheme: 'bearer',
           bearerFormat: 'JWT',
-          description:
-            'Enter the token : abcde12345".',
+          description: 'Enter the token : abcde12345".',
         },
       },
       responses: {
@@ -51,7 +52,10 @@ const options: Options = {
           description: 'Unauthorized',
         },
         404: {
-          description: 'Not found - the user was not found',
+          description: 'Not found',
+        },
+        500: {
+          description: 'Internal server error',
         },
       },
     },
@@ -61,6 +65,7 @@ const options: Options = {
     './swagger/routes/users.swagger.ts',
     './swagger/routes/products.swagger.ts',
     './swagger/routes/comments.swagger.ts',
+    './swagger/routes/categories.swagger.ts',
   ],
 };
 

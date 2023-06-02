@@ -7,12 +7,12 @@ import {
   createCoupon,
   updateCoupon,
   deleteCoupon,
-  isProductOwner,
+  checkIsOwnerProdCoup,
 } from '@controllers/coupon.controller';
 import passport from 'passport';
 import validate from '@middlewares/validateResource';
 import { couponSchema } from './../schema/coupon.schema';
-import { setUserId } from '@middlewares/helper.middleware';
+import { setIds } from '@middlewares/helper.middleware';
 
 const router = express.Router();
 
@@ -24,7 +24,7 @@ router.use(
 router
   .route('/')
   .get(getCoupons)
-  .post(setUserId, validate(couponSchema), isProductOwner, createCoupon);
+  .post(setIds(), validate(couponSchema), checkIsOwnerProdCoup, createCoupon);
 router.route('/:id').get(getCoupon).patch(updateCoupon).delete(deleteCoupon);
 
 export default router;

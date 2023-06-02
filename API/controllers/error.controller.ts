@@ -54,7 +54,6 @@ const handleZodError = (error: any) => {
 const sendErrorDev = (err: any, req: Request, res: Response) => {
   //A) Api error
   return res.status(err.statusCode).json({
-    status: err.status,
     error: err,
     message: err.message,
     name: err.name,
@@ -91,6 +90,7 @@ const globalErrorHandler = (
 ) => {
   //if there is not a statusCode that mean internalServerError 500 and status "error"
   err.statusCode = err.statusCode || STATUS_CODE.INTERNAL_SERVER_ERROR;
+  if (!isNaN(err.status)) err.statusCode = err.status;
   err.status = err.status || 'error';
   if (process.env.NODE_ENV === 'development') {
     sendErrorDev(err, req, res);

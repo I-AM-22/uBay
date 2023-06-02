@@ -179,4 +179,5 @@ export const commentSchema = {
     user: 'user-id',
     product: 'product-id',
   },
+  required: ['content', 'product'],
 };
