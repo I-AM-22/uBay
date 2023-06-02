@@ -6,3 +6,4 @@ const String LOGIN = '/users/login';
 const String FORGET_PASSWORD = '/users/forgotPassword';
 const String RESET_PASSWORD = '/users/resetPassword';
 const String UPDATE_MY_PASSWORD = '/users/updateMyPassword';
+const String MY_PROFILE = '/users/me';

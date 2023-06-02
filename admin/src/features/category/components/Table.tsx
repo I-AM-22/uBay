@@ -27,8 +27,13 @@ export const Table: FC<Props> = ({}) => {
       tableHead={
         <TableHead>
           <TableRow>
-            {tableHeaders.map((cellHeader) => (
-              <TableCell key={cellHeader}>{cellHeader}</TableCell>
+            {tableHeaders.map((cellHeader, index) => (
+              <TableCell
+                key={cellHeader}
+                sx={{ "&.MuiTableCell-root": { textAlign: index === 1 ? "start" : "center" } }}
+              >
+                {cellHeader}
+              </TableCell>
             ))}
           </TableRow>
         </TableHead>
@@ -41,7 +46,9 @@ export const Table: FC<Props> = ({}) => {
         {data?.map((row) => (
           <TableRowStriped key={row.id}>
             <TableCell>{row.name}</TableCell>
-            <TableCell width={"60%"}>{row.description}</TableCell>
+            <TableCell width={"60%"} sx={{ "&.MuiTableCell-root": { textAlign: "start" } }}>
+              {row.description}
+            </TableCell>
             <TableCell>
               <ButtonsStack>
                 <EditIconButton onClick={() => edit(row.id)} />

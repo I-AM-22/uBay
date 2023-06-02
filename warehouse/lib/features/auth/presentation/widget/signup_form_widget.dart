@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:warehouse/core/widget/elevated_button_widget.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/features/auth/presentation/widget/text_form_widget.dart';
 import '../../../../core/theme.dart';
@@ -121,8 +122,8 @@ class SignupFormWidget extends StatelessWidget {
                     validate: FormBuilderValidators.compose([
                       FormBuilderValidators.required(
                           errorText: 'حقل كلمة المرور يجب الا يكون فارغا'),
-                      FormBuilderValidators.minLength(8,
-                          errorText: 'كلمة المرور يجب ان تكون على الأقل 8 رموز')
+                      FormBuilderValidators.minLength(6,
+                          errorText: 'كلمة المرور يجب ان تكون على الأقل 6 رموز')
                     ]),
                     hintText: 'كلمة المرور',
                     suffixIcon: Icons.lock,
@@ -160,15 +161,8 @@ class SignupFormWidget extends StatelessWidget {
                   const SizedBox(
                     height: 16,
                   ),
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: primaryColor,
-                    ),
-                    child: MaterialButton(
+                  ElevatedButtonWidget(
                       onPressed: () {
-                        print(form.currentState!.validate());
                         if (form.currentState!.validate()) {
                           BlocProvider.of<AuthBloc>(context).add(
                               AuthEvent.signupEvent(
@@ -179,12 +173,15 @@ class SignupFormWidget extends StatelessWidget {
                                       passwordConfirmController.text));
                         }
                       },
-                      child: const Text(
-                        'تسجيل الدخول',
-                        style: TextStyle(fontSize: 20, color: Colors.white),
-                      ),
-                    ),
-                  ),
+                      row: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'تسجيل الدخول',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          )
+                        ],
+                      ),)
                 ],
               ),
             ),

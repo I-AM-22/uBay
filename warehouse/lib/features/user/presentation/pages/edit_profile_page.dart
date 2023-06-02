@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:warehouse/features/user/presentation/widget/user_profile_widget.dart';
+import 'package:warehouse/features/user/presentation/widget/edit_profile_page_widget.dart';
 
-class UserProfilePage extends StatelessWidget {
-  const UserProfilePage({Key? key}) : super(key: key);
+class EditProfilePage extends StatelessWidget {
+  const EditProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: _buildAppBar(context), body: const UserProfileWidget());
+      appBar: _buildAppBar(context),
+      body: EditProfilePageWidget(),
+    );
   }
-
   AppBar _buildAppBar(BuildContext context) => AppBar(
       title: const Text(
         'الملف الشخصي',
