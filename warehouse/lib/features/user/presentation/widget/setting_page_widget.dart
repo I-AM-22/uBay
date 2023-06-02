@@ -14,18 +14,17 @@ class SettingPageWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const Text(
+                 Text(
                   'الحساب',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Mont',
-                      fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/UserProfilePage');
+                  },
                   child: const Row(
                     textDirection: TextDirection.rtl,
                     children: [
@@ -35,8 +34,8 @@ class SettingPageWidget extends StatelessWidget {
                           textDirection: TextDirection.rtl,
                           overflow: TextOverflow.ellipsis,
                           'الملف الشخصي',
-                          style:
-                          TextStyle(fontFamily: 'Mont', color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'Mont', color: Colors.black),
                         ),
                       ),
                       Icon(Icons.arrow_back)
@@ -45,7 +44,9 @@ class SettingPageWidget extends StatelessWidget {
                 ),
                 const Divider(),
                 MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/EditProfilePage');
+                  },
                   child: const Row(
                     textDirection: TextDirection.rtl,
                     children: [
@@ -55,8 +56,8 @@ class SettingPageWidget extends StatelessWidget {
                           textDirection: TextDirection.rtl,
                           overflow: TextOverflow.ellipsis,
                           'تحديث الملف الشخصي',
-                          style:
-                          TextStyle(fontFamily: 'Mont', color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'Mont', color: Colors.black),
                         ),
                       ),
                       Icon(Icons.arrow_back)
@@ -75,8 +76,8 @@ class SettingPageWidget extends StatelessWidget {
                           textDirection: TextDirection.rtl,
                           overflow: TextOverflow.ellipsis,
                           'حذف الحساب',
-                          style:
-                          TextStyle(fontFamily: 'Mont', color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'Mont', color: Colors.black),
                         ),
                       ),
                       Icon(Icons.arrow_back)
@@ -96,12 +97,9 @@ class SettingPageWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const Text(
+                   Text(
                     'الخصوصية والأمان',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'Mont',
-                        fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
                   ),
                   const SizedBox(
                     height: 10,
@@ -123,7 +121,6 @@ class SettingPageWidget extends StatelessWidget {
                                 fontFamily: 'Mont', color: Colors.black),
                           ),
                         ),
-
                         Icon(Icons.arrow_back)
                       ],
                     ),

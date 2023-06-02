@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:warehouse/core/util/snackbar_message.dart';
+import 'package:warehouse/core/widget/elevated_button_widget.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/features/auth/presentation/pages/login_page.dart';
 import 'package:warehouse/features/auth/presentation/widget/text_form_widget.dart';
@@ -29,7 +30,8 @@ class LoginFormWidget extends StatelessWidget {
               loading: () => null,
               successLoginState: (message) {
                 SnackBarMessage().snackBarMessageSuccess(context, message);
-                Navigator.pushNamedAndRemoveUntil(context, '/EmployeePage', (route) => false);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/EmployeePage', (route) => false);
               },
               errorLoginState: (message) {
                 SnackBarMessage().snackBarMessageError(context, message);
@@ -47,7 +49,7 @@ class LoginFormWidget extends StatelessWidget {
             }, successLoginState: (message) {
               return Employee();
             }, errorLoginState: (message) {
-              return const LoginPage();
+              return _buildLoginFormWidget(context);
             }, changeIconVisibilityState: (isVisible) {
               isVisibility = isVisible;
               return _buildLoginFormWidget(context);
@@ -111,8 +113,8 @@ class LoginFormWidget extends StatelessWidget {
                     validate: FormBuilderValidators.compose([
                       FormBuilderValidators.required(
                           errorText: 'حقل كلمة المرور يجب الا يكون فارغا'),
-                      FormBuilderValidators.minLength(8,
-                          errorText: 'كلمة المرور يجب ان تكون على الاقل 8 رموز')
+                      FormBuilderValidators.minLength(6,
+                          errorText: 'كلمة المرور يجب ان تكون على الاقل 6 رموز')
                     ]),
                     hintText: 'كلمة المرور',
                     suffixIcon: Icons.lock,
@@ -126,12 +128,7 @@ class LoginFormWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(12)),
-                    child: MaterialButton(
+                  ElevatedButtonWidget(
                       onPressed: () {
                         if (form.currentState!.validate()) {
                           BlocProvider.of<AuthBloc>(context).add(
@@ -140,15 +137,15 @@ class LoginFormWidget extends StatelessWidget {
                                   password: passwordController.text));
                         }
                       },
-                      child: const Text(
-                        'تسجيل الدخول',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontFamily: 'Mont'),
-                      ),
-                    ),
-                  ),
+                      row: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'تسجيل الدخول',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          )
+                        ],
+                      )),
                   Row(
                     textDirection: TextDirection.rtl,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -174,21 +171,19 @@ class LoginFormWidget extends StatelessWidget {
                           ))
                     ],
                   ),
-                  Divider(),
+                  const Divider(),
                   Row(
                     textDirection: TextDirection.rtl,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                       Text(
                         'نسيت كلمة المرور؟',
-                        style: TextStyle(fontFamily: 'Mont'),
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       TextButton(
-                        child: const Text(
+                        child:  Text(
                           'إعادة تعيين كلمة المرور',
-                          style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              fontFamily: 'Mont'),
+                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: primaryColor),
                         ),
                         onPressed: () {
                           Navigator.pushNamed(context, '/ForgetPasswordPage');

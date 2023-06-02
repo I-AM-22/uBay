@@ -1,56 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../../core/theme.dart';
 
 // ignore: must_be_immutable
-class TextFormWidget extends StatelessWidget {
-  final TextEditingController controller;
-  final String? Function(String? value) validate;
-  final String hintText;
+class ReactiveTextFiledWidget extends StatelessWidget {
+  final String controller;
+  final String labelText;
+  String? validationMessage;
+  final String validationMessageRequired;
   void Function()? onPressed;
   IconData? prefixIcon;
   final IconData suffixIcon;
   final bool obscureText;
-  void Function(String?)? onSaved;
 
-  TextFormWidget(
+  ReactiveTextFiledWidget(
       {Key? key,
-      this.onSaved,
-      required this.controller,
-      required this.validate,
-      required this.hintText,
-      required this.suffixIcon,
-      this.prefixIcon,
-      this.onPressed,
-      required this.obscureText})
+        this.validationMessage,
+        required this.controller,
+        required this.labelText,
+        required this.suffixIcon,
+        this.prefixIcon,
+        this.onPressed,
+        required this.obscureText, required this.validationMessageRequired})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: TextFormField(
-        controller: controller,
-        validator: validate,
+      child: ReactiveTextField(
+
+        formControlName: controller,
         obscureText: obscureText,
-        style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 17),
+
+        validationMessages: {
+          ValidationMessage.required: (error) => validationMessageRequired,
+          ValidationMessage.email: (error) => validationMessage!,
+          ValidationMessage.minLength: (error) => validationMessage!,
+        },
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.end,
-        onSaved: onSaved,
+        style: const TextStyle(fontSize: 16,fontFamily: 'Mont',fontWeight: FontWeight.normal),
         decoration: InputDecoration(
-            alignLabelWithHint: true,
+          alignLabelWithHint: true,
             prefixIcon: IconButton(
               onPressed: onPressed,
               icon: Icon(prefixIcon),
               color: primaryColor,
             ),
-            labelText: hintText,
-           labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(color: primaryColor),
+            labelText: labelText,
+            labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(color: primaryColor),
+
             suffixIcon: Icon(
               color: primaryColor,
               suffixIcon,
             ),
-            errorBorder:  const OutlineInputBorder(
+            errorBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
             ),
@@ -66,7 +72,7 @@ class TextFormWidget extends StatelessWidget {
               borderSide: BorderSide(color: primaryColor),
               borderRadius: const BorderRadius.all(Radius.circular(borderRadius)),
             ),
-            contentPadding: const EdgeInsets.all(10)),
+            contentPadding: const EdgeInsets.symmetric(vertical: 15)),
       ),
     );
   }
