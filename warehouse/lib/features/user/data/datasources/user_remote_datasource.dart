@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:warehouse/core/dio_helper.dart';
@@ -17,6 +18,8 @@ abstract class UserRemoteDataSource {
   Future<UserModel> updateMyProfile(String name, String email, File? photo);
 
   Future<UserModel> getMyProfile();
+
+  Future<Unit> deleteMyAccount();
 }
 
 @Injectable(as: UserRemoteDataSource)
@@ -33,9 +36,8 @@ class UserRemoteDataSourceImplement implements UserRemoteDataSource {
       userLogin = UserLogin.fromJson(value.data);
       return Future.value(userLogin);
     }).catchError((error) {
-      DioError dioError = error;
       if (error.response != null) {
-        SERVER_FAILURE = _mapResponseError(dioError.response!);
+        SERVER_FAILURE = _mapResponseError(error.response);
       }
       throw ServerException();
     });
@@ -48,12 +50,11 @@ class UserRemoteDataSourceImplement implements UserRemoteDataSource {
     UserModel? userModel;
     await DioHelper.patchData(url: MY_PROFILE, token: userDetails!.token)
         .then((value) {
-      userModel = UserModel.fromJson(value.data['data']);
+      userModel = UserModel.fromJson(value.data);
       return Future.value(userModel);
-    }).catchError((error) {
-      DioError dioError=error;
-      if(dioError.response!=null) {
-        SERVER_FAILURE = _mapResponseError(dioError.response!);
+    }).catchError((  error) {
+      if (error.response != null) {
+        SERVER_FAILURE = _mapResponseError(error.response!);
       }
       throw ServerException();
     });
@@ -65,16 +66,30 @@ class UserRemoteDataSourceImplement implements UserRemoteDataSource {
     UserModel? userModel;
     await DioHelper.getData(url: MY_PROFILE, token: userDetails!.token)
         .then((value) {
-      userModel = UserModel.fromJson(value.data['data']);
+      userModel = UserModel.fromJson(value.data);
       return Future.value(userModel);
     }).catchError((error) {
-      DioError dioError=error;
-      if(dioError.response!=null) {
-        SERVER_FAILURE = _mapResponseError(dioError.response!);
+      if (error.response != null) {
+        SERVER_FAILURE = _mapResponseError(error.response);
       }
       throw ServerException();
     });
     return Future.value(userModel);
+  }
+
+  @override
+  Future<Unit> deleteMyAccount() async {
+    await DioHelper.deleteData(url: MY_PROFILE, token: userDetails!.token)
+        .then((value) {
+          return Future.value(unit);
+    })
+        .catchError((error) {
+          if(error.ressponse!=null){
+            SERVER_FAILURE=_mapResponseError(error.response);
+          }
+          throw ServerException();
+    });
+    return Future.value(unit);
   }
 }
 

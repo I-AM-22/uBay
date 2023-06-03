@@ -25,42 +25,27 @@ class SignupFormWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
-          state.when(
-              authInitial: () {},
-              loading: () {},
+          state.maybeWhen(
+            orElse: (){},
               successLoginState: (String message) {
                 SnackBarMessage().snackBarMessageSuccess(context, message);
+                Navigator.pushNamedAndRemoveUntil(context, '/EmployeePage', (route) => false);
               },
               errorLoginState: (String message) {
                 SnackBarMessage().snackBarMessageError(context, message);
-              },
-              changeIconVisibilityState: (bool isVis) {},
-              successForgetPasswordState: (String message) {
-                return Container();
-              },
-              errorForgetPasswordState: (String message) {},
-              successResetPasswordState: (String message) {},
-              errorResetPasswordState: (String message) {});
+              },);
         },
-        builder: (context, state) => state.when(authInitial: () {
+        builder: (context, state) => state.maybeWhen(
+            orElse: ()=>_buildSignupWidget(context),
+            authInitial: () {
               return _buildSignupWidget(context);
             }, loading: () {
               return const LoadingWidget();
-            }, successLoginState: (String message) {
-              return Container();
             }, errorLoginState: (String message) {
               return _buildSignupWidget(context);
             }, changeIconVisibilityState: (bool isVisible) {
               isVisibility = isVisible;
               return _buildSignupWidget(context);
-            }, successForgetPasswordState: (String message) {
-              return Container();
-            }, errorForgetPasswordState: (String message) {
-              return Container();
-            }, successResetPasswordState: (String message) {
-              return Container();
-            }, errorResetPasswordState: (String message) {
-              return Container();
             }));
   }
 

@@ -4,7 +4,6 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:warehouse/core/errors/exceptions.dart';
 import 'package:warehouse/core/errors/failures.dart';
-import 'package:warehouse/core/strings/id_and_token.dart';
 import 'package:warehouse/features/auth/data/model/user_login/user_login_model.dart';
 import 'package:warehouse/features/user/data/datasources/user_local_datasources.dart';
 import 'package:warehouse/features/user/data/datasources/user_remote_datasource.dart';
@@ -74,5 +73,25 @@ class UserRepositoryImplement implements UserRepository {
         return Left(EmptyCacheFailure());
       }
     }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteMyAccount()async {
+    if(await networkInfo.isConnected){
+      try{
+        await userRemoteDataSource.deleteMyAccount();
+        return const Right(unit);
+      }on ServerException{
+        return Left(ServerFailure());
+      }
+    }else{
+      return Left(OfflineFailure());
+    }
+  }
+
+  @override
+  Future<Unit> logOut() async{
+    await userLocalDataSource.logOut();
+    return Future.value(unit);
   }
 }

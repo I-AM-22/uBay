@@ -23,16 +23,16 @@ import 'package:warehouse/features/auth/data/repositories/auth_repository_impl.d
     as _i13;
 import 'package:warehouse/features/auth/domain/repositories/auth_repository.dart'
     as _i12;
-import 'package:warehouse/features/auth/domain/usecases/forget_password_model.dart'
-    as _i14;
+import 'package:warehouse/features/auth/domain/usecases/forgot_password_model.dart'
+    as _i15;
 import 'package:warehouse/features/auth/domain/usecases/login_usecase.dart'
-    as _i16;
-import 'package:warehouse/features/auth/domain/usecases/reset_password_usecase.dart'
-    as _i17;
-import 'package:warehouse/features/auth/domain/usecases/signup_usecase.dart'
     as _i18;
+import 'package:warehouse/features/auth/domain/usecases/reset_password_usecase.dart'
+    as _i19;
+import 'package:warehouse/features/auth/domain/usecases/signup_usecase.dart'
+    as _i20;
 import 'package:warehouse/features/auth/presentation/bloc/auth/auth_bloc.dart'
-    as _i22;
+    as _i24;
 import 'package:warehouse/features/user/data/datasources/user_local_datasources.dart'
     as _i8;
 import 'package:warehouse/features/user/data/datasources/user_remote_datasource.dart'
@@ -41,15 +41,19 @@ import 'package:warehouse/features/user/data/repositories/user_repository_implem
     as _i11;
 import 'package:warehouse/features/user/domain/repositories/user_repository.dart'
     as _i10;
+import 'package:warehouse/features/user/domain/usecases/delete_my_account_usecase.dart'
+    as _i14;
 import 'package:warehouse/features/user/domain/usecases/get_my_profile_usecase.dart'
-    as _i15;
+    as _i16;
+import 'package:warehouse/features/user/domain/usecases/logout_usecase.dart'
+    as _i17;
 import 'package:warehouse/features/user/domain/usecases/update_my_profile_usecase.dart'
-    as _i19;
-import 'package:warehouse/features/user/domain/usecases/update_password_usecase.dart'
-    as _i20;
-import 'package:warehouse/features/user/presentation/bloc/user/user_bloc.dart'
     as _i21;
-import 'package:warehouse/injection_container.dart' as _i23;
+import 'package:warehouse/features/user/domain/usecases/update_password_usecase.dart'
+    as _i22;
+import 'package:warehouse/features/user/presentation/bloc/user/user_bloc.dart'
+    as _i23;
+import 'package:warehouse/injection_container.dart' as _i25;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -84,33 +88,39 @@ extension GetItInjectableX on _i1.GetIt {
           authLocalDataSource: gh<_i3.AuthLocalDataSource>(),
           networkInfo: gh<_i7.NetworkInfo>(),
         ));
-    gh.factory<_i14.ForgetPasswordUseCase>(
-        () => _i14.ForgetPasswordUseCase(gh<_i12.AuthRepository>()));
-    gh.factory<_i15.GetMyProfileUseCase>(
-        () => _i15.GetMyProfileUseCase(gh<_i10.UserRepository>()));
-    gh.factory<_i16.LoginUseCase>(
-        () => _i16.LoginUseCase(gh<_i12.AuthRepository>()));
-    gh.factory<_i17.ResetPasswordUseCase>(
-        () => _i17.ResetPasswordUseCase(gh<_i12.AuthRepository>()));
-    gh.factory<_i18.SignupUseCase>(
-        () => _i18.SignupUseCase(gh<_i12.AuthRepository>()));
-    gh.factory<_i19.UpdateMyProfileUseCase>(
-        () => _i19.UpdateMyProfileUseCase(gh<_i10.UserRepository>()));
-    gh.factory<_i20.UpdatePasswordUseCase>(
-        () => _i20.UpdatePasswordUseCase(gh<_i10.UserRepository>()));
-    gh.factory<_i21.UserBloc>(() => _i21.UserBloc(
-          gh<_i20.UpdatePasswordUseCase>(),
-          gh<_i19.UpdateMyProfileUseCase>(),
-          gh<_i15.GetMyProfileUseCase>(),
+    gh.lazySingleton<_i14.DeleteMyAccountUseCase>(
+        () => _i14.DeleteMyAccountUseCase(gh<_i10.UserRepository>()));
+    gh.factory<_i15.ForgotPasswordUseCase>(
+        () => _i15.ForgotPasswordUseCase(gh<_i12.AuthRepository>()));
+    gh.factory<_i16.GetMyProfileUseCase>(
+        () => _i16.GetMyProfileUseCase(gh<_i10.UserRepository>()));
+    gh.lazySingleton<_i17.LogOutUseCase>(
+        () => _i17.LogOutUseCase(gh<_i10.UserRepository>()));
+    gh.factory<_i18.LoginUseCase>(
+        () => _i18.LoginUseCase(gh<_i12.AuthRepository>()));
+    gh.factory<_i19.ResetPasswordUseCase>(
+        () => _i19.ResetPasswordUseCase(gh<_i12.AuthRepository>()));
+    gh.factory<_i20.SignupUseCase>(
+        () => _i20.SignupUseCase(gh<_i12.AuthRepository>()));
+    gh.factory<_i21.UpdateMyProfileUseCase>(
+        () => _i21.UpdateMyProfileUseCase(gh<_i10.UserRepository>()));
+    gh.factory<_i22.UpdatePasswordUseCase>(
+        () => _i22.UpdatePasswordUseCase(gh<_i10.UserRepository>()));
+    gh.factory<_i23.UserBloc>(() => _i23.UserBloc(
+          gh<_i22.UpdatePasswordUseCase>(),
+          gh<_i21.UpdateMyProfileUseCase>(),
+          gh<_i16.GetMyProfileUseCase>(),
+          gh<_i14.DeleteMyAccountUseCase>(),
+          gh<_i17.LogOutUseCase>(),
         ));
-    gh.factory<_i22.AuthBloc>(() => _i22.AuthBloc(
-          signupUseCase: gh<_i18.SignupUseCase>(),
-          loginUseCase: gh<_i16.LoginUseCase>(),
-          forgetPasswordUseCase: gh<_i14.ForgetPasswordUseCase>(),
-          resetPasswordUseCase: gh<_i17.ResetPasswordUseCase>(),
+    gh.factory<_i24.AuthBloc>(() => _i24.AuthBloc(
+          signupUseCase: gh<_i20.SignupUseCase>(),
+          loginUseCase: gh<_i18.LoginUseCase>(),
+          forgetPasswordUseCase: gh<_i15.ForgotPasswordUseCase>(),
+          resetPasswordUseCase: gh<_i19.ResetPasswordUseCase>(),
         ));
     return this;
   }
 }
 
-class _$RegisterModule extends _i23.RegisterModule {}
+class _$RegisterModule extends _i25.RegisterModule {}

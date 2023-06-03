@@ -6,7 +6,7 @@ class SettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const SettingPageWidget();
+    return SettingPageWidget();
   }
 
 

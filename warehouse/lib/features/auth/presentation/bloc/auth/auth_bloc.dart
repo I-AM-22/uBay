@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:warehouse/features/auth/domain/usecases/forget_password_model.dart';
+import 'package:warehouse/features/auth/domain/usecases/forgot_password_model.dart';
 import 'package:warehouse/features/auth/domain/usecases/reset_password_usecase.dart';
 
 import '../../../../../core/errors/failures.dart';
@@ -16,7 +16,7 @@ part 'auth_bloc.freezed.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUseCase loginUseCase;
   final SignupUseCase signupUseCase;
-  final ForgetPasswordUseCase forgetPasswordUseCase;
+  final ForgotPasswordUseCase forgetPasswordUseCase;
   final ResetPasswordUseCase resetPasswordUseCase;
 
   AuthBloc(
@@ -51,7 +51,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(const _$_loading());
       final successOrFailure = await forgetPasswordUseCase(event.email);
       successOrFailure.fold((failure) {
-        emit(_$_errorForgetPasswordState(_mapFailureToString(failure)));
+        emit(_$_errorForgotPasswordState(_mapFailureToString(failure)));
       }, (success) {
         emit(_$_successForgetPasswordState(success));
       });

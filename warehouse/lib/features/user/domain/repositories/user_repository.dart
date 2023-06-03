@@ -10,4 +10,6 @@ abstract class UserRepository {
       String currentPassword, String password);
   Future<Either<Failure,UserModel>> updateMyProfile(String name,String email,File? photo);
   Future<Either<Failure,UserModel>> getMyProfile();
+  Future<Either<Failure,Unit>> deleteMyAccount();
+  Future<Unit> logOut();
 }

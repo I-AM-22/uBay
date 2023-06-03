@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warehouse/core/dio_helper.dart';
 import 'package:warehouse/core/strings/id_and_token.dart';
 import 'package:warehouse/core/theme.dart';
-import 'package:warehouse/features/auth/presentation/pages/forget_password_page.dart';
+import 'package:warehouse/features/auth/presentation/pages/forgot_password_page.dart';
 import 'package:warehouse/features/auth/presentation/pages/login_page.dart';
 import 'package:warehouse/features/product/presentation/pages/get_product.dart';
 import 'package:warehouse/features/user/presentation/pages/setting_page.dart';
@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/loginScreen': (context) => const LoginPage(),
         '/SignupScreen': (context) => const SignupPage(),
-        '/ForgetPasswordPage': (context) => ForgetPasswordPage(),
+        '/ForgetPasswordPage': (context) => ForgotPasswordPage(),
         '/ResetPasswordPage': (context) => const ResetPasswordPage(),
         '/EmployeePage': (context) => const Employee(),
         '/UpdateMyPasswordPage': (context) => const UpdateMyPasswordPage(),

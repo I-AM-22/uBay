@@ -10,8 +10,9 @@ import 'package:warehouse/features/auth/presentation/widget/text_form_widget.dar
 import 'package:warehouse/injection_container.dart' as di;
 import '../../../../core/theme.dart';
 
-class ForgetPasswordPageWidget extends StatelessWidget {
-  ForgetPasswordPageWidget({Key? key}) : super(key: key);
+// ignore: must_be_immutable
+class ForgotPasswordPageWidget extends StatelessWidget {
+  ForgotPasswordPageWidget({Key? key}) : super(key: key);
   final emailController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool isLoading = false;
@@ -28,10 +29,10 @@ class ForgetPasswordPageWidget extends StatelessWidget {
               successLoginState: (message) {},
               errorLoginState: (message) {},
               changeIconVisibilityState: (isVisible) {},
-              successForgetPasswordState: (message) {
+              successForgotPasswordState: (message) {
                 SnackBarMessage().snackBarMessageSuccess(context, message);
               },
-              errorForgetPasswordState: (message) {
+              errorForgotPasswordState: (message) {
                 SnackBarMessage().snackBarMessageError(context, message);
               },
               successResetPasswordState: (message) {},
@@ -46,11 +47,11 @@ class ForgetPasswordPageWidget extends StatelessWidget {
             successLoginState: (message) => Container(),
             errorLoginState: (message) => Container(),
             changeIconVisibilityState: (isVis) => Container(),
-            successForgetPasswordState: (message) {
+            successForgotPasswordState: (message) {
               isLoading = false;
               return const ResetPasswordPage();
             },
-            errorForgetPasswordState: (message) {
+            errorForgotPasswordState: (message) {
               isLoading = false;
               return _buildBuilder(context);
             },
@@ -80,7 +81,7 @@ class ForgetPasswordPageWidget extends StatelessWidget {
                   ),
                    Text(
                     'سيتم إرسال رمز لبريدك الالكتروني',
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const SizedBox(
                     height: 20,
@@ -108,7 +109,7 @@ class ForgetPasswordPageWidget extends StatelessWidget {
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             BlocProvider.of<AuthBloc>(context).add(
-                                AuthEvent.forgetPasswordEvent(
+                                AuthEvent.forgotPasswordEvent(
                                     emailController.text));
                           }
                         },
@@ -117,7 +118,7 @@ class ForgetPasswordPageWidget extends StatelessWidget {
                           children: [
                             Text(
                               'ارسال رمز اعادة التعيين',
-                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 18),
+                              style: Theme.of(context).textTheme.titleMedium,
                             )
                           ],
                         )),

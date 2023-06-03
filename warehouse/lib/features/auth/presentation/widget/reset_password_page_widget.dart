@@ -8,10 +8,10 @@ import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/features/auth/presentation/pages/login_page.dart';
 import 'package:warehouse/features/auth/presentation/widget/text_form_widget.dart';
 
-import '../../../../core/theme.dart';
 import '../bloc/auth/auth_bloc.dart';
 import 'package:warehouse/injection_container.dart' as di;
 
+// ignore: must_be_immutable
 class ResetPasswordWidget extends StatelessWidget {
   ResetPasswordWidget({Key? key}) : super(key: key);
   final tokenController = TextEditingController();
@@ -31,11 +31,11 @@ class ResetPasswordWidget extends StatelessWidget {
                 successLoginState: (message) {},
                 errorLoginState: (message) {},
                 changeIconVisibilityState: (message) {},
-                successForgetPasswordState: (message) {},
-                errorForgetPasswordState: (message) {},
+                successForgotPasswordState: (message) {},
+                errorForgotPasswordState: (message) {},
                 successResetPasswordState: (message) {
                   SnackBarMessage().snackBarMessageSuccess(context, message);
-                  if (userDetails!.token != null) {
+                  if (userDetails!.token.isNotEmpty) {
                     Navigator.pushNamedAndRemoveUntil(
                         context, '/EmployeePage', (route) => false);
                   } else {
@@ -56,8 +56,8 @@ class ResetPasswordWidget extends StatelessWidget {
                 isVisibility = isVisible;
                 return _buildForm(context);
               },
-              successForgetPasswordState: (message) => Container(),
-              errorForgetPasswordState: (message) => Container(),
+              successForgotPasswordState: (message) => Container(),
+              errorForgotPasswordState: (message) => Container(),
               successResetPasswordState: (message) => const LoginPage(),
               errorResetPasswordState: (message) => _buildForm(context))),
     );

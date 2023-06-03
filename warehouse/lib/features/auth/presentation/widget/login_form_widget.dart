@@ -5,7 +5,6 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:warehouse/core/util/snackbar_message.dart';
 import 'package:warehouse/core/widget/elevated_button_widget.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
-import 'package:warehouse/features/auth/presentation/pages/login_page.dart';
 import 'package:warehouse/features/auth/presentation/widget/text_form_widget.dart';
 import 'package:warehouse/main.dart';
 
@@ -25,9 +24,8 @@ class LoginFormWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
-          state.when(
-              authInitial: () => null,
-              loading: () => null,
+          state.maybeWhen(
+              orElse: () {},
               successLoginState: (message) {
                 SnackBarMessage().snackBarMessageSuccess(context, message);
                 Navigator.pushNamedAndRemoveUntil(
@@ -35,32 +33,21 @@ class LoginFormWidget extends StatelessWidget {
               },
               errorLoginState: (message) {
                 SnackBarMessage().snackBarMessageError(context, message);
-              },
-              changeIconVisibilityState: (message) => null,
-              successForgetPasswordState: (message) => null,
-              errorForgetPasswordState: (message) => null,
-              successResetPasswordState: (message) => null,
-              errorResetPasswordState: (message) => null);
+              },);
         },
-        builder: (context, state) => state.when(authInitial: () {
+        builder: (context, state) => state.maybeWhen(
+            orElse: ()=>_buildLoginFormWidget(context),
+            authInitial: () {
               return _buildLoginFormWidget(context);
             }, loading: () {
               return const LoadingWidget();
             }, successLoginState: (message) {
-              return Employee();
+              return const Employee();
             }, errorLoginState: (message) {
               return _buildLoginFormWidget(context);
             }, changeIconVisibilityState: (isVisible) {
               isVisibility = isVisible;
               return _buildLoginFormWidget(context);
-            }, successForgetPasswordState: (String message) {
-              return Container();
-            }, errorForgetPasswordState: (String message) {
-              return Container();
-            }, successResetPasswordState: (String message) {
-              return Container();
-            }, errorResetPasswordState: (String message) {
-              return Container();
             }));
   }
 
@@ -131,10 +118,9 @@ class LoginFormWidget extends StatelessWidget {
                   ElevatedButtonWidget(
                       onPressed: () {
                         if (form.currentState!.validate()) {
-                          BlocProvider.of<AuthBloc>(context).add(
-                              AuthEvent.loginEvent(
-                                  email: emailController.text,
-                                  password: passwordController.text));
+                        BlocProvider.of<AuthBloc>(context).add(AuthEvent.loginEvent(
+                            email: emailController.text,
+                            password: passwordController.text));
                         }
                       },
                       row: Row(
@@ -176,14 +162,17 @@ class LoginFormWidget extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                       Text(
+                      Text(
                         'نسيت كلمة المرور؟',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       TextButton(
-                        child:  Text(
+                        child: Text(
                           'إعادة تعيين كلمة المرور',
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: primaryColor),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(color: primaryColor),
                         ),
                         onPressed: () {
                           Navigator.pushNamed(context, '/ForgetPasswordPage');

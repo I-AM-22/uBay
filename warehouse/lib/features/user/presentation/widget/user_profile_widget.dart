@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:warehouse/core/theme.dart';
 import 'package:warehouse/core/util/chose_date_time.dart';
-import 'package:warehouse/core/util/snackbar_message.dart';
 import 'package:warehouse/core/widget/error_widget.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/features/user/data/model/user_model.dart';
@@ -16,7 +15,8 @@ class UserProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => di.getIt<UserBloc>()..add(const UserEvent.getMyProfileEvent()),
+      create: (_) =>
+          di.getIt<UserBloc>()..add(const UserEvent.getMyProfileEvent()),
       child: BlocConsumer<UserBloc, UserState>(
         listener: (context, state) {
           // state.when(
@@ -34,23 +34,20 @@ class UserProfileWidget extends StatelessWidget {
           //       SnackBarMessage().snackBarMessageError(context, message);
           //     });
         },
-        builder: (context, state) => state.when(
+        builder: (context, state) => state.maybeWhen(
+          orElse: ()=>const ErrorMessageWidget(message: 'حاول لاحقا 😀'),
             userInitial: () => const LoadingWidget(),
             loading: () => const LoadingWidget(),
-            successUpdateMyPasswordState: (m) => Container(),
-            errorUpdateMyPasswordState: (m) => Container(),
-            successChangeIconVisibilityState: (m) => Container(),
-            successPickImageProfileState: (m) => Container(),
-            errorPickImageProfileState: () => Container(),
-            successUpdateMyProfileState: (m) => Container(),
-            errorUpdateMyProfileState: (m) => Container(),
-            successGetMyProfileState: (m) => _buildMyProfile(context,m),
-            errorGetMyProfileState: (m) => ErrorMessageWidget(message: m,)),
+            successGetMyProfileState: (m) => _buildMyProfile(context, m),
+            errorGetMyProfileState: (m) => ErrorMessageWidget(
+                  message: m,
+                ),),
       ),
     );
   }
 
-  Widget _buildMyProfile(BuildContext context,UserModel model) => SingleChildScrollView(
+  Widget _buildMyProfile(BuildContext context, UserModel model) =>
+      SingleChildScrollView(
         child: Card(
           margin: EdgeInsets.zero,
           color: Colors.white,

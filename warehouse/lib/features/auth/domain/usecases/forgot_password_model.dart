@@ -4,12 +4,12 @@ import 'package:warehouse/core/errors/failures.dart';
 import 'package:warehouse/features/auth/domain/repositories/auth_repository.dart';
 
 @Injectable()
-class ForgetPasswordUseCase {
+class ForgotPasswordUseCase {
   final AuthRepository authRepository;
 
-  ForgetPasswordUseCase(this.authRepository);
+  ForgotPasswordUseCase(this.authRepository);
 
   Future<Either<Failure, String>> call(String email) async {
-    return await authRepository.forgetPassword(email);
+    return await authRepository.forgotPassword(email);
   }
 }
