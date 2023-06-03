@@ -37,7 +37,7 @@ export const updateMe = catchAsync(
         )
       );
     if (!req.user) return next();
-    
+
     const filteredBody = filterObj(req.body, 'name', 'email');
     if (req.file) filteredBody.photo = req.file.filename;
     const user = await User.findByIdAndUpdate(
@@ -46,7 +46,7 @@ export const updateMe = catchAsync(
       { new: true, runValidators: true }
       //run validator for normal like minlength or enum but not required
     );
-    res.status(STATUS_CODE.SUCCESS).json({ status: 'success', data: { user } });
+    res.status(STATUS_CODE.SUCCESS).json({ user });
   }
 );
 
@@ -55,14 +55,11 @@ export const deleteMe = catchAsync(
     if (!req.user) return next();
 
     await User.findByIdAndUpdate(req.user.id, { active: false });
-    res.status(STATUS_CODE.DELETED).json({
-      status: 'success',
-      data: null,
-    });
+    res.sendStatus(STATUS_CODE.DELETED);
   }
 );
 
-export const getAllUsers = getAll(User);
+export const getAllUsers = getAll(User,'user');
 export const getUser = getOne(User);
 export const CreateUser = createOne(User);
 export const updateUser = updateOne(User);

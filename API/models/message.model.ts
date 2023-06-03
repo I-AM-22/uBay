@@ -25,6 +25,7 @@ const messageSchema = new Schema<MessageDoc, MessageModel, any>(
     timestamps: true,
   }
 );
+messageSchema.index({content:1})
 messageSchema.pre('save', async function (next) {
   const chat = await Chat.findOne({
     _id: this.chat,

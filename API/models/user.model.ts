@@ -22,7 +22,7 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
     photo: { type: String, default: 'https://i.imgur.com/7rlze8l.jpg' },
     role: {
       type: String,
-      enum: ['admin', 'user', 'employee'],
+      enum: ['admin', 'user', 'superadmin'],
       default: 'user',
     },
     store: { type: Types.ObjectId, ref: 'Store' },
@@ -47,6 +47,7 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
   }
 );
 
+userSchema.index({ name: 1, email: 1 });
 //Document middleware
 
 userSchema.pre('save', async function (next) {
@@ -71,7 +72,7 @@ userSchema.post('save', function () {
 });
 
 userSchema.pre<Query<IUser, IUser>>(/^find/, function (next) {
-  this.find({ active: { $ne: false } }).populate('store');
+  this.find({ active: { $ne: false } });
   next();
 });
 

@@ -13,6 +13,24 @@
  *     get:
  *       summary: Get All Users
  *       tags: [Users]
+ *       parameters:
+ *        - name: params
+ *          in: query
+ *          description: page=1&limit=10&sort=+email&fields=+name,-photo
+ *          required: false
+ *          schema:
+ *           type: object
+ *           properties:
+ *             page:
+ *              type: integer
+ *             limit:
+ *              type: integer
+ *             sort:
+ *              type: string
+ *             fields:
+ *              type: string
+ *             search:
+ *              type: string
  *       security:
  *         - Bearer: []
  *       responses:
@@ -166,7 +184,7 @@
  *           $ref: '#/components/responses/401'
  *         "204":
  *           description: User deleted successfully
-*/
+ */
 
 /**
  * @swagger
@@ -191,7 +209,7 @@
  *                 name:
  *                   type: string
  *                 email:
- *                   type: string     
+ *                   type: string
  *       responses:
  *         "400":
  *           $ref: '#/components/responses/400'
@@ -200,5 +218,3 @@
  *         "200":
  *           description: User updated successfully
  */
-
-

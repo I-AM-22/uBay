@@ -7,7 +7,7 @@ import {
   createOne,
 } from '@controllers/handlerFactory';
 import { NextFunction, Request, Response } from 'express';
-import { checkIsOwner } from '@middlewares/helper.middleware';
+import { checkIsOwner } from '@middlewares/auth.middleware';
 import catchAsync from '@utils/catchAsync';
 import AppError from '@utils/appError';
 import { STATUS_CODE } from '../types/helper.types';
@@ -19,7 +19,7 @@ export const like = catchAsync(
       { $inc: { likes: 1 } },
       { new: true, runValidators: true }
     );
-    res.status(STATUS_CODE.SUCCESS).send({ status: 'success' });
+    res.sendStatus(STATUS_CODE.SUCCESS);
   }
 );
 
@@ -39,7 +39,7 @@ export const dislike = catchAsync(
       product.likes = 0;
       await product.save({ validateBeforeSave: false });
     }
-    res.status(STATUS_CODE.SUCCESS).send({ status: 'success' });
+    res.sendStatus(STATUS_CODE.SUCCESS);
   }
 );
 export const checkIsOwnerProduct = checkIsOwner(Product);

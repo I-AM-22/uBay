@@ -7,7 +7,7 @@ import {
   updateOne,
 } from '@controllers/handlerFactory';
 import { NextFunction, Request, Response } from 'express';
-import { checkIsOwner } from '@middlewares/helper.middleware';
+import { checkIsOwner } from '@middlewares/auth.middleware';
 
 export const checkIsOwnerComment = checkIsOwner(Comment);
 export const getAllComments = getAll(Comment);

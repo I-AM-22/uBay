@@ -5,7 +5,7 @@ import {
   getCategory,
   updateCategory,
 } from '@controllers/category.controller';
-import { restrictTo } from '@controllers/auth.controller';
+import { restrictTo } from '@middlewares/auth.middleware';
 import passport from 'passport';
 import { getAllCategories } from '@controllers/category.controller';
 import productRouter from '@routes/product.routes';
@@ -21,7 +21,7 @@ router
   .get(getAllCategories)
   .post(
     passport.authenticate('jwt', { session: false, failWithError: true }),
-    restrictTo('admin'),
+    restrictTo('superadmin', 'admin'),
     validate(categorySchema),
     createCategory
   );
@@ -31,12 +31,12 @@ router
   .get(getCategory)
   .patch(
     passport.authenticate('jwt', { session: false, failWithError: true }),
-    restrictTo('admin'),
+    restrictTo('superadmin', 'admin'),
     updateCategory
   )
   .delete(
     passport.authenticate('jwt', { session: false, failWithError: true }),
-    restrictTo('admin'),
+    restrictTo('superadmin', 'admin'),
     deleteCategory
   );
 

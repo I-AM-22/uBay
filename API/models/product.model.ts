@@ -32,12 +32,10 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
   }
 );
 
-function checkSize(val: any) {
-  return val.length > 0;
-}
-
 productSchema.index({ price: 1 });
 productSchema.index({ category: 1 });
+productSchema.index({ description: 1 });
+
 productSchema.post('save', async function () {
   await this.populate('category');
   await this.populate({

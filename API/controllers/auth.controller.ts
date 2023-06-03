@@ -14,11 +14,8 @@ const sendUser = (user: any, statusCode: number, res: Response) => {
   //remove password from output
   user.password = undefined;
   res.status(statusCode).send({
-    status: 'success',
     token,
-    data: {
-      user,
-    },
+    user,
   });
 };
 
@@ -52,22 +49,7 @@ export const login = catchAsync(
   }
 );
 
-//Check the role of the user
-export const restrictTo =
-  (...roles: Array<string>) =>
-  (req: Request, res: Response, next: NextFunction) => {
-    if (!req.user) return next();
-    if (!roles.includes(req.user.role)) {
-      return next(
-        new AppError(
-          STATUS_CODE.FORBIDDEN,
-          [],
-          'You are not authorized to perform this action'
-        )
-      );
-    }
-    next();
-  };
+
 
 export const forgotPassword = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -98,7 +80,6 @@ export const forgotPassword = catchAsync(
     try {
       await new Email(user, resetToken).sendPasswordReset();
       res.status(STATUS_CODE.SUCCESS).json({
-        status: 'success',
         message: 'تم ارسال رمز اعادة التعيين لبريدك الالكتروني',
       });
     } catch (err) {
@@ -137,7 +118,7 @@ export const isTokenValid = catchAsync(
         )
       );
 
-    res.status(STATUS_CODE.SUCCESS).json({ status: 'success' });
+    res.sendStatus(STATUS_CODE.SUCCESS);
   }
 );
 

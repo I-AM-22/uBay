@@ -12,7 +12,7 @@ import {
 } from '@controllers/chat.controller';
 import validate from '@middlewares/validateResource';
 import { chatSchema } from './../schema/chat.schema';
-import { restrictTo } from '@controllers/auth.controller';
+import { restrictTo } from '@middlewares/auth.middleware';
 
 const router = Router();
 

@@ -10,7 +10,7 @@ import {
   getOne,
   updateOne,
 } from './handlerFactory';
-import { checkIsOwner } from '../middlewares/helper.middleware';
+import { checkIsOwner } from '@middlewares/auth.middleware';
 
 export const checkIsOwnerProdCoup = checkIsOwner(Product, 'product');
 // @access  Private/Admin-Manager

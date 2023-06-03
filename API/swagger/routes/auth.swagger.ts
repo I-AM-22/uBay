@@ -171,12 +171,11 @@ export const updateMe = {
 };
 export const signUp = {
   type: 'object',
-  required: ['name', 'email', 'password', 'passwordConfirm'],
+  required: ['name', 'email', 'password'],
   properties: {
     name: { type: 'string' },
     email: { type: 'string' },
     password: { type: 'string' },
-    passwordConfirm: { type: 'string' },
   },
   example: {
     name: 'bahaa',

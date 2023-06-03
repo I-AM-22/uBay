@@ -7,7 +7,7 @@ import {
   getComment,
   updateComment,
 } from '@controllers/comment.controller';
-import { restrictTo } from '@controllers/auth.controller';
+import { restrictTo } from '@middlewares/auth.middleware';
 import passport from 'passport';
 import validate from '@middlewares/validateResource';
 import { commentSchema } from './../schema/comment.schema';

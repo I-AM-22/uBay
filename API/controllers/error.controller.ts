@@ -38,11 +38,7 @@ const handleJWTExpiredError = () =>
   );
 
 const handelPassportError = () =>
-  new AppError(
-    STATUS_CODE.UNAUTHORIZE,
-    [],
-    'You are not logged in, please log in to get access.'
-  );
+  new AppError(STATUS_CODE.UNAUTHORIZE, [], 'الرجاء تسجيل الدخول');
 let a = [];
 const handleZodError = (error: any) => {
   const prodValidationError = error.issues.map((el: any) => {

@@ -14,13 +14,21 @@
  *     parameters:
  *      - name: params
  *        in: query
+ *        description: page=1&limit=10&sort=+price&fields=+content&createdAt[gte]=${Date}
  *        required: false
  *        schema:
  *         type: object
  *         properties:
  *           page:
- *            type: string
+ *            type: integer
+ *            minimum: 1
  *           limit:
+ *            type: integer
+ *           sort:
+ *            type: string
+ *           fields:
+ *            type: string
+ *           search:
  *            type: string
  *     responses:
  *       '200':

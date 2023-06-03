@@ -10,7 +10,7 @@ import {
 } from '@controllers/message.controller';
 import validate from '@middlewares/validateResource';
 import { messageSchema } from './../schema/message.schema';
-import { restrictTo } from '@controllers/auth.controller';
+import { restrictTo } from '@middlewares/auth.middleware';
 import { setIds } from '@middlewares/helper.middleware';
 
 const router = Router({ mergeParams: true });

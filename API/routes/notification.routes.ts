@@ -1,4 +1,4 @@
-import { restrictTo } from '@controllers/auth.controller';
+import { restrictTo } from '@middlewares/auth.middleware';
 import {
   createNotification,
   deleteNotification,
