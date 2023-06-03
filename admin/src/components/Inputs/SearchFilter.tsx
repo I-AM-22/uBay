@@ -4,14 +4,14 @@ import { FC, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import DebouncedTextField from "./DebouncedTextField";
 type Props = {} & TextFieldProps;
-const SearchInput: FC<Props> = (props) => {
+const SearchFilter: FC<Props> = (props) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState(searchParams.get("q") ?? "");
+  const [query, setQuery] = useState(searchParams.get("s") ?? "");
   useEffect(() => {
     if (query) {
-      searchParams.set("q", query);
+      searchParams.set("s", query);
     } else {
-      searchParams.delete("q");
+      searchParams.delete("s");
     }
     setSearchParams(searchParams);
   }, [query, searchParams, setSearchParams]);
@@ -33,4 +33,4 @@ const SearchInput: FC<Props> = (props) => {
     />
   );
 };
-export default SearchInput;
+export default SearchFilter;

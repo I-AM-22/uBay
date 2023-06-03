@@ -1,7 +1,7 @@
 import { Button, ButtonProps, SxProps } from "@mui/material";
 import { Box } from "@mui/system";
 import Loading from "components/feedback/Loading";
-import { forwardRef, RefObject } from "react";
+import { RefObject, forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 export type SubmitProps = {
   isSubmitting?: boolean;
@@ -39,7 +39,7 @@ const Submit = forwardRef(function Fr(
           <Loading stackProps={{ sx: { height: "100%" } }} size={loadingSize} />
         </Box>
       )}
-      <Box sx={{ opacity: isSubmitting ? 0 : 1 }}>{children ?? t("generic.submit")}</Box>
+      <Box sx={{ opacity: isSubmitting ? 0 : 1 }}>{children ?? t("submit")}</Box>
     </Button>
   );
 });

@@ -1,7 +1,8 @@
 {
   "navLink": {
     "home": "الرئيسية",
-    "customers": "الزبائن",
+    "users": "المستخدمين",
+    "categories": "الأصناف",
     "billing": "المالية",
     "reports": "التقارير",
     "admins": "المشرفين",

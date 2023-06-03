@@ -36,7 +36,7 @@ const RemoveDialog: FC<Props> = ({ handleCancel, handleRemove, open, children, i
                 },
               }}
             >
-              {t("generic.cancel")}
+              {t("cancel")}
             </Button>
             <Button
               onClick={handleRemove}
@@ -50,7 +50,7 @@ const RemoveDialog: FC<Props> = ({ handleCancel, handleRemove, open, children, i
                 },
               }}
             >
-              {t("generic.remove")}
+              {t("remove")}
             </Button>
           </DialogActions>
         </Stack>

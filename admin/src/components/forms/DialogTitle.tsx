@@ -1,11 +1,15 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { DialogTitle as MuiDialogTitle, DialogTitleProps, IconButton } from "@mui/material";
+import { DialogTitleProps, IconButton, DialogTitle as MuiDialogTitle } from "@mui/material";
+import Skeleton from "components/feedback/Skeleton";
 import { FC, forwardRef } from "react";
-type Props = { onClose?: () => void } & DialogTitleProps;
-const DialogTitle: FC<Props> = forwardRef(function fr({ children, onClose, ...props }: Props, ref) {
+type Props = { onClose?: () => void; skeleton?: boolean } & DialogTitleProps;
+const DialogTitle: FC<Props> = forwardRef(function fr(
+  { skeleton, children, onClose, ...props }: Props,
+  ref
+) {
   return (
     <MuiDialogTitle sx={{ m: 0, p: 2 }} {...props} ref={ref}>
-      {children}
+      {skeleton ? <Skeleton widthRange={{ min: 100, max: 100 }} /> : children}
       {onClose ? (
         <IconButton
           aria-label="close"

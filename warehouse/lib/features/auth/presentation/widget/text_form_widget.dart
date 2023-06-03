@@ -27,43 +27,47 @@ class TextFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      validator: validate,
-      obscureText: obscureText,
-      textDirection: TextDirection.ltr,
-      textAlign: TextAlign.end,
-      onSaved: onSaved,
-      decoration: InputDecoration(
-          prefixIcon: IconButton(
-            onPressed: onPressed,
-            icon: Icon(prefixIcon),
-            color: primaryColor,
-          ),
-          hintText: hintText,
-          hintStyle:
-              TextStyle(color: primaryColor, fontFamily: 'Mont', fontSize: 13),
-          suffixIcon: Icon(
-            color: primaryColor,
-            suffixIcon,
-          ),
-          errorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red),
-            borderRadius: BorderRadius.all(Radius.circular(12.0)),
-          ),
-          focusedErrorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey),
-            borderRadius: BorderRadius.all(Radius.circular(12.0)),
-          ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey),
-            borderRadius: BorderRadius.all(Radius.circular(12.0)),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: primaryColor),
-            borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-          ),
-          contentPadding: const EdgeInsets.all(10)),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: TextFormField(
+        controller: controller,
+        validator: validate,
+        obscureText: obscureText,
+        style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 17),
+        textDirection: TextDirection.ltr,
+        textAlign: TextAlign.end,
+        onSaved: onSaved,
+        decoration: InputDecoration(
+            alignLabelWithHint: true,
+            prefixIcon: IconButton(
+              onPressed: onPressed,
+              icon: Icon(prefixIcon),
+              color: primaryColor,
+            ),
+            labelText: hintText,
+           labelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(color: primaryColor),
+            suffixIcon: Icon(
+              color: primaryColor,
+              suffixIcon,
+            ),
+            errorBorder:  const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
+              borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+            ),
+            focusedErrorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey),
+              borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey),
+              borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: primaryColor),
+              borderRadius: const BorderRadius.all(Radius.circular(borderRadius)),
+            ),
+            contentPadding: const EdgeInsets.all(10)),
+      ),
     );
   }
 }

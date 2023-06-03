@@ -16,6 +16,8 @@ import 'package:warehouse/temp.dart';
 import 'features/auth/data/model/user_login/user_login_model.dart';
 import 'features/auth/presentation/pages/reset_password_page.dart';
 import 'features/auth/presentation/pages/signup_page.dart';
+import 'features/user/presentation/pages/edit_profile_page.dart';
+import 'features/user/presentation/pages/user_profile_page.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -25,11 +27,10 @@ void main() async {
   await di.configureDependencies();
   // ignore: unused_local_variable
   final jsonString = di.getIt<SharedPreferences>().getString('USER_LOGIN');
-  UserLogin jsonToModel = UserLogin.fromJson(json.decode(jsonString!));
-  token=jsonToModel.token;
-  print(token);
   String initialRoot='/loginScreen';
-  if(token!=null){
+  if(jsonString!=null) {
+    userDetails = UserLogin.fromJson(json.decode(jsonString));
+    print(userDetails!.token);
     initialRoot='/EmployeePage';
   }else{
     initialRoot='/loginScreen';
@@ -53,6 +54,8 @@ class MyApp extends StatelessWidget {
         '/ResetPasswordPage': (context) => const ResetPasswordPage(),
         '/EmployeePage': (context) => const Employee(),
         '/UpdateMyPasswordPage': (context) => const UpdateMyPasswordPage(),
+        '/UserProfilePage': (context) => const UserProfilePage(),
+        '/EditProfilePage':(context)=>const EditProfilePage(),
       },
       initialRoute: initialRoot,
     );

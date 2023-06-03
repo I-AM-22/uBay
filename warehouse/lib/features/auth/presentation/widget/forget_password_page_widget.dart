@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:warehouse/core/util/snackbar_message.dart';
+import 'package:warehouse/core/widget/elevated_button_widget.dart';
 import 'package:warehouse/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:warehouse/features/auth/presentation/pages/reset_password_page.dart';
 import 'package:warehouse/features/auth/presentation/widget/text_form_widget.dart';
@@ -77,9 +78,9 @@ class ForgetPasswordPageWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
+                   Text(
                     'سيتم إرسال رمز لبريدك الالكتروني',
-                    style: TextStyle(color: Colors.black, fontFamily: 'Mont'),
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                   const SizedBox(
                     height: 20,
@@ -101,14 +102,9 @@ class ForgetPasswordPageWidget extends StatelessWidget {
                   const SizedBox(
                     height: 16,
                   ),
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: isLoading ? Colors.grey : primaryColor,
-                        borderRadius: BorderRadius.circular(12)),
-                    child: ConditionalBuilder(
-                      condition: !isLoading,
-                      builder: (_) => MaterialButton(
+                  ConditionalBuilder(
+                    condition: !isLoading,
+                    builder: (_) => ElevatedButtonWidget(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             BlocProvider.of<AuthBloc>(context).add(
@@ -116,18 +112,17 @@ class ForgetPasswordPageWidget extends StatelessWidget {
                                     emailController.text));
                           }
                         },
-                        color: primaryColor,
-                        textColor: Colors.white,
-                        child: const Text(
-                          'ارسال رمز اعادة التعيين',
-                          style: TextStyle(fontFamily: 'Mont'),
-                        ),
-                      ),
-                      fallback: (_) => Center(
-                          child: CircularProgressIndicator(
-                        color: primaryColor,
-                      )),
-                    ),
+                        row: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'ارسال رمز اعادة التعيين',
+                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 18),
+                            )
+                          ],
+                        )),
+                    fallback: (_) =>
+                        const Center(child: CircularProgressIndicator()),
                   )
                 ],
               ),

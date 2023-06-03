@@ -1,26 +1,39 @@
-import { InfiniteData } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { Page, Pagination } from "../types/api";
+import { useSnackbar } from "context/snackbarContext";
+import i18n from "lib/i18next";
+import { UseFormSetError } from "react-hook-form";
+import { ResponseError } from "types/api";
 
-export function getNextPageParam<T>(lastPage: Page<T>, allPages: Page<T>[]) {
-  return allPages.length < lastPage.data.totalPages ? lastPage.pageParam + 1 : undefined;
-}
-export function getPreviousPageParam<T>(lastPage: Page<T>, allPages: Page<T>[]) {
-  return allPages.length > 0 ? lastPage.pageParam - 1 : undefined;
+export function isBackendError(err: unknown): err is AxiosError<ResponseError> {
+  return err instanceof AxiosError<ResponseError>;
 }
 
-export function parseBackendError(err: AxiosError<any, any>) {
-  let message: string | undefined;
-  const data = err.response?.data;
-  if (data) message = `${data.errorMessage}`;
-  return message;
-}
-type Data<T> =
-  | InfiniteData<{
-      data: Pagination<T>;
-      pageParam: any;
-    }>
-  | undefined;
-export function getPage<T>(data: Data<T>, pageNumber: number) {
-  return data?.pages[(data?.pageParams[pageNumber] as any) ?? 0]?.data.data ?? [];
+type Feedbacks = {
+  setError?: UseFormSetError<any>;
+  snackbar?: ReturnType<typeof useSnackbar>;
+};
+export function parseResponseError(feedbacks?: Feedbacks) {
+  return (err: unknown) => {
+    if (!isBackendError(err)) throw new Error("Unknown Response Error");
+    const data = err.response?.data;
+    switch (data?.type) {
+      case "default":
+        feedbacks?.snackbar?.({
+          message: data.message ?? i18n.t("error.somethingWentWrong"),
+          severity: "error",
+        });
+        break;
+      case "form":
+        data.errors.forEach((error) =>
+          feedbacks?.setError?.(`${error.path.join(".")}`, { message: error.message })
+        );
+        break;
+      default:
+        feedbacks?.snackbar?.({
+          message: i18n.t("error.somethingWentWrong"),
+          severity: "error",
+        });
+    }
+    return err;
+  };
 }
