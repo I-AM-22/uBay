@@ -11,6 +11,25 @@
  *   get:
  *     summary: Get all categories
  *     tags: [Categories]
+ *     parameters:
+ *      - name: params
+ *        in: query
+ *        description: page=1&limit=10&sort=+createdAt&fields=+name
+ *        required: false
+ *        schema:
+ *         type: object
+ *         properties:
+ *           page:
+ *            type: integer
+ *            minimum: 1
+ *           limit:
+ *            type: integer
+ *           sort:
+ *            type: string
+ *           fields:
+ *            type: string
+ *           search:
+ *            type: string
  *     responses:
  *       200:
  *         description: Success

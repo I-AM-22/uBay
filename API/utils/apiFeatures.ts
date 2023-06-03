@@ -9,14 +9,7 @@
 
   filter() {
     const queryObj = { ...this.queryString };
-    const excludedFields = [
-      'limit',
-      'sort',
-      'page',
-      'fields',
-      'search',
-      'reverse',
-    ];
+    const excludedFields = ['limit', 'sort', 'page', 'fields', 'search'];
     excludedFields.forEach((el) => delete queryObj[el]);
     //Advance
     //For find
@@ -59,8 +52,16 @@
     return this;
   }
 
-  search(query: any) {
+  search() {
     if (this.queryString.search) {
+      const query = {
+        $or: [
+          { name: { $regex: this.queryString.search, $options: 'xi' } },
+          { email: { $regex: this.queryString.search, $options: 'xi' } },
+          { description: { $regex: this.queryString.search, $options: 'xi' } },
+          { content: { $regex: this.queryString.search, $options: 'xi' } },
+        ],
+      };
       this.query = this.query.find(query);
     }
     return this;

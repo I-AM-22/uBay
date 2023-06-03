@@ -48,9 +48,7 @@ export const accessChat = catchAsync(
     }
 
     const createdChat = await Chat.create(req.body);
-    return res
-      .status(STATUS_CODE.CREATED)
-      .json({ status: 'success', data: createdChat });
+    return res.status(STATUS_CODE.CREATED).json({ chat: createdChat });
   }
 );
 
@@ -61,9 +59,7 @@ export const getAllChats = catchAsync(
     }).sort({
       updatedAt: -1,
     });
-    res
-      .status(STATUS_CODE.SUCCESS)
-      .json({ status: 'success', result: chats.length, data: chats });
+    res.status(STATUS_CODE.SUCCESS).json({ result: chats.length, chats });
   }
 );
 

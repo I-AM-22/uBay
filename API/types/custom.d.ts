@@ -3,10 +3,7 @@ import { IUser } from 'types/user.types';
 
 export declare global {
   namespace Express {
-    interface Request {
-      querySearch: any;
-    }
-    interface User extends IUser {
+    interface User extends Omit<IUser, 'password'> {
       id: string;
       _id: string;
     }

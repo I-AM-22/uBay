@@ -6,9 +6,8 @@ import {
   deleteOne,
   updateOne,
 } from '@controllers/handlerFactory';
-import { checkIsOwner } from '@middlewares/helper.middleware';
+import { checkIsOwner } from '@middlewares/auth.middleware';
 import { Request, Response, NextFunction } from 'express';
-
 
 export const checkIsOwnerMessage = checkIsOwner(Message);
 

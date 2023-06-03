@@ -19,16 +19,23 @@
  *         required: true
  *         description: The product Id of comments
  *       - in: query
- *         name: params
+ *         name: query
+ *         description: page=1&limit=10&sort=+createdAt&fields=+content
+ *         required: false
  *         schema:
- *           type: object
- *           properties:
+ *          type: object
+ *          properties:
  *            page:
  *             type: integer
  *             minimum: 1
  *            limit:
  *             type: integer
- *         required: false
+ *            sort:
+ *             type: string
+ *            fields:
+ *             type: string
+ *            search:
+ *             type: string
  *     security:
  *       - Bearer: []
  *     responses:

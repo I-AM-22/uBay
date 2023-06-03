@@ -62,6 +62,7 @@ const options: Options = {
   },
   apis: [
     './swagger/routes/auth.swagger.ts',
+    './swagger/routes/admins.swagger.ts',
     './swagger/routes/users.swagger.ts',
     './swagger/routes/products.swagger.ts',
     './swagger/routes/comments.swagger.ts',
