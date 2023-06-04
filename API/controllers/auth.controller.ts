@@ -28,14 +28,18 @@ export const signup = catchAsync(
   }
 );
 
-export const login = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+export const login = (role: string) =>
+  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     //Check if  the email and password  exist
     const { email, password } = req.body;
 
     //check if the user exist and the password correct
     const user = await User.findOne({ email }).select('+password ');
-    if (!user || !(await user.correctPassword(password))) {
+    if (
+      !user ||
+      !user.role.includes(role) ||
+      !(await user.correctPassword(password))
+    ) {
       return next(
         new AppError(
           STATUS_CODE.UNAUTHORIZE,
@@ -46,10 +50,7 @@ export const login = catchAsync(
     }
 
     sendUser(user, 201, res);
-  }
-);
-
-
+  });
 
 export const forgotPassword = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {

@@ -36,7 +36,7 @@ router.use('/:userId/notifications', notificationRouter);
 router.use('/:userId/products', productRouter);
 
 router.route('/signup').post(validate(userSchema), signup);
-router.route('/login').post(validate(loginInput), login);
+router.route('/login').post(validate(loginInput), login('user'));
 router
   .route('/forgotPassword')
   .post(validate(forgotPasswordSchema), forgotPassword);

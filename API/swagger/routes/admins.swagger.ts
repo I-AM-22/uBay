@@ -7,6 +7,35 @@
 
 /**
  * @swagger
+ *   /admins/login:
+ *     post:
+ *       summary: login an admin
+ *       tags: [Admins]
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               required:
+ *                 - email
+ *                 - password
+ *               properties:
+ *                 email:
+ *                   type: string
+ *                 password:
+ *                   type: string
+ *       responses:
+ *         "400":
+ *           $ref: '#/components/responses/400'
+ *         "200":
+ *           description: user logged in successfully
+ *           contents:
+ *             application/json
+ */
+
+/**
+ * @swagger
  * /admins:
  *   get:
  *     summary: Get all admins

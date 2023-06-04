@@ -36,7 +36,7 @@
  * @swagger
  *   /users/login:
  *     post:
- *       summary: login a user
+ *       summary: login an user
  *       tags: [Auth]
  *       requestBody:
  *         required: true
@@ -56,7 +56,7 @@
  *         "400":
  *           $ref: '#/components/responses/400'
  *         "200":
- *           description: user logged in successfully
+ *           description: admin logged in successfully
  *           contents:
  *             application/json
  */
