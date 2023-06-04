@@ -11,7 +11,7 @@ abstract class AuthRemoteDataSource {
 
   Future<UserLogin> signup(
       String userName, String email, String password, String passwordConfirm);
-  Future<String> forgetPassword(String email);
+  Future<String> forgotPassword(String email);
   Future<UserLogin> resetPassword(String token, String password);
 }
 
@@ -58,7 +58,7 @@ class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
   }
 
   @override
-  Future<String> forgetPassword(String email) async {
+  Future<String> forgotPassword(String email) async {
     String? token;
     await DioHelper.postData(url: FORGET_PASSWORD, data: {'email': email})
         .then((value) {

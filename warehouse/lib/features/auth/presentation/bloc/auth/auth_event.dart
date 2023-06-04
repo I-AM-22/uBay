@@ -11,7 +11,7 @@ abstract class AuthEvent with _$AuthEvent {
       required String passwordConfirm}) = _signupEvent;
   const factory AuthEvent.changeIconVisibilityEvent(bool isVisible) =
       _changeIconVisibilityEvent;
-  const factory AuthEvent.forgetPasswordEvent(String email) =
+  const factory AuthEvent.forgotPasswordEvent(String email) =
       _forgetPasswordEvent;
   const factory AuthEvent.resetPasswordEvent(String token, String password) =
       _resetPasswordEvent;

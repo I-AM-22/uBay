@@ -10,4 +10,6 @@ abstract class UserEvent with _$UserEvent {
   const factory UserEvent.pickProfileImageEvent(ImageSource imageSource)=_pickProfileImageEvent;
   const factory UserEvent.updateMyProfileEvent(String name,String email,File? photo)=_updateMyProfileEvent;
   const factory UserEvent.getMyProfileEvent()=_getMyProfileEvent;
+  const factory UserEvent.deleteMyAccountEvent()=_deleteMyAccountEvent;
+  const factory UserEvent.logOutEvent()=_logOutEvent;
 }

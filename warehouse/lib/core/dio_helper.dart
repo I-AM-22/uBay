@@ -39,4 +39,13 @@ class DioHelper {
           'Authorization': 'Bearer $token',
         }));
   }
+
+  static Future<Response> deleteData(
+      {required String url, Map<String, dynamic>? query, String? token}) async {
+    return await dio.delete(url,
+        queryParameters: query,
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+        }));
+  }
 }

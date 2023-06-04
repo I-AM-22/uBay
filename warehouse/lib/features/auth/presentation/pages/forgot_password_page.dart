@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:warehouse/features/auth/presentation/widget/forget_password_page_widget.dart';
+import 'package:warehouse/features/auth/presentation/widget/forgot_password_page_widget.dart';
 
-class ForgetPasswordPage extends StatelessWidget {
-  ForgetPasswordPage({Key? key}) : super(key: key);
+class ForgotPasswordPage extends StatelessWidget {
+  ForgotPasswordPage({Key? key}) : super(key: key);
   final emailController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
@@ -31,5 +31,5 @@ class ForgetPasswordPage extends StatelessWidget {
         ),
       );
 
-  Widget _buildBody(BuildContext context) => ForgetPasswordPageWidget();
+  Widget _buildBody(BuildContext context) => ForgotPasswordPageWidget();
 }

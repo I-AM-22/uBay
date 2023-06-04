@@ -12,7 +12,6 @@ class ElevatedButtonWidget extends StatelessWidget {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: primaryColor,
-          disabledBackgroundColor: secondaryColor,
           side: BorderSide(color: primaryColor),
           //border width and color
           elevation: 3,

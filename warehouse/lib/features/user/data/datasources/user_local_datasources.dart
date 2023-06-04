@@ -4,7 +4,6 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warehouse/core/errors/exceptions.dart';
-import 'package:warehouse/core/errors/failures.dart';
 import 'package:warehouse/core/strings/id_and_token.dart';
 import 'package:warehouse/features/auth/data/model/user_login/user_login_model.dart';
 import 'package:warehouse/features/user/data/model/user_model.dart';
@@ -14,6 +13,7 @@ abstract class UserLocalDataSource {
   Future<Unit> cacheMyProfile({required UserModel userModel});
   Future<Unit> getCacheLogin();
   Future<UserModel> getCacheMyProfile();
+  Future<Unit> logOut();
 }
 
 @LazySingleton(as: UserLocalDataSource)
@@ -55,5 +55,12 @@ class AuthLocalDataSourceImpl implements UserLocalDataSource {
     }else{
       throw OfflineException();
     }
+  }
+
+  @override
+  Future<Unit> logOut() {
+    sharedPreferences.remove('CACHE_LOGIN');
+    sharedPreferences.remove('MY_PROFILE');
+    return Future.value(unit);
   }
 }

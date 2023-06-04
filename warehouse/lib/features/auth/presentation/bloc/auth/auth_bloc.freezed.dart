@@ -23,7 +23,7 @@ mixin _$AuthEvent {
             String passwordConfirm)
         signupEvent,
     required TResult Function(bool isVisible) changeIconVisibilityEvent,
-    required TResult Function(String email) forgetPasswordEvent,
+    required TResult Function(String email) forgotPasswordEvent,
     required TResult Function(String token, String password) resetPasswordEvent,
   }) =>
       throw _privateConstructorUsedError;
@@ -34,7 +34,7 @@ mixin _$AuthEvent {
             String passwordConfirm)?
         signupEvent,
     TResult? Function(bool isVisible)? changeIconVisibilityEvent,
-    TResult? Function(String email)? forgetPasswordEvent,
+    TResult? Function(String email)? forgotPasswordEvent,
     TResult? Function(String token, String password)? resetPasswordEvent,
   }) =>
       throw _privateConstructorUsedError;
@@ -45,7 +45,7 @@ mixin _$AuthEvent {
             String passwordConfirm)?
         signupEvent,
     TResult Function(bool isVisible)? changeIconVisibilityEvent,
-    TResult Function(String email)? forgetPasswordEvent,
+    TResult Function(String email)? forgotPasswordEvent,
     TResult Function(String token, String password)? resetPasswordEvent,
     required TResult orElse(),
   }) =>
@@ -56,7 +56,7 @@ mixin _$AuthEvent {
     required TResult Function(_signupEvent value) signupEvent,
     required TResult Function(_changeIconVisibilityEvent value)
         changeIconVisibilityEvent,
-    required TResult Function(_forgetPasswordEvent value) forgetPasswordEvent,
+    required TResult Function(_forgetPasswordEvent value) forgotPasswordEvent,
     required TResult Function(_resetPasswordEvent value) resetPasswordEvent,
   }) =>
       throw _privateConstructorUsedError;
@@ -66,7 +66,7 @@ mixin _$AuthEvent {
     TResult? Function(_signupEvent value)? signupEvent,
     TResult? Function(_changeIconVisibilityEvent value)?
         changeIconVisibilityEvent,
-    TResult? Function(_forgetPasswordEvent value)? forgetPasswordEvent,
+    TResult? Function(_forgetPasswordEvent value)? forgotPasswordEvent,
     TResult? Function(_resetPasswordEvent value)? resetPasswordEvent,
   }) =>
       throw _privateConstructorUsedError;
@@ -76,7 +76,7 @@ mixin _$AuthEvent {
     TResult Function(_signupEvent value)? signupEvent,
     TResult Function(_changeIconVisibilityEvent value)?
         changeIconVisibilityEvent,
-    TResult Function(_forgetPasswordEvent value)? forgetPasswordEvent,
+    TResult Function(_forgetPasswordEvent value)? forgotPasswordEvent,
     TResult Function(_resetPasswordEvent value)? resetPasswordEvent,
     required TResult orElse(),
   }) =>
@@ -178,7 +178,7 @@ class _$_loginEvent implements _loginEvent {
             String passwordConfirm)
         signupEvent,
     required TResult Function(bool isVisible) changeIconVisibilityEvent,
-    required TResult Function(String email) forgetPasswordEvent,
+    required TResult Function(String email) forgotPasswordEvent,
     required TResult Function(String token, String password) resetPasswordEvent,
   }) {
     return loginEvent(email, password);
@@ -192,7 +192,7 @@ class _$_loginEvent implements _loginEvent {
             String passwordConfirm)?
         signupEvent,
     TResult? Function(bool isVisible)? changeIconVisibilityEvent,
-    TResult? Function(String email)? forgetPasswordEvent,
+    TResult? Function(String email)? forgotPasswordEvent,
     TResult? Function(String token, String password)? resetPasswordEvent,
   }) {
     return loginEvent?.call(email, password);
@@ -206,7 +206,7 @@ class _$_loginEvent implements _loginEvent {
             String passwordConfirm)?
         signupEvent,
     TResult Function(bool isVisible)? changeIconVisibilityEvent,
-    TResult Function(String email)? forgetPasswordEvent,
+    TResult Function(String email)? forgotPasswordEvent,
     TResult Function(String token, String password)? resetPasswordEvent,
     required TResult orElse(),
   }) {
@@ -223,7 +223,7 @@ class _$_loginEvent implements _loginEvent {
     required TResult Function(_signupEvent value) signupEvent,
     required TResult Function(_changeIconVisibilityEvent value)
         changeIconVisibilityEvent,
-    required TResult Function(_forgetPasswordEvent value) forgetPasswordEvent,
+    required TResult Function(_forgetPasswordEvent value) forgotPasswordEvent,
     required TResult Function(_resetPasswordEvent value) resetPasswordEvent,
   }) {
     return loginEvent(this);
@@ -236,7 +236,7 @@ class _$_loginEvent implements _loginEvent {
     TResult? Function(_signupEvent value)? signupEvent,
     TResult? Function(_changeIconVisibilityEvent value)?
         changeIconVisibilityEvent,
-    TResult? Function(_forgetPasswordEvent value)? forgetPasswordEvent,
+    TResult? Function(_forgetPasswordEvent value)? forgotPasswordEvent,
     TResult? Function(_resetPasswordEvent value)? resetPasswordEvent,
   }) {
     return loginEvent?.call(this);
@@ -249,7 +249,7 @@ class _$_loginEvent implements _loginEvent {
     TResult Function(_signupEvent value)? signupEvent,
     TResult Function(_changeIconVisibilityEvent value)?
         changeIconVisibilityEvent,
-    TResult Function(_forgetPasswordEvent value)? forgetPasswordEvent,
+    TResult Function(_forgetPasswordEvent value)? forgotPasswordEvent,
     TResult Function(_resetPasswordEvent value)? resetPasswordEvent,
     required TResult orElse(),
   }) {
@@ -374,7 +374,7 @@ class _$_signupEvent implements _signupEvent {
             String passwordConfirm)
         signupEvent,
     required TResult Function(bool isVisible) changeIconVisibilityEvent,
-    required TResult Function(String email) forgetPasswordEvent,
+    required TResult Function(String email) forgotPasswordEvent,
     required TResult Function(String token, String password) resetPasswordEvent,
   }) {
     return signupEvent(userName, email, password, passwordConfirm);
@@ -388,7 +388,7 @@ class _$_signupEvent implements _signupEvent {
             String passwordConfirm)?
         signupEvent,
     TResult? Function(bool isVisible)? changeIconVisibilityEvent,
-    TResult? Function(String email)? forgetPasswordEvent,
+    TResult? Function(String email)? forgotPasswordEvent,
     TResult? Function(String token, String password)? resetPasswordEvent,
   }) {
     return signupEvent?.call(userName, email, password, passwordConfirm);
@@ -402,7 +402,7 @@ class _$_signupEvent implements _signupEvent {
             String passwordConfirm)?
         signupEvent,
     TResult Function(bool isVisible)? changeIconVisibilityEvent,
-    TResult Function(String email)? forgetPasswordEvent,
+    TResult Function(String email)? forgotPasswordEvent,
     TResult Function(String token, String password)? resetPasswordEvent,
     required TResult orElse(),
   }) {
@@ -419,7 +419,7 @@ class _$_signupEvent implements _signupEvent {
     required TResult Function(_signupEvent value) signupEvent,
     required TResult Function(_changeIconVisibilityEvent value)
         changeIconVisibilityEvent,
-    required TResult Function(_forgetPasswordEvent value) forgetPasswordEvent,
+    required TResult Function(_forgetPasswordEvent value) forgotPasswordEvent,
     required TResult Function(_resetPasswordEvent value) resetPasswordEvent,
   }) {
     return signupEvent(this);
@@ -432,7 +432,7 @@ class _$_signupEvent implements _signupEvent {
     TResult? Function(_signupEvent value)? signupEvent,
     TResult? Function(_changeIconVisibilityEvent value)?
         changeIconVisibilityEvent,
-    TResult? Function(_forgetPasswordEvent value)? forgetPasswordEvent,
+    TResult? Function(_forgetPasswordEvent value)? forgotPasswordEvent,
     TResult? Function(_resetPasswordEvent value)? resetPasswordEvent,
   }) {
     return signupEvent?.call(this);
@@ -445,7 +445,7 @@ class _$_signupEvent implements _signupEvent {
     TResult Function(_signupEvent value)? signupEvent,
     TResult Function(_changeIconVisibilityEvent value)?
         changeIconVisibilityEvent,
-    TResult Function(_forgetPasswordEvent value)? forgetPasswordEvent,
+    TResult Function(_forgetPasswordEvent value)? forgotPasswordEvent,
     TResult Function(_resetPasswordEvent value)? resetPasswordEvent,
     required TResult orElse(),
   }) {
@@ -545,7 +545,7 @@ class _$_changeIconVisibilityEvent implements _changeIconVisibilityEvent {
             String passwordConfirm)
         signupEvent,
     required TResult Function(bool isVisible) changeIconVisibilityEvent,
-    required TResult Function(String email) forgetPasswordEvent,
+    required TResult Function(String email) forgotPasswordEvent,
     required TResult Function(String token, String password) resetPasswordEvent,
   }) {
     return changeIconVisibilityEvent(isVisible);
@@ -559,7 +559,7 @@ class _$_changeIconVisibilityEvent implements _changeIconVisibilityEvent {
             String passwordConfirm)?
         signupEvent,
     TResult? Function(bool isVisible)? changeIconVisibilityEvent,
-    TResult? Function(String email)? forgetPasswordEvent,
+    TResult? Function(String email)? forgotPasswordEvent,
     TResult? Function(String token, String password)? resetPasswordEvent,
   }) {
     return changeIconVisibilityEvent?.call(isVisible);
@@ -573,7 +573,7 @@ class _$_changeIconVisibilityEvent implements _changeIconVisibilityEvent {
             String passwordConfirm)?
         signupEvent,
     TResult Function(bool isVisible)? changeIconVisibilityEvent,
-    TResult Function(String email)? forgetPasswordEvent,
+    TResult Function(String email)? forgotPasswordEvent,
     TResult Function(String token, String password)? resetPasswordEvent,
     required TResult orElse(),
   }) {
@@ -590,7 +590,7 @@ class _$_changeIconVisibilityEvent implements _changeIconVisibilityEvent {
     required TResult Function(_signupEvent value) signupEvent,
     required TResult Function(_changeIconVisibilityEvent value)
         changeIconVisibilityEvent,
-    required TResult Function(_forgetPasswordEvent value) forgetPasswordEvent,
+    required TResult Function(_forgetPasswordEvent value) forgotPasswordEvent,
     required TResult Function(_resetPasswordEvent value) resetPasswordEvent,
   }) {
     return changeIconVisibilityEvent(this);
@@ -603,7 +603,7 @@ class _$_changeIconVisibilityEvent implements _changeIconVisibilityEvent {
     TResult? Function(_signupEvent value)? signupEvent,
     TResult? Function(_changeIconVisibilityEvent value)?
         changeIconVisibilityEvent,
-    TResult? Function(_forgetPasswordEvent value)? forgetPasswordEvent,
+    TResult? Function(_forgetPasswordEvent value)? forgotPasswordEvent,
     TResult? Function(_resetPasswordEvent value)? resetPasswordEvent,
   }) {
     return changeIconVisibilityEvent?.call(this);
@@ -616,7 +616,7 @@ class _$_changeIconVisibilityEvent implements _changeIconVisibilityEvent {
     TResult Function(_signupEvent value)? signupEvent,
     TResult Function(_changeIconVisibilityEvent value)?
         changeIconVisibilityEvent,
-    TResult Function(_forgetPasswordEvent value)? forgetPasswordEvent,
+    TResult Function(_forgetPasswordEvent value)? forgotPasswordEvent,
     TResult Function(_resetPasswordEvent value)? resetPasswordEvent,
     required TResult orElse(),
   }) {
@@ -678,7 +678,7 @@ class _$_forgetPasswordEvent implements _forgetPasswordEvent {
 
   @override
   String toString() {
-    return 'AuthEvent.forgetPasswordEvent(email: $email)';
+    return 'AuthEvent.forgotPasswordEvent(email: $email)';
   }
 
   @override
@@ -707,10 +707,10 @@ class _$_forgetPasswordEvent implements _forgetPasswordEvent {
             String passwordConfirm)
         signupEvent,
     required TResult Function(bool isVisible) changeIconVisibilityEvent,
-    required TResult Function(String email) forgetPasswordEvent,
+    required TResult Function(String email) forgotPasswordEvent,
     required TResult Function(String token, String password) resetPasswordEvent,
   }) {
-    return forgetPasswordEvent(email);
+    return forgotPasswordEvent(email);
   }
 
   @override
@@ -721,10 +721,10 @@ class _$_forgetPasswordEvent implements _forgetPasswordEvent {
             String passwordConfirm)?
         signupEvent,
     TResult? Function(bool isVisible)? changeIconVisibilityEvent,
-    TResult? Function(String email)? forgetPasswordEvent,
+    TResult? Function(String email)? forgotPasswordEvent,
     TResult? Function(String token, String password)? resetPasswordEvent,
   }) {
-    return forgetPasswordEvent?.call(email);
+    return forgotPasswordEvent?.call(email);
   }
 
   @override
@@ -735,12 +735,12 @@ class _$_forgetPasswordEvent implements _forgetPasswordEvent {
             String passwordConfirm)?
         signupEvent,
     TResult Function(bool isVisible)? changeIconVisibilityEvent,
-    TResult Function(String email)? forgetPasswordEvent,
+    TResult Function(String email)? forgotPasswordEvent,
     TResult Function(String token, String password)? resetPasswordEvent,
     required TResult orElse(),
   }) {
-    if (forgetPasswordEvent != null) {
-      return forgetPasswordEvent(email);
+    if (forgotPasswordEvent != null) {
+      return forgotPasswordEvent(email);
     }
     return orElse();
   }
@@ -752,10 +752,10 @@ class _$_forgetPasswordEvent implements _forgetPasswordEvent {
     required TResult Function(_signupEvent value) signupEvent,
     required TResult Function(_changeIconVisibilityEvent value)
         changeIconVisibilityEvent,
-    required TResult Function(_forgetPasswordEvent value) forgetPasswordEvent,
+    required TResult Function(_forgetPasswordEvent value) forgotPasswordEvent,
     required TResult Function(_resetPasswordEvent value) resetPasswordEvent,
   }) {
-    return forgetPasswordEvent(this);
+    return forgotPasswordEvent(this);
   }
 
   @override
@@ -765,10 +765,10 @@ class _$_forgetPasswordEvent implements _forgetPasswordEvent {
     TResult? Function(_signupEvent value)? signupEvent,
     TResult? Function(_changeIconVisibilityEvent value)?
         changeIconVisibilityEvent,
-    TResult? Function(_forgetPasswordEvent value)? forgetPasswordEvent,
+    TResult? Function(_forgetPasswordEvent value)? forgotPasswordEvent,
     TResult? Function(_resetPasswordEvent value)? resetPasswordEvent,
   }) {
-    return forgetPasswordEvent?.call(this);
+    return forgotPasswordEvent?.call(this);
   }
 
   @override
@@ -778,12 +778,12 @@ class _$_forgetPasswordEvent implements _forgetPasswordEvent {
     TResult Function(_signupEvent value)? signupEvent,
     TResult Function(_changeIconVisibilityEvent value)?
         changeIconVisibilityEvent,
-    TResult Function(_forgetPasswordEvent value)? forgetPasswordEvent,
+    TResult Function(_forgetPasswordEvent value)? forgotPasswordEvent,
     TResult Function(_resetPasswordEvent value)? resetPasswordEvent,
     required TResult orElse(),
   }) {
-    if (forgetPasswordEvent != null) {
-      return forgetPasswordEvent(this);
+    if (forgotPasswordEvent != null) {
+      return forgotPasswordEvent(this);
     }
     return orElse();
   }
@@ -878,7 +878,7 @@ class _$_resetPasswordEvent implements _resetPasswordEvent {
             String passwordConfirm)
         signupEvent,
     required TResult Function(bool isVisible) changeIconVisibilityEvent,
-    required TResult Function(String email) forgetPasswordEvent,
+    required TResult Function(String email) forgotPasswordEvent,
     required TResult Function(String token, String password) resetPasswordEvent,
   }) {
     return resetPasswordEvent(token, password);
@@ -892,7 +892,7 @@ class _$_resetPasswordEvent implements _resetPasswordEvent {
             String passwordConfirm)?
         signupEvent,
     TResult? Function(bool isVisible)? changeIconVisibilityEvent,
-    TResult? Function(String email)? forgetPasswordEvent,
+    TResult? Function(String email)? forgotPasswordEvent,
     TResult? Function(String token, String password)? resetPasswordEvent,
   }) {
     return resetPasswordEvent?.call(token, password);
@@ -906,7 +906,7 @@ class _$_resetPasswordEvent implements _resetPasswordEvent {
             String passwordConfirm)?
         signupEvent,
     TResult Function(bool isVisible)? changeIconVisibilityEvent,
-    TResult Function(String email)? forgetPasswordEvent,
+    TResult Function(String email)? forgotPasswordEvent,
     TResult Function(String token, String password)? resetPasswordEvent,
     required TResult orElse(),
   }) {
@@ -923,7 +923,7 @@ class _$_resetPasswordEvent implements _resetPasswordEvent {
     required TResult Function(_signupEvent value) signupEvent,
     required TResult Function(_changeIconVisibilityEvent value)
         changeIconVisibilityEvent,
-    required TResult Function(_forgetPasswordEvent value) forgetPasswordEvent,
+    required TResult Function(_forgetPasswordEvent value) forgotPasswordEvent,
     required TResult Function(_resetPasswordEvent value) resetPasswordEvent,
   }) {
     return resetPasswordEvent(this);
@@ -936,7 +936,7 @@ class _$_resetPasswordEvent implements _resetPasswordEvent {
     TResult? Function(_signupEvent value)? signupEvent,
     TResult? Function(_changeIconVisibilityEvent value)?
         changeIconVisibilityEvent,
-    TResult? Function(_forgetPasswordEvent value)? forgetPasswordEvent,
+    TResult? Function(_forgetPasswordEvent value)? forgotPasswordEvent,
     TResult? Function(_resetPasswordEvent value)? resetPasswordEvent,
   }) {
     return resetPasswordEvent?.call(this);
@@ -949,7 +949,7 @@ class _$_resetPasswordEvent implements _resetPasswordEvent {
     TResult Function(_signupEvent value)? signupEvent,
     TResult Function(_changeIconVisibilityEvent value)?
         changeIconVisibilityEvent,
-    TResult Function(_forgetPasswordEvent value)? forgetPasswordEvent,
+    TResult Function(_forgetPasswordEvent value)? forgotPasswordEvent,
     TResult Function(_resetPasswordEvent value)? resetPasswordEvent,
     required TResult orElse(),
   }) {
@@ -980,8 +980,8 @@ mixin _$AuthState {
     required TResult Function(String message) successLoginState,
     required TResult Function(String message) errorLoginState,
     required TResult Function(bool isVisible) changeIconVisibilityState,
-    required TResult Function(String message) successForgetPasswordState,
-    required TResult Function(String message) errorForgetPasswordState,
+    required TResult Function(String message) successForgotPasswordState,
+    required TResult Function(String message) errorForgotPasswordState,
     required TResult Function(String message) successResetPasswordState,
     required TResult Function(String message) errorResetPasswordState,
   }) =>
@@ -993,8 +993,8 @@ mixin _$AuthState {
     TResult? Function(String message)? successLoginState,
     TResult? Function(String message)? errorLoginState,
     TResult? Function(bool isVisible)? changeIconVisibilityState,
-    TResult? Function(String message)? successForgetPasswordState,
-    TResult? Function(String message)? errorForgetPasswordState,
+    TResult? Function(String message)? successForgotPasswordState,
+    TResult? Function(String message)? errorForgotPasswordState,
     TResult? Function(String message)? successResetPasswordState,
     TResult? Function(String message)? errorResetPasswordState,
   }) =>
@@ -1006,8 +1006,8 @@ mixin _$AuthState {
     TResult Function(String message)? successLoginState,
     TResult Function(String message)? errorLoginState,
     TResult Function(bool isVisible)? changeIconVisibilityState,
-    TResult Function(String message)? successForgetPasswordState,
-    TResult Function(String message)? errorForgetPasswordState,
+    TResult Function(String message)? successForgotPasswordState,
+    TResult Function(String message)? errorForgotPasswordState,
     TResult Function(String message)? successResetPasswordState,
     TResult Function(String message)? errorResetPasswordState,
     required TResult orElse(),
@@ -1022,9 +1022,9 @@ mixin _$AuthState {
     required TResult Function(_changeIconVisibilityState value)
         changeIconVisibilityState,
     required TResult Function(_successForgetPasswordState value)
-        successForgetPasswordState,
-    required TResult Function(_errorForgetPasswordState value)
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    required TResult Function(_errorForgotPasswordState value)
+        errorForgotPasswordState,
     required TResult Function(_successResetPasswordState value)
         successResetPasswordState,
     required TResult Function(_errorResetPasswordState value)
@@ -1040,9 +1040,9 @@ mixin _$AuthState {
     TResult? Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult? Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult? Function(_errorForgetPasswordState value)?
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult? Function(_errorForgotPasswordState value)?
+        errorForgotPasswordState,
     TResult? Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult? Function(_errorResetPasswordState value)? errorResetPasswordState,
@@ -1057,8 +1057,8 @@ mixin _$AuthState {
     TResult Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult Function(_errorForgetPasswordState value)? errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult Function(_errorForgotPasswordState value)? errorForgotPasswordState,
     TResult Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult Function(_errorResetPasswordState value)? errorResetPasswordState,
@@ -1127,8 +1127,8 @@ class _$_authInitial implements _authInitial {
     required TResult Function(String message) successLoginState,
     required TResult Function(String message) errorLoginState,
     required TResult Function(bool isVisible) changeIconVisibilityState,
-    required TResult Function(String message) successForgetPasswordState,
-    required TResult Function(String message) errorForgetPasswordState,
+    required TResult Function(String message) successForgotPasswordState,
+    required TResult Function(String message) errorForgotPasswordState,
     required TResult Function(String message) successResetPasswordState,
     required TResult Function(String message) errorResetPasswordState,
   }) {
@@ -1143,8 +1143,8 @@ class _$_authInitial implements _authInitial {
     TResult? Function(String message)? successLoginState,
     TResult? Function(String message)? errorLoginState,
     TResult? Function(bool isVisible)? changeIconVisibilityState,
-    TResult? Function(String message)? successForgetPasswordState,
-    TResult? Function(String message)? errorForgetPasswordState,
+    TResult? Function(String message)? successForgotPasswordState,
+    TResult? Function(String message)? errorForgotPasswordState,
     TResult? Function(String message)? successResetPasswordState,
     TResult? Function(String message)? errorResetPasswordState,
   }) {
@@ -1159,8 +1159,8 @@ class _$_authInitial implements _authInitial {
     TResult Function(String message)? successLoginState,
     TResult Function(String message)? errorLoginState,
     TResult Function(bool isVisible)? changeIconVisibilityState,
-    TResult Function(String message)? successForgetPasswordState,
-    TResult Function(String message)? errorForgetPasswordState,
+    TResult Function(String message)? successForgotPasswordState,
+    TResult Function(String message)? errorForgotPasswordState,
     TResult Function(String message)? successResetPasswordState,
     TResult Function(String message)? errorResetPasswordState,
     required TResult orElse(),
@@ -1181,9 +1181,9 @@ class _$_authInitial implements _authInitial {
     required TResult Function(_changeIconVisibilityState value)
         changeIconVisibilityState,
     required TResult Function(_successForgetPasswordState value)
-        successForgetPasswordState,
-    required TResult Function(_errorForgetPasswordState value)
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    required TResult Function(_errorForgotPasswordState value)
+        errorForgotPasswordState,
     required TResult Function(_successResetPasswordState value)
         successResetPasswordState,
     required TResult Function(_errorResetPasswordState value)
@@ -1202,9 +1202,9 @@ class _$_authInitial implements _authInitial {
     TResult? Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult? Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult? Function(_errorForgetPasswordState value)?
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult? Function(_errorForgotPasswordState value)?
+        errorForgotPasswordState,
     TResult? Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult? Function(_errorResetPasswordState value)? errorResetPasswordState,
@@ -1222,8 +1222,8 @@ class _$_authInitial implements _authInitial {
     TResult Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult Function(_errorForgetPasswordState value)? errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult Function(_errorForgotPasswordState value)? errorForgotPasswordState,
     TResult Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult Function(_errorResetPasswordState value)? errorResetPasswordState,
@@ -1282,8 +1282,8 @@ class _$_loading implements _loading {
     required TResult Function(String message) successLoginState,
     required TResult Function(String message) errorLoginState,
     required TResult Function(bool isVisible) changeIconVisibilityState,
-    required TResult Function(String message) successForgetPasswordState,
-    required TResult Function(String message) errorForgetPasswordState,
+    required TResult Function(String message) successForgotPasswordState,
+    required TResult Function(String message) errorForgotPasswordState,
     required TResult Function(String message) successResetPasswordState,
     required TResult Function(String message) errorResetPasswordState,
   }) {
@@ -1298,8 +1298,8 @@ class _$_loading implements _loading {
     TResult? Function(String message)? successLoginState,
     TResult? Function(String message)? errorLoginState,
     TResult? Function(bool isVisible)? changeIconVisibilityState,
-    TResult? Function(String message)? successForgetPasswordState,
-    TResult? Function(String message)? errorForgetPasswordState,
+    TResult? Function(String message)? successForgotPasswordState,
+    TResult? Function(String message)? errorForgotPasswordState,
     TResult? Function(String message)? successResetPasswordState,
     TResult? Function(String message)? errorResetPasswordState,
   }) {
@@ -1314,8 +1314,8 @@ class _$_loading implements _loading {
     TResult Function(String message)? successLoginState,
     TResult Function(String message)? errorLoginState,
     TResult Function(bool isVisible)? changeIconVisibilityState,
-    TResult Function(String message)? successForgetPasswordState,
-    TResult Function(String message)? errorForgetPasswordState,
+    TResult Function(String message)? successForgotPasswordState,
+    TResult Function(String message)? errorForgotPasswordState,
     TResult Function(String message)? successResetPasswordState,
     TResult Function(String message)? errorResetPasswordState,
     required TResult orElse(),
@@ -1336,9 +1336,9 @@ class _$_loading implements _loading {
     required TResult Function(_changeIconVisibilityState value)
         changeIconVisibilityState,
     required TResult Function(_successForgetPasswordState value)
-        successForgetPasswordState,
-    required TResult Function(_errorForgetPasswordState value)
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    required TResult Function(_errorForgotPasswordState value)
+        errorForgotPasswordState,
     required TResult Function(_successResetPasswordState value)
         successResetPasswordState,
     required TResult Function(_errorResetPasswordState value)
@@ -1357,9 +1357,9 @@ class _$_loading implements _loading {
     TResult? Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult? Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult? Function(_errorForgetPasswordState value)?
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult? Function(_errorForgotPasswordState value)?
+        errorForgotPasswordState,
     TResult? Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult? Function(_errorResetPasswordState value)? errorResetPasswordState,
@@ -1377,8 +1377,8 @@ class _$_loading implements _loading {
     TResult Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult Function(_errorForgetPasswordState value)? errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult Function(_errorForgotPasswordState value)? errorForgotPasswordState,
     TResult Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult Function(_errorResetPasswordState value)? errorResetPasswordState,
@@ -1465,8 +1465,8 @@ class _$_successLoginState implements _successLoginState {
     required TResult Function(String message) successLoginState,
     required TResult Function(String message) errorLoginState,
     required TResult Function(bool isVisible) changeIconVisibilityState,
-    required TResult Function(String message) successForgetPasswordState,
-    required TResult Function(String message) errorForgetPasswordState,
+    required TResult Function(String message) successForgotPasswordState,
+    required TResult Function(String message) errorForgotPasswordState,
     required TResult Function(String message) successResetPasswordState,
     required TResult Function(String message) errorResetPasswordState,
   }) {
@@ -1481,8 +1481,8 @@ class _$_successLoginState implements _successLoginState {
     TResult? Function(String message)? successLoginState,
     TResult? Function(String message)? errorLoginState,
     TResult? Function(bool isVisible)? changeIconVisibilityState,
-    TResult? Function(String message)? successForgetPasswordState,
-    TResult? Function(String message)? errorForgetPasswordState,
+    TResult? Function(String message)? successForgotPasswordState,
+    TResult? Function(String message)? errorForgotPasswordState,
     TResult? Function(String message)? successResetPasswordState,
     TResult? Function(String message)? errorResetPasswordState,
   }) {
@@ -1497,8 +1497,8 @@ class _$_successLoginState implements _successLoginState {
     TResult Function(String message)? successLoginState,
     TResult Function(String message)? errorLoginState,
     TResult Function(bool isVisible)? changeIconVisibilityState,
-    TResult Function(String message)? successForgetPasswordState,
-    TResult Function(String message)? errorForgetPasswordState,
+    TResult Function(String message)? successForgotPasswordState,
+    TResult Function(String message)? errorForgotPasswordState,
     TResult Function(String message)? successResetPasswordState,
     TResult Function(String message)? errorResetPasswordState,
     required TResult orElse(),
@@ -1519,9 +1519,9 @@ class _$_successLoginState implements _successLoginState {
     required TResult Function(_changeIconVisibilityState value)
         changeIconVisibilityState,
     required TResult Function(_successForgetPasswordState value)
-        successForgetPasswordState,
-    required TResult Function(_errorForgetPasswordState value)
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    required TResult Function(_errorForgotPasswordState value)
+        errorForgotPasswordState,
     required TResult Function(_successResetPasswordState value)
         successResetPasswordState,
     required TResult Function(_errorResetPasswordState value)
@@ -1540,9 +1540,9 @@ class _$_successLoginState implements _successLoginState {
     TResult? Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult? Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult? Function(_errorForgetPasswordState value)?
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult? Function(_errorForgotPasswordState value)?
+        errorForgotPasswordState,
     TResult? Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult? Function(_errorResetPasswordState value)? errorResetPasswordState,
@@ -1560,8 +1560,8 @@ class _$_successLoginState implements _successLoginState {
     TResult Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult Function(_errorForgetPasswordState value)? errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult Function(_errorForgotPasswordState value)? errorForgotPasswordState,
     TResult Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult Function(_errorResetPasswordState value)? errorResetPasswordState,
@@ -1652,8 +1652,8 @@ class _$_errorLoginState implements _errorLoginState {
     required TResult Function(String message) successLoginState,
     required TResult Function(String message) errorLoginState,
     required TResult Function(bool isVisible) changeIconVisibilityState,
-    required TResult Function(String message) successForgetPasswordState,
-    required TResult Function(String message) errorForgetPasswordState,
+    required TResult Function(String message) successForgotPasswordState,
+    required TResult Function(String message) errorForgotPasswordState,
     required TResult Function(String message) successResetPasswordState,
     required TResult Function(String message) errorResetPasswordState,
   }) {
@@ -1668,8 +1668,8 @@ class _$_errorLoginState implements _errorLoginState {
     TResult? Function(String message)? successLoginState,
     TResult? Function(String message)? errorLoginState,
     TResult? Function(bool isVisible)? changeIconVisibilityState,
-    TResult? Function(String message)? successForgetPasswordState,
-    TResult? Function(String message)? errorForgetPasswordState,
+    TResult? Function(String message)? successForgotPasswordState,
+    TResult? Function(String message)? errorForgotPasswordState,
     TResult? Function(String message)? successResetPasswordState,
     TResult? Function(String message)? errorResetPasswordState,
   }) {
@@ -1684,8 +1684,8 @@ class _$_errorLoginState implements _errorLoginState {
     TResult Function(String message)? successLoginState,
     TResult Function(String message)? errorLoginState,
     TResult Function(bool isVisible)? changeIconVisibilityState,
-    TResult Function(String message)? successForgetPasswordState,
-    TResult Function(String message)? errorForgetPasswordState,
+    TResult Function(String message)? successForgotPasswordState,
+    TResult Function(String message)? errorForgotPasswordState,
     TResult Function(String message)? successResetPasswordState,
     TResult Function(String message)? errorResetPasswordState,
     required TResult orElse(),
@@ -1706,9 +1706,9 @@ class _$_errorLoginState implements _errorLoginState {
     required TResult Function(_changeIconVisibilityState value)
         changeIconVisibilityState,
     required TResult Function(_successForgetPasswordState value)
-        successForgetPasswordState,
-    required TResult Function(_errorForgetPasswordState value)
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    required TResult Function(_errorForgotPasswordState value)
+        errorForgotPasswordState,
     required TResult Function(_successResetPasswordState value)
         successResetPasswordState,
     required TResult Function(_errorResetPasswordState value)
@@ -1727,9 +1727,9 @@ class _$_errorLoginState implements _errorLoginState {
     TResult? Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult? Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult? Function(_errorForgetPasswordState value)?
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult? Function(_errorForgotPasswordState value)?
+        errorForgotPasswordState,
     TResult? Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult? Function(_errorResetPasswordState value)? errorResetPasswordState,
@@ -1747,8 +1747,8 @@ class _$_errorLoginState implements _errorLoginState {
     TResult Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult Function(_errorForgetPasswordState value)? errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult Function(_errorForgotPasswordState value)? errorForgotPasswordState,
     TResult Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult Function(_errorResetPasswordState value)? errorResetPasswordState,
@@ -1843,8 +1843,8 @@ class _$_changeIconVisibilityState implements _changeIconVisibilityState {
     required TResult Function(String message) successLoginState,
     required TResult Function(String message) errorLoginState,
     required TResult Function(bool isVisible) changeIconVisibilityState,
-    required TResult Function(String message) successForgetPasswordState,
-    required TResult Function(String message) errorForgetPasswordState,
+    required TResult Function(String message) successForgotPasswordState,
+    required TResult Function(String message) errorForgotPasswordState,
     required TResult Function(String message) successResetPasswordState,
     required TResult Function(String message) errorResetPasswordState,
   }) {
@@ -1859,8 +1859,8 @@ class _$_changeIconVisibilityState implements _changeIconVisibilityState {
     TResult? Function(String message)? successLoginState,
     TResult? Function(String message)? errorLoginState,
     TResult? Function(bool isVisible)? changeIconVisibilityState,
-    TResult? Function(String message)? successForgetPasswordState,
-    TResult? Function(String message)? errorForgetPasswordState,
+    TResult? Function(String message)? successForgotPasswordState,
+    TResult? Function(String message)? errorForgotPasswordState,
     TResult? Function(String message)? successResetPasswordState,
     TResult? Function(String message)? errorResetPasswordState,
   }) {
@@ -1875,8 +1875,8 @@ class _$_changeIconVisibilityState implements _changeIconVisibilityState {
     TResult Function(String message)? successLoginState,
     TResult Function(String message)? errorLoginState,
     TResult Function(bool isVisible)? changeIconVisibilityState,
-    TResult Function(String message)? successForgetPasswordState,
-    TResult Function(String message)? errorForgetPasswordState,
+    TResult Function(String message)? successForgotPasswordState,
+    TResult Function(String message)? errorForgotPasswordState,
     TResult Function(String message)? successResetPasswordState,
     TResult Function(String message)? errorResetPasswordState,
     required TResult orElse(),
@@ -1897,9 +1897,9 @@ class _$_changeIconVisibilityState implements _changeIconVisibilityState {
     required TResult Function(_changeIconVisibilityState value)
         changeIconVisibilityState,
     required TResult Function(_successForgetPasswordState value)
-        successForgetPasswordState,
-    required TResult Function(_errorForgetPasswordState value)
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    required TResult Function(_errorForgotPasswordState value)
+        errorForgotPasswordState,
     required TResult Function(_successResetPasswordState value)
         successResetPasswordState,
     required TResult Function(_errorResetPasswordState value)
@@ -1918,9 +1918,9 @@ class _$_changeIconVisibilityState implements _changeIconVisibilityState {
     TResult? Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult? Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult? Function(_errorForgetPasswordState value)?
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult? Function(_errorForgotPasswordState value)?
+        errorForgotPasswordState,
     TResult? Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult? Function(_errorResetPasswordState value)? errorResetPasswordState,
@@ -1938,8 +1938,8 @@ class _$_changeIconVisibilityState implements _changeIconVisibilityState {
     TResult Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult Function(_errorForgetPasswordState value)? errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult Function(_errorForgotPasswordState value)? errorForgotPasswordState,
     TResult Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult Function(_errorResetPasswordState value)? errorResetPasswordState,
@@ -2005,7 +2005,7 @@ class _$_successForgetPasswordState implements _successForgetPasswordState {
 
   @override
   String toString() {
-    return 'AuthState.successForgetPasswordState(message: $message)';
+    return 'AuthState.successForgotPasswordState(message: $message)';
   }
 
   @override
@@ -2034,12 +2034,12 @@ class _$_successForgetPasswordState implements _successForgetPasswordState {
     required TResult Function(String message) successLoginState,
     required TResult Function(String message) errorLoginState,
     required TResult Function(bool isVisible) changeIconVisibilityState,
-    required TResult Function(String message) successForgetPasswordState,
-    required TResult Function(String message) errorForgetPasswordState,
+    required TResult Function(String message) successForgotPasswordState,
+    required TResult Function(String message) errorForgotPasswordState,
     required TResult Function(String message) successResetPasswordState,
     required TResult Function(String message) errorResetPasswordState,
   }) {
-    return successForgetPasswordState(message);
+    return successForgotPasswordState(message);
   }
 
   @override
@@ -2050,12 +2050,12 @@ class _$_successForgetPasswordState implements _successForgetPasswordState {
     TResult? Function(String message)? successLoginState,
     TResult? Function(String message)? errorLoginState,
     TResult? Function(bool isVisible)? changeIconVisibilityState,
-    TResult? Function(String message)? successForgetPasswordState,
-    TResult? Function(String message)? errorForgetPasswordState,
+    TResult? Function(String message)? successForgotPasswordState,
+    TResult? Function(String message)? errorForgotPasswordState,
     TResult? Function(String message)? successResetPasswordState,
     TResult? Function(String message)? errorResetPasswordState,
   }) {
-    return successForgetPasswordState?.call(message);
+    return successForgotPasswordState?.call(message);
   }
 
   @override
@@ -2066,14 +2066,14 @@ class _$_successForgetPasswordState implements _successForgetPasswordState {
     TResult Function(String message)? successLoginState,
     TResult Function(String message)? errorLoginState,
     TResult Function(bool isVisible)? changeIconVisibilityState,
-    TResult Function(String message)? successForgetPasswordState,
-    TResult Function(String message)? errorForgetPasswordState,
+    TResult Function(String message)? successForgotPasswordState,
+    TResult Function(String message)? errorForgotPasswordState,
     TResult Function(String message)? successResetPasswordState,
     TResult Function(String message)? errorResetPasswordState,
     required TResult orElse(),
   }) {
-    if (successForgetPasswordState != null) {
-      return successForgetPasswordState(message);
+    if (successForgotPasswordState != null) {
+      return successForgotPasswordState(message);
     }
     return orElse();
   }
@@ -2088,15 +2088,15 @@ class _$_successForgetPasswordState implements _successForgetPasswordState {
     required TResult Function(_changeIconVisibilityState value)
         changeIconVisibilityState,
     required TResult Function(_successForgetPasswordState value)
-        successForgetPasswordState,
-    required TResult Function(_errorForgetPasswordState value)
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    required TResult Function(_errorForgotPasswordState value)
+        errorForgotPasswordState,
     required TResult Function(_successResetPasswordState value)
         successResetPasswordState,
     required TResult Function(_errorResetPasswordState value)
         errorResetPasswordState,
   }) {
-    return successForgetPasswordState(this);
+    return successForgotPasswordState(this);
   }
 
   @override
@@ -2109,14 +2109,14 @@ class _$_successForgetPasswordState implements _successForgetPasswordState {
     TResult? Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult? Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult? Function(_errorForgetPasswordState value)?
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult? Function(_errorForgotPasswordState value)?
+        errorForgotPasswordState,
     TResult? Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult? Function(_errorResetPasswordState value)? errorResetPasswordState,
   }) {
-    return successForgetPasswordState?.call(this);
+    return successForgotPasswordState?.call(this);
   }
 
   @override
@@ -2129,15 +2129,15 @@ class _$_successForgetPasswordState implements _successForgetPasswordState {
     TResult Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult Function(_errorForgetPasswordState value)? errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult Function(_errorForgotPasswordState value)? errorForgotPasswordState,
     TResult Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult Function(_errorResetPasswordState value)? errorResetPasswordState,
     required TResult orElse(),
   }) {
-    if (successForgetPasswordState != null) {
-      return successForgetPasswordState(this);
+    if (successForgotPasswordState != null) {
+      return successForgotPasswordState(this);
     }
     return orElse();
   }
@@ -2154,21 +2154,21 @@ abstract class _successForgetPasswordState implements AuthState {
 }
 
 /// @nodoc
-abstract class _$$_errorForgetPasswordStateCopyWith<$Res> {
-  factory _$$_errorForgetPasswordStateCopyWith(
-          _$_errorForgetPasswordState value,
-          $Res Function(_$_errorForgetPasswordState) then) =
-      __$$_errorForgetPasswordStateCopyWithImpl<$Res>;
+abstract class _$$_errorForgotPasswordStateCopyWith<$Res> {
+  factory _$$_errorForgotPasswordStateCopyWith(
+          _$_errorForgotPasswordState value,
+          $Res Function(_$_errorForgotPasswordState) then) =
+      __$$_errorForgotPasswordStateCopyWithImpl<$Res>;
   @useResult
   $Res call({String message});
 }
 
 /// @nodoc
-class __$$_errorForgetPasswordStateCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res, _$_errorForgetPasswordState>
-    implements _$$_errorForgetPasswordStateCopyWith<$Res> {
-  __$$_errorForgetPasswordStateCopyWithImpl(_$_errorForgetPasswordState _value,
-      $Res Function(_$_errorForgetPasswordState) _then)
+class __$$_errorForgotPasswordStateCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$_errorForgotPasswordState>
+    implements _$$_errorForgotPasswordStateCopyWith<$Res> {
+  __$$_errorForgotPasswordStateCopyWithImpl(_$_errorForgotPasswordState _value,
+      $Res Function(_$_errorForgotPasswordState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -2176,7 +2176,7 @@ class __$$_errorForgetPasswordStateCopyWithImpl<$Res>
   $Res call({
     Object? message = null,
   }) {
-    return _then(_$_errorForgetPasswordState(
+    return _then(_$_errorForgotPasswordState(
       null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -2187,22 +2187,22 @@ class __$$_errorForgetPasswordStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_errorForgetPasswordState implements _errorForgetPasswordState {
-  const _$_errorForgetPasswordState(this.message);
+class _$_errorForgotPasswordState implements _errorForgotPasswordState {
+  const _$_errorForgotPasswordState(this.message);
 
   @override
   final String message;
 
   @override
   String toString() {
-    return 'AuthState.errorForgetPasswordState(message: $message)';
+    return 'AuthState.errorForgotPasswordState(message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_errorForgetPasswordState &&
+            other is _$_errorForgotPasswordState &&
             (identical(other.message, message) || other.message == message));
   }
 
@@ -2212,9 +2212,9 @@ class _$_errorForgetPasswordState implements _errorForgetPasswordState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_errorForgetPasswordStateCopyWith<_$_errorForgetPasswordState>
-      get copyWith => __$$_errorForgetPasswordStateCopyWithImpl<
-          _$_errorForgetPasswordState>(this, _$identity);
+  _$$_errorForgotPasswordStateCopyWith<_$_errorForgotPasswordState>
+      get copyWith => __$$_errorForgotPasswordStateCopyWithImpl<
+          _$_errorForgotPasswordState>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2224,12 +2224,12 @@ class _$_errorForgetPasswordState implements _errorForgetPasswordState {
     required TResult Function(String message) successLoginState,
     required TResult Function(String message) errorLoginState,
     required TResult Function(bool isVisible) changeIconVisibilityState,
-    required TResult Function(String message) successForgetPasswordState,
-    required TResult Function(String message) errorForgetPasswordState,
+    required TResult Function(String message) successForgotPasswordState,
+    required TResult Function(String message) errorForgotPasswordState,
     required TResult Function(String message) successResetPasswordState,
     required TResult Function(String message) errorResetPasswordState,
   }) {
-    return errorForgetPasswordState(message);
+    return errorForgotPasswordState(message);
   }
 
   @override
@@ -2240,12 +2240,12 @@ class _$_errorForgetPasswordState implements _errorForgetPasswordState {
     TResult? Function(String message)? successLoginState,
     TResult? Function(String message)? errorLoginState,
     TResult? Function(bool isVisible)? changeIconVisibilityState,
-    TResult? Function(String message)? successForgetPasswordState,
-    TResult? Function(String message)? errorForgetPasswordState,
+    TResult? Function(String message)? successForgotPasswordState,
+    TResult? Function(String message)? errorForgotPasswordState,
     TResult? Function(String message)? successResetPasswordState,
     TResult? Function(String message)? errorResetPasswordState,
   }) {
-    return errorForgetPasswordState?.call(message);
+    return errorForgotPasswordState?.call(message);
   }
 
   @override
@@ -2256,14 +2256,14 @@ class _$_errorForgetPasswordState implements _errorForgetPasswordState {
     TResult Function(String message)? successLoginState,
     TResult Function(String message)? errorLoginState,
     TResult Function(bool isVisible)? changeIconVisibilityState,
-    TResult Function(String message)? successForgetPasswordState,
-    TResult Function(String message)? errorForgetPasswordState,
+    TResult Function(String message)? successForgotPasswordState,
+    TResult Function(String message)? errorForgotPasswordState,
     TResult Function(String message)? successResetPasswordState,
     TResult Function(String message)? errorResetPasswordState,
     required TResult orElse(),
   }) {
-    if (errorForgetPasswordState != null) {
-      return errorForgetPasswordState(message);
+    if (errorForgotPasswordState != null) {
+      return errorForgotPasswordState(message);
     }
     return orElse();
   }
@@ -2278,15 +2278,15 @@ class _$_errorForgetPasswordState implements _errorForgetPasswordState {
     required TResult Function(_changeIconVisibilityState value)
         changeIconVisibilityState,
     required TResult Function(_successForgetPasswordState value)
-        successForgetPasswordState,
-    required TResult Function(_errorForgetPasswordState value)
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    required TResult Function(_errorForgotPasswordState value)
+        errorForgotPasswordState,
     required TResult Function(_successResetPasswordState value)
         successResetPasswordState,
     required TResult Function(_errorResetPasswordState value)
         errorResetPasswordState,
   }) {
-    return errorForgetPasswordState(this);
+    return errorForgotPasswordState(this);
   }
 
   @override
@@ -2299,14 +2299,14 @@ class _$_errorForgetPasswordState implements _errorForgetPasswordState {
     TResult? Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult? Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult? Function(_errorForgetPasswordState value)?
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult? Function(_errorForgotPasswordState value)?
+        errorForgotPasswordState,
     TResult? Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult? Function(_errorResetPasswordState value)? errorResetPasswordState,
   }) {
-    return errorForgetPasswordState?.call(this);
+    return errorForgotPasswordState?.call(this);
   }
 
   @override
@@ -2319,27 +2319,27 @@ class _$_errorForgetPasswordState implements _errorForgetPasswordState {
     TResult Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult Function(_errorForgetPasswordState value)? errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult Function(_errorForgotPasswordState value)? errorForgotPasswordState,
     TResult Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult Function(_errorResetPasswordState value)? errorResetPasswordState,
     required TResult orElse(),
   }) {
-    if (errorForgetPasswordState != null) {
-      return errorForgetPasswordState(this);
+    if (errorForgotPasswordState != null) {
+      return errorForgotPasswordState(this);
     }
     return orElse();
   }
 }
 
-abstract class _errorForgetPasswordState implements AuthState {
-  const factory _errorForgetPasswordState(final String message) =
-      _$_errorForgetPasswordState;
+abstract class _errorForgotPasswordState implements AuthState {
+  const factory _errorForgotPasswordState(final String message) =
+      _$_errorForgotPasswordState;
 
   String get message;
   @JsonKey(ignore: true)
-  _$$_errorForgetPasswordStateCopyWith<_$_errorForgetPasswordState>
+  _$$_errorForgotPasswordStateCopyWith<_$_errorForgotPasswordState>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -2415,8 +2415,8 @@ class _$_successResetPasswordState implements _successResetPasswordState {
     required TResult Function(String message) successLoginState,
     required TResult Function(String message) errorLoginState,
     required TResult Function(bool isVisible) changeIconVisibilityState,
-    required TResult Function(String message) successForgetPasswordState,
-    required TResult Function(String message) errorForgetPasswordState,
+    required TResult Function(String message) successForgotPasswordState,
+    required TResult Function(String message) errorForgotPasswordState,
     required TResult Function(String message) successResetPasswordState,
     required TResult Function(String message) errorResetPasswordState,
   }) {
@@ -2431,8 +2431,8 @@ class _$_successResetPasswordState implements _successResetPasswordState {
     TResult? Function(String message)? successLoginState,
     TResult? Function(String message)? errorLoginState,
     TResult? Function(bool isVisible)? changeIconVisibilityState,
-    TResult? Function(String message)? successForgetPasswordState,
-    TResult? Function(String message)? errorForgetPasswordState,
+    TResult? Function(String message)? successForgotPasswordState,
+    TResult? Function(String message)? errorForgotPasswordState,
     TResult? Function(String message)? successResetPasswordState,
     TResult? Function(String message)? errorResetPasswordState,
   }) {
@@ -2447,8 +2447,8 @@ class _$_successResetPasswordState implements _successResetPasswordState {
     TResult Function(String message)? successLoginState,
     TResult Function(String message)? errorLoginState,
     TResult Function(bool isVisible)? changeIconVisibilityState,
-    TResult Function(String message)? successForgetPasswordState,
-    TResult Function(String message)? errorForgetPasswordState,
+    TResult Function(String message)? successForgotPasswordState,
+    TResult Function(String message)? errorForgotPasswordState,
     TResult Function(String message)? successResetPasswordState,
     TResult Function(String message)? errorResetPasswordState,
     required TResult orElse(),
@@ -2469,9 +2469,9 @@ class _$_successResetPasswordState implements _successResetPasswordState {
     required TResult Function(_changeIconVisibilityState value)
         changeIconVisibilityState,
     required TResult Function(_successForgetPasswordState value)
-        successForgetPasswordState,
-    required TResult Function(_errorForgetPasswordState value)
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    required TResult Function(_errorForgotPasswordState value)
+        errorForgotPasswordState,
     required TResult Function(_successResetPasswordState value)
         successResetPasswordState,
     required TResult Function(_errorResetPasswordState value)
@@ -2490,9 +2490,9 @@ class _$_successResetPasswordState implements _successResetPasswordState {
     TResult? Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult? Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult? Function(_errorForgetPasswordState value)?
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult? Function(_errorForgotPasswordState value)?
+        errorForgotPasswordState,
     TResult? Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult? Function(_errorResetPasswordState value)? errorResetPasswordState,
@@ -2510,8 +2510,8 @@ class _$_successResetPasswordState implements _successResetPasswordState {
     TResult Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult Function(_errorForgetPasswordState value)? errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult Function(_errorForgotPasswordState value)? errorForgotPasswordState,
     TResult Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult Function(_errorResetPasswordState value)? errorResetPasswordState,
@@ -2605,8 +2605,8 @@ class _$_errorResetPasswordState implements _errorResetPasswordState {
     required TResult Function(String message) successLoginState,
     required TResult Function(String message) errorLoginState,
     required TResult Function(bool isVisible) changeIconVisibilityState,
-    required TResult Function(String message) successForgetPasswordState,
-    required TResult Function(String message) errorForgetPasswordState,
+    required TResult Function(String message) successForgotPasswordState,
+    required TResult Function(String message) errorForgotPasswordState,
     required TResult Function(String message) successResetPasswordState,
     required TResult Function(String message) errorResetPasswordState,
   }) {
@@ -2621,8 +2621,8 @@ class _$_errorResetPasswordState implements _errorResetPasswordState {
     TResult? Function(String message)? successLoginState,
     TResult? Function(String message)? errorLoginState,
     TResult? Function(bool isVisible)? changeIconVisibilityState,
-    TResult? Function(String message)? successForgetPasswordState,
-    TResult? Function(String message)? errorForgetPasswordState,
+    TResult? Function(String message)? successForgotPasswordState,
+    TResult? Function(String message)? errorForgotPasswordState,
     TResult? Function(String message)? successResetPasswordState,
     TResult? Function(String message)? errorResetPasswordState,
   }) {
@@ -2637,8 +2637,8 @@ class _$_errorResetPasswordState implements _errorResetPasswordState {
     TResult Function(String message)? successLoginState,
     TResult Function(String message)? errorLoginState,
     TResult Function(bool isVisible)? changeIconVisibilityState,
-    TResult Function(String message)? successForgetPasswordState,
-    TResult Function(String message)? errorForgetPasswordState,
+    TResult Function(String message)? successForgotPasswordState,
+    TResult Function(String message)? errorForgotPasswordState,
     TResult Function(String message)? successResetPasswordState,
     TResult Function(String message)? errorResetPasswordState,
     required TResult orElse(),
@@ -2659,9 +2659,9 @@ class _$_errorResetPasswordState implements _errorResetPasswordState {
     required TResult Function(_changeIconVisibilityState value)
         changeIconVisibilityState,
     required TResult Function(_successForgetPasswordState value)
-        successForgetPasswordState,
-    required TResult Function(_errorForgetPasswordState value)
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    required TResult Function(_errorForgotPasswordState value)
+        errorForgotPasswordState,
     required TResult Function(_successResetPasswordState value)
         successResetPasswordState,
     required TResult Function(_errorResetPasswordState value)
@@ -2680,9 +2680,9 @@ class _$_errorResetPasswordState implements _errorResetPasswordState {
     TResult? Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult? Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult? Function(_errorForgetPasswordState value)?
-        errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult? Function(_errorForgotPasswordState value)?
+        errorForgotPasswordState,
     TResult? Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult? Function(_errorResetPasswordState value)? errorResetPasswordState,
@@ -2700,8 +2700,8 @@ class _$_errorResetPasswordState implements _errorResetPasswordState {
     TResult Function(_changeIconVisibilityState value)?
         changeIconVisibilityState,
     TResult Function(_successForgetPasswordState value)?
-        successForgetPasswordState,
-    TResult Function(_errorForgetPasswordState value)? errorForgetPasswordState,
+        successForgotPasswordState,
+    TResult Function(_errorForgotPasswordState value)? errorForgotPasswordState,
     TResult Function(_successResetPasswordState value)?
         successResetPasswordState,
     TResult Function(_errorResetPasswordState value)? errorResetPasswordState,

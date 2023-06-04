@@ -13,4 +13,7 @@ abstract class UserState with _$UserState {
   const factory UserState.errorUpdateMyProfileState(String message)=_errorUpdateMyProfileState;
   const factory UserState.successGetMyProfileState(UserModel userModel)=_successGetMyProfileState;
   const factory UserState.errorGetMyProfileState(String message)=_errorGetMyProfileState;
+  const factory UserState.successDeleteMyAccountState(String message)=_successDeleteMyAccountState;
+  const factory UserState.errorDeleteMyAccountState(String message)=_errorDeleteMyAccountState;
+  const factory UserState.successLogOutState(String message)=_successLogOutState;
 }

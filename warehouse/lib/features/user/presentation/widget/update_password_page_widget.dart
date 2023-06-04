@@ -1,4 +1,4 @@
-import 'dart:io';
+
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -7,10 +7,9 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:warehouse/core/util/snackbar_message.dart';
 import 'package:warehouse/core/widget/elevated_button_widget.dart';
 import 'package:warehouse/features/auth/presentation/widget/text_form_widget.dart';
-import 'package:warehouse/features/user/data/model/user_model.dart';
 import 'package:warehouse/features/user/presentation/bloc/user/user_bloc.dart';
 
-import '../../../../core/theme.dart';
+
 import 'package:warehouse/injection_container.dart' as di;
 
 // ignore: must_be_immutable
@@ -27,8 +26,8 @@ class UpdateMyPasswordPageWidget extends StatelessWidget {
     return BlocProvider(
       create: (_) => di.getIt<UserBloc>(),
       child: BlocConsumer<UserBloc, UserState>(listener: (context, state) {
-        state.when(
-          userInitial: () {},
+        state.maybeWhen(
+          orElse: (){},
           loading: () {
             isLoading = true;
           },
@@ -44,12 +43,6 @@ class UpdateMyPasswordPageWidget extends StatelessWidget {
           successChangeIconVisibilityState: (bool isVisible) {
             isVisibility = isVisible;
           },
-          successPickImageProfileState: (File image) {},
-          errorPickImageProfileState: () {},
-          successUpdateMyProfileState: (UserModel userModel) {},
-          errorUpdateMyProfileState: (String message) {},
-          successGetMyProfileState: (UserModel userModel) {},
-          errorGetMyProfileState: (String message) {},
         );
       }, builder: (context, state) {
         return _buildForm(context);

@@ -25,6 +25,8 @@ mixin _$UserEvent {
     required TResult Function(String name, String email, File? photo)
         updateMyProfileEvent,
     required TResult Function() getMyProfileEvent,
+    required TResult Function() deleteMyAccountEvent,
+    required TResult Function() logOutEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +38,8 @@ mixin _$UserEvent {
     TResult? Function(String name, String email, File? photo)?
         updateMyProfileEvent,
     TResult? Function()? getMyProfileEvent,
+    TResult? Function()? deleteMyAccountEvent,
+    TResult? Function()? logOutEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,6 +51,8 @@ mixin _$UserEvent {
     TResult Function(String name, String email, File? photo)?
         updateMyProfileEvent,
     TResult Function()? getMyProfileEvent,
+    TResult Function()? deleteMyAccountEvent,
+    TResult Function()? logOutEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -60,6 +66,8 @@ mixin _$UserEvent {
         pickProfileImageEvent,
     required TResult Function(_updateMyProfileEvent value) updateMyProfileEvent,
     required TResult Function(_getMyProfileEvent value) getMyProfileEvent,
+    required TResult Function(_deleteMyAccountEvent value) deleteMyAccountEvent,
+    required TResult Function(_logOutEvent value) logOutEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,6 +78,8 @@ mixin _$UserEvent {
     TResult? Function(_pickProfileImageEvent value)? pickProfileImageEvent,
     TResult? Function(_updateMyProfileEvent value)? updateMyProfileEvent,
     TResult? Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult? Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult? Function(_logOutEvent value)? logOutEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -80,6 +90,8 @@ mixin _$UserEvent {
     TResult Function(_pickProfileImageEvent value)? pickProfileImageEvent,
     TResult Function(_updateMyProfileEvent value)? updateMyProfileEvent,
     TResult Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult Function(_logOutEvent value)? logOutEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -184,6 +196,8 @@ class _$_updateMyPasswordEvent implements _updateMyPasswordEvent {
     required TResult Function(String name, String email, File? photo)
         updateMyProfileEvent,
     required TResult Function() getMyProfileEvent,
+    required TResult Function() deleteMyAccountEvent,
+    required TResult Function() logOutEvent,
   }) {
     return updateMyPasswordEvent(currentPassword, password);
   }
@@ -198,6 +212,8 @@ class _$_updateMyPasswordEvent implements _updateMyPasswordEvent {
     TResult? Function(String name, String email, File? photo)?
         updateMyProfileEvent,
     TResult? Function()? getMyProfileEvent,
+    TResult? Function()? deleteMyAccountEvent,
+    TResult? Function()? logOutEvent,
   }) {
     return updateMyPasswordEvent?.call(currentPassword, password);
   }
@@ -212,6 +228,8 @@ class _$_updateMyPasswordEvent implements _updateMyPasswordEvent {
     TResult Function(String name, String email, File? photo)?
         updateMyProfileEvent,
     TResult Function()? getMyProfileEvent,
+    TResult Function()? deleteMyAccountEvent,
+    TResult Function()? logOutEvent,
     required TResult orElse(),
   }) {
     if (updateMyPasswordEvent != null) {
@@ -231,6 +249,8 @@ class _$_updateMyPasswordEvent implements _updateMyPasswordEvent {
         pickProfileImageEvent,
     required TResult Function(_updateMyProfileEvent value) updateMyProfileEvent,
     required TResult Function(_getMyProfileEvent value) getMyProfileEvent,
+    required TResult Function(_deleteMyAccountEvent value) deleteMyAccountEvent,
+    required TResult Function(_logOutEvent value) logOutEvent,
   }) {
     return updateMyPasswordEvent(this);
   }
@@ -244,6 +264,8 @@ class _$_updateMyPasswordEvent implements _updateMyPasswordEvent {
     TResult? Function(_pickProfileImageEvent value)? pickProfileImageEvent,
     TResult? Function(_updateMyProfileEvent value)? updateMyProfileEvent,
     TResult? Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult? Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult? Function(_logOutEvent value)? logOutEvent,
   }) {
     return updateMyPasswordEvent?.call(this);
   }
@@ -257,6 +279,8 @@ class _$_updateMyPasswordEvent implements _updateMyPasswordEvent {
     TResult Function(_pickProfileImageEvent value)? pickProfileImageEvent,
     TResult Function(_updateMyProfileEvent value)? updateMyProfileEvent,
     TResult Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult Function(_logOutEvent value)? logOutEvent,
     required TResult orElse(),
   }) {
     if (updateMyPasswordEvent != null) {
@@ -353,6 +377,8 @@ class _$_changeIconVisibilityEvent implements _changeIconVisibilityEvent {
     required TResult Function(String name, String email, File? photo)
         updateMyProfileEvent,
     required TResult Function() getMyProfileEvent,
+    required TResult Function() deleteMyAccountEvent,
+    required TResult Function() logOutEvent,
   }) {
     return changeIconVisibilityEvent(isVisible);
   }
@@ -367,6 +393,8 @@ class _$_changeIconVisibilityEvent implements _changeIconVisibilityEvent {
     TResult? Function(String name, String email, File? photo)?
         updateMyProfileEvent,
     TResult? Function()? getMyProfileEvent,
+    TResult? Function()? deleteMyAccountEvent,
+    TResult? Function()? logOutEvent,
   }) {
     return changeIconVisibilityEvent?.call(isVisible);
   }
@@ -381,6 +409,8 @@ class _$_changeIconVisibilityEvent implements _changeIconVisibilityEvent {
     TResult Function(String name, String email, File? photo)?
         updateMyProfileEvent,
     TResult Function()? getMyProfileEvent,
+    TResult Function()? deleteMyAccountEvent,
+    TResult Function()? logOutEvent,
     required TResult orElse(),
   }) {
     if (changeIconVisibilityEvent != null) {
@@ -400,6 +430,8 @@ class _$_changeIconVisibilityEvent implements _changeIconVisibilityEvent {
         pickProfileImageEvent,
     required TResult Function(_updateMyProfileEvent value) updateMyProfileEvent,
     required TResult Function(_getMyProfileEvent value) getMyProfileEvent,
+    required TResult Function(_deleteMyAccountEvent value) deleteMyAccountEvent,
+    required TResult Function(_logOutEvent value) logOutEvent,
   }) {
     return changeIconVisibilityEvent(this);
   }
@@ -413,6 +445,8 @@ class _$_changeIconVisibilityEvent implements _changeIconVisibilityEvent {
     TResult? Function(_pickProfileImageEvent value)? pickProfileImageEvent,
     TResult? Function(_updateMyProfileEvent value)? updateMyProfileEvent,
     TResult? Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult? Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult? Function(_logOutEvent value)? logOutEvent,
   }) {
     return changeIconVisibilityEvent?.call(this);
   }
@@ -426,6 +460,8 @@ class _$_changeIconVisibilityEvent implements _changeIconVisibilityEvent {
     TResult Function(_pickProfileImageEvent value)? pickProfileImageEvent,
     TResult Function(_updateMyProfileEvent value)? updateMyProfileEvent,
     TResult Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult Function(_logOutEvent value)? logOutEvent,
     required TResult orElse(),
   }) {
     if (changeIconVisibilityEvent != null) {
@@ -518,6 +554,8 @@ class _$_pickProfileImageEvent implements _pickProfileImageEvent {
     required TResult Function(String name, String email, File? photo)
         updateMyProfileEvent,
     required TResult Function() getMyProfileEvent,
+    required TResult Function() deleteMyAccountEvent,
+    required TResult Function() logOutEvent,
   }) {
     return pickProfileImageEvent(imageSource);
   }
@@ -532,6 +570,8 @@ class _$_pickProfileImageEvent implements _pickProfileImageEvent {
     TResult? Function(String name, String email, File? photo)?
         updateMyProfileEvent,
     TResult? Function()? getMyProfileEvent,
+    TResult? Function()? deleteMyAccountEvent,
+    TResult? Function()? logOutEvent,
   }) {
     return pickProfileImageEvent?.call(imageSource);
   }
@@ -546,6 +586,8 @@ class _$_pickProfileImageEvent implements _pickProfileImageEvent {
     TResult Function(String name, String email, File? photo)?
         updateMyProfileEvent,
     TResult Function()? getMyProfileEvent,
+    TResult Function()? deleteMyAccountEvent,
+    TResult Function()? logOutEvent,
     required TResult orElse(),
   }) {
     if (pickProfileImageEvent != null) {
@@ -565,6 +607,8 @@ class _$_pickProfileImageEvent implements _pickProfileImageEvent {
         pickProfileImageEvent,
     required TResult Function(_updateMyProfileEvent value) updateMyProfileEvent,
     required TResult Function(_getMyProfileEvent value) getMyProfileEvent,
+    required TResult Function(_deleteMyAccountEvent value) deleteMyAccountEvent,
+    required TResult Function(_logOutEvent value) logOutEvent,
   }) {
     return pickProfileImageEvent(this);
   }
@@ -578,6 +622,8 @@ class _$_pickProfileImageEvent implements _pickProfileImageEvent {
     TResult? Function(_pickProfileImageEvent value)? pickProfileImageEvent,
     TResult? Function(_updateMyProfileEvent value)? updateMyProfileEvent,
     TResult? Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult? Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult? Function(_logOutEvent value)? logOutEvent,
   }) {
     return pickProfileImageEvent?.call(this);
   }
@@ -591,6 +637,8 @@ class _$_pickProfileImageEvent implements _pickProfileImageEvent {
     TResult Function(_pickProfileImageEvent value)? pickProfileImageEvent,
     TResult Function(_updateMyProfileEvent value)? updateMyProfileEvent,
     TResult Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult Function(_logOutEvent value)? logOutEvent,
     required TResult orElse(),
   }) {
     if (pickProfileImageEvent != null) {
@@ -698,6 +746,8 @@ class _$_updateMyProfileEvent implements _updateMyProfileEvent {
     required TResult Function(String name, String email, File? photo)
         updateMyProfileEvent,
     required TResult Function() getMyProfileEvent,
+    required TResult Function() deleteMyAccountEvent,
+    required TResult Function() logOutEvent,
   }) {
     return updateMyProfileEvent(name, email, photo);
   }
@@ -712,6 +762,8 @@ class _$_updateMyProfileEvent implements _updateMyProfileEvent {
     TResult? Function(String name, String email, File? photo)?
         updateMyProfileEvent,
     TResult? Function()? getMyProfileEvent,
+    TResult? Function()? deleteMyAccountEvent,
+    TResult? Function()? logOutEvent,
   }) {
     return updateMyProfileEvent?.call(name, email, photo);
   }
@@ -726,6 +778,8 @@ class _$_updateMyProfileEvent implements _updateMyProfileEvent {
     TResult Function(String name, String email, File? photo)?
         updateMyProfileEvent,
     TResult Function()? getMyProfileEvent,
+    TResult Function()? deleteMyAccountEvent,
+    TResult Function()? logOutEvent,
     required TResult orElse(),
   }) {
     if (updateMyProfileEvent != null) {
@@ -745,6 +799,8 @@ class _$_updateMyProfileEvent implements _updateMyProfileEvent {
         pickProfileImageEvent,
     required TResult Function(_updateMyProfileEvent value) updateMyProfileEvent,
     required TResult Function(_getMyProfileEvent value) getMyProfileEvent,
+    required TResult Function(_deleteMyAccountEvent value) deleteMyAccountEvent,
+    required TResult Function(_logOutEvent value) logOutEvent,
   }) {
     return updateMyProfileEvent(this);
   }
@@ -758,6 +814,8 @@ class _$_updateMyProfileEvent implements _updateMyProfileEvent {
     TResult? Function(_pickProfileImageEvent value)? pickProfileImageEvent,
     TResult? Function(_updateMyProfileEvent value)? updateMyProfileEvent,
     TResult? Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult? Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult? Function(_logOutEvent value)? logOutEvent,
   }) {
     return updateMyProfileEvent?.call(this);
   }
@@ -771,6 +829,8 @@ class _$_updateMyProfileEvent implements _updateMyProfileEvent {
     TResult Function(_pickProfileImageEvent value)? pickProfileImageEvent,
     TResult Function(_updateMyProfileEvent value)? updateMyProfileEvent,
     TResult Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult Function(_logOutEvent value)? logOutEvent,
     required TResult orElse(),
   }) {
     if (updateMyProfileEvent != null) {
@@ -838,6 +898,8 @@ class _$_getMyProfileEvent implements _getMyProfileEvent {
     required TResult Function(String name, String email, File? photo)
         updateMyProfileEvent,
     required TResult Function() getMyProfileEvent,
+    required TResult Function() deleteMyAccountEvent,
+    required TResult Function() logOutEvent,
   }) {
     return getMyProfileEvent();
   }
@@ -852,6 +914,8 @@ class _$_getMyProfileEvent implements _getMyProfileEvent {
     TResult? Function(String name, String email, File? photo)?
         updateMyProfileEvent,
     TResult? Function()? getMyProfileEvent,
+    TResult? Function()? deleteMyAccountEvent,
+    TResult? Function()? logOutEvent,
   }) {
     return getMyProfileEvent?.call();
   }
@@ -866,6 +930,8 @@ class _$_getMyProfileEvent implements _getMyProfileEvent {
     TResult Function(String name, String email, File? photo)?
         updateMyProfileEvent,
     TResult Function()? getMyProfileEvent,
+    TResult Function()? deleteMyAccountEvent,
+    TResult Function()? logOutEvent,
     required TResult orElse(),
   }) {
     if (getMyProfileEvent != null) {
@@ -885,6 +951,8 @@ class _$_getMyProfileEvent implements _getMyProfileEvent {
         pickProfileImageEvent,
     required TResult Function(_updateMyProfileEvent value) updateMyProfileEvent,
     required TResult Function(_getMyProfileEvent value) getMyProfileEvent,
+    required TResult Function(_deleteMyAccountEvent value) deleteMyAccountEvent,
+    required TResult Function(_logOutEvent value) logOutEvent,
   }) {
     return getMyProfileEvent(this);
   }
@@ -898,6 +966,8 @@ class _$_getMyProfileEvent implements _getMyProfileEvent {
     TResult? Function(_pickProfileImageEvent value)? pickProfileImageEvent,
     TResult? Function(_updateMyProfileEvent value)? updateMyProfileEvent,
     TResult? Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult? Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult? Function(_logOutEvent value)? logOutEvent,
   }) {
     return getMyProfileEvent?.call(this);
   }
@@ -911,6 +981,8 @@ class _$_getMyProfileEvent implements _getMyProfileEvent {
     TResult Function(_pickProfileImageEvent value)? pickProfileImageEvent,
     TResult Function(_updateMyProfileEvent value)? updateMyProfileEvent,
     TResult Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult Function(_logOutEvent value)? logOutEvent,
     required TResult orElse(),
   }) {
     if (getMyProfileEvent != null) {
@@ -922,6 +994,292 @@ class _$_getMyProfileEvent implements _getMyProfileEvent {
 
 abstract class _getMyProfileEvent implements UserEvent {
   const factory _getMyProfileEvent() = _$_getMyProfileEvent;
+}
+
+/// @nodoc
+abstract class _$$_deleteMyAccountEventCopyWith<$Res> {
+  factory _$$_deleteMyAccountEventCopyWith(_$_deleteMyAccountEvent value,
+          $Res Function(_$_deleteMyAccountEvent) then) =
+      __$$_deleteMyAccountEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_deleteMyAccountEventCopyWithImpl<$Res>
+    extends _$UserEventCopyWithImpl<$Res, _$_deleteMyAccountEvent>
+    implements _$$_deleteMyAccountEventCopyWith<$Res> {
+  __$$_deleteMyAccountEventCopyWithImpl(_$_deleteMyAccountEvent _value,
+      $Res Function(_$_deleteMyAccountEvent) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_deleteMyAccountEvent implements _deleteMyAccountEvent {
+  const _$_deleteMyAccountEvent();
+
+  @override
+  String toString() {
+    return 'UserEvent.deleteMyAccountEvent()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_deleteMyAccountEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String currentPassword, String password)
+        updateMyPasswordEvent,
+    required TResult Function(bool isVisible) changeIconVisibilityEvent,
+    required TResult Function(ImageSource imageSource) pickProfileImageEvent,
+    required TResult Function(String name, String email, File? photo)
+        updateMyProfileEvent,
+    required TResult Function() getMyProfileEvent,
+    required TResult Function() deleteMyAccountEvent,
+    required TResult Function() logOutEvent,
+  }) {
+    return deleteMyAccountEvent();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String currentPassword, String password)?
+        updateMyPasswordEvent,
+    TResult? Function(bool isVisible)? changeIconVisibilityEvent,
+    TResult? Function(ImageSource imageSource)? pickProfileImageEvent,
+    TResult? Function(String name, String email, File? photo)?
+        updateMyProfileEvent,
+    TResult? Function()? getMyProfileEvent,
+    TResult? Function()? deleteMyAccountEvent,
+    TResult? Function()? logOutEvent,
+  }) {
+    return deleteMyAccountEvent?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String currentPassword, String password)?
+        updateMyPasswordEvent,
+    TResult Function(bool isVisible)? changeIconVisibilityEvent,
+    TResult Function(ImageSource imageSource)? pickProfileImageEvent,
+    TResult Function(String name, String email, File? photo)?
+        updateMyProfileEvent,
+    TResult Function()? getMyProfileEvent,
+    TResult Function()? deleteMyAccountEvent,
+    TResult Function()? logOutEvent,
+    required TResult orElse(),
+  }) {
+    if (deleteMyAccountEvent != null) {
+      return deleteMyAccountEvent();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_updateMyPasswordEvent value)
+        updateMyPasswordEvent,
+    required TResult Function(_changeIconVisibilityEvent value)
+        changeIconVisibilityEvent,
+    required TResult Function(_pickProfileImageEvent value)
+        pickProfileImageEvent,
+    required TResult Function(_updateMyProfileEvent value) updateMyProfileEvent,
+    required TResult Function(_getMyProfileEvent value) getMyProfileEvent,
+    required TResult Function(_deleteMyAccountEvent value) deleteMyAccountEvent,
+    required TResult Function(_logOutEvent value) logOutEvent,
+  }) {
+    return deleteMyAccountEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_updateMyPasswordEvent value)? updateMyPasswordEvent,
+    TResult? Function(_changeIconVisibilityEvent value)?
+        changeIconVisibilityEvent,
+    TResult? Function(_pickProfileImageEvent value)? pickProfileImageEvent,
+    TResult? Function(_updateMyProfileEvent value)? updateMyProfileEvent,
+    TResult? Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult? Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult? Function(_logOutEvent value)? logOutEvent,
+  }) {
+    return deleteMyAccountEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_updateMyPasswordEvent value)? updateMyPasswordEvent,
+    TResult Function(_changeIconVisibilityEvent value)?
+        changeIconVisibilityEvent,
+    TResult Function(_pickProfileImageEvent value)? pickProfileImageEvent,
+    TResult Function(_updateMyProfileEvent value)? updateMyProfileEvent,
+    TResult Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult Function(_logOutEvent value)? logOutEvent,
+    required TResult orElse(),
+  }) {
+    if (deleteMyAccountEvent != null) {
+      return deleteMyAccountEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _deleteMyAccountEvent implements UserEvent {
+  const factory _deleteMyAccountEvent() = _$_deleteMyAccountEvent;
+}
+
+/// @nodoc
+abstract class _$$_logOutEventCopyWith<$Res> {
+  factory _$$_logOutEventCopyWith(
+          _$_logOutEvent value, $Res Function(_$_logOutEvent) then) =
+      __$$_logOutEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_logOutEventCopyWithImpl<$Res>
+    extends _$UserEventCopyWithImpl<$Res, _$_logOutEvent>
+    implements _$$_logOutEventCopyWith<$Res> {
+  __$$_logOutEventCopyWithImpl(
+      _$_logOutEvent _value, $Res Function(_$_logOutEvent) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_logOutEvent implements _logOutEvent {
+  const _$_logOutEvent();
+
+  @override
+  String toString() {
+    return 'UserEvent.logOutEvent()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_logOutEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String currentPassword, String password)
+        updateMyPasswordEvent,
+    required TResult Function(bool isVisible) changeIconVisibilityEvent,
+    required TResult Function(ImageSource imageSource) pickProfileImageEvent,
+    required TResult Function(String name, String email, File? photo)
+        updateMyProfileEvent,
+    required TResult Function() getMyProfileEvent,
+    required TResult Function() deleteMyAccountEvent,
+    required TResult Function() logOutEvent,
+  }) {
+    return logOutEvent();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String currentPassword, String password)?
+        updateMyPasswordEvent,
+    TResult? Function(bool isVisible)? changeIconVisibilityEvent,
+    TResult? Function(ImageSource imageSource)? pickProfileImageEvent,
+    TResult? Function(String name, String email, File? photo)?
+        updateMyProfileEvent,
+    TResult? Function()? getMyProfileEvent,
+    TResult? Function()? deleteMyAccountEvent,
+    TResult? Function()? logOutEvent,
+  }) {
+    return logOutEvent?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String currentPassword, String password)?
+        updateMyPasswordEvent,
+    TResult Function(bool isVisible)? changeIconVisibilityEvent,
+    TResult Function(ImageSource imageSource)? pickProfileImageEvent,
+    TResult Function(String name, String email, File? photo)?
+        updateMyProfileEvent,
+    TResult Function()? getMyProfileEvent,
+    TResult Function()? deleteMyAccountEvent,
+    TResult Function()? logOutEvent,
+    required TResult orElse(),
+  }) {
+    if (logOutEvent != null) {
+      return logOutEvent();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_updateMyPasswordEvent value)
+        updateMyPasswordEvent,
+    required TResult Function(_changeIconVisibilityEvent value)
+        changeIconVisibilityEvent,
+    required TResult Function(_pickProfileImageEvent value)
+        pickProfileImageEvent,
+    required TResult Function(_updateMyProfileEvent value) updateMyProfileEvent,
+    required TResult Function(_getMyProfileEvent value) getMyProfileEvent,
+    required TResult Function(_deleteMyAccountEvent value) deleteMyAccountEvent,
+    required TResult Function(_logOutEvent value) logOutEvent,
+  }) {
+    return logOutEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_updateMyPasswordEvent value)? updateMyPasswordEvent,
+    TResult? Function(_changeIconVisibilityEvent value)?
+        changeIconVisibilityEvent,
+    TResult? Function(_pickProfileImageEvent value)? pickProfileImageEvent,
+    TResult? Function(_updateMyProfileEvent value)? updateMyProfileEvent,
+    TResult? Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult? Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult? Function(_logOutEvent value)? logOutEvent,
+  }) {
+    return logOutEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_updateMyPasswordEvent value)? updateMyPasswordEvent,
+    TResult Function(_changeIconVisibilityEvent value)?
+        changeIconVisibilityEvent,
+    TResult Function(_pickProfileImageEvent value)? pickProfileImageEvent,
+    TResult Function(_updateMyProfileEvent value)? updateMyProfileEvent,
+    TResult Function(_getMyProfileEvent value)? getMyProfileEvent,
+    TResult Function(_deleteMyAccountEvent value)? deleteMyAccountEvent,
+    TResult Function(_logOutEvent value)? logOutEvent,
+    required TResult orElse(),
+  }) {
+    if (logOutEvent != null) {
+      return logOutEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _logOutEvent implements UserEvent {
+  const factory _logOutEvent() = _$_logOutEvent;
 }
 
 /// @nodoc
@@ -939,6 +1297,9 @@ mixin _$UserState {
     required TResult Function(String message) errorUpdateMyProfileState,
     required TResult Function(UserModel userModel) successGetMyProfileState,
     required TResult Function(String message) errorGetMyProfileState,
+    required TResult Function(String message) successDeleteMyAccountState,
+    required TResult Function(String message) errorDeleteMyAccountState,
+    required TResult Function(String message) successLogOutState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -954,6 +1315,9 @@ mixin _$UserState {
     TResult? Function(String message)? errorUpdateMyProfileState,
     TResult? Function(UserModel userModel)? successGetMyProfileState,
     TResult? Function(String message)? errorGetMyProfileState,
+    TResult? Function(String message)? successDeleteMyAccountState,
+    TResult? Function(String message)? errorDeleteMyAccountState,
+    TResult? Function(String message)? successLogOutState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -969,6 +1333,9 @@ mixin _$UserState {
     TResult Function(String message)? errorUpdateMyProfileState,
     TResult Function(UserModel userModel)? successGetMyProfileState,
     TResult Function(String message)? errorGetMyProfileState,
+    TResult Function(String message)? successDeleteMyAccountState,
+    TResult Function(String message)? errorDeleteMyAccountState,
+    TResult Function(String message)? successLogOutState,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -994,6 +1361,11 @@ mixin _$UserState {
         successGetMyProfileState,
     required TResult Function(_errorGetMyProfileState value)
         errorGetMyProfileState,
+    required TResult Function(_successDeleteMyAccountState value)
+        successDeleteMyAccountState,
+    required TResult Function(_errorDeleteMyAccountState value)
+        errorDeleteMyAccountState,
+    required TResult Function(_successLogOutState value) successLogOutState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1017,6 +1389,11 @@ mixin _$UserState {
     TResult? Function(_successGetMyProfileState value)?
         successGetMyProfileState,
     TResult? Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult? Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult? Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1039,6 +1416,11 @@ mixin _$UserState {
         errorUpdateMyProfileState,
     TResult Function(_successGetMyProfileState value)? successGetMyProfileState,
     TResult Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult Function(_successLogOutState value)? successLogOutState,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1110,6 +1492,9 @@ class _$_userInitial implements _userInitial {
     required TResult Function(String message) errorUpdateMyProfileState,
     required TResult Function(UserModel userModel) successGetMyProfileState,
     required TResult Function(String message) errorGetMyProfileState,
+    required TResult Function(String message) successDeleteMyAccountState,
+    required TResult Function(String message) errorDeleteMyAccountState,
+    required TResult Function(String message) successLogOutState,
   }) {
     return userInitial();
   }
@@ -1128,6 +1513,9 @@ class _$_userInitial implements _userInitial {
     TResult? Function(String message)? errorUpdateMyProfileState,
     TResult? Function(UserModel userModel)? successGetMyProfileState,
     TResult? Function(String message)? errorGetMyProfileState,
+    TResult? Function(String message)? successDeleteMyAccountState,
+    TResult? Function(String message)? errorDeleteMyAccountState,
+    TResult? Function(String message)? successLogOutState,
   }) {
     return userInitial?.call();
   }
@@ -1146,6 +1534,9 @@ class _$_userInitial implements _userInitial {
     TResult Function(String message)? errorUpdateMyProfileState,
     TResult Function(UserModel userModel)? successGetMyProfileState,
     TResult Function(String message)? errorGetMyProfileState,
+    TResult Function(String message)? successDeleteMyAccountState,
+    TResult Function(String message)? errorDeleteMyAccountState,
+    TResult Function(String message)? successLogOutState,
     required TResult orElse(),
   }) {
     if (userInitial != null) {
@@ -1177,6 +1568,11 @@ class _$_userInitial implements _userInitial {
         successGetMyProfileState,
     required TResult Function(_errorGetMyProfileState value)
         errorGetMyProfileState,
+    required TResult Function(_successDeleteMyAccountState value)
+        successDeleteMyAccountState,
+    required TResult Function(_errorDeleteMyAccountState value)
+        errorDeleteMyAccountState,
+    required TResult Function(_successLogOutState value) successLogOutState,
   }) {
     return userInitial(this);
   }
@@ -1203,6 +1599,11 @@ class _$_userInitial implements _userInitial {
     TResult? Function(_successGetMyProfileState value)?
         successGetMyProfileState,
     TResult? Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult? Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult? Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
   }) {
     return userInitial?.call(this);
   }
@@ -1228,6 +1629,11 @@ class _$_userInitial implements _userInitial {
         errorUpdateMyProfileState,
     TResult Function(_successGetMyProfileState value)? successGetMyProfileState,
     TResult Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult Function(_successLogOutState value)? successLogOutState,
     required TResult orElse(),
   }) {
     if (userInitial != null) {
@@ -1289,6 +1695,9 @@ class _$_loading implements _loading {
     required TResult Function(String message) errorUpdateMyProfileState,
     required TResult Function(UserModel userModel) successGetMyProfileState,
     required TResult Function(String message) errorGetMyProfileState,
+    required TResult Function(String message) successDeleteMyAccountState,
+    required TResult Function(String message) errorDeleteMyAccountState,
+    required TResult Function(String message) successLogOutState,
   }) {
     return loading();
   }
@@ -1307,6 +1716,9 @@ class _$_loading implements _loading {
     TResult? Function(String message)? errorUpdateMyProfileState,
     TResult? Function(UserModel userModel)? successGetMyProfileState,
     TResult? Function(String message)? errorGetMyProfileState,
+    TResult? Function(String message)? successDeleteMyAccountState,
+    TResult? Function(String message)? errorDeleteMyAccountState,
+    TResult? Function(String message)? successLogOutState,
   }) {
     return loading?.call();
   }
@@ -1325,6 +1737,9 @@ class _$_loading implements _loading {
     TResult Function(String message)? errorUpdateMyProfileState,
     TResult Function(UserModel userModel)? successGetMyProfileState,
     TResult Function(String message)? errorGetMyProfileState,
+    TResult Function(String message)? successDeleteMyAccountState,
+    TResult Function(String message)? errorDeleteMyAccountState,
+    TResult Function(String message)? successLogOutState,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1356,6 +1771,11 @@ class _$_loading implements _loading {
         successGetMyProfileState,
     required TResult Function(_errorGetMyProfileState value)
         errorGetMyProfileState,
+    required TResult Function(_successDeleteMyAccountState value)
+        successDeleteMyAccountState,
+    required TResult Function(_errorDeleteMyAccountState value)
+        errorDeleteMyAccountState,
+    required TResult Function(_successLogOutState value) successLogOutState,
   }) {
     return loading(this);
   }
@@ -1382,6 +1802,11 @@ class _$_loading implements _loading {
     TResult? Function(_successGetMyProfileState value)?
         successGetMyProfileState,
     TResult? Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult? Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult? Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
   }) {
     return loading?.call(this);
   }
@@ -1407,6 +1832,11 @@ class _$_loading implements _loading {
         errorUpdateMyProfileState,
     TResult Function(_successGetMyProfileState value)? successGetMyProfileState,
     TResult Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult Function(_successLogOutState value)? successLogOutState,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1498,6 +1928,9 @@ class _$_successUpdateMyPasswordState implements _successUpdateMyPasswordState {
     required TResult Function(String message) errorUpdateMyProfileState,
     required TResult Function(UserModel userModel) successGetMyProfileState,
     required TResult Function(String message) errorGetMyProfileState,
+    required TResult Function(String message) successDeleteMyAccountState,
+    required TResult Function(String message) errorDeleteMyAccountState,
+    required TResult Function(String message) successLogOutState,
   }) {
     return successUpdateMyPasswordState(message);
   }
@@ -1516,6 +1949,9 @@ class _$_successUpdateMyPasswordState implements _successUpdateMyPasswordState {
     TResult? Function(String message)? errorUpdateMyProfileState,
     TResult? Function(UserModel userModel)? successGetMyProfileState,
     TResult? Function(String message)? errorGetMyProfileState,
+    TResult? Function(String message)? successDeleteMyAccountState,
+    TResult? Function(String message)? errorDeleteMyAccountState,
+    TResult? Function(String message)? successLogOutState,
   }) {
     return successUpdateMyPasswordState?.call(message);
   }
@@ -1534,6 +1970,9 @@ class _$_successUpdateMyPasswordState implements _successUpdateMyPasswordState {
     TResult Function(String message)? errorUpdateMyProfileState,
     TResult Function(UserModel userModel)? successGetMyProfileState,
     TResult Function(String message)? errorGetMyProfileState,
+    TResult Function(String message)? successDeleteMyAccountState,
+    TResult Function(String message)? errorDeleteMyAccountState,
+    TResult Function(String message)? successLogOutState,
     required TResult orElse(),
   }) {
     if (successUpdateMyPasswordState != null) {
@@ -1565,6 +2004,11 @@ class _$_successUpdateMyPasswordState implements _successUpdateMyPasswordState {
         successGetMyProfileState,
     required TResult Function(_errorGetMyProfileState value)
         errorGetMyProfileState,
+    required TResult Function(_successDeleteMyAccountState value)
+        successDeleteMyAccountState,
+    required TResult Function(_errorDeleteMyAccountState value)
+        errorDeleteMyAccountState,
+    required TResult Function(_successLogOutState value) successLogOutState,
   }) {
     return successUpdateMyPasswordState(this);
   }
@@ -1591,6 +2035,11 @@ class _$_successUpdateMyPasswordState implements _successUpdateMyPasswordState {
     TResult? Function(_successGetMyProfileState value)?
         successGetMyProfileState,
     TResult? Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult? Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult? Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
   }) {
     return successUpdateMyPasswordState?.call(this);
   }
@@ -1616,6 +2065,11 @@ class _$_successUpdateMyPasswordState implements _successUpdateMyPasswordState {
         errorUpdateMyProfileState,
     TResult Function(_successGetMyProfileState value)? successGetMyProfileState,
     TResult Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult Function(_successLogOutState value)? successLogOutState,
     required TResult orElse(),
   }) {
     if (successUpdateMyPasswordState != null) {
@@ -1713,6 +2167,9 @@ class _$_errorUpdateMyPasswordState implements _errorUpdateMyPasswordState {
     required TResult Function(String message) errorUpdateMyProfileState,
     required TResult Function(UserModel userModel) successGetMyProfileState,
     required TResult Function(String message) errorGetMyProfileState,
+    required TResult Function(String message) successDeleteMyAccountState,
+    required TResult Function(String message) errorDeleteMyAccountState,
+    required TResult Function(String message) successLogOutState,
   }) {
     return errorUpdateMyPasswordState(message);
   }
@@ -1731,6 +2188,9 @@ class _$_errorUpdateMyPasswordState implements _errorUpdateMyPasswordState {
     TResult? Function(String message)? errorUpdateMyProfileState,
     TResult? Function(UserModel userModel)? successGetMyProfileState,
     TResult? Function(String message)? errorGetMyProfileState,
+    TResult? Function(String message)? successDeleteMyAccountState,
+    TResult? Function(String message)? errorDeleteMyAccountState,
+    TResult? Function(String message)? successLogOutState,
   }) {
     return errorUpdateMyPasswordState?.call(message);
   }
@@ -1749,6 +2209,9 @@ class _$_errorUpdateMyPasswordState implements _errorUpdateMyPasswordState {
     TResult Function(String message)? errorUpdateMyProfileState,
     TResult Function(UserModel userModel)? successGetMyProfileState,
     TResult Function(String message)? errorGetMyProfileState,
+    TResult Function(String message)? successDeleteMyAccountState,
+    TResult Function(String message)? errorDeleteMyAccountState,
+    TResult Function(String message)? successLogOutState,
     required TResult orElse(),
   }) {
     if (errorUpdateMyPasswordState != null) {
@@ -1780,6 +2243,11 @@ class _$_errorUpdateMyPasswordState implements _errorUpdateMyPasswordState {
         successGetMyProfileState,
     required TResult Function(_errorGetMyProfileState value)
         errorGetMyProfileState,
+    required TResult Function(_successDeleteMyAccountState value)
+        successDeleteMyAccountState,
+    required TResult Function(_errorDeleteMyAccountState value)
+        errorDeleteMyAccountState,
+    required TResult Function(_successLogOutState value) successLogOutState,
   }) {
     return errorUpdateMyPasswordState(this);
   }
@@ -1806,6 +2274,11 @@ class _$_errorUpdateMyPasswordState implements _errorUpdateMyPasswordState {
     TResult? Function(_successGetMyProfileState value)?
         successGetMyProfileState,
     TResult? Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult? Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult? Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
   }) {
     return errorUpdateMyPasswordState?.call(this);
   }
@@ -1831,6 +2304,11 @@ class _$_errorUpdateMyPasswordState implements _errorUpdateMyPasswordState {
         errorUpdateMyProfileState,
     TResult Function(_successGetMyProfileState value)? successGetMyProfileState,
     TResult Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult Function(_successLogOutState value)? successLogOutState,
     required TResult orElse(),
   }) {
     if (errorUpdateMyPasswordState != null) {
@@ -1929,6 +2407,9 @@ class _$_changeIconVisibilityState implements _changeIconVisibilityState {
     required TResult Function(String message) errorUpdateMyProfileState,
     required TResult Function(UserModel userModel) successGetMyProfileState,
     required TResult Function(String message) errorGetMyProfileState,
+    required TResult Function(String message) successDeleteMyAccountState,
+    required TResult Function(String message) errorDeleteMyAccountState,
+    required TResult Function(String message) successLogOutState,
   }) {
     return successChangeIconVisibilityState(isVisible);
   }
@@ -1947,6 +2428,9 @@ class _$_changeIconVisibilityState implements _changeIconVisibilityState {
     TResult? Function(String message)? errorUpdateMyProfileState,
     TResult? Function(UserModel userModel)? successGetMyProfileState,
     TResult? Function(String message)? errorGetMyProfileState,
+    TResult? Function(String message)? successDeleteMyAccountState,
+    TResult? Function(String message)? errorDeleteMyAccountState,
+    TResult? Function(String message)? successLogOutState,
   }) {
     return successChangeIconVisibilityState?.call(isVisible);
   }
@@ -1965,6 +2449,9 @@ class _$_changeIconVisibilityState implements _changeIconVisibilityState {
     TResult Function(String message)? errorUpdateMyProfileState,
     TResult Function(UserModel userModel)? successGetMyProfileState,
     TResult Function(String message)? errorGetMyProfileState,
+    TResult Function(String message)? successDeleteMyAccountState,
+    TResult Function(String message)? errorDeleteMyAccountState,
+    TResult Function(String message)? successLogOutState,
     required TResult orElse(),
   }) {
     if (successChangeIconVisibilityState != null) {
@@ -1996,6 +2483,11 @@ class _$_changeIconVisibilityState implements _changeIconVisibilityState {
         successGetMyProfileState,
     required TResult Function(_errorGetMyProfileState value)
         errorGetMyProfileState,
+    required TResult Function(_successDeleteMyAccountState value)
+        successDeleteMyAccountState,
+    required TResult Function(_errorDeleteMyAccountState value)
+        errorDeleteMyAccountState,
+    required TResult Function(_successLogOutState value) successLogOutState,
   }) {
     return successChangeIconVisibilityState(this);
   }
@@ -2022,6 +2514,11 @@ class _$_changeIconVisibilityState implements _changeIconVisibilityState {
     TResult? Function(_successGetMyProfileState value)?
         successGetMyProfileState,
     TResult? Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult? Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult? Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
   }) {
     return successChangeIconVisibilityState?.call(this);
   }
@@ -2047,6 +2544,11 @@ class _$_changeIconVisibilityState implements _changeIconVisibilityState {
         errorUpdateMyProfileState,
     TResult Function(_successGetMyProfileState value)? successGetMyProfileState,
     TResult Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult Function(_successLogOutState value)? successLogOutState,
     required TResult orElse(),
   }) {
     if (successChangeIconVisibilityState != null) {
@@ -2144,6 +2646,9 @@ class _$_successPickImageProfileState implements _successPickImageProfileState {
     required TResult Function(String message) errorUpdateMyProfileState,
     required TResult Function(UserModel userModel) successGetMyProfileState,
     required TResult Function(String message) errorGetMyProfileState,
+    required TResult Function(String message) successDeleteMyAccountState,
+    required TResult Function(String message) errorDeleteMyAccountState,
+    required TResult Function(String message) successLogOutState,
   }) {
     return successPickImageProfileState(image);
   }
@@ -2162,6 +2667,9 @@ class _$_successPickImageProfileState implements _successPickImageProfileState {
     TResult? Function(String message)? errorUpdateMyProfileState,
     TResult? Function(UserModel userModel)? successGetMyProfileState,
     TResult? Function(String message)? errorGetMyProfileState,
+    TResult? Function(String message)? successDeleteMyAccountState,
+    TResult? Function(String message)? errorDeleteMyAccountState,
+    TResult? Function(String message)? successLogOutState,
   }) {
     return successPickImageProfileState?.call(image);
   }
@@ -2180,6 +2688,9 @@ class _$_successPickImageProfileState implements _successPickImageProfileState {
     TResult Function(String message)? errorUpdateMyProfileState,
     TResult Function(UserModel userModel)? successGetMyProfileState,
     TResult Function(String message)? errorGetMyProfileState,
+    TResult Function(String message)? successDeleteMyAccountState,
+    TResult Function(String message)? errorDeleteMyAccountState,
+    TResult Function(String message)? successLogOutState,
     required TResult orElse(),
   }) {
     if (successPickImageProfileState != null) {
@@ -2211,6 +2722,11 @@ class _$_successPickImageProfileState implements _successPickImageProfileState {
         successGetMyProfileState,
     required TResult Function(_errorGetMyProfileState value)
         errorGetMyProfileState,
+    required TResult Function(_successDeleteMyAccountState value)
+        successDeleteMyAccountState,
+    required TResult Function(_errorDeleteMyAccountState value)
+        errorDeleteMyAccountState,
+    required TResult Function(_successLogOutState value) successLogOutState,
   }) {
     return successPickImageProfileState(this);
   }
@@ -2237,6 +2753,11 @@ class _$_successPickImageProfileState implements _successPickImageProfileState {
     TResult? Function(_successGetMyProfileState value)?
         successGetMyProfileState,
     TResult? Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult? Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult? Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
   }) {
     return successPickImageProfileState?.call(this);
   }
@@ -2262,6 +2783,11 @@ class _$_successPickImageProfileState implements _successPickImageProfileState {
         errorUpdateMyProfileState,
     TResult Function(_successGetMyProfileState value)? successGetMyProfileState,
     TResult Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult Function(_successLogOutState value)? successLogOutState,
     required TResult orElse(),
   }) {
     if (successPickImageProfileState != null) {
@@ -2333,6 +2859,9 @@ class _$_errorPickImageProfileState implements _errorPickImageProfileState {
     required TResult Function(String message) errorUpdateMyProfileState,
     required TResult Function(UserModel userModel) successGetMyProfileState,
     required TResult Function(String message) errorGetMyProfileState,
+    required TResult Function(String message) successDeleteMyAccountState,
+    required TResult Function(String message) errorDeleteMyAccountState,
+    required TResult Function(String message) successLogOutState,
   }) {
     return errorPickImageProfileState();
   }
@@ -2351,6 +2880,9 @@ class _$_errorPickImageProfileState implements _errorPickImageProfileState {
     TResult? Function(String message)? errorUpdateMyProfileState,
     TResult? Function(UserModel userModel)? successGetMyProfileState,
     TResult? Function(String message)? errorGetMyProfileState,
+    TResult? Function(String message)? successDeleteMyAccountState,
+    TResult? Function(String message)? errorDeleteMyAccountState,
+    TResult? Function(String message)? successLogOutState,
   }) {
     return errorPickImageProfileState?.call();
   }
@@ -2369,6 +2901,9 @@ class _$_errorPickImageProfileState implements _errorPickImageProfileState {
     TResult Function(String message)? errorUpdateMyProfileState,
     TResult Function(UserModel userModel)? successGetMyProfileState,
     TResult Function(String message)? errorGetMyProfileState,
+    TResult Function(String message)? successDeleteMyAccountState,
+    TResult Function(String message)? errorDeleteMyAccountState,
+    TResult Function(String message)? successLogOutState,
     required TResult orElse(),
   }) {
     if (errorPickImageProfileState != null) {
@@ -2400,6 +2935,11 @@ class _$_errorPickImageProfileState implements _errorPickImageProfileState {
         successGetMyProfileState,
     required TResult Function(_errorGetMyProfileState value)
         errorGetMyProfileState,
+    required TResult Function(_successDeleteMyAccountState value)
+        successDeleteMyAccountState,
+    required TResult Function(_errorDeleteMyAccountState value)
+        errorDeleteMyAccountState,
+    required TResult Function(_successLogOutState value) successLogOutState,
   }) {
     return errorPickImageProfileState(this);
   }
@@ -2426,6 +2966,11 @@ class _$_errorPickImageProfileState implements _errorPickImageProfileState {
     TResult? Function(_successGetMyProfileState value)?
         successGetMyProfileState,
     TResult? Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult? Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult? Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
   }) {
     return errorPickImageProfileState?.call(this);
   }
@@ -2451,6 +2996,11 @@ class _$_errorPickImageProfileState implements _errorPickImageProfileState {
         errorUpdateMyProfileState,
     TResult Function(_successGetMyProfileState value)? successGetMyProfileState,
     TResult Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult Function(_successLogOutState value)? successLogOutState,
     required TResult orElse(),
   }) {
     if (errorPickImageProfileState != null) {
@@ -2553,6 +3103,9 @@ class _$_successUpdateMyProfileState implements _successUpdateMyProfileState {
     required TResult Function(String message) errorUpdateMyProfileState,
     required TResult Function(UserModel userModel) successGetMyProfileState,
     required TResult Function(String message) errorGetMyProfileState,
+    required TResult Function(String message) successDeleteMyAccountState,
+    required TResult Function(String message) errorDeleteMyAccountState,
+    required TResult Function(String message) successLogOutState,
   }) {
     return successUpdateMyProfileState(userModel);
   }
@@ -2571,6 +3124,9 @@ class _$_successUpdateMyProfileState implements _successUpdateMyProfileState {
     TResult? Function(String message)? errorUpdateMyProfileState,
     TResult? Function(UserModel userModel)? successGetMyProfileState,
     TResult? Function(String message)? errorGetMyProfileState,
+    TResult? Function(String message)? successDeleteMyAccountState,
+    TResult? Function(String message)? errorDeleteMyAccountState,
+    TResult? Function(String message)? successLogOutState,
   }) {
     return successUpdateMyProfileState?.call(userModel);
   }
@@ -2589,6 +3145,9 @@ class _$_successUpdateMyProfileState implements _successUpdateMyProfileState {
     TResult Function(String message)? errorUpdateMyProfileState,
     TResult Function(UserModel userModel)? successGetMyProfileState,
     TResult Function(String message)? errorGetMyProfileState,
+    TResult Function(String message)? successDeleteMyAccountState,
+    TResult Function(String message)? errorDeleteMyAccountState,
+    TResult Function(String message)? successLogOutState,
     required TResult orElse(),
   }) {
     if (successUpdateMyProfileState != null) {
@@ -2620,6 +3179,11 @@ class _$_successUpdateMyProfileState implements _successUpdateMyProfileState {
         successGetMyProfileState,
     required TResult Function(_errorGetMyProfileState value)
         errorGetMyProfileState,
+    required TResult Function(_successDeleteMyAccountState value)
+        successDeleteMyAccountState,
+    required TResult Function(_errorDeleteMyAccountState value)
+        errorDeleteMyAccountState,
+    required TResult Function(_successLogOutState value) successLogOutState,
   }) {
     return successUpdateMyProfileState(this);
   }
@@ -2646,6 +3210,11 @@ class _$_successUpdateMyProfileState implements _successUpdateMyProfileState {
     TResult? Function(_successGetMyProfileState value)?
         successGetMyProfileState,
     TResult? Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult? Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult? Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
   }) {
     return successUpdateMyProfileState?.call(this);
   }
@@ -2671,6 +3240,11 @@ class _$_successUpdateMyProfileState implements _successUpdateMyProfileState {
         errorUpdateMyProfileState,
     TResult Function(_successGetMyProfileState value)? successGetMyProfileState,
     TResult Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult Function(_successLogOutState value)? successLogOutState,
     required TResult orElse(),
   }) {
     if (successUpdateMyProfileState != null) {
@@ -2768,6 +3342,9 @@ class _$_errorUpdateMyProfileState implements _errorUpdateMyProfileState {
     required TResult Function(String message) errorUpdateMyProfileState,
     required TResult Function(UserModel userModel) successGetMyProfileState,
     required TResult Function(String message) errorGetMyProfileState,
+    required TResult Function(String message) successDeleteMyAccountState,
+    required TResult Function(String message) errorDeleteMyAccountState,
+    required TResult Function(String message) successLogOutState,
   }) {
     return errorUpdateMyProfileState(message);
   }
@@ -2786,6 +3363,9 @@ class _$_errorUpdateMyProfileState implements _errorUpdateMyProfileState {
     TResult? Function(String message)? errorUpdateMyProfileState,
     TResult? Function(UserModel userModel)? successGetMyProfileState,
     TResult? Function(String message)? errorGetMyProfileState,
+    TResult? Function(String message)? successDeleteMyAccountState,
+    TResult? Function(String message)? errorDeleteMyAccountState,
+    TResult? Function(String message)? successLogOutState,
   }) {
     return errorUpdateMyProfileState?.call(message);
   }
@@ -2804,6 +3384,9 @@ class _$_errorUpdateMyProfileState implements _errorUpdateMyProfileState {
     TResult Function(String message)? errorUpdateMyProfileState,
     TResult Function(UserModel userModel)? successGetMyProfileState,
     TResult Function(String message)? errorGetMyProfileState,
+    TResult Function(String message)? successDeleteMyAccountState,
+    TResult Function(String message)? errorDeleteMyAccountState,
+    TResult Function(String message)? successLogOutState,
     required TResult orElse(),
   }) {
     if (errorUpdateMyProfileState != null) {
@@ -2835,6 +3418,11 @@ class _$_errorUpdateMyProfileState implements _errorUpdateMyProfileState {
         successGetMyProfileState,
     required TResult Function(_errorGetMyProfileState value)
         errorGetMyProfileState,
+    required TResult Function(_successDeleteMyAccountState value)
+        successDeleteMyAccountState,
+    required TResult Function(_errorDeleteMyAccountState value)
+        errorDeleteMyAccountState,
+    required TResult Function(_successLogOutState value) successLogOutState,
   }) {
     return errorUpdateMyProfileState(this);
   }
@@ -2861,6 +3449,11 @@ class _$_errorUpdateMyProfileState implements _errorUpdateMyProfileState {
     TResult? Function(_successGetMyProfileState value)?
         successGetMyProfileState,
     TResult? Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult? Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult? Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
   }) {
     return errorUpdateMyProfileState?.call(this);
   }
@@ -2886,6 +3479,11 @@ class _$_errorUpdateMyProfileState implements _errorUpdateMyProfileState {
         errorUpdateMyProfileState,
     TResult Function(_successGetMyProfileState value)? successGetMyProfileState,
     TResult Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult Function(_successLogOutState value)? successLogOutState,
     required TResult orElse(),
   }) {
     if (errorUpdateMyProfileState != null) {
@@ -2993,6 +3591,9 @@ class _$_successGetMyProfileState implements _successGetMyProfileState {
     required TResult Function(String message) errorUpdateMyProfileState,
     required TResult Function(UserModel userModel) successGetMyProfileState,
     required TResult Function(String message) errorGetMyProfileState,
+    required TResult Function(String message) successDeleteMyAccountState,
+    required TResult Function(String message) errorDeleteMyAccountState,
+    required TResult Function(String message) successLogOutState,
   }) {
     return successGetMyProfileState(userModel);
   }
@@ -3011,6 +3612,9 @@ class _$_successGetMyProfileState implements _successGetMyProfileState {
     TResult? Function(String message)? errorUpdateMyProfileState,
     TResult? Function(UserModel userModel)? successGetMyProfileState,
     TResult? Function(String message)? errorGetMyProfileState,
+    TResult? Function(String message)? successDeleteMyAccountState,
+    TResult? Function(String message)? errorDeleteMyAccountState,
+    TResult? Function(String message)? successLogOutState,
   }) {
     return successGetMyProfileState?.call(userModel);
   }
@@ -3029,6 +3633,9 @@ class _$_successGetMyProfileState implements _successGetMyProfileState {
     TResult Function(String message)? errorUpdateMyProfileState,
     TResult Function(UserModel userModel)? successGetMyProfileState,
     TResult Function(String message)? errorGetMyProfileState,
+    TResult Function(String message)? successDeleteMyAccountState,
+    TResult Function(String message)? errorDeleteMyAccountState,
+    TResult Function(String message)? successLogOutState,
     required TResult orElse(),
   }) {
     if (successGetMyProfileState != null) {
@@ -3060,6 +3667,11 @@ class _$_successGetMyProfileState implements _successGetMyProfileState {
         successGetMyProfileState,
     required TResult Function(_errorGetMyProfileState value)
         errorGetMyProfileState,
+    required TResult Function(_successDeleteMyAccountState value)
+        successDeleteMyAccountState,
+    required TResult Function(_errorDeleteMyAccountState value)
+        errorDeleteMyAccountState,
+    required TResult Function(_successLogOutState value) successLogOutState,
   }) {
     return successGetMyProfileState(this);
   }
@@ -3086,6 +3698,11 @@ class _$_successGetMyProfileState implements _successGetMyProfileState {
     TResult? Function(_successGetMyProfileState value)?
         successGetMyProfileState,
     TResult? Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult? Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult? Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
   }) {
     return successGetMyProfileState?.call(this);
   }
@@ -3111,6 +3728,11 @@ class _$_successGetMyProfileState implements _successGetMyProfileState {
         errorUpdateMyProfileState,
     TResult Function(_successGetMyProfileState value)? successGetMyProfileState,
     TResult Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult Function(_successLogOutState value)? successLogOutState,
     required TResult orElse(),
   }) {
     if (successGetMyProfileState != null) {
@@ -3206,6 +3828,9 @@ class _$_errorGetMyProfileState implements _errorGetMyProfileState {
     required TResult Function(String message) errorUpdateMyProfileState,
     required TResult Function(UserModel userModel) successGetMyProfileState,
     required TResult Function(String message) errorGetMyProfileState,
+    required TResult Function(String message) successDeleteMyAccountState,
+    required TResult Function(String message) errorDeleteMyAccountState,
+    required TResult Function(String message) successLogOutState,
   }) {
     return errorGetMyProfileState(message);
   }
@@ -3224,6 +3849,9 @@ class _$_errorGetMyProfileState implements _errorGetMyProfileState {
     TResult? Function(String message)? errorUpdateMyProfileState,
     TResult? Function(UserModel userModel)? successGetMyProfileState,
     TResult? Function(String message)? errorGetMyProfileState,
+    TResult? Function(String message)? successDeleteMyAccountState,
+    TResult? Function(String message)? errorDeleteMyAccountState,
+    TResult? Function(String message)? successLogOutState,
   }) {
     return errorGetMyProfileState?.call(message);
   }
@@ -3242,6 +3870,9 @@ class _$_errorGetMyProfileState implements _errorGetMyProfileState {
     TResult Function(String message)? errorUpdateMyProfileState,
     TResult Function(UserModel userModel)? successGetMyProfileState,
     TResult Function(String message)? errorGetMyProfileState,
+    TResult Function(String message)? successDeleteMyAccountState,
+    TResult Function(String message)? errorDeleteMyAccountState,
+    TResult Function(String message)? successLogOutState,
     required TResult orElse(),
   }) {
     if (errorGetMyProfileState != null) {
@@ -3273,6 +3904,11 @@ class _$_errorGetMyProfileState implements _errorGetMyProfileState {
         successGetMyProfileState,
     required TResult Function(_errorGetMyProfileState value)
         errorGetMyProfileState,
+    required TResult Function(_successDeleteMyAccountState value)
+        successDeleteMyAccountState,
+    required TResult Function(_errorDeleteMyAccountState value)
+        errorDeleteMyAccountState,
+    required TResult Function(_successLogOutState value) successLogOutState,
   }) {
     return errorGetMyProfileState(this);
   }
@@ -3299,6 +3935,11 @@ class _$_errorGetMyProfileState implements _errorGetMyProfileState {
     TResult? Function(_successGetMyProfileState value)?
         successGetMyProfileState,
     TResult? Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult? Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult? Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
   }) {
     return errorGetMyProfileState?.call(this);
   }
@@ -3324,6 +3965,11 @@ class _$_errorGetMyProfileState implements _errorGetMyProfileState {
         errorUpdateMyProfileState,
     TResult Function(_successGetMyProfileState value)? successGetMyProfileState,
     TResult Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult Function(_successLogOutState value)? successLogOutState,
     required TResult orElse(),
   }) {
     if (errorGetMyProfileState != null) {
@@ -3340,5 +3986,720 @@ abstract class _errorGetMyProfileState implements UserState {
   String get message;
   @JsonKey(ignore: true)
   _$$_errorGetMyProfileStateCopyWith<_$_errorGetMyProfileState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_successDeleteMyAccountStateCopyWith<$Res> {
+  factory _$$_successDeleteMyAccountStateCopyWith(
+          _$_successDeleteMyAccountState value,
+          $Res Function(_$_successDeleteMyAccountState) then) =
+      __$$_successDeleteMyAccountStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$_successDeleteMyAccountStateCopyWithImpl<$Res>
+    extends _$UserStateCopyWithImpl<$Res, _$_successDeleteMyAccountState>
+    implements _$$_successDeleteMyAccountStateCopyWith<$Res> {
+  __$$_successDeleteMyAccountStateCopyWithImpl(
+      _$_successDeleteMyAccountState _value,
+      $Res Function(_$_successDeleteMyAccountState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$_successDeleteMyAccountState(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_successDeleteMyAccountState implements _successDeleteMyAccountState {
+  const _$_successDeleteMyAccountState(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'UserState.successDeleteMyAccountState(message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_successDeleteMyAccountState &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_successDeleteMyAccountStateCopyWith<_$_successDeleteMyAccountState>
+      get copyWith => __$$_successDeleteMyAccountStateCopyWithImpl<
+          _$_successDeleteMyAccountState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() userInitial,
+    required TResult Function() loading,
+    required TResult Function(String message) successUpdateMyPasswordState,
+    required TResult Function(String message) errorUpdateMyPasswordState,
+    required TResult Function(bool isVisible) successChangeIconVisibilityState,
+    required TResult Function(File image) successPickImageProfileState,
+    required TResult Function() errorPickImageProfileState,
+    required TResult Function(UserModel userModel) successUpdateMyProfileState,
+    required TResult Function(String message) errorUpdateMyProfileState,
+    required TResult Function(UserModel userModel) successGetMyProfileState,
+    required TResult Function(String message) errorGetMyProfileState,
+    required TResult Function(String message) successDeleteMyAccountState,
+    required TResult Function(String message) errorDeleteMyAccountState,
+    required TResult Function(String message) successLogOutState,
+  }) {
+    return successDeleteMyAccountState(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? userInitial,
+    TResult? Function()? loading,
+    TResult? Function(String message)? successUpdateMyPasswordState,
+    TResult? Function(String message)? errorUpdateMyPasswordState,
+    TResult? Function(bool isVisible)? successChangeIconVisibilityState,
+    TResult? Function(File image)? successPickImageProfileState,
+    TResult? Function()? errorPickImageProfileState,
+    TResult? Function(UserModel userModel)? successUpdateMyProfileState,
+    TResult? Function(String message)? errorUpdateMyProfileState,
+    TResult? Function(UserModel userModel)? successGetMyProfileState,
+    TResult? Function(String message)? errorGetMyProfileState,
+    TResult? Function(String message)? successDeleteMyAccountState,
+    TResult? Function(String message)? errorDeleteMyAccountState,
+    TResult? Function(String message)? successLogOutState,
+  }) {
+    return successDeleteMyAccountState?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? userInitial,
+    TResult Function()? loading,
+    TResult Function(String message)? successUpdateMyPasswordState,
+    TResult Function(String message)? errorUpdateMyPasswordState,
+    TResult Function(bool isVisible)? successChangeIconVisibilityState,
+    TResult Function(File image)? successPickImageProfileState,
+    TResult Function()? errorPickImageProfileState,
+    TResult Function(UserModel userModel)? successUpdateMyProfileState,
+    TResult Function(String message)? errorUpdateMyProfileState,
+    TResult Function(UserModel userModel)? successGetMyProfileState,
+    TResult Function(String message)? errorGetMyProfileState,
+    TResult Function(String message)? successDeleteMyAccountState,
+    TResult Function(String message)? errorDeleteMyAccountState,
+    TResult Function(String message)? successLogOutState,
+    required TResult orElse(),
+  }) {
+    if (successDeleteMyAccountState != null) {
+      return successDeleteMyAccountState(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_userInitial value) userInitial,
+    required TResult Function(_loading value) loading,
+    required TResult Function(_successUpdateMyPasswordState value)
+        successUpdateMyPasswordState,
+    required TResult Function(_errorUpdateMyPasswordState value)
+        errorUpdateMyPasswordState,
+    required TResult Function(_changeIconVisibilityState value)
+        successChangeIconVisibilityState,
+    required TResult Function(_successPickImageProfileState value)
+        successPickImageProfileState,
+    required TResult Function(_errorPickImageProfileState value)
+        errorPickImageProfileState,
+    required TResult Function(_successUpdateMyProfileState value)
+        successUpdateMyProfileState,
+    required TResult Function(_errorUpdateMyProfileState value)
+        errorUpdateMyProfileState,
+    required TResult Function(_successGetMyProfileState value)
+        successGetMyProfileState,
+    required TResult Function(_errorGetMyProfileState value)
+        errorGetMyProfileState,
+    required TResult Function(_successDeleteMyAccountState value)
+        successDeleteMyAccountState,
+    required TResult Function(_errorDeleteMyAccountState value)
+        errorDeleteMyAccountState,
+    required TResult Function(_successLogOutState value) successLogOutState,
+  }) {
+    return successDeleteMyAccountState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_userInitial value)? userInitial,
+    TResult? Function(_loading value)? loading,
+    TResult? Function(_successUpdateMyPasswordState value)?
+        successUpdateMyPasswordState,
+    TResult? Function(_errorUpdateMyPasswordState value)?
+        errorUpdateMyPasswordState,
+    TResult? Function(_changeIconVisibilityState value)?
+        successChangeIconVisibilityState,
+    TResult? Function(_successPickImageProfileState value)?
+        successPickImageProfileState,
+    TResult? Function(_errorPickImageProfileState value)?
+        errorPickImageProfileState,
+    TResult? Function(_successUpdateMyProfileState value)?
+        successUpdateMyProfileState,
+    TResult? Function(_errorUpdateMyProfileState value)?
+        errorUpdateMyProfileState,
+    TResult? Function(_successGetMyProfileState value)?
+        successGetMyProfileState,
+    TResult? Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult? Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult? Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
+  }) {
+    return successDeleteMyAccountState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_userInitial value)? userInitial,
+    TResult Function(_loading value)? loading,
+    TResult Function(_successUpdateMyPasswordState value)?
+        successUpdateMyPasswordState,
+    TResult Function(_errorUpdateMyPasswordState value)?
+        errorUpdateMyPasswordState,
+    TResult Function(_changeIconVisibilityState value)?
+        successChangeIconVisibilityState,
+    TResult Function(_successPickImageProfileState value)?
+        successPickImageProfileState,
+    TResult Function(_errorPickImageProfileState value)?
+        errorPickImageProfileState,
+    TResult Function(_successUpdateMyProfileState value)?
+        successUpdateMyProfileState,
+    TResult Function(_errorUpdateMyProfileState value)?
+        errorUpdateMyProfileState,
+    TResult Function(_successGetMyProfileState value)? successGetMyProfileState,
+    TResult Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult Function(_successLogOutState value)? successLogOutState,
+    required TResult orElse(),
+  }) {
+    if (successDeleteMyAccountState != null) {
+      return successDeleteMyAccountState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _successDeleteMyAccountState implements UserState {
+  const factory _successDeleteMyAccountState(final String message) =
+      _$_successDeleteMyAccountState;
+
+  String get message;
+  @JsonKey(ignore: true)
+  _$$_successDeleteMyAccountStateCopyWith<_$_successDeleteMyAccountState>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_errorDeleteMyAccountStateCopyWith<$Res> {
+  factory _$$_errorDeleteMyAccountStateCopyWith(
+          _$_errorDeleteMyAccountState value,
+          $Res Function(_$_errorDeleteMyAccountState) then) =
+      __$$_errorDeleteMyAccountStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$_errorDeleteMyAccountStateCopyWithImpl<$Res>
+    extends _$UserStateCopyWithImpl<$Res, _$_errorDeleteMyAccountState>
+    implements _$$_errorDeleteMyAccountStateCopyWith<$Res> {
+  __$$_errorDeleteMyAccountStateCopyWithImpl(
+      _$_errorDeleteMyAccountState _value,
+      $Res Function(_$_errorDeleteMyAccountState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$_errorDeleteMyAccountState(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_errorDeleteMyAccountState implements _errorDeleteMyAccountState {
+  const _$_errorDeleteMyAccountState(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'UserState.errorDeleteMyAccountState(message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_errorDeleteMyAccountState &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_errorDeleteMyAccountStateCopyWith<_$_errorDeleteMyAccountState>
+      get copyWith => __$$_errorDeleteMyAccountStateCopyWithImpl<
+          _$_errorDeleteMyAccountState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() userInitial,
+    required TResult Function() loading,
+    required TResult Function(String message) successUpdateMyPasswordState,
+    required TResult Function(String message) errorUpdateMyPasswordState,
+    required TResult Function(bool isVisible) successChangeIconVisibilityState,
+    required TResult Function(File image) successPickImageProfileState,
+    required TResult Function() errorPickImageProfileState,
+    required TResult Function(UserModel userModel) successUpdateMyProfileState,
+    required TResult Function(String message) errorUpdateMyProfileState,
+    required TResult Function(UserModel userModel) successGetMyProfileState,
+    required TResult Function(String message) errorGetMyProfileState,
+    required TResult Function(String message) successDeleteMyAccountState,
+    required TResult Function(String message) errorDeleteMyAccountState,
+    required TResult Function(String message) successLogOutState,
+  }) {
+    return errorDeleteMyAccountState(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? userInitial,
+    TResult? Function()? loading,
+    TResult? Function(String message)? successUpdateMyPasswordState,
+    TResult? Function(String message)? errorUpdateMyPasswordState,
+    TResult? Function(bool isVisible)? successChangeIconVisibilityState,
+    TResult? Function(File image)? successPickImageProfileState,
+    TResult? Function()? errorPickImageProfileState,
+    TResult? Function(UserModel userModel)? successUpdateMyProfileState,
+    TResult? Function(String message)? errorUpdateMyProfileState,
+    TResult? Function(UserModel userModel)? successGetMyProfileState,
+    TResult? Function(String message)? errorGetMyProfileState,
+    TResult? Function(String message)? successDeleteMyAccountState,
+    TResult? Function(String message)? errorDeleteMyAccountState,
+    TResult? Function(String message)? successLogOutState,
+  }) {
+    return errorDeleteMyAccountState?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? userInitial,
+    TResult Function()? loading,
+    TResult Function(String message)? successUpdateMyPasswordState,
+    TResult Function(String message)? errorUpdateMyPasswordState,
+    TResult Function(bool isVisible)? successChangeIconVisibilityState,
+    TResult Function(File image)? successPickImageProfileState,
+    TResult Function()? errorPickImageProfileState,
+    TResult Function(UserModel userModel)? successUpdateMyProfileState,
+    TResult Function(String message)? errorUpdateMyProfileState,
+    TResult Function(UserModel userModel)? successGetMyProfileState,
+    TResult Function(String message)? errorGetMyProfileState,
+    TResult Function(String message)? successDeleteMyAccountState,
+    TResult Function(String message)? errorDeleteMyAccountState,
+    TResult Function(String message)? successLogOutState,
+    required TResult orElse(),
+  }) {
+    if (errorDeleteMyAccountState != null) {
+      return errorDeleteMyAccountState(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_userInitial value) userInitial,
+    required TResult Function(_loading value) loading,
+    required TResult Function(_successUpdateMyPasswordState value)
+        successUpdateMyPasswordState,
+    required TResult Function(_errorUpdateMyPasswordState value)
+        errorUpdateMyPasswordState,
+    required TResult Function(_changeIconVisibilityState value)
+        successChangeIconVisibilityState,
+    required TResult Function(_successPickImageProfileState value)
+        successPickImageProfileState,
+    required TResult Function(_errorPickImageProfileState value)
+        errorPickImageProfileState,
+    required TResult Function(_successUpdateMyProfileState value)
+        successUpdateMyProfileState,
+    required TResult Function(_errorUpdateMyProfileState value)
+        errorUpdateMyProfileState,
+    required TResult Function(_successGetMyProfileState value)
+        successGetMyProfileState,
+    required TResult Function(_errorGetMyProfileState value)
+        errorGetMyProfileState,
+    required TResult Function(_successDeleteMyAccountState value)
+        successDeleteMyAccountState,
+    required TResult Function(_errorDeleteMyAccountState value)
+        errorDeleteMyAccountState,
+    required TResult Function(_successLogOutState value) successLogOutState,
+  }) {
+    return errorDeleteMyAccountState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_userInitial value)? userInitial,
+    TResult? Function(_loading value)? loading,
+    TResult? Function(_successUpdateMyPasswordState value)?
+        successUpdateMyPasswordState,
+    TResult? Function(_errorUpdateMyPasswordState value)?
+        errorUpdateMyPasswordState,
+    TResult? Function(_changeIconVisibilityState value)?
+        successChangeIconVisibilityState,
+    TResult? Function(_successPickImageProfileState value)?
+        successPickImageProfileState,
+    TResult? Function(_errorPickImageProfileState value)?
+        errorPickImageProfileState,
+    TResult? Function(_successUpdateMyProfileState value)?
+        successUpdateMyProfileState,
+    TResult? Function(_errorUpdateMyProfileState value)?
+        errorUpdateMyProfileState,
+    TResult? Function(_successGetMyProfileState value)?
+        successGetMyProfileState,
+    TResult? Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult? Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult? Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
+  }) {
+    return errorDeleteMyAccountState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_userInitial value)? userInitial,
+    TResult Function(_loading value)? loading,
+    TResult Function(_successUpdateMyPasswordState value)?
+        successUpdateMyPasswordState,
+    TResult Function(_errorUpdateMyPasswordState value)?
+        errorUpdateMyPasswordState,
+    TResult Function(_changeIconVisibilityState value)?
+        successChangeIconVisibilityState,
+    TResult Function(_successPickImageProfileState value)?
+        successPickImageProfileState,
+    TResult Function(_errorPickImageProfileState value)?
+        errorPickImageProfileState,
+    TResult Function(_successUpdateMyProfileState value)?
+        successUpdateMyProfileState,
+    TResult Function(_errorUpdateMyProfileState value)?
+        errorUpdateMyProfileState,
+    TResult Function(_successGetMyProfileState value)? successGetMyProfileState,
+    TResult Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult Function(_successLogOutState value)? successLogOutState,
+    required TResult orElse(),
+  }) {
+    if (errorDeleteMyAccountState != null) {
+      return errorDeleteMyAccountState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _errorDeleteMyAccountState implements UserState {
+  const factory _errorDeleteMyAccountState(final String message) =
+      _$_errorDeleteMyAccountState;
+
+  String get message;
+  @JsonKey(ignore: true)
+  _$$_errorDeleteMyAccountStateCopyWith<_$_errorDeleteMyAccountState>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_successLogOutStateCopyWith<$Res> {
+  factory _$$_successLogOutStateCopyWith(_$_successLogOutState value,
+          $Res Function(_$_successLogOutState) then) =
+      __$$_successLogOutStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$_successLogOutStateCopyWithImpl<$Res>
+    extends _$UserStateCopyWithImpl<$Res, _$_successLogOutState>
+    implements _$$_successLogOutStateCopyWith<$Res> {
+  __$$_successLogOutStateCopyWithImpl(
+      _$_successLogOutState _value, $Res Function(_$_successLogOutState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$_successLogOutState(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_successLogOutState implements _successLogOutState {
+  const _$_successLogOutState(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'UserState.successLogOutState(message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_successLogOutState &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_successLogOutStateCopyWith<_$_successLogOutState> get copyWith =>
+      __$$_successLogOutStateCopyWithImpl<_$_successLogOutState>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() userInitial,
+    required TResult Function() loading,
+    required TResult Function(String message) successUpdateMyPasswordState,
+    required TResult Function(String message) errorUpdateMyPasswordState,
+    required TResult Function(bool isVisible) successChangeIconVisibilityState,
+    required TResult Function(File image) successPickImageProfileState,
+    required TResult Function() errorPickImageProfileState,
+    required TResult Function(UserModel userModel) successUpdateMyProfileState,
+    required TResult Function(String message) errorUpdateMyProfileState,
+    required TResult Function(UserModel userModel) successGetMyProfileState,
+    required TResult Function(String message) errorGetMyProfileState,
+    required TResult Function(String message) successDeleteMyAccountState,
+    required TResult Function(String message) errorDeleteMyAccountState,
+    required TResult Function(String message) successLogOutState,
+  }) {
+    return successLogOutState(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? userInitial,
+    TResult? Function()? loading,
+    TResult? Function(String message)? successUpdateMyPasswordState,
+    TResult? Function(String message)? errorUpdateMyPasswordState,
+    TResult? Function(bool isVisible)? successChangeIconVisibilityState,
+    TResult? Function(File image)? successPickImageProfileState,
+    TResult? Function()? errorPickImageProfileState,
+    TResult? Function(UserModel userModel)? successUpdateMyProfileState,
+    TResult? Function(String message)? errorUpdateMyProfileState,
+    TResult? Function(UserModel userModel)? successGetMyProfileState,
+    TResult? Function(String message)? errorGetMyProfileState,
+    TResult? Function(String message)? successDeleteMyAccountState,
+    TResult? Function(String message)? errorDeleteMyAccountState,
+    TResult? Function(String message)? successLogOutState,
+  }) {
+    return successLogOutState?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? userInitial,
+    TResult Function()? loading,
+    TResult Function(String message)? successUpdateMyPasswordState,
+    TResult Function(String message)? errorUpdateMyPasswordState,
+    TResult Function(bool isVisible)? successChangeIconVisibilityState,
+    TResult Function(File image)? successPickImageProfileState,
+    TResult Function()? errorPickImageProfileState,
+    TResult Function(UserModel userModel)? successUpdateMyProfileState,
+    TResult Function(String message)? errorUpdateMyProfileState,
+    TResult Function(UserModel userModel)? successGetMyProfileState,
+    TResult Function(String message)? errorGetMyProfileState,
+    TResult Function(String message)? successDeleteMyAccountState,
+    TResult Function(String message)? errorDeleteMyAccountState,
+    TResult Function(String message)? successLogOutState,
+    required TResult orElse(),
+  }) {
+    if (successLogOutState != null) {
+      return successLogOutState(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_userInitial value) userInitial,
+    required TResult Function(_loading value) loading,
+    required TResult Function(_successUpdateMyPasswordState value)
+        successUpdateMyPasswordState,
+    required TResult Function(_errorUpdateMyPasswordState value)
+        errorUpdateMyPasswordState,
+    required TResult Function(_changeIconVisibilityState value)
+        successChangeIconVisibilityState,
+    required TResult Function(_successPickImageProfileState value)
+        successPickImageProfileState,
+    required TResult Function(_errorPickImageProfileState value)
+        errorPickImageProfileState,
+    required TResult Function(_successUpdateMyProfileState value)
+        successUpdateMyProfileState,
+    required TResult Function(_errorUpdateMyProfileState value)
+        errorUpdateMyProfileState,
+    required TResult Function(_successGetMyProfileState value)
+        successGetMyProfileState,
+    required TResult Function(_errorGetMyProfileState value)
+        errorGetMyProfileState,
+    required TResult Function(_successDeleteMyAccountState value)
+        successDeleteMyAccountState,
+    required TResult Function(_errorDeleteMyAccountState value)
+        errorDeleteMyAccountState,
+    required TResult Function(_successLogOutState value) successLogOutState,
+  }) {
+    return successLogOutState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_userInitial value)? userInitial,
+    TResult? Function(_loading value)? loading,
+    TResult? Function(_successUpdateMyPasswordState value)?
+        successUpdateMyPasswordState,
+    TResult? Function(_errorUpdateMyPasswordState value)?
+        errorUpdateMyPasswordState,
+    TResult? Function(_changeIconVisibilityState value)?
+        successChangeIconVisibilityState,
+    TResult? Function(_successPickImageProfileState value)?
+        successPickImageProfileState,
+    TResult? Function(_errorPickImageProfileState value)?
+        errorPickImageProfileState,
+    TResult? Function(_successUpdateMyProfileState value)?
+        successUpdateMyProfileState,
+    TResult? Function(_errorUpdateMyProfileState value)?
+        errorUpdateMyProfileState,
+    TResult? Function(_successGetMyProfileState value)?
+        successGetMyProfileState,
+    TResult? Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult? Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult? Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
+  }) {
+    return successLogOutState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_userInitial value)? userInitial,
+    TResult Function(_loading value)? loading,
+    TResult Function(_successUpdateMyPasswordState value)?
+        successUpdateMyPasswordState,
+    TResult Function(_errorUpdateMyPasswordState value)?
+        errorUpdateMyPasswordState,
+    TResult Function(_changeIconVisibilityState value)?
+        successChangeIconVisibilityState,
+    TResult Function(_successPickImageProfileState value)?
+        successPickImageProfileState,
+    TResult Function(_errorPickImageProfileState value)?
+        errorPickImageProfileState,
+    TResult Function(_successUpdateMyProfileState value)?
+        successUpdateMyProfileState,
+    TResult Function(_errorUpdateMyProfileState value)?
+        errorUpdateMyProfileState,
+    TResult Function(_successGetMyProfileState value)? successGetMyProfileState,
+    TResult Function(_errorGetMyProfileState value)? errorGetMyProfileState,
+    TResult Function(_successDeleteMyAccountState value)?
+        successDeleteMyAccountState,
+    TResult Function(_errorDeleteMyAccountState value)?
+        errorDeleteMyAccountState,
+    TResult Function(_successLogOutState value)? successLogOutState,
+    required TResult orElse(),
+  }) {
+    if (successLogOutState != null) {
+      return successLogOutState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _successLogOutState implements UserState {
+  const factory _successLogOutState(final String message) =
+      _$_successLogOutState;
+
+  String get message;
+  @JsonKey(ignore: true)
+  _$$_successLogOutStateCopyWith<_$_successLogOutState> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -53,10 +53,10 @@ class AuthRepositoryImplement implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, String>> forgetPassword(String email) async {
+  Future<Either<Failure, String>> forgotPassword(String email) async {
     if (await networkInfo.isConnected) {
       try {
-        final token = await authRemoteDataSource.forgetPassword(email);
+        final token = await authRemoteDataSource.forgotPassword(email);
         return Right(token);
       } on ServerException {
         return Left(ServerFailure());
