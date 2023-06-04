@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Document, Model } from 'mongoose';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import APIFeatures from '../utils/apiFeatures';
 import AppError from '../utils/appError';
@@ -103,34 +103,29 @@ export const getOne = (
  * @param {Model<Document>} Model - The Mongoose model.
  * @returns {RequestHandler} - Express middleware function.
  */
-export const getAll = (Model: Model<any>, path?: string): RequestHandler =>
+export const getAll = (Model: any, path?: string): RequestHandler =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    //small hack
-    const filter: any = {};
-    if (req.params.userId) filter.user = req.params.userId;
-    if (req.params.chatId) filter.chat = req.params.chatId;
-    if (req.params.categoryId) filter.category = req.params.categoryId;
+    let query = Model.find();
+    let counter = Model.find();
 
-    const mName = Model.modelName;
-    let counter: any = Model.count({});
-    let query = Model.find(filter);
-
-    if (mName === 'User') {
-      let fR: any = {
-        _id: { $ne: req.user?.id },
-      };
-      if (path === 'user') {
-        fR.role = 'user';
-        query.find(fR);
-        counter.count({ role: 'user' });
-      }
-      if (path === 'admin') {
-        fR.role = 'admin';
-        query.find(fR);
-        counter.count({ role: 'admin' });
-      }
+    if (req.params.userId) {
+      query = query.where('user').equals(req.params.userId);
+    }
+    if (req.params.chatId) {
+      query = query.where('chat').equals(req.params.chatId);
+    }
+    if (req.params.categoryId) {
+      query = query.where('category').equals(req.params.categoryId);
     }
 
+    if (Model.modelName === 'User') {
+      const { filter, select } = Model.filter(path, req.user);
+      console.log(select);
+      query = query.find(filter).select(select);
+      counter = counter.where(filter);
+    }
+
+    const countFeature = new APIFeatures(counter, req.query).filter();
     const feature = new APIFeatures(query, req.query)
       .filter()
       .sort()
@@ -138,18 +133,39 @@ export const getAll = (Model: Model<any>, path?: string): RequestHandler =>
       .paginate()
       .search();
 
-    // [Model.modelName.toLowerCase() + 's']
     const docs = await feature.query;
-    counter = await counter;
-    let result: any = { totalDataCount: docs.length, data: docs };
+    const totalDataCount = (await countFeature.query).length;
+
+    let result: any = { totalDataCount, data: docs };
+
     if (req.query.page) {
-      const totalPages = Math.round(counter / Number(req.query.limit));
+      const totalPages = Math.ceil(totalDataCount / Number(req.query.limit));
       result = {
         pageNumber: +req.query.page,
         totalPages,
         ...result,
       };
     }
-    //Send Response
+
     res.status(STATUS_CODE.SUCCESS).json(result);
   });
+
+/*
+
+    if (mName === 'User') {
+      let fR: any = {
+        _id: { $ne: req.user?.id },
+      };
+
+      if (path === 'user') {
+        fR.role = 'user';
+      } else if (path === 'admin') {
+        fR.role = 'admin';
+      }
+
+      if (req.user?.role === 'user') {
+        fR.active = { active: { $ne: false } };
+      }
+      query.find(fR);
+      counter.count(fR);
+       */

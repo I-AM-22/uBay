@@ -59,7 +59,7 @@ export const deleteMe = catchAsync(
   }
 );
 
-export const getAllUsers = getAll(User,'user');
+export const getAllUsers = getAll(User, 'user');
 export const getUser = getOne(User);
 export const CreateUser = createOne(User);
 export const updateUser = updateOne(User);

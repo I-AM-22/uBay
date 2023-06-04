@@ -9,7 +9,14 @@
 
   filter() {
     const queryObj = { ...this.queryString };
-    const excludedFields = ['limit', 'sort', 'page', 'fields', 'search'];
+    const excludedFields = [
+      'limit',
+      'sort',
+      'page',
+      'fields',
+      'search',
+      'role',
+    ];
     excludedFields.forEach((el) => delete queryObj[el]);
     //Advance
     //For find

@@ -25,7 +25,6 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
       enum: ['admin', 'user', 'superadmin'],
       default: 'user',
     },
-    store: { type: Types.ObjectId, ref: 'Store' },
     password: {
       type: String,
       required: true,
@@ -35,6 +34,11 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
     passwordResetToken: String,
     passwordResetExpires: Date,
     active: {
+      type: Boolean,
+      default: true,
+      select: false,
+    },
+    includeInActive: {
       type: Boolean,
       default: true,
       select: false,
@@ -67,12 +71,18 @@ userSchema.pre('save', function (next) {
   next();
 });
 
-userSchema.post('save', function () {
-  this.populate('store');
-});
-
 userSchema.pre<Query<IUser, IUser>>(/^find/, function (next) {
-  this.find({ active: { $ne: false } });
+  const query: any = {};
+
+  // Check if the query has an "includeInactive" parameter
+  if (this.getQuery().includeInActive !== undefined) {
+    // If "includeInactive" parameter is present, bypass the "active" filtering
+    this.find({});
+  } else {
+    // If "includeInactive" parameter is not present, apply the "active" filter
+    query.active = { $ne: false };
+    this.find(query);
+  }
   next();
 });
 
@@ -102,6 +112,24 @@ userSchema.methods.createPasswordResetToken = function () {
     .digest('hex');
   this.passwordResetExpires = new Date(Date.now() + 10 * 60 * 1000);
   return resetToken;
+};
+
+userSchema.statics.filter = function (path: string, user: Express.User) {
+  const isAdmin = user?.role === 'admin' || user?.role === 'superadmin';
+  const isPathUser = path === 'user';
+  const isPathAdmin = path === 'admin';
+  const filter: any = { _id: { $ne: user?.id } };
+  let select = '';
+  if (isAdmin) {
+    filter.includeInActive = { $ne: false };
+    select = '+active';
+  }
+  if (isPathUser) {
+    filter.role = 'user';
+  } else if (isPathAdmin) {
+    filter.role = 'admin';
+  }
+  return { filter, select };
 };
 
 const User = model<UserDoc>('User', userSchema);
