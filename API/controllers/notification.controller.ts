@@ -18,7 +18,7 @@ export const markAsRead = catchAsync(
       { chat: chatId, user: req.user?.id, read: false },
       { read: true }
     );
-    res.status(STATUS_CODE.SUCCESS).json({ status: 'success' });
+    res.sendStatus(STATUS_CODE.SUCCESS)
   }
 );
 export const getAllNotification = getAll(Notification);

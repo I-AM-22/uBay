@@ -120,7 +120,6 @@ export const getAll = (Model: any, path?: string): RequestHandler =>
 
     if (Model.modelName === 'User') {
       const { filter, select } = Model.filter(path, req.user);
-      console.log(select);
       query = query.find(filter).select(select);
       counter = counter.where(filter);
     }
