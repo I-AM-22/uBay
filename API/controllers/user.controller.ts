@@ -46,7 +46,7 @@ export const updateMe = catchAsync(
       { new: true, runValidators: true }
       //run validator for normal like minlength or enum but not required
     );
-    res.status(STATUS_CODE.SUCCESS).json({ data: user });
+    res.status(STATUS_CODE.SUCCESS).json(user);
   }
 );
 

@@ -52,9 +52,7 @@ export const updateOne = (Model: Model<any>): RequestHandler =>
         )
       );
     }
-    res.status(STATUS_CODE.SUCCESS).json({
-      data: doc,
-    });
+    res.status(STATUS_CODE.SUCCESS).json(doc);
   });
 
 /**
@@ -67,9 +65,7 @@ export const createOne = (Model: Model<any>, addFiled?: any): RequestHandler =>
     if (addFiled) req.body = { ...req.body, ...addFiled };
     const newDoc = await Model.create(req.body);
 
-    res.status(STATUS_CODE.CREATED).json({
-      data: newDoc,
-    });
+    res.status(STATUS_CODE.CREATED).json(newDoc);
   });
 
 /**
@@ -93,9 +89,7 @@ export const getOne = (
         new AppError(STATUS_CODE.NOT_FOUND, [], `No ${modelName} with that Id`)
       );
     }
-    res.status(STATUS_CODE.SUCCESS).json({
-      data: doc,
-    });
+    res.status(STATUS_CODE.SUCCESS).json(doc);
   });
 
 /**

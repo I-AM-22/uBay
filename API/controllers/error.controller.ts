@@ -24,11 +24,7 @@ const handleValidatorErrorDB = (err: any) => {
 };
 
 const handleJWTError = () =>
-  new AppError(
-    STATUS_CODE.UNAUTHORIZE,
-    [],
-    'Invalid token, please log in again'
-  );
+  new AppError(STATUS_CODE.UNAUTHORIZE, [], 'الرجاء تسجيل الدخول');
 
 const handleJWTExpiredError = () =>
   new AppError(
@@ -75,7 +71,7 @@ const sendErrorProd = (err: any, req: Request, res: Response) => {
   //2) send generic message :don't leak error details
   return res
     .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
-    .json({ message: 'Something went very wrong' });
+    .json({ message: 'حدث خلل في البرنامج' });
 };
 
 const globalErrorHandler = (
