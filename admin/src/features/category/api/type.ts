@@ -1,4 +1,4 @@
-import { Payload } from "types/api";
+import { APIListParams, Payload } from "types/api";
 
 export type CategoryAction = {
   name: string;
@@ -12,5 +12,6 @@ export type Category = {
   updatedAt: string;
   id: string;
 };
+export type CategoryAllParams = APIListParams;
 export type CategoryAddPayload = Payload<undefined, CategoryAction>;
 export type CategoryEditPayload = CategoryAddPayload;

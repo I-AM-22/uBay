@@ -40,7 +40,7 @@ export const EditForm: FC<EditFormProps> = ({}) => {
           queryClient.invalidateQueries(queryStore.category.all._def);
           queryClient.invalidateQueries(queryStore.category.details(id));
           handleClose();
-          successSnackbar(t("message.edit"));
+          successSnackbar(t("message.success.edit"));
         },
         onError: parseResponseError({ snackbar, setError }),
       }

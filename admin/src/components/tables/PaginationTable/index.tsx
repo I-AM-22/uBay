@@ -1,20 +1,23 @@
 import { Box, TableBody, TableCell, TableContainer, TableHeadProps } from "@mui/material";
 import Paper, { PaperProps } from "@mui/material/Paper";
 import { Stack } from "@mui/system";
-import { UseQueryResult } from "@tanstack/react-query";
+import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import Skeleton, { SkeletonProps } from "components/feedback/Skeleton";
 import SomethingWentWrong from "components/feedback/SomethingWentWrong";
 import RepeatELement from "components/layout/RepeatElement";
+import { PAGE_SIZE } from "constants/apiList";
 import { FC, ReactElement, ReactNode } from "react";
+import { APIList } from "types/api";
 import Loading from "../../feedback/Loading";
 import NoData from "../../feedback/NoData";
 import Table from "../TableWithAlign";
+import PaginationButtons from "./PaginationButtons";
 import TableRowStriped from "./TableRowStriped";
 import { useHandlePageChange } from "./useHandlePageChange";
 type Props = {
-  infiniteQuery: UseQueryResult<any[], unknown>;
+  infiniteQuery: UseInfiniteQueryResult<APIList<unknown>, unknown>;
   children: ReactNode;
-  // pageNumber: number;
+  pageNumber: number;
   tableHead: ReactElement<TableHeadProps>;
 } & PaperProps &
   (
@@ -24,7 +27,7 @@ type Props = {
 const PaginationTable: FC<Props> = ({
   infiniteQuery,
   children,
-  // pageNumber,
+  pageNumber,
   skeleton,
   skeletonProps,
   tableHead,
@@ -32,30 +35,24 @@ const PaginationTable: FC<Props> = ({
   rowCount,
   ...props
 }) => {
-  const {
-    //  fetchNextPage, fetchPreviousPage,
-    data,
-    isLoading,
-    isSuccess,
-    isError,
-  } = infiniteQuery;
+  const { fetchNextPage, fetchPreviousPage, data, isLoading, isSuccess, isError } = infiniteQuery;
   const handlePageChange = useHandlePageChange({
-    fetchNextPage: async () => {},
-    fetchPreviousPage: async () => {},
+    fetchNextPage,
+    fetchPreviousPage,
     pages: [],
   });
 
-  const noData = data?.length === 0;
+  const noData = !data?.pages[0].data.length && isSuccess;
 
   return (
-    <Paper {...props} sx={{ borderRadius: 2, overflow: "hidden", ...props.sx }}>
+    <Paper {...props} sx={{ borderRadius: 2, mb: 6, overflow: "hidden", ...props.sx }}>
       <Stack>
         <TableContainer>
           <Table>
             {tableHead}
             {isSuccess && children}
             {isLoading && skeleton && (
-              <RepeatELement repeat={rowCount ?? 8} container={<TableBody />}>
+              <RepeatELement repeat={rowCount ?? PAGE_SIZE} container={<TableBody />}>
                 <RepeatELement repeat={cellCount} container={<TableRowStriped />}>
                   <TableCell>
                     <Skeleton
@@ -86,9 +83,9 @@ const PaginationTable: FC<Props> = ({
             <SomethingWentWrong />
           </Box>
         )}
-        {/* {data?.pages[0].data.totalDataCount !== 0 && (
+        {data?.pages[0].totalDataCount !== 0 && (
           <PaginationButtons page={pageNumber} handleChangePage={handlePageChange} data={data} />
-        )} */}
+        )}
       </Stack>
     </Paper>
   );

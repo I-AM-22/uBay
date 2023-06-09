@@ -7,7 +7,7 @@
   "submit": "حفظ",
   "next": "التالي",
   "search": "ابحث...",
-
+  "pagination": "{{from}} - {{to}} من {{count}}",
   "error": {
     "notFound": "لم يتم العثور 404",
     "noData": "لا يوجد بيانات",

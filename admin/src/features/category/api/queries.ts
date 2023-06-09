@@ -1,8 +1,9 @@
 import { createQueryKeys } from "@lukemorales/query-key-factory";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import API from "./api";
+import { CategoryAllParams } from "./type";
 export const keys = createQueryKeys("category", {
-  all: (params: { search: string }) => ({
+  all: (params: CategoryAllParams) => ({
     queryFn: () => API.getAll(params),
     queryKey: [params],
   }),
@@ -12,7 +13,7 @@ export const keys = createQueryKeys("category", {
   }),
 });
 export const queries = {
-  useAll: (params: { search: string }) => useQuery(keys.all(params)),
+  useAll: (params: CategoryAllParams) => useInfiniteQuery(keys.all(params)),
   useDetails: (id: string) => useQuery({ ...keys.details(id), enabled: !!id }),
 
   useAdd: () => useMutation(API.add),

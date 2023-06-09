@@ -25,7 +25,7 @@ export const RemoveForm: FC<Props> = ({}) => {
     remove.mutate(id ?? "", {
       onSuccess: () => {
         queryClient.invalidateQueries(queryStore.category.all._def);
-        successSnackbar(t(`message.removeSuccess`));
+        successSnackbar(t(`message.success.remove`));
         handleClose();
       },
       onError: parseResponseError({ snackbar }),

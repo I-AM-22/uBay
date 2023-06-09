@@ -13,7 +13,8 @@ export const useHandlePageChange = ({
   const [searchParams, setSearchParams] = useSearchParams();
   return async function (_: any, newPage: number) {
     const currentPage = Number(searchParams.get("p") ?? 0);
-    searchParams.set("p", newPage.toString());
+    if (newPage === 0) searchParams.delete("p");
+    else searchParams.set("p", newPage.toString());
     setSearchParams(searchParams);
     if (currentPage > newPage && !pages?.[newPage]) {
       await fetchPreviousPage();
