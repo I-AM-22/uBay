@@ -1,8 +1,12 @@
 let API_ROUTES = {
-  USERS: {
-    root: "users",
-    SIGNUP: "signup",
+  ADMINS: {
+    root: "admins",
     LOGIN: "login",
+    ADD: "",
+    GET_ALL: "",
+    GET: (id: string) => id,
+    EDIT: (id: string) => id,
+    DELETE: (id: string) => id,
   },
   CATEGORIES: {
     root: "categories",
@@ -19,7 +23,11 @@ const controllersArr = Object.entries(API_ROUTES).map(([controllerKey, { root, .
   const routesPrefixed = Object.fromEntries(
     routesArr.map(([routeKey, route]) => {
       if (typeof route === "function") {
-        return [routeKey, (...params: Parameters<typeof route>) => `${root}/${route(...params)}`];
+        return [
+          routeKey,
+          (...params: Parameters<typeof route>) =>
+            `${root}/${(route as (...args: string[]) => unknown)(...params)}`,
+        ];
       }
       return [routeKey, `${root}/${route}`];
     })

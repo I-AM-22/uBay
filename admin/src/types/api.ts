@@ -19,19 +19,17 @@ export type Payload<Params, Body = undefined> = (Params extends undefined
 export type WithId<T> = {
   id: string;
 } & T;
-export interface Pagination<T> {
+export interface APIList<T> {
   pageNumber: number;
   totalPages: number;
   totalDataCount: number;
   data: T[];
 }
 
-export interface Page<T> {
-  data: Pagination<T>;
-  pageParam: number;
-}
-
-export type PaginationParams = {
-  pageNumber?: number;
-  query?: string;
-};
+export type APIListParams = Partial<{
+  page: number;
+  limit: number;
+  sort: string;
+  fields: string;
+  search: string;
+}>;

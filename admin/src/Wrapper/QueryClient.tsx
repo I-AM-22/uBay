@@ -1,7 +1,26 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { FC, ReactNode } from "react";
-const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 10000 } } });
+import { APIList } from "types/api";
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 10000,
+      getNextPageParam: (lp, allPages) => {
+        {
+          const lastPage = lp as APIList<unknown>;
+          return allPages.length < lastPage.totalPages ? lastPage.pageNumber + 1 : undefined;
+        }
+      },
+      getPreviousPageParam: (fp, allPages) => {
+        const firstPage = fp as APIList<unknown>;
+        console.log(allPages.length, firstPage.pageNumber);
+
+        return allPages.length > 0 ? firstPage.pageNumber - 1 : undefined;
+      },
+    },
+  },
+});
 type Props = { children: ReactNode };
 const QueryClientContext: FC<Props> = ({ children }) => {
   return (

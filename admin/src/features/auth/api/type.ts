@@ -1,8 +1,7 @@
-
 export type UserLoginBody = {
-  email: string,
-  password: string
-}
+  email: string;
+  password: string;
+};
 export type UserSignupBody = {
   name: string;
   email: string;
@@ -10,35 +9,17 @@ export type UserSignupBody = {
   passwordConfirm: string;
 };
 
-export interface UserSignup {
-  status: string;
+export type Admin = {
+  _id: string;
+  name: string;
+  email: string;
+  photo: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+};
+export type UserLogin = {
   token: string;
-  data: {
-    user: {
-      _id: string;
-      name: string;
-      email: string;
-      photo: string;
-      role: string;
-      createdAt: Date;
-      updatedAt: Date;
-      id: string;
-    };
-  };
-}
-export interface UserLogin {
-  status: string;
-  token: string;
-  data: {
-    user: {
-      _id: string;
-      name: string;
-      email: string;
-      photo: string;
-      role: string;
-      createdAt: Date;
-      updatedAt: Date;
-      id: string;
-    };
-  };
-}
+  user: Admin;
+};

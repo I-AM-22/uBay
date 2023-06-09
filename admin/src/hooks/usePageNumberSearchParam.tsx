@@ -6,7 +6,7 @@ function usePageNumberSearchParam(key = "p") {
     const pageNumber = Number(searchParams.get(key) ?? 0);
     return pageNumber;
   } catch (err) {
-    return 0;
+    return 1;
   }
 }
 export default usePageNumberSearchParam;

@@ -6,12 +6,12 @@ import Submit from "components/buttons/Submit";
 import DialogTitle from "components/forms/DialogTitle";
 import { useSnackbar } from "context/snackbarContext";
 import { CategoryAction, categoryQueries } from "features/category";
+import { queryStore } from "features/shared";
 import useAddSearchParams from "hooks/useAddSearchParams";
 import useSuccessSnackbar from "hooks/useSuccessSnackbar";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { queryStore } from "features/shared";
 import { parseResponseError } from "utils/apiHelpers";
 import { categoryDefaultForm, categorySchema } from "./validation";
 export type AddFormProps = {};
@@ -36,7 +36,7 @@ export const AddForm: FC<AddFormProps> = ({}) => {
       onSuccess: () => {
         queryClient.invalidateQueries(queryStore.category.all._def);
         handleClose();
-        successSnackbar(t("message.add"));
+        successSnackbar(t("message.success.add"));
       },
       onError: parseResponseError({ snackbar, setError }),
     });
