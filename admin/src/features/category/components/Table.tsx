@@ -30,7 +30,7 @@ export const Table: FC<Props> = ({}) => {
     <PaginationTable
       sx={{
         "td:nth-of-type(2) .MuiSkeleton-root": {
-          mx: 0,
+          m: 0,
         },
       }}
       pageNumber={page}
