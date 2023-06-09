@@ -1,10 +1,11 @@
-import NotFound from "components/feedback/NotFound";
 import SomethingWentWrong from "components/feedback/SomethingWentWrong";
 import AuthenticatedRoute from "components/routes/AuthenticatedRoute";
 import NotAuthenticatedRoute from "components/routes/NotAuthenticatedRoute";
 import { AppBar, MobileNavigator } from "features/layout";
+import { HomePage } from "pages";
 import { ForgotPasswordPage } from "pages/forgot-password";
 import { LoginPage } from "pages/login";
+import { NewPostPage } from "pages/new-post";
 import { RegistrationPage } from "pages/registration";
 import { ResetPasswordPage } from "pages/reset-password";
 import { SettingsPage } from "pages/settings";
@@ -41,7 +42,8 @@ export default createBrowserRouter(
             </>
           }
         >
-          <Route path="" element={<NotFound />} />
+          <Route path="" element={<HomePage />} />
+          <Route path="new-post" element={<NewPostPage />} />
           <Route path="settings/profile" element={<ProfilePage />} />
           <Route path="settings/profile/edit" element={<ProfileEditPage />} />
           <Route path="settings/password-change" element={<PasswordChangePage />} />

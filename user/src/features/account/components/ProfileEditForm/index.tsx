@@ -46,10 +46,9 @@ export const ProfileEditForm: FC<ProfileEditFormProps> = ({ initial }) => {
     file && setImageUrl(URL.createObjectURL(file));
   };
   const onSubmit = async (body: UserEditBody) => {
-    console.log(body);
     edit.mutate(body, {
       onSuccess: (data) => {
-        queryClient.setQueryData(queryStore.account.profile.queryKey, data.data.user);
+        queryClient.setQueryData(queryStore.account.profile.queryKey, data);
         navigate("/settings/profile");
       },
       onError: parseResponseError({ setFormError: setError, snackbar }),

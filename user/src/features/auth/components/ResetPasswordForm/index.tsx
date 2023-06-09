@@ -31,7 +31,7 @@ export const ResetPasswordForm = ({ navToOnSuccess = "/" }: { navToOnSuccess?: s
     resetPassword.mutate(body, {
       onSuccess: (data) => {
         storage.setToken(data.token);
-        queryClient.setQueryData(queryStore.account.profile.queryKey, data.data.user);
+        queryClient.setQueryData(queryStore.account.profile.queryKey, data.user);
         navigate(navToOnSuccess);
       },
       onError: parseResponseError({ setFormError: setError, snackbar }),

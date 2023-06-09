@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import { useSnackbar } from "context/snackbarContext";
 import i18n from "lib/i18next";
 import { UseFormSetError } from "react-hook-form";
-import { ResponseError } from "types/api";
+import { APIListParams, ResponseError } from "types/api";
 
 export function isBackendError(err: unknown): err is AxiosError<ResponseError> {
   return err instanceof AxiosError<ResponseError>;
@@ -36,4 +36,7 @@ export function parseResponseError(feedbacks?: Feedbacks) {
     }
     return err;
   };
+}
+export function paginateParams(params: APIListParams) {
+  return { limit: 10, ...params };
 }

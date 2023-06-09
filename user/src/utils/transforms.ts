@@ -21,6 +21,10 @@ export const DateFormatter = (date: string | Date | undefined, { withTime = fals
 
 export const objectToFormData = (object: { [k: string]: any }) => {
   const formData = new FormData();
-  Object.keys(object).forEach((key) => formData.append(key, object[key]));
+  for (const key in object) {
+    Array.isArray(object[key])
+      ? object[key].forEach((value: string | Blob) => formData.append(key, value))
+      : formData.append(key, object[key]);
+  }
   return formData;
 };

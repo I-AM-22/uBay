@@ -8,7 +8,15 @@ export type ResponseError =
       errors: { message: string; path: string[] }[];
       message: string;
     };
-export interface Pagination<T> {
+
+export type Payload<Params, Body = undefined> = (Params extends undefined
+  ? {}
+  : {
+      params: Params;
+    }) &
+  (Body extends undefined ? {} : { body: Body });
+
+export interface APIList<T> {
   pageNumber: number;
   totalPages: number;
   totalDataCount: number;
@@ -16,11 +24,14 @@ export interface Pagination<T> {
 }
 
 export interface Page<T> {
-  data: Pagination<T>;
+  data: APIList<T>;
   pageParam: number;
 }
 
-export type PaginationParams = {
-  pageNumber?: number;
-  query?: string;
-};
+export type APIListParams = Partial<{
+  page: number;
+  limit: number;
+  sort: string;
+  fields: string;
+  search: string;
+}>;

@@ -6,7 +6,7 @@ import Skeleton, { SkeletonProps } from "components/feedback/Skeleton";
 import SomethingWentWrong from "components/feedback/SomethingWentWrong";
 import RepeatELement from "components/layout/RepeatElement";
 import { FC, ReactElement, ReactNode } from "react";
-import { Pagination } from "../../../types/api";
+import { APIList } from "../../../types/api";
 import Loading from "../../feedback/Loading";
 import NoData from "../../feedback/NoData";
 import Table from "../TableWithAlign";
@@ -16,7 +16,7 @@ import { useHandlePageChange } from "./useHandlePageChange";
 type Props = {
   infiniteQuery: UseInfiniteQueryResult<
     {
-      data: Pagination<unknown>;
+      data: APIList<unknown>;
       pageParam: any;
     },
     unknown

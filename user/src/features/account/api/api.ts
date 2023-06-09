@@ -5,14 +5,11 @@ import { User, UserEditBody } from "./type";
 
 const API = {
   profile: async () => {
-    const { data } = await axios.get<{ data: { data: User } }>(API_ROUTES.USERS.ME);
-    return data.data.data;
+    const { data } = await axios.get<User>(API_ROUTES.USERS.ME);
+    return data;
   },
   edit: async (body: UserEditBody) => {
-    const { data } = await axios.patch<{ data: { user: User } }>(
-      API_ROUTES.USERS.ME,
-      objectToFormData(body)
-    );
+    const { data } = await axios.patch<User>(API_ROUTES.USERS.ME, objectToFormData(body));
     return data;
   },
   remove: async () => {

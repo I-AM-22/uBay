@@ -3,6 +3,7 @@ import account from "./account.json";
 import auth from "./auth.json";
 import common from "./common.json";
 import layout from "./layout.json";
+import post from "./post.json";
 import validation from "./validation.json";
-const language = { common, validation, layout, auth, account, zod } as const;
+const language = { common, post, validation, layout, auth, account, zod } as const;
 export default language;

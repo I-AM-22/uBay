@@ -1,7 +1,7 @@
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
 import QuestionAnswerRoundedIcon from "@mui/icons-material/QuestionAnswerRounded";
+import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { ProfilePhoto } from "features/account";
 export const navLinks = [
   {
@@ -9,8 +9,8 @@ export const navLinks = [
     Icon: HomeRoundedIcon,
   },
   {
-    href: "new-post",
-    Icon: AddRoundedIcon,
+    href: "transactions",
+    Icon: ShoppingCartRoundedIcon,
   },
   {
     href: "chats",

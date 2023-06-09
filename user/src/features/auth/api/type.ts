@@ -1,11 +1,8 @@
 import { User } from "features/account";
 
 export type AuthenticationResponse = {
-  status: string;
   token: string;
-  data: {
-    user: User;
-  };
+  user: User;
 };
 
 export type UserLoginBody = {

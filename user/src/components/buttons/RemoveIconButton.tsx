@@ -6,7 +6,7 @@ type Props = IconButtonProps;
 const RemoveIconButton: FC<Props> = (props) => {
   const { t } = useTranslation();
   return (
-    <Tooltip title={t("generic.remove")}>
+    <Tooltip title={t("remove")}>
       <IconButton {...props}>
         <DeleteIcon sx={{ color: "error.main" }} />
       </IconButton>

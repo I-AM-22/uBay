@@ -1,13 +1,4 @@
 {
-  "navLink": {
-    "home": "الرئيسية",
-    "customers": "الزبائن",
-    "billing": "المالية",
-    "reports": "التقارير",
-    "admins": "المشرفين",
-    "settings": "الإعدادات",
-    "about": "حول التطبيق",
-    "policy": "السياسات والخصوصية"
-  },
+  "navLink": {},
   "navigator": {}
 }

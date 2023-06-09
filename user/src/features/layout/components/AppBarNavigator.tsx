@@ -5,7 +5,8 @@ import { FC, useCallback, useEffect, useState } from "react";
 function getIndexFromLink(pathname: string) {
   pathname = pathname.slice(1);
   if (pathname === "") return 0;
-  return navLinks.findIndex((link) => link.href !== "" && pathname.includes(link.href));
+  const index = navLinks.findIndex((link) => link.href !== "" && pathname.includes(link.href));
+  return index !== -1 ? index : 0;
 }
 
 export const AppBarNavigator: FC<{}> = ({}) => {
