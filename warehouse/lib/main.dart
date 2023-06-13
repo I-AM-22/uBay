@@ -9,7 +9,7 @@ import 'package:warehouse/core/strings/id_and_token.dart';
 import 'package:warehouse/core/theme.dart';
 import 'package:warehouse/features/auth/presentation/pages/forgot_password_page.dart';
 import 'package:warehouse/features/auth/presentation/pages/login_page.dart';
-import 'package:warehouse/features/product/presentation/pages/get_product.dart';
+import 'package:warehouse/features/product/presentation/pages/get_all_product.dart';
 import 'package:warehouse/features/user/presentation/pages/setting_page.dart';
 import 'package:warehouse/features/user/presentation/pages/update_my_password_page.dart';
 import 'package:warehouse/temp.dart';
@@ -70,7 +70,7 @@ class Employee extends StatefulWidget {
 }
 
 class _EmployeeState extends State<Employee> {
-  final List<Widget> _body = [const GetProductPage(), const SettingPage()];
+  final List<Widget> _body = [const GetAllProductPage(), const SettingPage()];
 
   int index = 0;
 
