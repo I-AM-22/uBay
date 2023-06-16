@@ -1,5 +1,6 @@
-import { TablePagination } from "@mui/material";
+import TablePagination from "@mui/material/TablePagination";
 import { InfiniteData } from "@tanstack/react-query";
+import { PAGE_SIZE } from "constants/apiList";
 import { useTranslation } from "react-i18next";
 import { APIList } from "types/api";
 
@@ -18,7 +19,7 @@ const PaginationButtons = ({ data, page, handleChangePage }: PaginationTableProp
       labelDisplayedRows={(info) => t("pagination", { ...info })}
       component="div"
       count={data?.pages[0].totalDataCount ?? 0}
-      rowsPerPage={data?.pages[0].data.length ?? 0}
+      rowsPerPage={PAGE_SIZE}
       page={page}
       onPageChange={handleChangePage}
       SelectProps={{
