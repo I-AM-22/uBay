@@ -2,19 +2,13 @@ import { BottomNavigationAction, Box, Paper } from "@mui/material";
 import MuiBottomNavigation from "@mui/material/BottomNavigation";
 import { navLinks } from "constants/navLinks";
 import { FC, useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { getIndexFromLink, getLinkFromIndex } from "../utils/linksParsers";
 
-function getIndexFromLink(pathname: string) {
-  pathname = pathname.slice(1);
-  if (pathname === "") return 0;
-  return navLinks.findIndex((link) => link.href !== "" && pathname.includes(link.href));
-}
-function getLinkFromIndex(index: number) {
-  return navLinks[index].href;
-}
 export const BottomNavigator: FC<{}> = ({}) => {
-  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+  const [currentIndex, setCurrentIndex] = useState<number | false>(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const handlePageChange = useCallback(
     (index: number) => {
       const navTo = getLinkFromIndex(index);
@@ -26,8 +20,11 @@ export const BottomNavigator: FC<{}> = ({}) => {
     [navigate]
   );
   useEffect(() => {
-    if (currentIndex === null) setCurrentIndex(getIndexFromLink(window.location.pathname));
+    if (currentIndex === false) setCurrentIndex(getIndexFromLink(window.location.pathname));
   }, [currentIndex]);
+  useEffect(() => {
+    setCurrentIndex(getIndexFromLink(location.pathname));
+  }, [location]);
   return (
     <>
       <Box mt={6} />
@@ -71,6 +68,11 @@ export const BottomNavigator: FC<{}> = ({}) => {
               icon={<navLink.Icon />}
             />
           ))}
+          <BottomNavigationAction
+            sx={{
+              display: "none",
+            }}
+          />
         </MuiBottomNavigation>
       </Paper>
     </>

@@ -5,7 +5,7 @@ import { UseFormSetError } from "react-hook-form";
 import { APIListParams, ResponseError } from "types/api";
 
 export function isBackendError(err: unknown): err is AxiosError<ResponseError> {
-  return err instanceof AxiosError<ResponseError>;
+  return err instanceof AxiosError;
 }
 
 type Feedbacks = {
@@ -37,6 +37,6 @@ export function parseResponseError(feedbacks?: Feedbacks) {
     return err;
   };
 }
-export function paginateParams(params: APIListParams) {
+export function paginateParams(params?: APIListParams) {
   return { limit: 10, ...params };
 }

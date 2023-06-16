@@ -1,9 +1,9 @@
 import { Link, LinkProps } from "@mui/material";
 import { FC, forwardRef } from "react";
 import { Link as Router, LinkProps as RouterProps } from "react-router-dom";
-export type RouterLinkProps = LinkProps & RouterProps & { noDecoration?: boolean };
+export type RouterLinkProps = LinkProps & RouterProps & { noStyle?: boolean };
 const RouterLink: FC<RouterLinkProps> = forwardRef(function FR(
-  { children, noDecoration = false, ...props }: RouterLinkProps,
+  { children, noStyle: noStyle = false, ...props }: RouterLinkProps,
   _ref
 ) {
   return (
@@ -12,7 +12,11 @@ const RouterLink: FC<RouterLinkProps> = forwardRef(function FR(
       component={Router}
       {...props}
       sx={{
-        textDecoration: noDecoration ? "none" : "underline",
+        ...(noStyle && {
+          textDecoration: "none",
+          color: "inherit",
+          "&:hover": { color: "inherit" },
+        }),
         ...props.sx,
       }}
     >

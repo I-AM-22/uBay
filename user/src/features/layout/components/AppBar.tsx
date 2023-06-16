@@ -8,6 +8,7 @@ import { FC, forwardRef, useEffect, useRef, useState } from "react";
 import RouterLink from "components/links/RouterLink";
 import { ProfilePhoto } from "features/account";
 import { AppBarNavigator } from "./AppBarNavigator";
+import { HideOnScroll } from "./HideOnScroll";
 export type AppBarProps = MuiAppBarProps;
 export const AppBar: FC<AppBarProps> = forwardRef(function Fr(
   { children, ...props }: AppBarProps,
@@ -21,49 +22,51 @@ export const AppBar: FC<AppBarProps> = forwardRef(function Fr(
   }, [appBarRef.current?.offsetHeight]);
   return (
     <>
-      <MuiAppBar
-        elevation={1}
-        ref={(el) => {
-          appBarRef.current = el;
-          return ref;
-        }}
-        color="transparent"
-        position="fixed"
-        {...props}
-        sx={{
-          ...props.sx,
-        }}
-      >
-        <Toolbar
+      <HideOnScroll in={!isDesktop} direction="down">
+        <MuiAppBar
+          elevation={1}
+          ref={(el) => {
+            appBarRef.current = el;
+            return ref;
+          }}
+          color="transparent"
+          position="fixed"
+          {...props}
           sx={{
-            minHeight: "fit-content !important",
-            bgcolor: "white",
-            pt: 0.5,
-            px: 3,
-            display: "flex",
-            width: 1,
-            justifyContent: "space-between",
+            ...props.sx,
           }}
         >
-          <Box flex={isDesktop ? 1.3 : 10} py={0.5}>
-            <SearchInput fullWidth={false} />
-          </Box>
-          {children}
-          <Stack mx={1} alignSelf={"end"} flex={2}>
-            {isDesktop && <AppBarNavigator />}
-          </Stack>
-
-          {!isDesktop && (
-            <Stack alignItems={"end"} justifyContent={"center"}>
-              <RouterLink to="/settings">
-                <IconButton sx={{ svg: { height: 30, width: 30 } }}>
-                  <ProfilePhoto />
-                </IconButton>
-              </RouterLink>
+          <Toolbar
+            sx={{
+              minHeight: "fit-content !important",
+              bgcolor: "white",
+              pt: 0.5,
+              px: 3,
+              display: "flex",
+              width: 1,
+              justifyContent: "space-between",
+            }}
+          >
+            <Box flex={isDesktop ? 1.3 : 10} py={0.5}>
+              <SearchInput fullWidth={false} />
+            </Box>
+            {children}
+            <Stack mx={1} alignSelf={"end"} flex={2}>
+              {isDesktop && <AppBarNavigator />}
             </Stack>
-          )}
-        </Toolbar>
-      </MuiAppBar>
+
+            {!isDesktop && (
+              <Stack alignItems={"end"} justifyContent={"center"}>
+                <RouterLink to="/settings">
+                  <IconButton sx={{ svg: { height: 30, width: 30 } }}>
+                    <ProfilePhoto />
+                  </IconButton>
+                </RouterLink>
+              </Stack>
+            )}
+          </Toolbar>
+        </MuiAppBar>
+      </HideOnScroll>
       <Box sx={{ minHeight: appBarHeight }} />
     </>
   );

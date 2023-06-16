@@ -1,5 +1,5 @@
 import { PostActionForm } from "features/post";
 import { FC } from "react";
-export const NewPostPage: FC<{}> = ({}) => {
+export const PostNewPage: FC<{}> = ({}) => {
   return <PostActionForm></PostActionForm>;
 };

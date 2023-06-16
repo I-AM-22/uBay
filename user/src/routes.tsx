@@ -5,7 +5,9 @@ import { AppBar, MobileNavigator } from "features/layout";
 import { HomePage } from "pages";
 import { ForgotPasswordPage } from "pages/forgot-password";
 import { LoginPage } from "pages/login";
-import { NewPostPage } from "pages/new-post";
+import { PostPage } from "pages/posts/[id]";
+import { PostEditPage } from "pages/posts/[id]/edit";
+import { PostNewPage } from "pages/posts/new";
 import { RegistrationPage } from "pages/registration";
 import { ResetPasswordPage } from "pages/reset-password";
 import { SettingsPage } from "pages/settings";
@@ -43,7 +45,9 @@ export default createBrowserRouter(
           }
         >
           <Route path="" element={<HomePage />} />
-          <Route path="new-post" element={<NewPostPage />} />
+          <Route path="posts/new" element={<PostNewPage />} />
+          <Route path="posts/:id" element={<PostPage />} />
+          <Route path="posts/:id/edit" element={<PostEditPage />} />
           <Route path="settings/profile" element={<ProfilePage />} />
           <Route path="settings/profile/edit" element={<ProfileEditPage />} />
           <Route path="settings/password-change" element={<PasswordChangePage />} />

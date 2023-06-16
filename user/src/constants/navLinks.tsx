@@ -24,4 +24,4 @@ export const navLinks = [
     href: "settings",
     Icon: ProfilePhoto,
   },
-];
+] as const;

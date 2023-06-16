@@ -36,7 +36,7 @@ const Submit = forwardRef(function Fr(
     >
       {isSubmitting && (
         <Box sx={{ position: "absolute", inset: 0 }}>
-          <Loading stackProps={{ sx: { height: "100%" } }} size={loadingSize} />
+          <Loading sx={{ height: "100%" }} size={loadingSize} />
         </Box>
       )}
       <Box sx={{ opacity: isSubmitting ? 0 : 1 }}>{children ?? t("submit")}</Box>

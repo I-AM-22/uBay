@@ -17,4 +17,8 @@ export const queries = {
   useInfinite: (params: PostAllParams) => useInfiniteQuery(keys.all(params)),
   useDetails: (id: string) => useQuery(keys.detail(id)),
   usePost: () => useMutation(API.post),
+  useEdit: () => useMutation(API.edit),
+  useRemove: () => useMutation(API.remove),
+  useLike: () => useMutation(API.like),
+  useUnlike: () => useMutation(API.unlike),
 };

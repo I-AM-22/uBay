@@ -26,9 +26,9 @@ const SnackbarComponent: FC<Props> = ({
       autoHideDuration={autoHideDuration}
       onClose={onClose}
       TransitionComponent={Slide}
-      sx={{ ".MuiPaper-root": { px: 0 } }}
+      sx={{ ".MuiPaper-root": { px: 0 }, ".MuiSvgIcon-root": { color: "inherit" } }}
     >
-      <Alert sx={{ bgcolor: "primary.100" }} severity={severity} elevation={5} onClose={onClose}>
+      <Alert sx={{ bgcolor: "white" }} severity={severity} elevation={5} onClose={onClose}>
         <Typography px={2}>{message}</Typography>
       </Alert>
     </Snackbar>

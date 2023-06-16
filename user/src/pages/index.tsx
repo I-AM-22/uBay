@@ -1,11 +1,11 @@
-import { Box } from "@mui/material";
 import AddFab from "components/buttons/AddFab";
 import RouterLink from "components/links/RouterLink";
+import { Feed } from "features/post";
 import { FC } from "react";
 export const HomePage: FC<{}> = ({}) => {
   return (
     <>
-      <Box sx={{ height: "300vh" }} />
+      <Feed />  
       <RouterLink to="/new-post">
         <AddFab hideOnScroll />
       </RouterLink>

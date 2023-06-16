@@ -7,6 +7,12 @@
   "submit": "حفظ",
   "next": "التالي",
   "search": "ابحث...",
+  "copyLink": "نسخ الرابط",
+  "report": "التبليغ عن مشكلة",
+  "copyToClipboard": {
+    "success": "تم نسخ الرابط للحافظة",
+    "error": "حدث خطأ ما!"
+  },
   "input": {
     "email": "البريد الإلكتروني",
     "password": "كلمة المرور"

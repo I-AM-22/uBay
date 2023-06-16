@@ -7,7 +7,7 @@ import TextField from "components/Inputs/TextField";
 import Submit from "components/buttons/Submit";
 import { useSnackbar } from "context/snackbarContext";
 import { CategoryAutocomplete } from "features/category";
-import { postQueries } from "features/post";
+import { Post, postQueries } from "features/post";
 import { queryStore } from "features/shared";
 import z from "lib/zod";
 import { FC } from "react";
@@ -18,7 +18,7 @@ import { parseResponseError } from "utils/apiHelpers";
 import { fromFormToBody } from "./helpers";
 import { PostForm } from "./type";
 import postSchema, { postFormDefault } from "./validation";
-export type PostFormProps = {};
+export type PostFormProps = {edit?:Post};
 export const PostActionForm: FC<PostFormProps> = ({}) => {
   const {
     control,
