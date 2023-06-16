@@ -7,7 +7,7 @@ import { UseFormSetError } from "react-hook-form";
 import { APIList, APIListParams, ResponseError } from "types/api";
 
 export function isBackendError(err: unknown): err is AxiosError<ResponseError> {
-  return err instanceof AxiosError<ResponseError>;
+  return err instanceof AxiosError;
 }
 
 type Feedbacks = {

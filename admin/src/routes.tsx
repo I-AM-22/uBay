@@ -1,5 +1,7 @@
 import NotFound from "components/feedback/NotFound";
 import SomethingWentWrong from "components/feedback/SomethingWentWrong";
+import AuthenticatedRoute from "components/routes/AuthenticatedRoute";
+import NotAuthenticatedRoute from "components/routes/NotAuthenticatedRoute";
 import { CategoriesPage } from "pages/categories";
 import { LoginPage } from "pages/login";
 import { lazy } from "react";
@@ -16,14 +18,16 @@ const Layout = lazy(() => import("features/layout"));
 export default createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<WithScroll />} errorElement={<ErrorBoundary />}>
-      <Route path="/login" element={<LoginPage />} />
-      {/* <Route element={<ProtectedRoute />}> */}
-      <Route element={<Layout />}>
-        <Route path="" element={<NotFound />} />
-        <Route path="categories" element={<CategoriesPage />} />
-        <Route path="*" element={<SomethingWentWrong />} />
+      <Route element={<NotAuthenticatedRoute />}>
+        <Route path="/login" element={<LoginPage />} />
       </Route>
-      {/* </Route> */}
+      <Route element={<AuthenticatedRoute />}>
+        <Route element={<Layout />}>
+          <Route path="" element={<NotFound />} />
+          <Route path="categories" element={<CategoriesPage />} />
+          <Route path="*" element={<SomethingWentWrong />} />
+        </Route>
+      </Route>
     </Route>
   )
 );
