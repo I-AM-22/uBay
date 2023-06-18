@@ -1,20 +1,21 @@
-import { Global } from "@emotion/react";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
-import { Divider, IconButton } from "@mui/material";
+import { Divider, IconButton, SxProps } from "@mui/material";
 import Box from "@mui/material/Box";
 import { grey } from "@mui/material/colors";
-import CssBaseline from "@mui/material/CssBaseline";
 import { styled } from "@mui/material/styles";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import { useIsDesktop } from "hooks/useIsDesktop";
 import * as React from "react";
 const drawerBleeding = 0;
 
 export type EdgeDrawerProps = {
   children: React.ReactNode;
+  id?: string;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onClose?: () => void;
   title?: React.ReactNode;
+  sx?: SxProps;
 };
 
 const Puller = styled(Box)(({ theme }) => ({
@@ -27,7 +28,16 @@ const Puller = styled(Box)(({ theme }) => ({
   left: "calc(50% - 15px)",
 }));
 
-export function EdgeDrawer({ children, open, setOpen, onClose, title }: EdgeDrawerProps) {
+export function EdgeDrawer({
+  children,
+  open,
+  setOpen,
+  onClose,
+  id,
+  title,
+  ...props
+}: EdgeDrawerProps) {
+  const isDesktop = useIsDesktop();
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
     if (!newOpen) {
@@ -36,63 +46,57 @@ export function EdgeDrawer({ children, open, setOpen, onClose, title }: EdgeDraw
   };
 
   return (
-    <>
-      <CssBaseline />
-      <Global
-        styles={{
-          ".MuiDrawer-root > .MuiPaper-root": {
-            height: `min(calc(70% - ${drawerBleeding}px),80vh)`,
-            maxHeight: "80%",
-            overflow: "visible",
-          },
-        }}
-      />
-
-      <SwipeableDrawer
-        anchor="bottom"
-        open={open}
-        onClose={toggleDrawer(false)}
-        onOpen={toggleDrawer(true)}
-        swipeAreaWidth={drawerBleeding}
-        ModalProps={{
-          keepMounted: true,
-        }}
-      >
-        {title && (
-          <Box
-            sx={{
-              position: "absolute",
-              top: -drawerBleeding,
-              borderTopLeftRadius: 8,
-              borderTopRightRadius: 8,
-              right: 0,
-              left: 0,
-              zIndex: 2,
-              pt: 2.5,
-            }}
-          >
-            <Puller />
-
-            <Box position={"relative"}>
-              {title}
-              <IconButton onClick={toggleDrawer(false)} sx={{ position: "absolute", top: -4 }}>
-                <CancelRoundedIcon sx={{ color: grey[400], borderRadius: "50%" }} />
-              </IconButton>
-            </Box>
-            <Divider sx={{ mt: 1 }} />
-          </Box>
-        )}
+    <SwipeableDrawer
+      anchor={isDesktop ? "right" : "bottom"}
+      open={open}
+      onClose={toggleDrawer(false)}
+      onOpen={toggleDrawer(true)}
+      swipeAreaWidth={drawerBleeding}
+      ModalProps={{
+        keepMounted: true,
+      }}
+      {...props}
+    >
+      {title && (
         <Box
+          className=""
           sx={{
-            pt: title ? 9 : 0,
-            pb: 1,
-            height: "100%",
-            overflow: "auto",
+            position: "absolute",
+            top: -drawerBleeding,
+            borderTopLeftRadius: 8,
+            borderTopRightRadius: 8,
+            right: 0,
+            bgcolor: "white",
+            left: 0,
+            zIndex: 2,
+            pt: isDesktop ? 1 : 2.5,
           }}
         >
-          {children}
+          {!isDesktop && <Puller />}
+
+          <Box position={"relative"}>
+            {title}
+            <IconButton
+              onClick={toggleDrawer(false)}
+              sx={{ position: "absolute", top: -4, left: 3 }}
+            >
+              <CancelRoundedIcon sx={{ color: grey[400], borderRadius: "50%" }} />
+            </IconButton>
+          </Box>
+          <Divider sx={{ mt: 1 }} />
         </Box>
-      </SwipeableDrawer>
-    </>
+      )}
+      <Box
+        sx={{
+          pt: title ? 6 : 0,
+          pb: 1,
+          overflow: "auto",
+          height: "100%",
+        }}
+        id={id}
+      >
+        {children}
+      </Box>
+    </SwipeableDrawer>
   );
 }

@@ -9,30 +9,30 @@ type Props = {
   loader?: ReactNode;
   children: ReactNode;
   query: UseInfiniteQueryResult<APIList<unknown>, unknown>;
+  scrollElement?: ReactNode;
 } & StackProps;
-const InfiniteScroll: FC<Props> = ({ query, children, loader, ...props }) => {
+const InfiniteScroll: FC<Props> = ({ query, children, loader, scrollElement, ...props }) => {
   const { fetchNextPage, hasNextPage, data, isSuccess } = query;
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (window.innerHeight > (ref.current?.scrollHeight ?? 0)) {
+    if (window.innerHeight > (ref.current?.scrollHeight ?? 0) && query.data) {
       query.fetchNextPage();
     }
   }, [query]);
 
-  return isSuccess ? (
+  return (
     <Infinite
       style={{ overflow: "visible" }}
-      dataLength={data.pages.length * data.pages[0].data.length}
+      dataLength={isSuccess ? data.pages.length * data.pages[0].data.length : 0}
       next={fetchNextPage}
       hasMore={hasNextPage ?? false}
-      loader={loader ?? <Loading size={40} my={2} />}
+      loader={loader ?? <Loading size={40} my={1} />}
+      scrollableTarget={scrollElement}
     >
       <Stack ref={ref} {...props} component={"div"}>
         {children}
       </Stack>
     </Infinite>
-  ) : (
-    <>{loader}</> ?? <Loading size={40} mt={3} />
   );
 };
 export default InfiniteScroll;

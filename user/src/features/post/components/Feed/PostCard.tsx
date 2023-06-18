@@ -32,9 +32,9 @@ const priceFormatter = new Intl.NumberFormat(i18n.language, {
   currency: "SYP",
 });
 export type PostCardProps =
-  | { post: Post; skeleton?: undefined }
-  | { post?: undefined; skeleton: true };
-export const PostCard: FC<PostCardProps> = ({ post, skeleton }) => {
+  | { post: Post; skeleton?: undefined; onCommentClick: () => void }
+  | { post?: undefined; skeleton: true; onCommentClick?: undefined };
+export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) => {
   const [open, setOpen] = useState(true);
   const { t } = useTranslation("post");
   const handleRemove = () => {
@@ -59,13 +59,15 @@ export const PostCard: FC<PostCardProps> = ({ post, skeleton }) => {
                 <>
                   <Typography>{post.user.name}</Typography>
                   <Stack direction="row" gap={0.5} alignItems={"center"}>
-                    <Chip
-                      clickable
-                      label={post.category.name}
-                      size="small"
-                      color="primary"
-                      variant="outlined"
-                    />
+                    {post.category && (
+                      <Chip
+                        clickable
+                        label={post.category.name}
+                        size="small"
+                        color="primary"
+                        variant="outlined"
+                      />
+                    )}
                     <Chip
                       clickable
                       color="secondary"
@@ -171,7 +173,7 @@ export const PostCard: FC<PostCardProps> = ({ post, skeleton }) => {
           {post && (
             <>
               <LikeButton postId={post.id} isLiked={false} />
-              <Button>
+              <Button onClick={onCommentClick}>
                 <ChatBubbleIcon />
               </Button>
               <Button>
