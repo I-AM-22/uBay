@@ -8,7 +8,9 @@ export interface IProduct {
   category: PopulatedDoc<Document<ObjectId> & ICategory>;
   price: number;
   photos: string[];
-  likes: number;
+  likedBy: PopulatedDoc<Document<ObjectId> & IUser>[];
+  comments: number;
+  title: string;
 }
 
 export type ProductDoc = IProduct & Document;

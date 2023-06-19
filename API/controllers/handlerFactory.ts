@@ -11,7 +11,7 @@ import { STATUS_CODE } from '../types/helper.types';
  * @returns {RequestHandler} - Express middleware function.
  */
 
-export const deleteOne = (Model: Model<any>): RequestHandler =>
+export const deleteOne = (Model: any): RequestHandler =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const doc = await Model.findByIdAndRemove(id);
@@ -25,6 +25,7 @@ export const deleteOne = (Model: Model<any>): RequestHandler =>
         )
       );
     }
+   
     res.sendStatus(STATUS_CODE.DELETED);
   });
 
@@ -104,14 +105,20 @@ export const getAll = (Model: any, path?: string): RequestHandler =>
 
     if (req.params.userId) {
       query = query.where('user').equals(req.params.userId);
+      counter = counter.where('user').equals(req.params.userId);
     }
     if (req.params.chatId) {
       query = query.where('chat').equals(req.params.chatId);
+      counter = counter.where('chat').equals(req.params.chatId);
     }
     if (req.params.categoryId) {
       query = query.where('category').equals(req.params.categoryId);
+      counter = counter.where('category').equals(req.params.categoryId);
     }
-
+    if (req.params.productId) {
+      query = query.where('product').equals(req.params.productId);
+      counter = counter.where('product').equals(req.params.productId);
+    }
     if (Model.modelName === 'User') {
       const { filter, select } = Model.filter(path, req.user);
       query = query.find(filter).select(select);

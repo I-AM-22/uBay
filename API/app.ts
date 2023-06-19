@@ -18,12 +18,23 @@ import { settings } from './config/settings';
 import routes from '@routes/index.routes';
 import JWTStrategy from '@middlewares/passport.config';
 import passport from 'passport';
+import cls from 'cls-hooked';
 // import { rateLimit } from 'express-rate-limit';
 
 const app = express();
+const namespace = cls.createNamespace('app');
 //middlewares
-app.use(cors());
 
+// Bind the namespace to the Express request object
+
+app.use((req, res, next) => {
+  namespace.bindEmitter(req);
+  namespace.bindEmitter(res);
+  namespace.run(() => {
+    next();
+  });
+});
+app.use(cors());
 app.options('*', cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -64,10 +75,12 @@ app.use(passport.initialize());
 
 passport.use('jwt', JWTStrategy);
 
+
 app.use((req: any, res: Response, next: NextFunction) => {
   req.requestTime = new Date().toISOString();
   next();
 });
+
 //Routes
 app.use(routes);
 

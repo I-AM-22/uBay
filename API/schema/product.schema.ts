@@ -2,6 +2,11 @@ import { z } from 'zod';
 
 export const productSchema = z.object({
   body: z.object({
+    title: z
+      .string({
+        required_error: 'يجب أن يحتوي المنتج على عنوان',
+      })
+      .nonempty('يجب أن يحتوي المنتج على عنوان'),
     content: z
       .string({
         required_error: 'يجب أن يحتوي المنتج على محتوى',
@@ -17,10 +22,10 @@ export const productSchema = z.object({
       .nonempty('يجب أن يحتوي المنتج على صور')
       .min(1, 'يجب أن يحتوي المنتج على صورة واحدة على الأقل'),
     price: z
-      .string({
+      .number({
         required_error: 'يجب أن يحتوي المنتج على سعر',
       })
-      .nonempty('يجب أن يحتوي المنتج على سعر'),
+      .nonnegative('يجب أن يكون السعر قيمة موجبة'),
     category: z
       .string({
         required_error: 'يجب أن يحتوي المنتج على فئة',

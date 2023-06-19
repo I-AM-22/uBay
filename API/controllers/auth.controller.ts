@@ -6,13 +6,15 @@ import Email from '@utils/email';
 import crypto from 'crypto';
 import { STATUS_CODE } from '../types/helper.types';
 import { signJwt } from '@utils/jwt.utils';
+import cls from 'cls-hooked';
 
 //Send The User With the response after login and signup
 const sendUser = (user: any, statusCode: number, res: Response) => {
+  const namespace = cls.getNamespace('app');
   const token = signJwt(user.id.toString());
-
-  //remove password from output
   user.password = undefined;
+  namespace?.set('loggedInUserId', user.id);
+
   res.status(statusCode).send({
     token,
     user,

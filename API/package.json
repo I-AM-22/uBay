@@ -18,6 +18,7 @@
     "@types/passport": "^1.0.12",
     "@types/passport-local": "^1.0.35",
     "bcryptjs": "^2.4.3",
+    "cls-hooked": "^4.2.2",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.0.0",
@@ -56,6 +57,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "@types/cls-hooked": "^4.3.4",
     "@types/compression": "^1.7.2",
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.13",
@@ -63,6 +65,7 @@
     "@types/hpp": "^0.2.2",
     "@types/html-to-text": "^9.0.0",
     "@types/jsonwebtoken": "^9.0.1",
+    "@types/memcached": "^2.2.7",
     "@types/module-alias": "^2.0.1",
     "@types/morgan": "^1.9.4",
     "@types/multer": "^1.4.7",

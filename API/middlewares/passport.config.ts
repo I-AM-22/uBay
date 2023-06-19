@@ -1,3 +1,4 @@
+import cls from 'cls-hooked';
 import { JwtPayload } from 'jsonwebtoken';
 import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt';
 import { settings } from '../config/settings';
@@ -44,6 +45,10 @@ export default new JWTStrategy(
       );
     }
     user.passwordChangedAt = undefined;
+    const namespace = cls.getNamespace('app');
+
+    namespace?.set('loggedInUserId', user?.id);
+
     return done(null, user);
   })
 );

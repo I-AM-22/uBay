@@ -11,6 +11,8 @@
  *   get:
  *     summary: Get all products
  *     tags: [Products]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - name: params
  *        in: query
@@ -209,17 +211,10 @@
 export const productSchema = {
   type: 'object',
   properties: {
+    title: { type: 'string', description: 'The title of the product' },
     content: {
       type: 'string',
       description: 'The content of the product',
-    },
-    user: {
-      type: 'string',
-      description: 'The ID of the user who created the product',
-    },
-    likes: {
-      type: 'number',
-      description: 'The number of likes for the product',
     },
     photos: {
       type: 'array',
@@ -233,12 +228,15 @@ export const productSchema = {
     },
   },
   example: {
+    title: 'Product title',
     content: 'Product content',
     user: 'user-id',
-    likes: 10,
     photos: ['https://photo1.jpg', 'https://photo2.jpg'],
     price: 99.99,
     category: 'category-id',
+    likes: 10,
+    likedBy: [],
+    likedByMe: false,
   },
-  required: ['content', 'photos', 'price', 'category'],
+  required: ['content', 'photos', 'price', 'category', 'title'],
 };

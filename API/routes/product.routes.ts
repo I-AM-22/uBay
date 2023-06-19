@@ -24,11 +24,14 @@ const router = Router({ mergeParams: true });
 
 // Public routes
 router.use('/:productId/comments/', commentRouter);
-router.get('/', getAllProducts);
-router.get('/:id', getProduct); // Excluded from authentication
+
+router.use(passport.authenticate('jwt', { session: false, failWithError: true }));
 
 // Routes requiring authentication
-router.use(passport.authenticate('jwt', { session: false, failWithError: true }));
+
+router.get('/', getAllProducts);
+router.get('/:id', getProduct); 
+
 router.post(
   '/',
   restrictTo('user'),
@@ -38,6 +41,7 @@ router.post(
   validate(productSchema),
   createProduct
 );
+
 router.post('/:id/likes', restrictTo('user'), like);
 router.delete('/:id/likes', restrictTo('user'), dislike);
 router.patch(
@@ -47,6 +51,7 @@ router.patch(
   resizeProductPhotos,
   updateProduct
 );
+
 router.delete('/:id', checkIsOwnerProduct, deleteProduct);
 
 export default router;

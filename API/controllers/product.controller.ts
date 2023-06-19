@@ -14,11 +14,9 @@ import { STATUS_CODE } from '../types/helper.types';
 
 export const like = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    await Product.findByIdAndUpdate(
-      req.params.id,
-      { $inc: { likes: 1 } },
-      { new: true, runValidators: true }
-    );
+    await Product.findByIdAndUpdate(req.params.id, {
+      $addToSet: { likedBy: req.user?._id },
+    });
     res.sendStatus(STATUS_CODE.SUCCESS);
   }
 );
@@ -27,7 +25,7 @@ export const dislike = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const product = await Product.findByIdAndUpdate(
       req.params.id,
-      { $inc: { likes: -1 } },
+      { $pull: { likedBy: req.user?._id } },
       { new: true, runValidators: true }
     );
     if (!product) {
@@ -35,10 +33,7 @@ export const dislike = catchAsync(
         new AppError(STATUS_CODE.NOT_FOUND, [], `No Product found with that ID`)
       );
     }
-    if (product.likes < 0) {
-      product.likes = 0;
-      await product.save({ validateBeforeSave: false });
-    }
+
     res.sendStatus(STATUS_CODE.SUCCESS);
   }
 );
