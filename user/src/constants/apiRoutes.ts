@@ -17,6 +17,15 @@ let API_ROUTES = {
     DELETE: (id: string) => id,
     LIKE: (id: string) => `${id}/likes`,
     UNLIKE: (id: string) => `${id}/likes`,
+    COMMENTS: (id: string) => `${id}/comments`,
+  },
+  COMMENTS: {
+    root: "comments",
+    POST: "",
+    GET_ALL: "",
+    GET: (id: string) => id,
+    EDIT: (id: string) => id,
+    DELETE: (id: string) => id,
   },
   CATEGORIES: {
     root: "categories",

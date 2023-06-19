@@ -14,8 +14,6 @@ const queryClient = new QueryClient({
       },
       getPreviousPageParam: (fp, allPages) => {
         const firstPage = fp as APIList<unknown>;
-        console.log(allPages.length, firstPage.pageNumber);
-
         return allPages.length > 0 ? firstPage.pageNumber - 1 : undefined;
       },
     },
