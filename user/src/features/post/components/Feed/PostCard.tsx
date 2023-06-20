@@ -1,7 +1,6 @@
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import {
-  Badge,
   Box,
   Button,
   Card,
@@ -26,7 +25,7 @@ import i18n from "lib/i18next";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LikeButton } from "../LikeButton";
-import { PostThreeDots } from "../PostThreeDots";
+import { PostOptions } from "../PostOptions";
 const priceFormatter = new Intl.NumberFormat(i18n.language, {
   style: "currency",
   currency: "SYP",
@@ -45,7 +44,7 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
       <Card>
         <CardHeader
           avatar={<UserAvatar src={post?.user.photo} isLoading={skeleton} />}
-          action={post && <PostThreeDots onPostRemove={handleRemove} post={post} />}
+          action={post && <PostOptions onPostRemove={handleRemove} post={post} />}
           title={
             <Stack
               pt={0.4}
@@ -134,26 +133,29 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
           )}
         </OptionalWrap>
         {post && (
-          <CardContent sx={{ py: 0, mt: 1, display: "flex", justifyContent: "start", gap: 2 }}>
-            <Stack
-              direction="row"
-              alignItems={"center"}
-              gap={1}
-              sx={{ "&, .MuiBadge-badge": { color: "text.secondary", fontSize: 12 } }}
-            >
-              <Badge badgeContent={post.likes} />
-              {!!post.likes && t("like")}
-            </Stack>
-            <Stack
-              direction="row"
-              alignItems={"center"}
-              gap={1}
-              sx={{ "&, .MuiBadge-badge": { color: "text.secondary", fontSize: 12 } }}
-            >
-              {/* TODO add comments count here */}
-              <Badge badgeContent={post.likes} />
-              {!!post.likes && t("comment")}
-            </Stack>
+          <CardContent sx={{ py: 0, mt: 1, display: "flex", justifyContent: "start", gap: 1 }}>
+            {!!post.likes && (
+              <Stack
+                direction="row"
+                alignItems={"center"}
+                gap={0.5}
+                sx={{ "&, .MuiBadge-badge": { color: "text.secondary", fontSize: 12 } }}
+              >
+                <Box>{post.likes}</Box>
+                <Box>{t("like")}</Box>
+              </Stack>
+            )}
+            {!!post.comments && (
+              <Stack
+                direction="row"
+                alignItems={"center"}
+                sx={{ "&, .MuiBadge-badge": { color: "text.secondary", fontSize: 12 } }}
+                gap={0.5}
+              >
+                <Box>{post.comments}</Box>
+                <Box>{t("comment")}</Box>
+              </Stack>
+            )}
           </CardContent>
         )}
         {post && <Divider sx={{ mx: 1, mt: 0.2 }} />}
@@ -172,7 +174,7 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
         >
           {post && (
             <>
-              <LikeButton postId={post.id} isLiked={false} />
+              <LikeButton postId={post.id} isLiked={post.likedByMe} />
               <Button onClick={onCommentClick}>
                 <ChatBubbleIcon />
               </Button>

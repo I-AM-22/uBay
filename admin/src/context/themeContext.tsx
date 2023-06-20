@@ -18,7 +18,7 @@ const theme = (language: string) =>
   createTheme({
     typography: {
       fontFamily: "MontserratArabic",
-      fontSize: 12,
+      fontSize: 13,
     },
 
     direction: language === "ar" ? "rtl" : "ltr",

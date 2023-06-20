@@ -16,8 +16,8 @@ import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { parseResponseError } from "utils/apiHelpers";
 import { Post, postQueries } from "..";
-export type PostThreeDotsProps = { post: Post; onPostRemove?: () => void };
-export const PostThreeDots: FC<PostThreeDotsProps> = ({ post, onPostRemove }) => {
+export type PostOptionsProps = { post: Post; onPostRemove?: () => void };
+export const PostOptions: FC<PostOptionsProps> = ({ post, onPostRemove }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMe = useIsMe(post.user.id);
   const { t } = useTranslation();

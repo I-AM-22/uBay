@@ -1,0 +1,19 @@
+import { Grid, Stack } from "@mui/material";
+import SearchFilter from "components/Inputs/SearchFilter";
+import FilterRow from "components/layout/FilterRow";
+import { UserDetails, UserRemoveForm, UsersTable } from "features/user";
+import { FC } from "react";
+export const UsersPage: FC<{}> = ({}) => {
+  return (
+    <Stack gap={1}>
+      <FilterRow>
+        <Grid item xs={8} sm={6} md={4} lg={3}>
+          <SearchFilter />
+        </Grid>
+      </FilterRow>
+      <UsersTable />
+      <UserDetails />
+      <UserRemoveForm />
+    </Stack>
+  );
+};

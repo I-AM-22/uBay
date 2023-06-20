@@ -19,7 +19,7 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...prop
   const { t } = useTranslation("comment");
   const handleCommentSubmit = () => {
     const commentList = document.getElementById(scrollId);
-    if (commentList) commentList.scroll({ behavior: "instant", top: 0 });
+    if (commentList) commentList.scroll({ top: 0 });
   };
   return (
     <EdgeDrawer

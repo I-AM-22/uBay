@@ -40,7 +40,7 @@ export const SideBarListItem: FC<SideBarListItemProps> = ({
   const pathname = useLocation().pathname.slice(1);
   const { t } = useTranslation("layout");
 
-  const indent = 2.5 + level * Number(sideBarIsOpen) * 2.5;
+  const indent = 2.5 + level * Number(sideBarIsOpen) * 1.5;
   return (
     <Fragment key={data.href}>
       <OptionalLink
@@ -73,7 +73,7 @@ export const SideBarListItem: FC<SideBarListItemProps> = ({
             <ListItemIcon
               sx={{
                 minWidth: 0,
-                mr: { xs: 1, sm: sideBarIsOpen ? 3 : 0 },
+                mr: { xs: 1, sm: sideBarIsOpen ? 1.5 : 0 },
                 justifyContent: "center",
               }}
             >

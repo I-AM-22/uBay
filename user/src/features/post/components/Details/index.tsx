@@ -26,7 +26,7 @@ import i18n from "lib/i18next";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LikeButton } from "../LikeButton";
-import { PostThreeDots } from "../PostThreeDots";
+import { PostOptions } from "../PostOptions";
 const priceFormatter = new Intl.NumberFormat(i18n.language, {
   style: "currency",
   currency: "SYP",
@@ -45,7 +45,7 @@ export const PostCard: FC<PostCardProps> = ({ post, skeleton }) => {
       <Card>
         <CardHeader
           avatar={<UserAvatar src={post?.user.photo} isLoading={skeleton} />}
-          action={post && <PostThreeDots onPostRemove={handleRemove} post={post} />}
+          action={post && <PostOptions onPostRemove={handleRemove} post={post} />}
           title={
             <Stack
               pt={0.4}

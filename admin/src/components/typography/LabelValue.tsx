@@ -32,12 +32,12 @@ const LabelValue: FC<KeyValueProps> = ({
       }}
       className="label-value"
     >
-      <Stack className="label" color="secondary.main" sx={{ wordBreak: "normal" }} direction="row">
+      <Stack className="label" color="secondary.800" sx={{ wordBreak: "normal" }} direction="row">
         {label}
         {!noColon && ":"}
       </Stack>
 
-      <Box color="primary.main" className="value">
+      <Box color="text.primary" className="value">
         {!isLoading && (ltr ? <LTR>{children ?? <Empty />}</LTR> : children ?? <Empty />)}
       </Box>
       {isLoading && (

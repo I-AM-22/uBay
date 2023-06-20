@@ -12,7 +12,7 @@ export type PostAllParams = APIListParams;
 export type Post = {
   content: string;
   user: User;
-  likes: null;
+  likes: number;
   photos: string[];
   price: number;
   category: Category;
@@ -20,4 +20,7 @@ export type Post = {
   createdAt: string;
   updatedAt: string;
   id: string;
+  likedBy: string[];
+  likedByMe: boolean;
+  comments: number;
 };
