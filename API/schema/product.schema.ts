@@ -17,15 +17,14 @@ export const productSchema = z.object({
         required_error: 'يجب أن يحتوي المنتج على مستخدم',
       })
       .nonempty('يجب أن يحتوي المنتج على مستخدم'),
-    photos: z
+    photos:z
       .array(z.string(), { required_error: 'يجب أن يحتوي المنتج على صور' })
       .nonempty('يجب أن يحتوي المنتج على صور')
       .min(1, 'يجب أن يحتوي المنتج على صورة واحدة على الأقل'),
-    price: z
-      .number({
+    price: z.string({
         required_error: 'يجب أن يحتوي المنتج على سعر',
       })
-      .nonnegative('يجب أن يكون السعر قيمة موجبة'),
+      ,
     category: z
       .string({
         required_error: 'يجب أن يحتوي المنتج على فئة',

@@ -232,7 +232,7 @@ export const productSchema = {
     content: 'Product content',
     user: 'user-id',
     photos: ['https://photo1.jpg', 'https://photo2.jpg'],
-    price: 99.99,
+    price: 99,
     category: 'category-id',
     likes: 10,
     likedBy: [],

@@ -19,7 +19,7 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
       type: [String],
       required: true,
     },
-    price: { type: Number, required: true },
+    price: { type: Number, required: true,min:[1,"يجب ان يكون السعر بقيمة موجبة"] },
     category: {
       type: Types.ObjectId,
       required: true,
