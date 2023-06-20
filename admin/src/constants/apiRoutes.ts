@@ -16,6 +16,12 @@ let API_ROUTES = {
     EDIT: (id: string) => id,
     DELETE: (id: string) => id,
   },
+  USERS: {
+    root: "users",
+    GET_ALL: "",
+    GET: (id: string) => id,
+    DELETE: (id: string) => id,
+  },
 } as const;
 
 const controllersArr = Object.entries(API_ROUTES).map(([controllerKey, { root, ...routes }]) => {

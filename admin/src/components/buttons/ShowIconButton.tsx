@@ -8,7 +8,7 @@ const ShowIconButton: FC<Props> = (props) => {
   return (
     <Tooltip title={t("details")}>
       <IconButton {...props}>
-        <VisibilityIcon sx={{ color: "primary" }} />
+        <VisibilityIcon sx={{ color: "grey.700" }} />
       </IconButton>
     </Tooltip>
   );

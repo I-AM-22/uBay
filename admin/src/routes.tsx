@@ -4,6 +4,7 @@ import AuthenticatedRoute from "components/routes/AuthenticatedRoute";
 import NotAuthenticatedRoute from "components/routes/NotAuthenticatedRoute";
 import { CategoriesPage } from "pages/categories";
 import { LoginPage } from "pages/login";
+import { UsersPage } from "pages/users";
 import { lazy } from "react";
 import {
   createBrowserRouter,
@@ -24,6 +25,7 @@ export default createBrowserRouter(
       <Route element={<AuthenticatedRoute />}>
         <Route element={<Layout />}>
           <Route path="" element={<NotFound />} />
+          <Route path="users" element={<UsersPage />} />
           <Route path="categories" element={<CategoriesPage />} />
           <Route path="*" element={<SomethingWentWrong />} />
         </Route>

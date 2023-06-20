@@ -24,7 +24,7 @@ const API = {
     return data;
   },
   remove: async (id: string) => {
-    const { data } = await axios.delete<Category>(API_ROUTES.CATEGORIES.DELETE(id));
+    const { data } = await axios.delete(API_ROUTES.CATEGORIES.DELETE(id));
     return data;
   },
 };

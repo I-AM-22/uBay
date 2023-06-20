@@ -1,0 +1,111 @@
+import ToggleOffIcon from "@mui/icons-material/ToggleOff";
+import ToggleOnIcon from "@mui/icons-material/ToggleOn";
+import { Avatar, Box, IconButton, Stack } from "@mui/material";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import RemoveIconButton from "components/buttons/RemoveIconButton";
+import ShowIconButton from "components/buttons/ShowIconButton";
+import ButtonsStack from "components/layout/ButtonsStack";
+import LTR from "components/layout/LTR";
+import PaginationTable from "components/tables/PaginationTable";
+import TableRowStriped from "components/tables/PaginationTable/TableRowStriped";
+import dayjs from "dayjs";
+import useEventSearchParams from "hooks/useEventSearchParams";
+import usePageNumberSearchParam from "hooks/usePageNumberSearchParam";
+import useQuerySearchParam from "hooks/useQuerySearchParam";
+import { FC } from "react";
+import { useTranslation } from "react-i18next";
+import { getPage } from "utils/apiHelpers";
+import { userQueries } from "..";
+import useTableHeader from "../hooks/useTableHeaders";
+type Props = {};
+export const Table: FC<Props> = ({}) => {
+  const search = useQuerySearchParam();
+  const page = usePageNumberSearchParam();
+  const { remove, details } = useEventSearchParams();
+  const query = userQueries.useAll({
+    search,
+    page,
+  });
+  const { data } = query;
+  const { t } = useTranslation("user");
+  const tableHeaders = useTableHeader();
+  const currentPage = getPage(data, page);
+  return (
+    <PaginationTable
+      sx={{
+        "td:nth-of-type(1) .MuiSkeleton-root": {
+          ml: 7,
+        },
+      }}
+      pageNumber={page}
+      tableHead={
+        <TableHead>
+          <TableRow>
+            {tableHeaders.map((cellHeader, index) => (
+              <TableCell
+                key={cellHeader}
+                sx={{
+                  ...(index === 0 && { "&.MuiTableCell-root": { pl: 9, textAlign: "start" } }),
+                }}
+              >
+                {cellHeader}
+              </TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+      }
+      skeleton={true}
+      cellCount={tableHeaders.length}
+      infiniteQuery={query}
+    >
+      <TableBody>
+        {currentPage.map((row) => (
+          <TableRowStriped key={row.id}>
+            <TableCell>
+              <Stack direction="row" alignItems={"center"} gap={3}>
+                <Avatar>
+                  <Box component="img" src={row.photo} sx={{ height: 1 }} />
+                </Avatar>
+                <Box flex={1} textAlign={"start"}>
+                  {row.name}
+                </Box>
+              </Stack>
+            </TableCell>
+            <TableCell>{row.email}</TableCell>
+            <TableCell>
+              <LTR>{dayjs(row.createdAt).format("YYYY/MM/DD hh:mm A")}</LTR>
+            </TableCell>
+            <TableCell>
+              <Stack direction="row" alignItems={"center"} justifyContent={"center"}>
+                {row.active ? (
+                  <>
+                    {t("active")}
+                    <IconButton>
+                      <ToggleOnIcon sx={{ color: "success.main" }} />
+                    </IconButton>
+                  </>
+                ) : (
+                  <>
+                    {t("notActive")}
+                    <IconButton>
+                      <ToggleOffIcon sx={{ color: "error.main" }} />
+                    </IconButton>
+                  </>
+                )}
+              </Stack>
+            </TableCell>
+            <TableCell>
+              <ButtonsStack>
+                <ShowIconButton onClick={() => details(row.id)} />
+                <RemoveIconButton onClick={() => remove(row.id)} />
+              </ButtonsStack>
+            </TableCell>
+          </TableRowStriped>
+        ))}
+      </TableBody>
+    </PaginationTable>
+  );
+};

@@ -18,7 +18,7 @@ import { parseResponseError } from "utils/apiHelpers";
 import { fromFormToBody } from "./helpers";
 import { PostForm } from "./type";
 import postSchema, { postFormDefault } from "./validation";
-export type PostFormProps = {edit?:Post};
+export type PostFormProps = { edit?: Post };
 export const PostActionForm: FC<PostFormProps> = ({}) => {
   const {
     control,
@@ -36,6 +36,7 @@ export const PostActionForm: FC<PostFormProps> = ({}) => {
   const snackbar = useSnackbar();
   const { t } = useTranslation("post", { keyPrefix: "form" });
   const onSubmit = async (form: PostForm) => {
+    console.log(typeof form.price);
     post.mutate(fromFormToBody(form), {
       onSuccess: (post) => {
         queryClient.setQueryData(queryStore.post.detail(post.id).queryKey, post);
