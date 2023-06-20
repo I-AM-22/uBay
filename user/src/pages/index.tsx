@@ -5,8 +5,8 @@ import { FC } from "react";
 export const HomePage: FC<{}> = ({}) => {
   return (
     <>
-      <Feed />  
-      <RouterLink to="/new-post">
+      <Feed />
+      <RouterLink to="/posts/new">
         <AddFab hideOnScroll />
       </RouterLink>
     </>
