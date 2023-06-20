@@ -11,13 +11,15 @@ export const settingsTabs = [
   },
 ] as const;
 
-export const accountLists = [
+export const accountLists: {
+  title: string;
+  items: { href: string; name: string; color?: string }[];
+}[] = [
   {
-    title: "account",
+    title: "profile",
     items: [
       { href: "/settings/profile", name: "profile" },
       { href: "/settings/profile/edit", name: "profile-edit" },
-      { href: "/settings/profile/remove", name: "profile-remove", color: "error.main" },
     ],
   },
   {
@@ -25,6 +27,13 @@ export const accountLists = [
     items: [
       { href: "/settings/password-change", name: "password-change" },
       { href: "/settings/password-forgot", name: "password-forgot" },
+    ],
+  },
+  {
+    title: "account",
+    items: [
+      { href: "/settings/profile/remove", name: "profile-remove", color: "error.main" },
+      { href: "/settings/logout", name: "profile-logout", color: "error.main" },
     ],
   },
 ];

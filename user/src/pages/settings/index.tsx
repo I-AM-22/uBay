@@ -3,6 +3,7 @@ import { AccountSettingsList, ProfilePhoto, SettingsTabs } from "features/accoun
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Routes } from "react-router-dom";
+import { LogoutPage } from "./profile/logout";
 import { ProfileRemovePage } from "./profile/remove";
 
 export const SettingsPage: FC<{}> = ({}) => {
@@ -21,6 +22,7 @@ export const SettingsPage: FC<{}> = ({}) => {
       <Routes>
         <Route path="" element={<AccountSettingsList />} />
         <Route path="profile/remove" element={<ProfileRemovePage />} />
+        <Route path="logout" element={<LogoutPage />} />
         <Route path="account" element={<AccountSettingsList />} />
         <Route path="preferences" element={<></>} />
       </Routes>

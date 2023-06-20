@@ -13,6 +13,12 @@
     "submit": "نعم احذف حسابي",
     "cancel": "إلغاء"
   },
+  "logout": {
+    "title": "هل أنت متأكد؟",
+    "subtitle": "هل تريد تسجيل خروج من حسابك الحالي",
+    "submit": "تسجيل خروج",
+    "cancel": "إلغاء"
+  },
   "settings": {
     "title": "الأعدادات",
     "tabs": {
@@ -20,11 +26,15 @@
       "preferences": "تفضيلات المنشورات",
       "dummy": "الخصوصية"
     },
+    "profile": {
+      "title": "الملف الشخصي",
+      "profile": "المعلومات الشخصية",
+      "profile-edit": "تحديث المعلومات الشخصية"
+    },
     "account": {
       "title": "الحساب",
-      "profile": "الملف الشخصي",
-      "profile-edit": "تحديث الملف الشخصي",
-      "profile-remove": "حذف الحساب"
+      "profile-remove": "حذف الحساب",
+      "profile-logout": "تسجيل خروج"
     },
     "security": {
       "title": "الخصوصية والأمان",
