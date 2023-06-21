@@ -27,7 +27,7 @@ export const BottomNavigator: FC<{}> = ({}) => {
   }, [location]);
   return (
     <>
-      <Box mt={6} />
+      <Box mt={7} />
       <Paper
         sx={{
           position: "fixed",

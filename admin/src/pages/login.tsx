@@ -1,6 +1,6 @@
 import { Box, Paper, Slide } from "@mui/material";
 import logo from "assets/img/logo.svg";
-import { LoginForm } from "features/auth";
+import { LoginForm } from "features/admin";
 
 import { FC } from "react";
 export const LoginPage: FC<{}> = ({}) => {
