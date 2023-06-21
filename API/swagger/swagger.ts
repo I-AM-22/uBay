@@ -3,6 +3,7 @@ import { productSchema } from './routes/products.swagger';
 import { updateMe, signUp } from './routes/auth.swagger';
 import { commentSchema } from './routes/comments.swagger';
 import { categorySchema } from './routes/categories.swagger';
+import { citySchema } from './routes/cities.swagger';
 const options: Options = {
   url: '',
   definition: {
@@ -26,6 +27,7 @@ const options: Options = {
         productSchema,
         commentSchema,
         categorySchema,
+        citySchema,
       },
       securitySchemes: {
         Bearer: {
@@ -67,6 +69,7 @@ const options: Options = {
     './swagger/routes/products.swagger.ts',
     './swagger/routes/comments.swagger.ts',
     './swagger/routes/categories.swagger.ts',
+    './swagger/routes/cities.swagger.ts',
   ],
 };
 

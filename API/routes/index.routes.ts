@@ -9,6 +9,7 @@ import notificationRouter from '@routes/notification.routes';
 import storeRouter from '@routes/store.routes';
 import couponRouter from '@routes/coupon.routes';
 import adminRouter from '@routes/admins.routes';
+import cityRouter from '@routes/city.routes';
 
 import { settings } from '@config/settings';
 import { Request, Response, NextFunction } from 'express';
@@ -23,6 +24,7 @@ api.use('/products', productRouter);
 api.use('/comments', commentRouter);
 api.use('/categories', categoryRouter);
 api.use('/stores', storeRouter);
+api.use('/cities', cityRouter);
 api.use('/chats', chatRouter);
 api.use('/messages', messageRouter);
 api.use('/notifications', notificationRouter);
