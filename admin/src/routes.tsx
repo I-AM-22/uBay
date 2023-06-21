@@ -2,6 +2,7 @@ import NotFound from "components/feedback/NotFound";
 import SomethingWentWrong from "components/feedback/SomethingWentWrong";
 import AuthenticatedRoute from "components/routes/AuthenticatedRoute";
 import NotAuthenticatedRoute from "components/routes/NotAuthenticatedRoute";
+import { AdminsPage } from "pages/admins";
 import { CategoriesPage } from "pages/categories";
 import { LoginPage } from "pages/login";
 import { UsersPage } from "pages/users";
@@ -26,6 +27,7 @@ export default createBrowserRouter(
         <Route element={<Layout />}>
           <Route path="" element={<NotFound />} />
           <Route path="users" element={<UsersPage />} />
+          <Route path="admins" element={<AdminsPage />} />
           <Route path="categories" element={<CategoriesPage />} />
           <Route path="*" element={<SomethingWentWrong />} />
         </Route>

@@ -1,28 +1,27 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import PasswordInput from "components/Inputs/PasswordInput";
 import Submit from "components/buttons/Submit";
 import { useSnackbar } from "context/snackbarContext";
-import { EmailInput, authQueries } from "features/auth";
+import { AdminLoginBody, EmailInput, adminQueries } from "features/admin";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { parseResponseError } from "utils/apiHelpers";
 import { storage } from "utils/storage";
-import { UserLoginBody } from "../../api/type";
+import PasswordInput from "../PasswordInput";
 import loginSchema, { loginDefault } from "./validation";
 export const LoginForm = () => {
-  const { control, handleSubmit, setError } = useForm<UserLoginBody>({
+  const { control, handleSubmit, setError } = useForm<AdminLoginBody>({
     resolver: zodResolver(loginSchema),
     defaultValues: loginDefault,
   });
 
-  const { t } = useTranslation("auth");
+  const { t } = useTranslation("admin");
   const navigate = useNavigate();
-  const login = authQueries.useLogin();
+  const login = adminQueries.useLogin();
   const snackbar = useSnackbar();
-  const onSubmit = async (data: UserLoginBody) => {
+  const onSubmit = async (data: AdminLoginBody) => {
     login.mutate(data, {
       onSuccess: (data) => {
         storage.setToken(data.token);

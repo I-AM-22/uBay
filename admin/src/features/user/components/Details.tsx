@@ -37,7 +37,7 @@ export const Details: FC<Props> = ({}) => {
   };
   return (
     <Dialog open={isActive} onClose={handleClose} fullWidth maxWidth={"xs"}>
-      <DialogTitle onClose={handleClose} fontSize={25} color="primary">
+      <DialogTitle onClose={handleClose} pb={4} fontSize={25} color="primary">
         {t("title")}
       </DialogTitle>
       <DialogContent>
