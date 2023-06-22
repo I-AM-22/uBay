@@ -8,7 +8,7 @@ const DialogTitle: FC<Props> = forwardRef(function fr(
   ref
 ) {
   return (
-    <MuiDialogTitle sx={{ m: 0, p: 2, pb: 4 }} {...props} ref={ref}>
+    <MuiDialogTitle sx={{ m: 0, p: 2 }} {...props} ref={ref}>
       {skeleton ? <Skeleton widthRange={{ min: 100, max: 100 }} /> : children}
       {onClose ? (
         <IconButton
