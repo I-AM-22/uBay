@@ -5,7 +5,7 @@ const citySchema = new Schema<CityDoc, CityModel, any>(
         name: {
             type: String,
             required: true,
-        }
+        },
     },
     {
         timestamps: true,

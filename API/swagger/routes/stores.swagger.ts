@@ -1,16 +1,16 @@
 /**
  * @swagger
  * tags:
- *   name: Cities
- *   description: API to manage Cities
+ *   name: Stores
+ *   description: API to manage Stores
  */
 
 /**
  * @swagger
- * /cities:
+ * /stores:
  *   get:
- *     summary: Get all cities
- *     tags: [Cities]
+ *     summary: Get all stores
+ *     tags: [Stores]
  *     parameters:
  *      - name: params
  *        in: query
@@ -24,23 +24,23 @@
  *            type: string
  *     responses:
  *       '200':
- *         description: The list of cities
+ *         description: The list of stores
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/citySchema'
+ *                 $ref: '#/components/schemas/storeSchema'
  *       '401':
  *         $ref: '#/components/responses/401'
  */
 
 /**
  * @swagger
- * /cities/{id}:
+ * /stores/{id}:
  *   get:
- *     summary: Get a city by ID
- *     tags: [Cities]
+ *     summary: Get a store by ID
+ *     tags: [Stores]
  *     security:
  *       - Bearer: []
  *     parameters:
@@ -49,14 +49,14 @@
  *         schema:
  *           type: string
  *         required: true
- *         description: ID of the city
+ *         description: ID of the store
  *     responses:
  *       '200':
  *         description: ok
  *         content:
  *           application/json:
  *             schema:
- *                $ref: '#/components/schemas/citySchema'
+ *                $ref: '#/components/schemas/storeSchema'
  *       '404':
  *         description: Comment not found
  *       '401':
@@ -65,10 +65,10 @@
 
 /**
  * @swagger
- * /cities:
+ * /stores:
  *   post:
- *     summary: Create a new city
- *     tags: [Cities]
+ *     summary: Create a new store
+ *     tags: [Stores]
  *     security:
  *       - Bearer: []
  *     requestBody:
@@ -76,14 +76,14 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/citySchema'
+ *             $ref: '#/components/schemas/storeSchema'
  *     responses:
  *       '201':
  *         description: Created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/citySchema'
+ *               $ref: '#/components/schemas/storeSchema'
  *       '401':
  *         $ref: '#/components/responses/401'
  *       '400':
@@ -92,10 +92,10 @@
 
 /**
  * @swagger
- * /cities/{id}:
+ * /stores/{id}:
  *   patch:
- *     summary: Update a city by ID
- *     tags: [Cities]
+ *     summary: Update a store by ID
+ *     tags: [Stores]
  *     security:
  *       - Bearer: []
  *     parameters:
@@ -104,20 +104,20 @@
  *         schema:
  *           type: string
  *         required: true
- *         description: ID of the city
+ *         description: ID of the store
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/citySchema'
+ *             $ref: '#/components/schemas/storeSchema'
  *     responses:
  *       '200':
  *         description: comment has been updated
  *         content:
  *           application/json:
  *             schema:
- *                $ref: '#/components/schemas/citySchema'
+ *                $ref: '#/components/schemas/storeSchema'
  *       '404':
  *         description: Product not found
  *       '401':
@@ -128,10 +128,10 @@
 
 /**
 * @swagger
-* /cities/{id}:
+* /stores/{id}:
 *   delete:
-*     summary: Delete a city by ID
-*     tags: [Cities]
+*     summary: Delete a store by ID
+*     tags: [Stores]
 *     security:
 *       - Bearer: []
 *     parameters:
@@ -140,7 +140,7 @@
 *         schema:
 *           type: string
 *         required: true
-*         description: ID of the city
+*         description: ID of the store
 *     responses:
 *       '204':
 *         $ref: '#/components/responses/204'
@@ -150,16 +150,26 @@
 *         $ref: '#/components/responses/401'
 */
 
-export const citySchema = {
+export const storeSchema = {
     type: 'object',
     properties: {
         name: {
             type: 'string',
-            description: 'The name of the city',
+            description: 'The name of the store',
+        },
+        address: {
+            type: 'string',
+            description: 'The address of the store',
+        },
+        city: {
+            type: 'string',
+            description: 'The ID of the city to which the store belongs',
         },
     },
     example: {
-        name: 'City name',
+        name: 'store name',
+        address: 'store address',
+        city: 'cityID',
     },
-    required: ['name'],
+    required: ['name', 'address', 'city'],
 };

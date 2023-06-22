@@ -1,5 +1,6 @@
-import { Schema, model } from 'mongoose';
-import { StoreDoc, StoreModel } from '../types/store.types';
+import { Schema, model, Query, Types } from 'mongoose';
+import { StoreDoc, StoreModel, IStore } from '../types/store.types';
+import { type } from 'os';
 
 const storeSchema = new Schema<StoreDoc, StoreModel, any>(
   {
@@ -8,6 +9,11 @@ const storeSchema = new Schema<StoreDoc, StoreModel, any>(
       type: String,
       required: true,
     },
+    city: {
+      type: Types.ObjectId,
+      required: true,
+      ref: 'City'
+    }
   },
   {
     timestamps: true,
@@ -15,7 +21,13 @@ const storeSchema = new Schema<StoreDoc, StoreModel, any>(
     toObject: { virtuals: true, versionKey: false },
   }
 );
-
+storeSchema.pre<Query<IStore, IStore>>(/^find/, function (next) {
+  this.populate({
+    path: 'city',
+    select: 'name'
+  });
+  next();
+});
 const Store = model<StoreDoc>('Store', storeSchema);
 
 export default Store;

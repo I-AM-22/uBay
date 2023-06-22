@@ -4,6 +4,7 @@ import { updateMe, signUp } from './routes/auth.swagger';
 import { commentSchema } from './routes/comments.swagger';
 import { categorySchema } from './routes/categories.swagger';
 import { citySchema } from './routes/cities.swagger';
+import { storeSchema } from './routes/stores.swagger';
 const options: Options = {
   url: '',
   definition: {
@@ -28,6 +29,7 @@ const options: Options = {
         commentSchema,
         categorySchema,
         citySchema,
+        storeSchema,
       },
       securitySchemes: {
         Bearer: {
@@ -70,6 +72,7 @@ const options: Options = {
     './swagger/routes/comments.swagger.ts',
     './swagger/routes/categories.swagger.ts',
     './swagger/routes/cities.swagger.ts',
+    './swagger/routes/stores.swagger.ts',
   ],
 };
 
