@@ -6,6 +6,13 @@ const customErrorMap: z.ZodErrorMap = (issue, ctx) => {
   if (issue.code === z.ZodIssueCode.too_small && issue.minimum == 1) {
     return { message: i18n.t("validation:required") };
   }
+  if (
+    issue.code === z.ZodIssueCode.invalid_type &&
+    issue.expected === "object" &&
+    issue.received === "null"
+  ) {
+    return { message: i18n.t("validation:required") };
+  }
 
   return zodI18nMap(issue, ctx);
 };

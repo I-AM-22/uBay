@@ -10,4 +10,8 @@ export type City = {
   updatedAt: string;
   id: string;
 };
+export type CitySelect = {
+  name: string;
+  id: string;
+};
 export type CityAllParams = APIListParams;

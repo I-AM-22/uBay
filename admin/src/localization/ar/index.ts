@@ -6,5 +6,16 @@ import common from "./common.json";
 import layout from "./layout.json";
 import user from "./user.json";
 import validation from "./validation.json";
-const language = { common, validation, layout, zod, admin, category, user, city } as const;
+import warehouse from "./warehouse.json";
+const language = {
+  common,
+  validation,
+  layout,
+  zod,
+  admin,
+  category,
+  user,
+  city,
+  warehouse,
+} as const;
 export default language;

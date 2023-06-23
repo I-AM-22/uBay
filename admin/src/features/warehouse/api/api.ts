@@ -1,0 +1,32 @@
+import API_ROUTES from "constants/apiRoutes";
+import axios from "lib/axios";
+import { APIList, WithId } from "types/api";
+import { paginateParams } from "utils/apiHelpers";
+import { Warehouse, WarehouseAction, WarehouseAllParams } from "./type";
+
+const API = {
+  add: async (body: WarehouseAction) => {
+    const { data } = await axios.post(API_ROUTES.STORES.ADD, body);
+    return data;
+  },
+  getAll: async (params: WarehouseAllParams) => {
+    const { data } = await axios.get<APIList<Warehouse>>(API_ROUTES.STORES.GET_ALL, {
+      params: paginateParams(params),
+    });
+    return data;
+  },
+  get: async (id: string) => {
+    const { data } = await axios.get<Warehouse>(API_ROUTES.STORES.GET(id));
+    return data;
+  },
+  edit: async ({ id, ...body }: WithId<WarehouseAction>) => {
+    const { data } = await axios.patch<Warehouse>(API_ROUTES.STORES.EDIT(id), body);
+    return data;
+  },
+  remove: async (id: string) => {
+    const { data } = await axios.delete(API_ROUTES.STORES.DELETE(id));
+    return data;
+  },
+};
+
+export default API;

@@ -12,7 +12,7 @@ dist/
 dev-dist/
 dist-ssr
 *.local
-
+quicktype.json
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

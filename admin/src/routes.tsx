@@ -7,6 +7,7 @@ import { CategoriesPage } from "pages/categories";
 import { CitiesPage } from "pages/cities";
 import { LoginPage } from "pages/login";
 import { UsersPage } from "pages/users";
+import { WarehousedPage } from "pages/warehouses";
 import { lazy } from "react";
 import {
   createBrowserRouter,
@@ -31,6 +32,7 @@ export default createBrowserRouter(
           <Route path="admins" element={<AdminsPage />} />
           <Route path="categories" element={<CategoriesPage />} />
           <Route path="cities" element={<CitiesPage />} />
+          <Route path="warehouses" element={<WarehousedPage />} />
           <Route path="*" element={<SomethingWentWrong />} />
         </Route>
       </Route>
