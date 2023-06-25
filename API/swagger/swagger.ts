@@ -5,6 +5,7 @@ import { commentSchema } from './routes/comments.swagger';
 import { categorySchema } from './routes/categories.swagger';
 import { citySchema } from './routes/cities.swagger';
 import { storeSchema } from './routes/stores.swagger';
+import { employeeSchema } from './routes/employees.swagger';
 const options: Options = {
   url: '',
   definition: {
@@ -30,6 +31,7 @@ const options: Options = {
         categorySchema,
         citySchema,
         storeSchema,
+        employeeSchema,
       },
       securitySchemes: {
         Bearer: {
@@ -73,6 +75,7 @@ const options: Options = {
     './swagger/routes/categories.swagger.ts',
     './swagger/routes/cities.swagger.ts',
     './swagger/routes/stores.swagger.ts',
+    './swagger/routes/employees.swagger.ts',
   ],
 };
 

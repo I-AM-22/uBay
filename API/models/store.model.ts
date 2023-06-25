@@ -1,6 +1,5 @@
 import { Schema, model, Query, Types } from 'mongoose';
 import { StoreDoc, StoreModel, IStore } from '../types/store.types';
-import { type } from 'os';
 
 const storeSchema = new Schema<StoreDoc, StoreModel, any>(
   {

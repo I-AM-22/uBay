@@ -14,8 +14,6 @@ import validate from '@middlewares/validateResource';
 
 const router = Router();
 
-router.use('/:storeId/users', userRouter);
-
 router
   .route('/')
   .get(getAllStores)

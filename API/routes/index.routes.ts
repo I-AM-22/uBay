@@ -10,6 +10,7 @@ import storeRouter from '@routes/store.routes';
 import couponRouter from '@routes/coupon.routes';
 import adminRouter from '@routes/admins.routes';
 import cityRouter from '@routes/city.routes';
+import employeeRouter from '@routes/employees.routes';
 
 import { settings } from '@config/settings';
 import { Request, Response, NextFunction } from 'express';
@@ -25,6 +26,7 @@ api.use('/comments', commentRouter);
 api.use('/categories', categoryRouter);
 api.use('/stores', storeRouter);
 api.use('/cities', cityRouter);
+api.use('/employees', employeeRouter);
 api.use('/chats', chatRouter);
 api.use('/messages', messageRouter);
 api.use('/notifications', notificationRouter);
