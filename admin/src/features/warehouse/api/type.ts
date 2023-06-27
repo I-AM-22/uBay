@@ -16,3 +16,7 @@ export type Warehouse = {
   id: string;
 };
 export type WarehouseAllParams = APIListParams;
+export type WarehouseSelect = {
+  name: string;
+  id: string;
+};

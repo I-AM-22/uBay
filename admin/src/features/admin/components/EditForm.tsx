@@ -1,19 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dialog, DialogContent, Fade, Grid } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
-import TextField from "components/Inputs/TextField";
 import Submit from "components/buttons/Submit";
 import DialogTitle from "components/forms/DialogTitle";
+import TextField from "components/inputs/TextField";
 import { useSnackbar } from "context/snackbarContext";
-import { queryStore } from "features/shared";
+import { EmailInput, PasswordInput, queryStore } from "features/shared";
 import useEditSearchParams from "hooks/useEditSearchParams";
 import useSuccessSnackbar from "hooks/useSuccessSnackbar";
 import { FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { parseResponseError } from "utils/apiHelpers";
-import { AdminActionBody, EmailInput, adminQueries } from "..";
-import PasswordInput from "./PasswordInput";
+import { AdminActionBody, adminQueries } from "..";
 import { adminAddSchema, adminDefaultForm } from "./validation";
 export type EditFormProps = {};
 export const EditForm: FC<EditFormProps> = ({}) => {

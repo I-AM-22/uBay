@@ -2,7 +2,7 @@ import API_ROUTES from "constants/apiRoutes";
 import axios from "lib/axios";
 import { APIList, WithId } from "types/api";
 import { paginateParams } from "utils/apiHelpers";
-import { Warehouse, WarehouseAction, WarehouseAllParams } from "./type";
+import { Warehouse, WarehouseAction, WarehouseAllParams, WarehouseSelect } from "./type";
 
 const API = {
   add: async (body: WarehouseAction) => {
@@ -14,6 +14,12 @@ const API = {
       params: paginateParams(params),
     });
     return data;
+  },
+  select: async () => {
+    const { data } = await axios.get<APIList<WarehouseSelect>>(API_ROUTES.STORES.GET_ALL, {
+      params: { fields: "name" },
+    });
+    return data.data;
   },
   get: async (id: string) => {
     const { data } = await axios.get<Warehouse>(API_ROUTES.STORES.GET(id));

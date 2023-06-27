@@ -1,6 +1,6 @@
 import { Grid, Stack } from "@mui/material";
-import SearchFilter from "components/Inputs/SearchFilter";
 import AddFab from "components/buttons/AddFab";
+import SearchFilter from "components/inputs/SearchFilter";
 import FilterRow from "components/layout/FilterRow";
 import { CitiesTable, CityAddForm, CityEditForm, CityRemoveForm } from "features/city";
 import { FC } from "react";

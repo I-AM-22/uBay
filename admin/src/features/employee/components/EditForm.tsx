@@ -5,43 +5,40 @@ import Submit from "components/buttons/Submit";
 import DialogTitle from "components/forms/DialogTitle";
 import TextField from "components/inputs/TextField";
 import { useSnackbar } from "context/snackbarContext";
-import { CityAutocomplete } from "features/city";
-import { queryStore } from "features/shared";
-import { warehouseQueries } from "features/warehouse";
+import { EmailInput, PasswordInput, queryStore } from "features/shared";
 import useEditSearchParams from "hooks/useEditSearchParams";
 import useSuccessSnackbar from "hooks/useSuccessSnackbar";
 import { FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { parseResponseError } from "utils/apiHelpers";
-import { warehouseDefaultForm, warehouseSchema } from "../validation";
-import { formToBody } from "./helpers";
-import { Form } from "./type";
+import { AdminActionBody, employeeQueries } from "..";
+import { employeeAddSchema, employeeDefaultForm } from "./validation";
 export type EditFormProps = {};
 export const EditForm: FC<EditFormProps> = ({}) => {
   const { isActive, clearEditParams, id = "" } = useEditSearchParams();
-  const { t } = useTranslation("warehouse");
-  const query = warehouseQueries.useDetails(id);
-  const { control, reset, handleSubmit, setError } = useForm<Form>({
-    resolver: zodResolver(warehouseSchema),
+  const { t } = useTranslation("admin");
+  const query = employeeQueries.useDetails(id);
+  const { control, reset, handleSubmit, setError } = useForm<AdminActionBody>({
+    resolver: zodResolver(employeeAddSchema),
 
-    defaultValues: query.data ?? warehouseDefaultForm,
+    defaultValues: query.data ?? employeeDefaultForm,
   });
   const queryClient = useQueryClient();
   const successSnackbar = useSuccessSnackbar();
   const snackbar = useSnackbar();
-  const edit = warehouseQueries.useEdit();
+  const edit = employeeQueries.useEdit();
   const handleClose = () => {
     clearEditParams();
-    reset(warehouseDefaultForm);
+    reset(employeeDefaultForm);
   };
-  const onSubmit = async (form: Form) => {
+  const onSubmit = async (body: AdminActionBody) => {
     edit.mutate(
-      { id, ...formToBody(form) },
+      { id, ...body },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(queryStore.warehouse.all._def);
-          queryClient.invalidateQueries(queryStore.warehouse.details(id));
+          queryClient.invalidateQueries(queryStore.admin.all._def);
+          queryClient.invalidateQueries(queryStore.admin.details(id));
           handleClose();
           successSnackbar(t("message.success.edit"));
         },
@@ -68,10 +65,14 @@ export const EditForm: FC<EditFormProps> = ({}) => {
                 <TextField control={control} name="name" label={t(`form.name`)} />
               </Grid>
               <Grid item xs={12}>
-                <CityAutocomplete control={control} name="city" label={t(`form.city`)} />
+                <EmailInput control={control} name="email" />
               </Grid>
               <Grid item xs={12}>
-                <TextField control={control} name="address" label={t(`form.address`)} />
+                <PasswordInput
+                  control={control}
+                  name="password"
+                  InputProps={{ autoComplete: "off" }}
+                />
               </Grid>
               <Grid item xs={12} justifyContent="center" display="flex" mt={3}>
                 <Submit isSubmitting={edit.isLoading} />

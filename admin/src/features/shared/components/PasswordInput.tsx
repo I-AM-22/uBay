@@ -1,11 +1,11 @@
 import { VisibilityOff } from "@mui/icons-material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { IconButton, InputAdornment } from "@mui/material";
-import TextField, { TextFieldProps } from "components/Inputs/TextField";
+import TextField, { TextFieldProps } from "components/inputs/TextField";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 type Props = TextFieldProps<true | false>;
-const PasswordInput: FC<Props> = ({ ...props }) => {
+export const PasswordInput: FC<Props> = ({ ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
   const { t } = useTranslation("common");
   return (
@@ -20,6 +20,7 @@ const PasswordInput: FC<Props> = ({ ...props }) => {
         endAdornment: (
           <InputAdornment position="end">
             <IconButton
+              sx={{ p: 0 }}
               onClick={() => {
                 setShowPassword((prev) => !prev);
               }}
@@ -33,4 +34,3 @@ const PasswordInput: FC<Props> = ({ ...props }) => {
     />
   );
 };
-export default PasswordInput;

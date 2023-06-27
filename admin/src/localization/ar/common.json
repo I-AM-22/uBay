@@ -9,6 +9,7 @@
   "search": "ابحث...",
   "pagination": "{{from}} - {{to}} من {{count}}",
   "email": "البريد الالكتروني",
+  "phone": "رقم الهاتف",
   "password": "كلمة المرور",
   "error": {
     "notFound": "لم يتم العثور 404",

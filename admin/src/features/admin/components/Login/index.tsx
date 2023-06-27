@@ -3,13 +3,13 @@ import { Box, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import Submit from "components/buttons/Submit";
 import { useSnackbar } from "context/snackbarContext";
-import { AdminLoginBody, EmailInput, adminQueries } from "features/admin";
+import { AdminLoginBody, adminQueries } from "features/admin";
+import { EmailInput, PasswordInput } from "features/shared";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { parseResponseError } from "utils/apiHelpers";
 import { storage } from "utils/storage";
-import PasswordInput from "../PasswordInput";
 import loginSchema, { loginDefault } from "./validation";
 export const LoginForm = () => {
   const { control, handleSubmit, setError } = useForm<AdminLoginBody>({

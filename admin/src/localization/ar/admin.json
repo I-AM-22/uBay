@@ -15,8 +15,7 @@
     "active": "حالة الحساب"
   },
   "form": {
-    "name": "الاسم",
-    "email": "الوصف"
+    "name": "الاسم"
   },
   "message": {
     "success": {

@@ -1,22 +1,22 @@
-import MailIcon from "@mui/icons-material/Mail";
+import PhoneIcon from "@mui/icons-material/Phone";
 import { InputAdornment } from "@mui/material";
-import TextField, { TextFieldProps } from "components/Inputs/TextField";
+import TextField, { TextFieldProps } from "components/inputs/TextField";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 type Props = TextFieldProps<true>;
-export const EmailInput: FC<Props> = ({ control, name, ...props }) => {
+export const PhoneInput: FC<Props> = ({ control, name, ...props }) => {
   const { t } = useTranslation("common");
   return (
     <TextField
       name={name}
       variant="outlined"
       control={control}
-      label={t("email")}
+      label={t("phone")}
       fullWidth
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <MailIcon />
+            <PhoneIcon />
           </InputAdornment>
         ),
       }}
@@ -25,4 +25,4 @@ export const EmailInput: FC<Props> = ({ control, name, ...props }) => {
   );
 };
 
-export default EmailInput;
+export default PhoneInput;

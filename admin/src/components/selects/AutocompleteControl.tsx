@@ -1,5 +1,5 @@
 import { AutocompleteProps, TextFieldProps } from "@mui/material";
-import TextField from "components/Inputs/TextField";
+import TextField from "components/inputs/TextField";
 import React, { FC } from "react";
 import { Control, Controller } from "react-hook-form";
 export type AutocompleteControlProps = {

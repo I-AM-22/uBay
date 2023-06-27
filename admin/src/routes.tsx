@@ -5,6 +5,7 @@ import NotAuthenticatedRoute from "components/routes/NotAuthenticatedRoute";
 import { AdminsPage } from "pages/admins";
 import { CategoriesPage } from "pages/categories";
 import { CitiesPage } from "pages/cities";
+import { EmployeesPage } from "pages/employees";
 import { LoginPage } from "pages/login";
 import { UsersPage } from "pages/users";
 import { WarehousedPage } from "pages/warehouses";
@@ -33,6 +34,7 @@ export default createBrowserRouter(
           <Route path="categories" element={<CategoriesPage />} />
           <Route path="cities" element={<CitiesPage />} />
           <Route path="warehouses" element={<WarehousedPage />} />
+          <Route path="employees" element={<EmployeesPage />} />
           <Route path="*" element={<SomethingWentWrong />} />
         </Route>
       </Route>

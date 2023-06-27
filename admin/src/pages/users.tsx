@@ -1,5 +1,5 @@
 import { Grid, Stack } from "@mui/material";
-import SearchFilter from "components/Inputs/SearchFilter";
+import SearchFilter from "components/inputs/SearchFilter";
 import FilterRow from "components/layout/FilterRow";
 import { UserDetails, UserRemoveForm, UsersTable } from "features/user";
 import { FC } from "react";

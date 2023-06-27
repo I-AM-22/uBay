@@ -3,13 +3,13 @@ import AddFab from "components/buttons/AddFab";
 import SearchFilter from "components/inputs/SearchFilter";
 import FilterRow from "components/layout/FilterRow";
 import {
-  WarehouseAddForm,
-  WarehouseEditForm,
-  WarehouseRemoveForm,
-  WarehousesTable,
-} from "features/warehouse";
+  EmployeeAddForm,
+  EmployeeEditForm,
+  EmployeeRemoveForm,
+  EmployeeTable,
+} from "features/employee";
 import { FC } from "react";
-export const WarehousedPage: FC<{}> = ({}) => {
+export const EmployeesPage: FC<{}> = ({}) => {
   return (
     <Stack gap={1}>
       <FilterRow>
@@ -17,11 +17,11 @@ export const WarehousedPage: FC<{}> = ({}) => {
           <SearchFilter />
         </Grid>
       </FilterRow>
-      <WarehousesTable />
+      <EmployeeTable />
       <AddFab />
-      <WarehouseAddForm />
-      <WarehouseEditForm />
-      <WarehouseRemoveForm />
+      <EmployeeAddForm />
+      <EmployeeEditForm />
+      <EmployeeRemoveForm />
     </Stack>
   );
 };
