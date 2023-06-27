@@ -1,3 +1,4 @@
+import { Avatar, Box, Stack } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
@@ -47,7 +48,16 @@ export const Table: FC<Props> = ({}) => {
       <TableBody>
         {currentPage.map((row) => (
           <TableRowStriped key={row.id}>
-            <TableCell>{row.name}</TableCell>
+            <TableCell>
+              <Stack direction="row" alignItems={"center"} gap={3}>
+                <Avatar>
+                  <Box component="img" src={row.photo} sx={{ height: 1 }} />
+                </Avatar>
+                <Box flex={1} textAlign={"start"}>
+                  {row.name}
+                </Box>
+              </Stack>
+            </TableCell>
             <TableCell>{row.store}</TableCell>
             <TableCell>{row.phone_number}</TableCell>
             <TableCell>
