@@ -38,7 +38,7 @@ export const updateOne = (Model: Model<any>): RequestHandler =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const { body } = req;
-
+    if (req.file?.filename) body.photo = req.file.filename;
     const doc = await Model.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
@@ -64,8 +64,9 @@ export const updateOne = (Model: Model<any>): RequestHandler =>
 export const createOne = (Model: Model<any>, addFiled?: any): RequestHandler =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     if (addFiled) req.body = { ...req.body, ...addFiled };
+    //if there any photo to save them
+    if (req.file?.filename) req.body.photo = req.file.filename;
     const newDoc = await Model.create(req.body);
-
     res.status(STATUS_CODE.CREATED).json(newDoc);
   });
 

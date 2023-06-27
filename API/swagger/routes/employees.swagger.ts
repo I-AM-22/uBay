@@ -7,6 +7,35 @@
 
 /**
  * @swagger
+ *   /employees/login:
+ *     post:
+ *       summary: login an employee
+ *       tags: [Employees]
+ *       requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               required:
+ *                 - email
+ *                 - password
+ *               properties:
+ *                 email:
+ *                   type: string
+ *                 password:
+ *                   type: string
+ *       responses:
+ *         "400":
+ *           $ref: '#/components/responses/400'
+ *         "200":
+ *           description: user logged in successfully
+ *           contents:
+ *             application/json
+ */
+
+/**
+ * @swagger
  * /employees:
  *   get:
  *     summary: Get All employees
@@ -74,9 +103,39 @@
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
- *             $ref: '#/components/schemas/employeeSchema'
+ *             type: object
+ *             required:
+ *               - photo
+ *               - name
+ *               - email
+ *               - password
+ *               - store
+ *               - address
+ *               - phone_number
+ *               - work_time
+ *             properties:
+ *               photo:
+ *                 type: string
+ *                 format: binary
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               store:
+ *                 type: string
+ *               address:
+ *                 type: string
+ *               phone_number:
+ *                 type: string
+ *               work_time:
+ *                 type: string
+ *           encoding:
+ *             photo:
+ *               contentType: image/jpeg
  *     responses:
  *       '201':
  *         description: Created
@@ -94,37 +153,59 @@
  * @swagger
  * /employees/{id}:
  *   patch:
- *     summary: Update a employee by ID
+ *     summary: Update an employee
  *     tags: [Employees]
  *     security:
  *       - Bearer: []
  *     parameters:
- *       - in: path
- *         name: id
+ *       - name: id
+ *         in: path
+ *         description: Employee ID
+ *         required: true
  *         schema:
  *           type: string
- *         required: true
- *         description: ID of the employee
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
- *             $ref: '#/components/schemas/employeeSchema'
+ *             type: object
+ *             properties:
+ *               photo:
+ *                 type: string
+ *                 format: binary
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               store:
+ *                 type: string
+ *               address:
+ *                 type: string
+ *               phone_number:
+ *                 type: string
+ *               work_time:
+ *                 type: string
+ *           encoding:
+ *             photo:
+ *               contentType: image/jpeg
  *     responses:
  *       '200':
- *         description: comment has been updated
+ *         description: OK
  *         content:
  *           application/json:
  *             schema:
- *                $ref: '#/components/schemas/employeeSchema'
- *       '404':
- *         description: Product not found
+ *               $ref: '#/components/schemas/employeeSchema'
  *       '401':
  *         $ref: '#/components/responses/401'
  *       '400':
- *         $ref: '#/components/responses/400' 
+ *         $ref: '#/components/responses/400'
+ *       '404':
+ *         $ref: '#/components/responses/404'
  */
+
 
 /**
 * @swagger

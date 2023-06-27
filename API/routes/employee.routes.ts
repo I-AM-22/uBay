@@ -1,4 +1,4 @@
-import { employeeSchema } from '../schema/employee.schema';
+import { employeeSchema, loginInput } from '../schema/employee.schema';
 import { Router } from 'express';
 import {
   createEmployee,
@@ -6,19 +6,26 @@ import {
   getEmployee,
   updateEmployee,
   getAllEmployee,
+  loginEmployee,
 } from '@controllers/employee.controller';
 import { restrictTo } from '@middlewares/auth.middleware';
+import { resizeUserImage, uploadUserPhoto } from '@middlewares/uploadingImage';
 import passport from 'passport';
 import validate from '@middlewares/validateResource';
 
 const router = Router();
-
+router.route('/login').post(
+  validate(loginInput),
+  loginEmployee
+);
 router
   .route('/')
   .get(getAllEmployee)
   .post(
     passport.authenticate('jwt', { session: false, failWithError: true }),
     restrictTo('superadmin', 'admin'),
+    uploadUserPhoto,
+    resizeUserImage,
     validate(employeeSchema),
     createEmployee
   );
@@ -29,6 +36,8 @@ router
   .patch(
     passport.authenticate('jwt', { session: false, failWithError: true }),
     restrictTo('superadmin', 'admin'),
+    uploadUserPhoto,
+    resizeUserImage,
     updateEmployee
   )
   .delete(
