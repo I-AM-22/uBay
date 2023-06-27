@@ -34,7 +34,10 @@ const notificationSchema = new Schema<NotificationDoc, NotificationModel, any>(
 notificationSchema.pre<Query<INotification, INotification>>(
   /^find/,
   function (next) {
-    this.populate({ path: 'user', select: 'name photo' }).populate('message');
+    this.populate({
+      path: 'user',
+      select: { name: 1, photo: 1, wallet: 0 },
+    }).populate('message');
     next();
   }
 );

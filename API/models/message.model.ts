@@ -25,7 +25,7 @@ const messageSchema = new Schema<MessageDoc, MessageModel, any>(
     timestamps: true,
   }
 );
-messageSchema.index({content:1})
+messageSchema.index({ content: 1 });
 messageSchema.pre('save', async function (next) {
   const chat = await Chat.findOne({
     _id: this.chat,
@@ -42,7 +42,7 @@ messageSchema.post('save', async function (doc, next) {
   await Chat.findByIdAndUpdate(this.chat, { lastMessage: doc });
   await doc.populate({
     path: 'user',
-    select: 'name photo email',
+    select: { name: 1, photo: 1, wallet: 0 },
   });
   await doc.populate({ path: 'chat', select: { lastMessage: 0 } });
   next();
@@ -67,7 +67,7 @@ messageSchema.post('save', async function (doc) {
 });
 
 messageSchema.pre<Query<IMessage, IMessage>>(/^find/, function (next) {
-  this.populate({ path: 'user', select: 'name photo email' });
+  this.populate({ path: 'user', select: { name: 1, photo: 1, wallet: 0 } });
   this.populate({ path: 'chat', select: { lastMessage: 0 } });
   next();
 });

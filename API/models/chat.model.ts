@@ -35,21 +35,31 @@ const chatSchema = new Schema<ChatDoc, ChatModel, any>(
 chatSchema.post('save', async function () {
   await this.populate({
     path: 'customer',
-    select: 'name photo email',
+    select: { name: 1, photo: 1, wallet: 0 },
   });
-  await this.populate({ path: 'seller', select: 'name photo email' });
+  await this.populate({
+    path: 'seller',
+    select: { name: 1, photo: 1, wallet: 0 },
+  });
   await this.populate({
     path: 'product',
-    select: 'description price category',
+    select: { user: 0, title: 1, photos: 1, category: 1, price: 1, likedBy: 0 },
   });
 });
 
 chatSchema.pre<Query<IChat, IChat>>(/^find/, function (next) {
-  this.populate('customer', 'name photo email')
-    .populate({ path: 'seller', select: 'name photo email' })
+  this.populate('customer', 'name photo -wallet')
+    .populate({ path: 'seller', select: { name: 1, photo: 1, wallet: 0 } })
     .populate({
       path: 'product',
-      select: { description: 1, price: 1, category: 1, user: 1 },
+      select: {
+        user: 0,
+        title: 1,
+        photos: 1,
+        category: 1,
+        price: 1,
+        likedBy: 0,
+      },
     })
     .populate({
       path: 'lastMessage',

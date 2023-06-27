@@ -1,8 +1,8 @@
 import { Document, Model } from 'mongoose';
 
-export interface Icity {
+export interface ICity {
   name: string;
 }
 
-export type CityDoc = Icity & Document;
+export type CityDoc = ICity & Document;
 export type CityModel = Model<CityDoc, object, any>;

@@ -19,7 +19,11 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
       type: [String],
       required: true,
     },
-    price: { type: Number, required: true,min:[1,"يجب ان يكون السعر بقيمة موجبة"] },
+    price: {
+      type: Number,
+      required: true,
+      min: [1, 'يجب ان يكون السعر بقيمة موجبة'],
+    },
     category: {
       type: Types.ObjectId,
       required: true,
@@ -35,10 +39,13 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
 );
 
 productSchema.virtual('likes').get(function () {
+  if (!this.likedBy) return undefined;
   return this.likedBy.length;
 });
 
 productSchema.virtual('likedByMe').get(function () {
+  if (!this.likedBy) return undefined;
+
   const namespace = cls.getNamespace('app');
   const user = namespace?.get('loggedInUserId');
   return this.likedBy.filter((e) => e?.id === user).length ? true : false;
@@ -52,11 +59,11 @@ productSchema.post('save', async function () {
   await this.populate('category');
   await this.populate({
     path: 'user',
-    select: 'name photo',
+    select: { name: 1, photo: 1, wallet: 0 },
   });
   await this.populate({
     path: 'likedBy',
-    select: 'name photo',
+    select: { name: 1, photo: 1, wallet: 0 },
   });
 });
 
@@ -64,9 +71,9 @@ productSchema.pre<Query<IProduct, IProduct>>(/^find/, function (next) {
   this.populate({ path: 'category' })
     .populate({
       path: 'user',
-      select: 'name photo',
+      select: { name: 1, photo: 1, wallet: 0 },
     })
-    .populate({ path: 'likedBy', select: 'name photo' });
+    .populate({ path: 'likedBy', select: { name: 1, photo: 1, wallet: 0 } });
   next();
 });
 

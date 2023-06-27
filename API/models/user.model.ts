@@ -1,11 +1,10 @@
 import { Schema, model, Query, Types } from 'mongoose';
 import bcryptjs from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
-import { settings } from './../config/settings';
 import { UserModel, UserDoc, IUser } from '../types/user.types';
 import AppError from '@utils/appError';
 import { STATUS_CODE } from '../types/helper.types';
+import Wallet from './wallet.model';
 
 const userSchema = new Schema<UserDoc, UserModel, any>(
   {
@@ -43,6 +42,7 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
       default: true,
       select: false,
     },
+    wallet: { type: Types.ObjectId, ref: 'Wallet' },
   },
   {
     toJSON: { virtuals: true, versionKey: false },
@@ -54,6 +54,7 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
 userSchema.index({ name: 1, email: 1 });
 //Document middleware
 
+//hashing password
 userSchema.pre('save', async function (next) {
   //if the password not changed end the process
   if (!this.isModified('password')) return next();
@@ -62,6 +63,7 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+//Change password
 userSchema.pre('save', function (next) {
   //if the password not changed or newUser made end the process
   if (!this.isModified('password') || this.isNew) return next();
@@ -71,6 +73,24 @@ userSchema.pre('save', function (next) {
   next();
 });
 
+//Wallet populate
+userSchema.pre('save', async function (next) {
+  if (!this.isNew || this.role !== 'user') return next();
+  const wallet = await Wallet.create({ user: this.id });
+  this.wallet = wallet.id;
+  next();
+});
+
+userSchema.pre<Query<IUser, IUser>>(/^find/, function (next) {
+  this.populate('wallet');
+  next();
+});
+
+userSchema.post('save', async function () {
+  await this.populate('wallet');
+});
+
+//pre find user
 userSchema.pre<Query<IUser, IUser>>(/^find/, function (next) {
   const query: any = {};
 

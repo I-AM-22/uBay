@@ -9,7 +9,7 @@
  * @swagger
  * /products/{id}/comments:
  *   get:
- *     summary: Create a new comment
+ *     summary: get all comments
  *     tags: [Comments]
  *     parameters:
  *       - in: path

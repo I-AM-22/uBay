@@ -1,10 +1,12 @@
 import mongoose, { Model, Document, ObjectId, PopulatedDoc } from 'mongoose';
+import { IWallet } from './wallet.types';
 export interface IUser {
   name: string;
   photo: string;
   email: string;
   role: string;
   password: string;
+  wallet: PopulatedDoc<Document<ObjectId>> & IWallet;
 }
 export interface UserDoc extends IUser, mongoose.Document {
   createdAt: Date;

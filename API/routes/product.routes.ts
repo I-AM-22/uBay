@@ -19,18 +19,23 @@ import {
 import validate from '@middlewares/validateResource';
 import { productSchema } from '../schema/product.schema';
 import { setIds } from '@middlewares/helper.middleware';
+import couponRouter from '@routes/coupon.routes';
 
 const router = Router({ mergeParams: true });
 
 // Public routes
 router.use('/:productId/comments/', commentRouter);
 
-router.use(passport.authenticate('jwt', { session: false, failWithError: true }));
+router.use('/:productId/coupons/', couponRouter);
+
+router.use(
+  passport.authenticate('jwt', { session: false, failWithError: true })
+);
 
 // Routes requiring authentication
 
 router.get('/', getAllProducts);
-router.get('/:id', getProduct); 
+router.get('/:id', getProduct);
 
 router.post(
   '/',

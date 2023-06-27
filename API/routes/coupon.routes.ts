@@ -7,14 +7,16 @@ import {
   createCoupon,
   updateCoupon,
   deleteCoupon,
-  checkIsOwnerProdCoup,
+  getMyCoupons,
+  couponMaker,
 } from '@controllers/coupon.controller';
 import passport from 'passport';
 import validate from '@middlewares/validateResource';
 import { couponSchema } from './../schema/coupon.schema';
-import { setIds } from '@middlewares/helper.middleware';
+import { checkIsOwnerProduct } from '@controllers/product.controller';
+import { getProductCoupons } from '../controllers/coupon.controller';
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.use(
   passport.authenticate('jwt', { session: false, failWithError: true }),
@@ -23,8 +25,17 @@ router.use(
 
 router
   .route('/')
-  .get(getCoupons)
-  .post(setIds(), validate(couponSchema), checkIsOwnerProdCoup, createCoupon);
+  .get(getProductCoupons, checkIsOwnerProduct, getCoupons)
+  .post(
+    validate(couponSchema),
+    getProductCoupons,
+    checkIsOwnerProduct,
+    createCoupon
+  );
+
+router.get('/myCoupons', getMyCoupons, getCoupons);
+
+router.use('/:id', couponMaker);
 router.route('/:id').get(getCoupon).patch(updateCoupon).delete(deleteCoupon);
 
 export default router;

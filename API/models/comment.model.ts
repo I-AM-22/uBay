@@ -27,14 +27,14 @@ const commentSchema = new Schema<CommentDoc, CommentModel, any>(
 commentSchema.post('save', async function () {
   await this.populate({
     path: 'user',
-    select: 'name photo',
+    select: { name: 1, photo: 1, wallet: 0 },
   });
 });
 
 commentSchema.pre<Query<IComment, IComment>>(/^find/, function (next) {
   this.populate({
     path: 'user',
-    select: 'name photo',
+    select: { name: 1, photo: 1, wallet: 0 },
   });
   next();
 });

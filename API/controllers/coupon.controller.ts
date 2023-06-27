@@ -1,4 +1,3 @@
-import Product from '@models/product.model';
 // @desc    Get list of coupons
 // @route   GET /api/v1/coupons
 
@@ -10,9 +9,11 @@ import {
   getOne,
   updateOne,
 } from './handlerFactory';
-import { checkIsOwner } from '@middlewares/auth.middleware';
+import catchAsync from '@utils/catchAsync';
+import { NextFunction, Request, Response } from 'express';
+import AppError from '@utils/appError';
+import { STATUS_CODE } from './../types/helper.types';
 
-export const checkIsOwnerProdCoup = checkIsOwner(Product, 'product');
 // @access  Private/Admin-Manager
 export const getCoupons = getAll(Coupon);
 
@@ -35,3 +36,44 @@ export const updateCoupon = updateOne(Coupon);
 // @route   DELETE /api/v1/coupons/:id
 // @access  Private/Admin-Manager
 export const deleteCoupon = deleteOne(Coupon);
+
+export const getMyCoupons = catchAsync(
+ async (req: Request, res: Response, next: NextFunction) => {
+    req.query.user = req.user?.id;
+    req.query.expire = { gt: Date.now().toString() };
+    next();
+  }
+);
+
+export const getProductCoupons = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    if (req.params.productId) req.params.id = req.params.productId;
+    if (req.body.product) req.params.id = req.body.product;
+
+    next();
+  }
+);
+export const couponMaker = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const coupon = await Coupon.findById(req.params.id);
+    console.log(req.params.id);
+    if (!coupon)
+      return next(
+        new AppError(
+          STATUS_CODE.NOT_FOUND,
+          [],
+          'There is no coupon with that Id'
+        )
+      );
+
+    if (req.user?.id !== coupon.product.user?.id)
+      return next(
+        new AppError(
+          STATUS_CODE.FORBIDDEN,
+          [],
+          'You are not authorized to perform this action'
+        )
+      );
+    next();
+  }
+);

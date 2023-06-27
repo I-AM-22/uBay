@@ -25,7 +25,7 @@ export const deleteOne = (Model: any): RequestHandler =>
         )
       );
     }
-   
+
     res.sendStatus(STATUS_CODE.DELETED);
   });
 
@@ -149,23 +149,3 @@ export const getAll = (Model: any, path?: string): RequestHandler =>
 
     res.status(STATUS_CODE.SUCCESS).json(result);
   });
-
-/*
-
-    if (mName === 'User') {
-      let fR: any = {
-        _id: { $ne: req.user?.id },
-      };
-
-      if (path === 'user') {
-        fR.role = 'user';
-      } else if (path === 'admin') {
-        fR.role = 'admin';
-      }
-
-      if (req.user?.role === 'user') {
-        fR.active = { active: { $ne: false } };
-      }
-      query.find(fR);
-      counter.count(fR);
-       */

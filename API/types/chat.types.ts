@@ -5,10 +5,10 @@ import { IProduct } from './product.types';
 
 export interface IChat {
   name: string;
-  customer: PopulatedDoc<Document<ObjectId> & IUser>;
-  seller: PopulatedDoc<Document<ObjectId> & IUser>;
-  lastMessage?: PopulatedDoc<Document<ObjectId> & IMessage>;
-  product: PopulatedDoc<Document<ObjectId> & IProduct>;
+  customer: PopulatedDoc<Document<ObjectId>> & IUser;
+  seller: PopulatedDoc<Document<ObjectId>> & IUser;
+  lastMessage?: PopulatedDoc<Document<ObjectId>> & IMessage;
+  product: PopulatedDoc<Document<ObjectId>> & IProduct;
 }
 
 export interface ChatDoc extends IChat, Document {

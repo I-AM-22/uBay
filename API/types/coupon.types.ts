@@ -4,9 +4,11 @@ import { IProduct } from './product.types';
 
 export interface ICoupon {
   discount: number;
-  user: PopulatedDoc<Document<ObjectId> & IUser>;
-  product: PopulatedDoc<Document<ObjectId> & IProduct>;
+  user: PopulatedDoc<Document<ObjectId>> & IUser;
+  product: PopulatedDoc<Document<ObjectId>> & IProduct;
   expire: Date;
+  code: string;
+  active: boolean;
 }
 
 export type CouponDoc = ICoupon & Document;

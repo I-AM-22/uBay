@@ -1,9 +1,9 @@
-import { Document, Model,PopulatedDoc,ObjectId} from 'mongoose';
-import {Icity} from './city.types'
+import { Document, Model, PopulatedDoc, ObjectId } from 'mongoose';
+import { ICity } from './city.types';
 export interface IStore {
   name: string;
   address: string;
-  city:PopulatedDoc<Document<ObjectId> & Icity>;
+  city: PopulatedDoc<Document<ObjectId>> & ICity;
 }
 export type StoreDoc = IStore & Document;
 

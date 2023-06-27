@@ -4,9 +4,9 @@ import { IMessage } from './message.types';
 import { IChat } from './chat.types';
 
 export interface INotification {
-  user: PopulatedDoc<Document<ObjectId> & IUser>;
-  message: PopulatedDoc<Document<ObjectId> & IMessage>;
-  chat: PopulatedDoc<Document<ObjectId> & IChat>;
+  user: PopulatedDoc<Document<ObjectId>> & IUser;
+  message: PopulatedDoc<Document<ObjectId>> & IMessage;
+  chat: PopulatedDoc<Document<ObjectId>> & IChat;
   read: boolean;
 }
 

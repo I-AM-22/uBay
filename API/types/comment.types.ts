@@ -4,8 +4,8 @@ import { IProduct } from './product.types';
 
 export interface IComment {
   content: string;
-  user: PopulatedDoc<Document<ObjectId> & IUser>;
-  product: PopulatedDoc<Document<ObjectId> & IProduct>;
+  user: PopulatedDoc<Document<ObjectId>> & IUser;
+  product: PopulatedDoc<Document<ObjectId>> & IProduct;
 }
 
 export type CommentDoc = IComment & Document;

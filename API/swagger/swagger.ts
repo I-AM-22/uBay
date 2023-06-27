@@ -6,6 +6,7 @@ import { categorySchema } from './routes/categories.swagger';
 import { citySchema } from './routes/cities.swagger';
 import { storeSchema } from './routes/stores.swagger';
 import { employeeSchema } from './routes/employees.swagger';
+import { couponSchema } from './routes/coupon.swagger';
 const options: Options = {
   url: '',
   definition: {
@@ -32,6 +33,7 @@ const options: Options = {
         citySchema,
         storeSchema,
         employeeSchema,
+        couponSchema,
       },
       securitySchemes: {
         Bearer: {
@@ -57,6 +59,9 @@ const options: Options = {
         401: {
           description: 'Unauthorized',
         },
+        403: {
+          description: 'Forbidden',
+        },
         404: {
           description: 'Not found',
         },
@@ -76,6 +81,8 @@ const options: Options = {
     './swagger/routes/cities.swagger.ts',
     './swagger/routes/stores.swagger.ts',
     './swagger/routes/employees.swagger.ts',
+    './swagger/routes/coupon.swagger.ts',
+    './swagger/routes/wallet.swagger.ts',
   ],
 };
 

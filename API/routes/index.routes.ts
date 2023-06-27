@@ -8,9 +8,10 @@ import messageRouter from '@routes/message.routes';
 import notificationRouter from '@routes/notification.routes';
 import storeRouter from '@routes/store.routes';
 import couponRouter from '@routes/coupon.routes';
-import adminRouter from '@routes/admins.routes';
+import adminRouter from '@routes/admin.routes';
 import cityRouter from '@routes/city.routes';
-import employeeRouter from '@routes/employees.routes';
+import employeeRouter from '@routes/employee.routes';
+import walletRouter from '@routes/wallet.routes';
 
 import { settings } from '@config/settings';
 import { Request, Response, NextFunction } from 'express';
@@ -32,6 +33,7 @@ api.use('/messages', messageRouter);
 api.use('/notifications', notificationRouter);
 api.use('/coupons', couponRouter);
 api.use('/admins', adminRouter);
+api.use('/wallets', walletRouter);
 
 //API ROUTES
 router.use('/api/v1', api);

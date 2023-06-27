@@ -4,11 +4,11 @@ import { ICategory } from './category.types';
 
 export interface IProduct {
   content: string;
-  user: PopulatedDoc<Document<ObjectId> & IUser>;
-  category: PopulatedDoc<Document<ObjectId> & ICategory>;
+  user: PopulatedDoc<Document<ObjectId>> & IUser;
+  category: PopulatedDoc<Document<ObjectId>> & ICategory;
   price: number;
   photos: string[];
-  likedBy: PopulatedDoc<Document<ObjectId> & IUser>[];
+  likedBy: PopulatedDoc<Document<ObjectId>>[] & IUser[];
   comments: number;
   title: string;
 }
