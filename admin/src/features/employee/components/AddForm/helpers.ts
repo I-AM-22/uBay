@@ -1,6 +1,6 @@
-import { EmployeeActionBody } from "features/employee";
+import { EmployeeAddBody } from "features/employee";
 import { Form } from "./type";
 
-export function formToBody(form: Form): EmployeeActionBody {
+export function formToBody(form: Form): EmployeeAddBody {
   return { ...form, store: form.store?.id ?? "" };
 }

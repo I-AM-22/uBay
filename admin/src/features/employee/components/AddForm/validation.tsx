@@ -1,6 +1,6 @@
 import z from "lib/zod";
 import { emailSchema, passwordSchema } from "utils/validation";
-import { Form } from "./AddForm/type";
+import { Form } from "./type";
 
 export const employeeDefaultForm: Form = {
   address: "",

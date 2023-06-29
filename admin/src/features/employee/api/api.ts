@@ -1,10 +1,10 @@
 import API_ROUTES from "constants/apiRoutes";
 import axios from "lib/axios";
 import { APIList, APIListParams, WithId } from "types/api";
-import { Employee, EmployeeActionBody, EmployeeDetails } from "./type";
+import { Employee, EmployeeAddBody, EmployeeDetails, EmployeeEditBody } from "./type";
 
 const API = {
-  add: async (body: EmployeeActionBody) => {
+  add: async (body: EmployeeAddBody) => {
     const { data } = await axios.post(API_ROUTES.EMPLOYEES.ADD, body);
     return data;
   },
@@ -16,7 +16,7 @@ const API = {
     const { data } = await axios.get<EmployeeDetails>(API_ROUTES.EMPLOYEES.GET(id));
     return data;
   },
-  edit: async ({ id, ...body }: WithId<EmployeeActionBody>) => {
+  edit: async ({ id, ...body }: WithId<EmployeeEditBody>) => {
     const { data } = await axios.patch(API_ROUTES.EMPLOYEES.EDIT(id), body);
     return data;
   },

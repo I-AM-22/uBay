@@ -45,7 +45,7 @@ export const LoginForm = () => {
       <Typography color="primary" variant="h4" textAlign={"center"}>
         {t("login.title")}
       </Typography>
-      <Stack gap={2} width="80%" mx="auto">
+      <Stack gap={2} component={"form"} width="80%" mx="auto">
         <EmailInput control={control} name="email" />
         <PasswordInput control={control} name="password" />
         <Box m="auto" width="fit-content">

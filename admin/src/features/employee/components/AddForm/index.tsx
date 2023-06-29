@@ -30,9 +30,9 @@ import { ChangeEvent, FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { parseResponseError } from "utils/apiHelpers";
-import { employeeAddSchema, employeeDefaultForm } from "../validation";
 import { formToBody } from "./helpers";
 import { Form } from "./type";
+import { employeeAddSchema, employeeDefaultForm } from "./validation";
 export type AddFormProps = {};
 export const AddForm: FC<AddFormProps> = ({}) => {
   const { isActive, clearAddParams } = useAddSearchParams();
@@ -73,7 +73,7 @@ export const AddForm: FC<AddFormProps> = ({}) => {
   return (
     <Dialog open={isActive} onClose={handleClose} fullWidth maxWidth={"lg"}>
       <Fade in={isActive} timeout={0}>
-        <DialogTitle onClose={handleClose} fontSize={30} color="primary">
+        <DialogTitle onClose={handleClose} sx={{ pb: 0 }} fontSize={30} color="primary">
           {t("add")}
         </DialogTitle>
       </Fade>

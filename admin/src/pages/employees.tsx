@@ -4,6 +4,7 @@ import SearchFilter from "components/inputs/SearchFilter";
 import FilterRow from "components/layout/FilterRow";
 import {
   EmployeeAddForm,
+  EmployeeDetails,
   EmployeeEditForm,
   EmployeeRemoveForm,
   EmployeeTable,
@@ -19,6 +20,7 @@ export const EmployeesPage: FC<{}> = ({}) => {
       </FilterRow>
       <EmployeeTable />
       <AddFab />
+      <EmployeeDetails />
       <EmployeeAddForm />
       <EmployeeEditForm />
       <EmployeeRemoveForm />

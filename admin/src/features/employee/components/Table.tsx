@@ -5,6 +5,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import EditIconButton from "components/buttons/EditIconButton";
 import RemoveIconButton from "components/buttons/RemoveIconButton";
+import ShowIconButton from "components/buttons/ShowIconButton";
 import ButtonsStack from "components/layout/ButtonsStack";
 import LTR from "components/layout/LTR";
 import PaginationTable from "components/tables/PaginationTable";
@@ -21,7 +22,7 @@ type Props = {};
 export const Table: FC<Props> = ({}) => {
   const search = useQuerySearchParam();
   const page = usePageNumberSearchParam();
-  const { edit, remove } = useEventSearchParams();
+  const { details, edit, remove } = useEventSearchParams();
   const query = employeeQueries.useAll({
     search,
     page,
@@ -65,7 +66,8 @@ export const Table: FC<Props> = ({}) => {
             </TableCell>
             <TableCell>
               <ButtonsStack>
-                <EditIconButton disabled onClick={() => edit(row.id)} />
+                <ShowIconButton onClick={() => details(row.id)} />
+                <EditIconButton onClick={() => edit(row.id)} />
                 <RemoveIconButton onClick={() => remove(row.id)} />
               </ButtonsStack>
             </TableCell>
