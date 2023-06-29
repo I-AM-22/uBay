@@ -12,14 +12,14 @@ import { FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { parseResponseError } from "utils/apiHelpers";
-import { AdminActionBody, employeeQueries } from "..";
+import { EmployeeActionBody, employeeQueries } from "..";
 import { employeeAddSchema, employeeDefaultForm } from "./validation";
 export type EditFormProps = {};
 export const EditForm: FC<EditFormProps> = ({}) => {
   const { isActive, clearEditParams, id = "" } = useEditSearchParams();
   const { t } = useTranslation("admin");
   const query = employeeQueries.useDetails(id);
-  const { control, reset, handleSubmit, setError } = useForm<AdminActionBody>({
+  const { control, reset, handleSubmit, setError } = useForm<EmployeeActionBody>({
     resolver: zodResolver(employeeAddSchema),
 
     defaultValues: query.data ?? employeeDefaultForm,
@@ -32,7 +32,7 @@ export const EditForm: FC<EditFormProps> = ({}) => {
     clearEditParams();
     reset(employeeDefaultForm);
   };
-  const onSubmit = async (body: AdminActionBody) => {
+  const onSubmit = async (body: EmployeeActionBody) => {
     edit.mutate(
       { id, ...body },
       {

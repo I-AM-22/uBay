@@ -28,7 +28,6 @@ export type EmployeeDetails = {
   id: string;
 };
 
-export type AdminActionBody = { name: string; email: string; password: string };
 export type EmployeeActionBody = {
   name: string;
   photo?: File;

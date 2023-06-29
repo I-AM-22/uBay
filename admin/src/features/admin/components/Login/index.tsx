@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import Submit from "components/buttons/Submit";
 import { useSnackbar } from "context/snackbarContext";
@@ -31,20 +31,28 @@ export const LoginForm = () => {
     });
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack gap={8}>
-        <Typography color="primary" variant="h4" textAlign={"center"}>
-          {t("login.title")}
-        </Typography>
-        <Stack gap={2} width="80%" mx="auto">
-          <EmailInput control={control} name="email" />
-          <PasswordInput control={control} name="password" />
-          <Box m="auto" width="fit-content">
-            <Submit sx={{ px: 5 }} isSubmitting={login.isLoading}>{t`login.submit`}</Submit>
-          </Box>
-        </Stack>
+    <Paper
+      onSubmit={handleSubmit(onSubmit)}
+      elevation={2}
+      component={Stack}
+      gap={5}
+      sx={{
+        pt: "40px",
+        px: "50px",
+        pb: "32px",
+      }}
+    >
+      <Typography color="primary" variant="h4" textAlign={"center"}>
+        {t("login.title")}
+      </Typography>
+      <Stack gap={2} width="80%" mx="auto">
+        <EmailInput control={control} name="email" />
+        <PasswordInput control={control} name="password" />
+        <Box m="auto" width="fit-content">
+          <Submit sx={{ px: 5 }} isSubmitting={login.isLoading}>{t`login.submit`}</Submit>
+        </Box>
       </Stack>
-    </form>
+    </Paper>
   );
 };
 export default LoginForm;
