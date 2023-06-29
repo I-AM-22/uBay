@@ -25,10 +25,6 @@ export const employeeSchema = z.object({
             .nonempty('يجب ان ينتمي الموظف الى  متجر'),
         address: z.string({ required_error: 'العنوان مطلوب' })
             .nonempty('العنوان مطلوب'),
-        phone_number: z.string({ required_error: 'رقم الهاتف مطلوب' })
-            .nonempty('رقم الهاتف مطلوب'),
-        work_time: z.string({ required_error: 'وقت العمل مطلوب' })
-            .nonempty('وقت العمل مطلوب مطلوب'),
     }),
 });
 
@@ -50,42 +46,24 @@ export const loginInput = z.object({
     }),
 });
 
-export const forgotPasswordSchema = z.object({
+export const updateEmployeeSchema = z.object({
     body: z.object({
+        name: z
+            .string({
+            }).nonempty(' اسم الموظف مطلوب')
+            .trim().optional(),
+        password: z
+            .string().nonempty('كلمة السر مطلوب')
+            .min(6, 'كلمة المرور قصيرة جدًا - يجب أن تحتوي على 6 أحرف على الأقل').optional(),
         email: z
             .string({
-                required_error: 'البريد الإلكتروني مطلوب',
-            })
-            .nonempty('البريد الالكتروني مطلوب')
-            .email('البريد الإلكتروني غير صالح'),
+            }).nonempty('البريد الالكتروني مطلوب').email('البريد الإلكتروني غير صالح').trim().optional(),
+        store: z.string()
+            .nonempty('يجب ان ينتمي الموظف الى  متجر').optional(),
+        address: z.string()
+            .nonempty('العنوان مطلوب').optional(),
     }),
 });
 
-export const resetPasswordSchema = z.object({
-    body: z.object({
-        password: z
-            .string({ required_error: 'يرجى تقديم كلمة المرور' })
-            .nonempty('كلمة المرور مطلوبة')
-            .min(6, 'كلمة المرور قصيرة جدًا - يجب أن تحتوي على 6 أحرف على الأقل'),
 
-        token: z
-            .string({
-                required_error: 'يرجى تقديم رمز إعادة التعيين',
-            })
-            .nonempty('يرجى تقديم رمز إعادة التعيين'),
-    }),
-});
 
-export const updatePasswordSchema = z.object({
-    body: z.object({
-        password: z
-            .string({ required_error: 'يرجى تقديم كلمة المرور' })
-            .nonempty('كلمة المرور مطلوبة')
-            .min(6, 'كلمة المرور قصيرة جدًا - يجب أن تحتوي على 6 أحرف على الأقل'),
-        passwordCurrent: z
-            .string({
-                required_error: 'يرجى تقديم كلمة المرور الحالية',
-            })
-            .nonempty('يرجى تقديم كلمة المرور الحالية'),
-    }),
-});

@@ -19,7 +19,7 @@ router
   .get(getAllCities)
   .post(
     passport.authenticate('jwt', { session: false, failWithError: true }),
-    restrictTo('admin'),
+    restrictTo('superadmin', 'admin'),
     validate(citySchema),
     createCity
   );
@@ -29,12 +29,12 @@ router
   .get(getCity)
   .patch(
     passport.authenticate('jwt', { session: false, failWithError: true }),
-    restrictTo('admin'),
+    restrictTo('superadmin', 'admin'),
     updateCity
   )
   .delete(
     passport.authenticate('jwt', { session: false, failWithError: true }),
-    restrictTo('admin'),
+    restrictTo('superadmin', 'admin'),
     deleteCity
   );
 

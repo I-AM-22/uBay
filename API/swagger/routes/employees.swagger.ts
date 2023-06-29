@@ -113,8 +113,6 @@
  *               - password
  *               - store
  *               - address
- *               - phone_number
- *               - work_time
  *             properties:
  *               photo:
  *                 type: string
@@ -128,10 +126,6 @@
  *               store:
  *                 type: string
  *               address:
- *                 type: string
- *               phone_number:
- *                 type: string
- *               work_time:
  *                 type: string
  *           encoding:
  *             photo:
@@ -165,7 +159,7 @@
  *         schema:
  *           type: string
  *     requestBody:
- *       required: true
+ *       required: false
  *       content:
  *         multipart/form-data:
  *           schema:
@@ -174,20 +168,22 @@
  *               photo:
  *                 type: string
  *                 format: binary
+ *                 required: false
  *               name:
  *                 type: string
+ *                 required: false
  *               email:
  *                 type: string
+ *                 required: false
  *               password:
  *                 type: string
+ *                 required: false
  *               store:
  *                 type: string
+ *                 required: false
  *               address:
  *                 type: string
- *               phone_number:
- *                 type: string
- *               work_time:
- *                 type: string
+ *                 required: false
  *           encoding:
  *             photo:
  *               contentType: image/jpeg
@@ -205,6 +201,8 @@
  *       '404':
  *         $ref: '#/components/responses/404'
  */
+
+
 
 
 /**
@@ -250,13 +248,9 @@ export const employeeSchema = {
             type: 'string',
             description: 'The address of the employee',
         },
-        city: {
+        store: {
             type: 'string',
-            description: 'The ID of the city to which the employee belongs',
-        },
-        work_time: {
-            type: 'string',
-            description: 'time shift for employee',
+            description: 'The ID of the store to which the employee belongs',
         },
     },
     example: {
@@ -265,8 +259,6 @@ export const employeeSchema = {
         password: 'test1234',
         store: 'storeID',
         address: 'store address',
-        phone_number: '094005673',
-        work_time: 'work time',
     },
-    required: ['name', 'email', 'password', 'store', 'address', 'phone_number', 'work_time'],
+    // required: ['name', 'email', 'password', 'store', 'address'],
 };

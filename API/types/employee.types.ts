@@ -7,8 +7,6 @@ export interface IEmployee {
     email: string;
     store: PopulatedDoc<Document<ObjectId> & IStore>;
     address: string;
-    phone_number: string;
-    work_time: string;
     password: string;
 }
 export interface EmployeeDoc extends IEmployee, Document {
@@ -22,7 +20,6 @@ export interface EmployeeDoc extends IEmployee, Document {
     correctPassword(password: string): boolean;
     isPasswordChanged(JWTTimestamp: number | undefined): boolean;
     createPasswordResetToken(): string;
-    signToken(id: any): string;
 }
 export type EmployeeModel = Model<EmployeeDoc, object, any>;
 

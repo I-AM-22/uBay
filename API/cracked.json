@@ -1,0 +1,10 @@
+[
+  {
+    "type": "WPA",
+    "date": 1688060163,
+    "essid": "M\u00f8hammed",
+    "bssid": "84:2E:27:38:91:70",
+    "key": "12345678",
+    "handshake_file": "hs/handshake_Mhammed_84-2E-27-38-91-70_2023-06-29T20-36-00.cap"
+  }
+]

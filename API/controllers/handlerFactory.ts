@@ -150,3 +150,4 @@ export const getAll = (Model: any, path?: string): RequestHandler =>
 
     res.status(STATUS_CODE.SUCCESS).json(result);
   });
+

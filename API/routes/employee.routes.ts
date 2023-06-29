@@ -1,4 +1,4 @@
-import { employeeSchema, loginInput } from '../schema/employee.schema';
+import { employeeSchema, loginInput, updateEmployeeSchema } from '../schema/employee.schema';
 import { Router } from 'express';
 import {
   createEmployee,
@@ -14,7 +14,7 @@ import passport from 'passport';
 import validate from '@middlewares/validateResource';
 
 const router = Router();
-router.route('/login').post(
+router.post(('/login'),
   validate(loginInput),
   loginEmployee
 );
@@ -38,6 +38,7 @@ router
     restrictTo('superadmin', 'admin'),
     uploadUserPhoto,
     resizeUserImage,
+    validate(updateEmployeeSchema),
     updateEmployee
   )
   .delete(

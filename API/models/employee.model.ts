@@ -5,9 +5,9 @@ import bcryptjs from 'bcryptjs';
 
 const employeeSchema = new Schema<EmployeeDoc, EmployeeModel, any>(
     {
-        name: { 
+        name: {
             type: String, required: true
-         },
+        },
         email: {
             type: String,
             required: true,
@@ -15,8 +15,8 @@ const employeeSchema = new Schema<EmployeeDoc, EmployeeModel, any>(
             lowercase: true,
         },
         photo: {
-             type: String, default: 'https://i.imgur.com/7rlze8l.jpg' 
-            },
+            type: String, default: 'https://i.imgur.com/7rlze8l.jpg'
+        },
         password: {
             type: String,
             required: true,
@@ -31,14 +31,6 @@ const employeeSchema = new Schema<EmployeeDoc, EmployeeModel, any>(
             type: String,
             required: true,
         },
-        phone_number: {
-            type: String,
-            required: true,
-        },
-        work_time: {
-            type: String,
-            required: true,
-        },
         active: {
             type: Boolean,
             default: true,
@@ -48,7 +40,7 @@ const employeeSchema = new Schema<EmployeeDoc, EmployeeModel, any>(
             type: Boolean,
             default: true,
             select: false,
-          },
+        },
         passwordChangedAt: Date,
         passwordResetToken: String,
         passwordResetExpires: Date,
@@ -71,6 +63,7 @@ employeeSchema.pre('save', async function (next) {
     this.password = await bcryptjs.hash(this.password, 12);
     next();
 });
+
 employeeSchema.pre('save', function (next) {
     //if the password not changed or newUser made end the process
     if (!this.isModified('password') || this.isNew) return next();
@@ -87,19 +80,25 @@ employeeSchema.methods.correctPassword = async function (
 };
 
 employeeSchema.pre<Query<IEmployee, IEmployee>>(/^find/, function (next) {
+    this.populate({
+        path: 'store',
+        select: 'name address'
+    });
+    next();
+});
+employeeSchema.pre<Query<IEmployee, IEmployee>>(/^find/, function (next) {
     const query: any = {};
-  
     // Check if the query has an "includeInactive" parameter
     if (this.getQuery().includeInActive !== undefined) {
-      // If "includeInactive" parameter is present, bypass the "active" filtering
-      this.find({});
+        // If "includeInactive" parameter is present, bypass the "active" filtering
+        this.find({});
     } else {
-      // If "includeInactive" parameter is not present, apply the "active" filter
-      query.active = { $ne: false };
-      this.find(query);
+        // If "includeInactive" parameter is not present, apply the "active" filter
+        query.active = { $ne: false };
+        this.find(query);
     }
     next();
-  });
+});
 const Employee = model<EmployeeDoc>('Employee', employeeSchema);
 
 export default Employee;
