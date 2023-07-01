@@ -10,9 +10,7 @@ export function detailsToForm(details: EmployeeDetails): Form {
     email: details.email,
     name: details.name,
     password: undefined,
-    phone_number: details.phone_number,
-    store: null,
-    work_time: details.work_time,
+    store: details.store,
     photo: undefined,
   };
 }

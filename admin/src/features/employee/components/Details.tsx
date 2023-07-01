@@ -45,11 +45,9 @@ export const Details: FC<{}> = ({}) => {
               <Grid item container spacing={2} xs={8}>
                 <DividedStack width={1} {...dividedStackProps}>
                   <LabelValue label={t("name")}>{data?.name}</LabelValue>
-                  <LabelValue label={t("store")}> {data?.store}</LabelValue>
-                  <LabelValue label={t("phone_number")}> {data?.phone_number}</LabelValue>
+                  <LabelValue label={t("store")}> {data?.store.name}</LabelValue>
                   <LabelValue label={t("email")}> {data?.email}</LabelValue>
                   <LabelValue label={t("address")}> {data?.address}</LabelValue>
-                  <LabelValue label={t("work_time")}> {data?.work_time}</LabelValue>
                   <LabelValue label={t("createdAt")} sx={{ flexBasis: { xs: "100%" } }}>
                     <LTR>{data && dayjs(data.createdAt).format("YYYY/MM/DD hh:mm A")}</LTR>
                   </LabelValue>

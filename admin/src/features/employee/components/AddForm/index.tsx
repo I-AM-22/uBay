@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import BusinessIcon from "@mui/icons-material/Business";
 import CloseIcon from "@mui/icons-material/Close";
@@ -22,7 +21,7 @@ import DialogTitle from "components/forms/DialogTitle";
 import TextField from "components/inputs/TextField";
 import { useSnackbar } from "context/snackbarContext";
 import { employeeQueries } from "features/employee";
-import { EmailInput, PasswordInput, PhoneInput, queryStore } from "features/shared";
+import { EmailInput, PasswordInput, queryStore } from "features/shared";
 import { WarehouseAutocomplete } from "features/warehouse";
 import useAddSearchParams from "hooks/useAddSearchParams";
 import useSuccessSnackbar from "hooks/useSuccessSnackbar";
@@ -71,17 +70,17 @@ export const AddForm: FC<AddFormProps> = ({}) => {
     });
   };
   return (
-    <Dialog open={isActive} onClose={handleClose} fullWidth maxWidth={"lg"}>
+    <Dialog open={isActive} onClose={handleClose} fullWidth maxWidth={"sm"}>
       <Fade in={isActive} timeout={0}>
-        <DialogTitle onClose={handleClose} sx={{ pb: 0 }} fontSize={30} color="primary">
+        <DialogTitle onClose={handleClose} fontSize={30} color="primary">
           {t("add")}
         </DialogTitle>
       </Fade>
       <DialogContent>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={3} my={1} justifyContent={"center"} alignItems={"start"}>
-            <Grid item container spacing={1} xs={8}>
-              <Grid item xs={12} md={6}>
+          <Grid container spacing={3} justifyContent={"center"} alignItems={"start"}>
+            <Grid item container spacing={1} xs={7}>
+              <Grid item xs={12}>
                 <TextField
                   control={control}
                   name="name"
@@ -96,19 +95,16 @@ export const AddForm: FC<AddFormProps> = ({}) => {
                 />
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12}>
                 <WarehouseAutocomplete control={control} name="store" label={t(`form.store`)} />
               </Grid>
-              <Grid item xs={12} md={6}>
-                <PhoneInput control={control} name="phone_number" />
-              </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12}>
                 <EmailInput control={control} name="email" />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12}>
                 <PasswordInput control={control} name="password" />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12}>
                 <TextField
                   control={control}
                   InputProps={{
@@ -122,22 +118,8 @@ export const AddForm: FC<AddFormProps> = ({}) => {
                   label={t(`form.address`)}
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  control={control}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <AccessTimeFilledIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                  name="work_time"
-                  label={t(`form.work_time`)}
-                />
-              </Grid>
             </Grid>
-            <Grid item xs={12} md={4} sx={{ order: { xs: -1, md: 0 } }}>
+            <Grid item xs={12} md={5} sx={{ order: { xs: -1, md: 0 } }}>
               <Stack
                 sx={{
                   position: "relative",
