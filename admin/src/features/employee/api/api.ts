@@ -1,11 +1,12 @@
 import API_ROUTES from "constants/apiRoutes";
 import axios from "lib/axios";
 import { APIList, APIListParams, WithId } from "types/api";
+import { objectToFormData } from "utils/transforms";
 import { Employee, EmployeeAddBody, EmployeeDetails, EmployeeEditBody } from "./type";
 
 const API = {
   add: async (body: EmployeeAddBody) => {
-    const { data } = await axios.post(API_ROUTES.EMPLOYEES.ADD, body);
+    const { data } = await axios.post(API_ROUTES.EMPLOYEES.ADD, objectToFormData(body));
     return data;
   },
   getAll: async (params: APIListParams) => {
@@ -17,7 +18,7 @@ const API = {
     return data;
   },
   edit: async ({ id, ...body }: WithId<EmployeeEditBody>) => {
-    const { data } = await axios.patch(API_ROUTES.EMPLOYEES.EDIT(id), body);
+    const { data } = await axios.patch(API_ROUTES.EMPLOYEES.EDIT(id), objectToFormData(body));
     return data;
   },
   remove: async (id: string) => {

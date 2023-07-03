@@ -80,7 +80,7 @@ export const AddForm: FC<AddFormProps> = ({}) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={3} justifyContent={"center"} alignItems={"start"}>
             <Grid item container spacing={1} xs={7}>
-              <Grid item xs={12}>
+              <Grid item xs={12} mt={1}>
                 <TextField
                   control={control}
                   name="name"
