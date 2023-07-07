@@ -56,5 +56,6 @@ paymentSchema.pre<Query<IPayment, IPayment>>(/^find/, function (next) {
     })
     next();
 });
+
 const Payment = model<PaymentDoc, PaymentModel>('Payment', paymentSchema);
 export default Payment;

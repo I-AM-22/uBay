@@ -75,7 +75,7 @@ productSchema.pre<Query<IProduct, IProduct>>(/^find/, function (next) {
   this.populate({ path: 'category' })
     .populate({
       path: 'user',
-      select: { name: 1, photo: 1, wallet: 0 },
+      select: { name: 1, photo: 1, wallet: 1 },
     })
     .populate({ path: 'likedBy', select: { name: 1, photo: 1, wallet: 0 } });
   next();

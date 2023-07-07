@@ -1,4 +1,5 @@
 {
+  
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
@@ -41,9 +42,7 @@
       "@modules/*": ["./modules/*"],
       "@controllers/*": ["./controllers/*"],
       "@utils/*": ["./utils/*"],
-      "@routes/*": ["./routes/*"],
-      "@swagger/*": ["./swagger/*"],
-      "@types/*": ["./types/*"],
+      "@routes/*": ["./routes/*"]
     } /* Specify a set of entries that re-map imports to additional lookup locations. */,
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     "typeRoots": [

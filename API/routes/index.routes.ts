@@ -14,6 +14,7 @@ import employeeRouter from '@routes/employee.routes';
 import walletRouter from '@routes/wallet.routes';
 import paymentRouter from '@routes/payment.routes'
 import reservationRouter from '@routes/reservation.routes'
+import deliveryRouter from '@routes/delivery.routes'
 
 import { settings } from '@config/settings';
 import { Request, Response, NextFunction } from 'express';
@@ -38,6 +39,7 @@ api.use('/admins', adminRouter);
 api.use('/wallets', walletRouter);
 api.use('/payments', paymentRouter);
 api.use('/reservations', reservationRouter);
+api.use('/deliveries', deliveryRouter);
 
 //API ROUTES
 router.use('/api/v1', api);
