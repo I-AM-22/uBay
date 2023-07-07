@@ -12,6 +12,8 @@ import adminRouter from '@routes/admin.routes';
 import cityRouter from '@routes/city.routes';
 import employeeRouter from '@routes/employee.routes';
 import walletRouter from '@routes/wallet.routes';
+import paymentRouter from '@routes/payment.routes'
+import reservationRouter from '@routes/reservation.routes'
 
 import { settings } from '@config/settings';
 import { Request, Response, NextFunction } from 'express';
@@ -34,6 +36,8 @@ api.use('/notifications', notificationRouter);
 api.use('/coupons', couponRouter);
 api.use('/admins', adminRouter);
 api.use('/wallets', walletRouter);
+api.use('/payments', paymentRouter);
+api.use('/reservations', reservationRouter);
 
 //API ROUTES
 router.use('/api/v1', api);

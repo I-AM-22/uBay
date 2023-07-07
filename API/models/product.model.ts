@@ -24,6 +24,10 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
       required: true,
       min: [1, 'يجب ان يكون السعر بقيمة موجبة'],
     },
+    is_paid: {
+      type: Boolean,
+      default: false
+    },
     category: {
       type: Types.ObjectId,
       required: true,

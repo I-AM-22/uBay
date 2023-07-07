@@ -7,6 +7,7 @@ import { citySchema } from './routes/cities.swagger';
 import { storeSchema } from './routes/stores.swagger';
 import { employeeSchema } from './routes/employees.swagger';
 import { couponSchema } from './routes/coupon.swagger';
+import { paymentSchema } from './routes/payment.swagger';
 const options: Options = {
   url: '',
   definition: {
@@ -34,6 +35,7 @@ const options: Options = {
         storeSchema,
         employeeSchema,
         couponSchema,
+        paymentSchema
       },
       securitySchemes: {
         Bearer: {
@@ -83,6 +85,7 @@ const options: Options = {
     './swagger/routes/employees.swagger.ts',
     './swagger/routes/coupon.swagger.ts',
     './swagger/routes/wallet.swagger.ts',
+    './swagger/routes/payment.swagger.ts',
   ],
 };
 

@@ -10,7 +10,7 @@
  * /wallets/chargeMyWallet:
  *   post:
  *     summary: Charge wallet
- *     tags: [Wallet]
+ *     tags: [Wallets]
  *     security:
  *       - Bearer: []
  *     requestBody:
