@@ -17,6 +17,7 @@ export type Post = {
   price: number;
   category: Category;
   _id: string;
+  is_paid: boolean;
   createdAt: string;
   updatedAt: string;
   id: string;

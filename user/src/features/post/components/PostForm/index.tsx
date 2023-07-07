@@ -36,7 +36,6 @@ export const PostActionForm: FC<PostFormProps> = ({}) => {
   const snackbar = useSnackbar();
   const { t } = useTranslation("post", { keyPrefix: "form" });
   const onSubmit = async (form: PostForm) => {
-    console.log(typeof form.price);
     post.mutate(fromFormToBody(form), {
       onSuccess: (post) => {
         queryClient.setQueryData(queryStore.post.detail(post.id).queryKey, post);

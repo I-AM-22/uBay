@@ -27,6 +27,11 @@ let API_ROUTES = {
     EDIT: (id: string) => id,
     DELETE: (id: string) => id,
   },
+  PAYMENTS: {
+    root: "payments",
+    POST: "",
+    GET: (id: string) => id,
+  },
   CATEGORIES: {
     root: "categories",
     GET_ALL: "",

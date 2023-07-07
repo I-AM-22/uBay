@@ -12,21 +12,26 @@ type Feedbacks = {
   setFormError?: UseFormSetError<any>;
   snackbar?: ReturnType<typeof useSnackbar>;
 };
-export function parseResponseError(feedbacks?: Feedbacks) {
+export function parseResponseError(feedbacks: Feedbacks) {
   return (err: unknown) => {
     if (!isBackendError(err)) throw new Error("Unknown Response Error");
     const data = err.response?.data;
     switch (data?.type) {
       case "default":
-        feedbacks?.snackbar?.({
+        if (!feedbacks.snackbar)
+          throw new Error('Backend error is "default" but didn\'t provide a snackbar');
+        feedbacks.snackbar({
           message: data.message ?? i18n.t("error.somethingWentWrong"),
           severity: "error",
         });
         break;
       case "form":
+        if (!feedbacks.setFormError)
+          throw new Error('Backend error is "form" but didn\'t provide a setFormError');
         data.errors.forEach((error) =>
-          feedbacks?.setFormError?.(`${error.path.join(".")}`, { message: error.message })
+          feedbacks.setFormError?.(`${error.path.join(".")}`, { message: error.message })
         );
+
         break;
       default:
         feedbacks?.snackbar?.({
