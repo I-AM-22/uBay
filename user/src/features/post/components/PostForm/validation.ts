@@ -3,12 +3,14 @@ import z from "lib/zod";
 import { PostForm } from "./type";
 
 export const postFormDefault: PostForm = {
+  title: "",
   category: null,
   content: "",
   photos: [],
   price: 0,
 };
 const postSchema: z.ZodType<PostForm> = z.object({
+  title: z.string().nonempty(),
   content: z.string().nonempty(),
   photos: z.array(z.any()).min(1),
   price: z.coerce.number().positive(),

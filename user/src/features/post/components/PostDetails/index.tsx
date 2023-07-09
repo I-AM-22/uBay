@@ -98,11 +98,17 @@ export const PostDetails: FC<PostCardProps> = ({ post, skeleton }) => {
             />
 
             <CardContent sx={{ pt: 0 }}>
-              {post && <Typography variant="body1">{post.content}</Typography>}
+              {post && (
+                <>
+                  <Typography variant="h6">{post.title}</Typography>
+                  <Typography variant="body1">{post.content}</Typography>
+                </>
+              )}
               {skeleton && (
                 <Stack>
                   <Skeleton widthRange={{ min: 100, max: 170 }} />
-                  <Skeleton widthRange={{ min: 100, max: 170 }} />
+                  <Skeleton widthRange={{ min: 100, max: 150 }} />
+                  <Skeleton widthRange={{ min: 100, max: 150 }} />
                 </Stack>
               )}
             </CardContent>

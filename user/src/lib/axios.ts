@@ -11,9 +11,14 @@ axios.interceptors.request.use(
     return config;
   },
   (error) => {
+    console.log("test");
+
     Promise.reject(error);
   }
 );
+axios.interceptors.response.use((res) => {
+  return res;
+});
 export function refreshAxiosToken() {
   token = localStorage.getItem("token");
 }
