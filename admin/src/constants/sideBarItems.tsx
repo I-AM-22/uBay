@@ -14,7 +14,7 @@ export type SideBarItem = { href: string; icon: ReactNode; children?: SideBarIte
 export const sideBarItems: SideBarItem[][] = [
   [
     {
-      href: "",
+      href: "home",
       icon: <AppsIcon />,
     },
     {

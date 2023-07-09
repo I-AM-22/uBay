@@ -19,6 +19,7 @@ export type AddFormProps = {};
 export const AddForm: FC<AddFormProps> = ({}) => {
   const { isActive, clearAddParams } = useAddSearchParams();
   const { t } = useTranslation("admin");
+
   const { control, reset, handleSubmit, setError } = useForm<AdminActionBody>({
     resolver: zodResolver(adminAddSchema),
     defaultValues: adminDefaultForm,

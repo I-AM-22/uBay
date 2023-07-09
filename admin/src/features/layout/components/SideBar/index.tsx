@@ -1,4 +1,4 @@
-import { Toolbar, useMediaQuery, useTheme } from "@mui/material";
+import { Toolbar, Tooltip, useMediaQuery, useTheme } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import MuiDrawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -21,7 +21,8 @@ const Sidebar: FC<Props> = ({ open, setOpen }) => {
         <Fragment key={index}>
           <Divider />
           <List disablePadding>
-            {section.map((sideBarItem) => (
+            {section.map((sideBarItem) =>{
+              return(
               <SideBarListItem
                 onClick={() => small && setOpen(false)}
                 activeItem={activeItem}
@@ -30,8 +31,8 @@ const Sidebar: FC<Props> = ({ open, setOpen }) => {
                 sideBarIsOpen={open}
                 key={sideBarItem.href}
                 level={0}
-              />
-            ))}
+                />
+            )})}
           </List>
         </Fragment>
       ))}
