@@ -1,3 +1,4 @@
+import { Warehouse } from "features/warehouse";
 import { APIListParams } from "types/api";
 
 export type EmployeeAllParams = APIListParams;
@@ -7,10 +8,8 @@ export type Employee = {
   name: string;
   email: string;
   photo: string;
-  store: string;
+  store: Warehouse;
   address: string;
-  phone_number: string;
-  work_time: string;
   createdAt: string;
   updatedAt: string;
   role: string;
@@ -22,10 +21,8 @@ export type EmployeeDetails = {
   name: string;
   email: string;
   photo: string;
-  store: string;
+  store: Warehouse;
   address: string;
-  phone_number: string;
-  work_time: string;
   createdAt: string;
   updatedAt: string;
   role: string;
@@ -39,8 +36,6 @@ export type EmployeeAddBody = {
   password: string;
   store: string;
   address: string;
-  phone_number: string;
-  work_time: string;
 };
 
 export type EmployeeEditBody = {
@@ -48,8 +43,6 @@ export type EmployeeEditBody = {
   email: string;
   store: string;
   address: string;
-  phone_number: string;
-  work_time: string;
   password?: string;
   photo?: File;
 };

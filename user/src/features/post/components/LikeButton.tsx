@@ -41,7 +41,11 @@ export const LikeButton: FC<LikeButtonProps> = ({ isLiked, postId }) => {
     );
     queryClient.setQueryData(queryStore.post.detail(postId).queryKey, (post: Post | undefined) => {
       if (!post) return;
-      return { ...post, likedByMe: newLikeState };
+      return {
+        ...post,
+        likedByMe: newLikeState,
+        likes: newLikeState ? post.likes + 1 : post.likes - 1,
+      };
     });
     (isLiked ? unlike : like).mutate(postId, {
       onSettled: () => {

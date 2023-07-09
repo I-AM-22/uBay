@@ -2,6 +2,8 @@ import { EmployeeDetails, EmployeeEditBody } from "features/employee";
 import { Form } from "./type";
 
 export function formToBody(form: Form): EmployeeEditBody {
+  console.log(form);
+
   return { ...form, store: form.store?.id ?? "", password: form.password ?? undefined };
 }
 export function detailsToForm(details: EmployeeDetails): Form {
@@ -10,9 +12,7 @@ export function detailsToForm(details: EmployeeDetails): Form {
     email: details.email,
     name: details.name,
     password: undefined,
-    phone_number: details.phone_number,
-    store: null,
-    work_time: details.work_time,
+    store: details.store,
     photo: undefined,
   };
 }

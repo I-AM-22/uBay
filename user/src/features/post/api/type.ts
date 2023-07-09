@@ -3,6 +3,7 @@ import { Category } from "features/category";
 import { APIListParams } from "types/api";
 
 export type PostBody = {
+  title: string;
   content: string;
   photos: File[];
   price: number;
@@ -10,6 +11,7 @@ export type PostBody = {
 };
 export type PostAllParams = APIListParams;
 export type Post = {
+  title: string;
   content: string;
   user: User;
   likes: number;
@@ -17,6 +19,7 @@ export type Post = {
   price: number;
   category: Category;
   _id: string;
+  is_paid: boolean;
   createdAt: string;
   updatedAt: string;
   id: string;

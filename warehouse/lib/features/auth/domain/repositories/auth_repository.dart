@@ -1,12 +1,7 @@
 import 'package:dartz/dartz.dart';
+import 'package:warehouse/features/auth/data/model/employee_login/employee_login_model.dart';
 import '../../../../core/errors/failures.dart';
-import '../../data/model/user_login/user_login_model.dart';
 
 abstract class AuthRepository {
-  Future<Either<Failure, UserLogin>> login(String email, String password);
-  Future<Either<Failure, UserLogin>> signup(
-      String userName, String email, String password, String passwordConfirm);
-  Future<Either<Failure, String>> forgotPassword(String email);
-  Future<Either<Failure, UserLogin>> resetPassword(
-      String token, String password);
+  Future<Either<Failure, EmployeeLoginModel>> login(String email, String password);
 }

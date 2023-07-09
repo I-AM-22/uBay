@@ -4,10 +4,8 @@ import { Form } from "./type";
 
 export const employeeDefaultForm: Form = {
   address: "",
-  phone_number: "",
   name: "",
   store: null,
-  work_time: "",
   email: "",
   password: "",
 };
@@ -18,6 +16,5 @@ export const employeeAddSchema: z.ZodType<Form> = z.object({
   password: passwordSchema,
   address: z.string().nonempty(),
   store: z.object({ id: z.string(), name: z.string() }),
-  work_time: z.string().nonempty(),
-  phone_number: z.string().nonempty(),
+  photo: z.instanceof(File).optional(),
 });

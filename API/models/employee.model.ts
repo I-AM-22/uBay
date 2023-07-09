@@ -99,6 +99,13 @@ employeeSchema.pre<Query<IEmployee, IEmployee>>(/^find/, function (next) {
     }
     next();
 });
+employeeSchema.methods.isPasswordChanged = function (JWTTimestamp: number) {
+    if (this.passwordChangedAt) {
+      const changeTimestamp: number = this.passwordChangedAt.getTime() / 1000;
+      return changeTimestamp > JWTTimestamp;
+    }
+    return false;
+  };
 const Employee = model<EmployeeDoc>('Employee', employeeSchema);
 
 export default Employee;

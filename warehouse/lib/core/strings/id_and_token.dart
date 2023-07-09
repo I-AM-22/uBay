@@ -1,2 +1,5 @@
-import 'package:warehouse/features/auth/data/model/user_login/user_login_model.dart';
-UserLogin? userDetails;
+
+import '../../features/auth/data/model/employee_login/employee_login_model.dart';
+
+EmployeeLoginModel? employeeDetails;
+String? token;

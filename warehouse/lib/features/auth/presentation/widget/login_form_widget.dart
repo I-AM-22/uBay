@@ -132,54 +132,7 @@ class LoginFormWidget extends StatelessWidget {
                           )
                         ],
                       )),
-                  Row(
-                    textDirection: TextDirection.rtl,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'ليس لديك حساب؟',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'Mont',
-                            color: primaryColor5),
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/SignupScreen');
-                          },
-                          child: Text(
-                            'انشاء حساب',
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontSize: 13,
-                                color: primaryColor5,
-                                fontFamily: 'Mont'),
-                          ))
-                    ],
-                  ),
-                  const Divider(),
-                  Row(
-                    textDirection: TextDirection.rtl,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'نسيت كلمة المرور؟',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      TextButton(
-                        child: Text(
-                          'إعادة تعيين كلمة المرور',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(color: primaryColor),
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/ForgetPasswordPage');
-                        },
-                      ),
-                    ],
-                  )
+
                 ],
               ),
             ),

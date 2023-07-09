@@ -4,26 +4,21 @@ import 'package:warehouse/core/dio_helper.dart';
 import 'package:warehouse/core/errors/exceptions.dart';
 import 'package:warehouse/core/strings/end_points.dart';
 import 'package:warehouse/core/strings/failure.dart';
-import 'package:warehouse/features/auth/data/model/user_login/user_login_model.dart';
+import 'package:warehouse/features/auth/data/model/employee_login/employee_login_model.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<UserLogin> login(String email, String password);
-
-  Future<UserLogin> signup(
-      String userName, String email, String password, String passwordConfirm);
-  Future<String> forgotPassword(String email);
-  Future<UserLogin> resetPassword(String token, String password);
+  Future<EmployeeLoginModel> login(String email, String password);
 }
 
 @Injectable(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
-  UserLogin? userModel;
+  EmployeeLoginModel? employeeLoginModel;
   @override
-  Future<UserLogin> login(String email, String password) async {
+  Future<EmployeeLoginModel> login(String email, String password) async {
     await DioHelper.postData(
         url: LOGIN, data: {'email': email, 'password': password}).then((value) {
-      userModel = UserLogin.fromJson(value.data);
-      return Future.value(userModel);
+      employeeLoginModel = EmployeeLoginModel.fromJson(value.data);
+      return Future.value(employeeLoginModel);
     }).catchError((error) {
 
       DioError errorBody = error;
@@ -32,64 +27,7 @@ class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
       }
       throw ServerException();
     });
-    return Future.value(userModel);
-  }
-
-  @override
-  Future<UserLogin> signup(String userName, String email, String password,
-      String passwordConfirm) async {
-    UserLogin? userLogin;
-    await DioHelper.postData(url: SIGN_UP, data: {
-      'name': userName,
-      'email': email,
-      'password': password,
-      'passwordConfirm': passwordConfirm
-    }).then((value) {
-      userLogin = UserLogin.fromJson(value.data);
-      return Future.value(userLogin);
-    }).catchError((error) {
-      DioError dioError = error;
-      if (error.response != null) {
-        SERVER_FAILURE = _mapResponseError(dioError.response!);
-      }
-      throw ServerException();
-    });
-    return Future.value(userLogin);
-  }
-
-  @override
-  Future<String> forgotPassword(String email) async {
-    String? token;
-    await DioHelper.postData(url: FORGET_PASSWORD, data: {'email': email})
-        .then((value) {
-      token = value.data['message'];
-      return Future.value(token);
-    }).catchError((error) {
-      DioError dioError = error;
-      if (error.response != null) {
-        SERVER_FAILURE = _mapResponseError(dioError.response!);
-      }
-      throw ServerException();
-    });
-    return Future.value(token);
-  }
-
-  @override
-  Future<UserLogin> resetPassword(String token, String password) async {
-    UserLogin? userLogin;
-    await DioHelper.patchData(
-        url: RESET_PASSWORD,
-        data: {'token': token, 'password': password}).then((value) {
-      userLogin = UserLogin.fromJson(value.data);
-      return Future.value(userLogin);
-    }).catchError((error) {
-      DioError dioError = error;
-      if (error.response != null) {
-        SERVER_FAILURE = _mapResponseError(dioError.response!);
-      }
-      throw ServerException();
-    });
-    return Future.value(userLogin);
+    return Future.value(employeeLoginModel);
   }
 }
 

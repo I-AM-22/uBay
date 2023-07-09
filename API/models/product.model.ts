@@ -24,6 +24,10 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
       required: true,
       min: [1, 'يجب ان يكون السعر بقيمة موجبة'],
     },
+    is_paid: {
+      type: Boolean,
+      default: false
+    },
     category: {
       type: Types.ObjectId,
       required: true,
@@ -71,7 +75,7 @@ productSchema.pre<Query<IProduct, IProduct>>(/^find/, function (next) {
   this.populate({ path: 'category' })
     .populate({
       path: 'user',
-      select: { name: 1, photo: 1, wallet: 0 },
+      select: { name: 1, photo: 1, wallet: 1 },
     })
     .populate({ path: 'likedBy', select: { name: 1, photo: 1, wallet: 0 } });
   next();

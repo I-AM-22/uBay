@@ -36,7 +36,6 @@ export const PostActionForm: FC<PostFormProps> = ({}) => {
   const snackbar = useSnackbar();
   const { t } = useTranslation("post", { keyPrefix: "form" });
   const onSubmit = async (form: PostForm) => {
-    console.log(typeof form.price);
     post.mutate(fromFormToBody(form), {
       onSuccess: (post) => {
         queryClient.setQueryData(queryStore.post.detail(post.id).queryKey, post);
@@ -59,7 +58,7 @@ export const PostActionForm: FC<PostFormProps> = ({}) => {
           <Stack gap={3}>
             <Stack gap={1}>
               <Typography color="primary.800" variant="h4" textAlign={"center"}>
-                {t("title")}
+                {t("formTitle")}
               </Typography>
             </Stack>
             <Stack
@@ -70,6 +69,7 @@ export const PostActionForm: FC<PostFormProps> = ({}) => {
                 mx: "auto",
               }}
             >
+              <TextField name="title" control={control} label={t("title")} />
               <TextField
                 name="content"
                 control={control}

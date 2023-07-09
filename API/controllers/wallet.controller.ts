@@ -7,11 +7,10 @@ import { STATUS_CODE } from './../types/helper.types';
 export const chargeMyWallet = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { amount } = req.body; // Assuming the request body contains the user ID and the amount to charge
-
     // Find the wallet associated with the user
     const wallet = await Wallet.findByIdAndUpdate(req.user?.wallet.id, {
       $inc: { total: amount },
-    });
+    }, { new: true });
 
     if (!wallet) {
       return next(new AppError(404, [], 'Wallet not found'));

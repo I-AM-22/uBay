@@ -6,6 +6,7 @@ import User from '@models/user.model';
 import catchAsync from '@utils/catchAsync';
 import AppError from '@utils/appError';
 import { STATUS_CODE } from '../types/helper.types';
+import Employee from '@models/employee.model';
 
 // const cookieExtractor = (req: Request) => {
 //   let token;
@@ -23,7 +24,7 @@ export default new JWTStrategy(
     algorithms: ['RS256'],
   },
   catchAsync(async function (payload: JwtPayload, done: any) {
-    const user = await User.findById(payload.id);
+    let user= await User.findById(payload.id) || await Employee.findById(payload.id);
     if (!user) {
       return done(
         new AppError(

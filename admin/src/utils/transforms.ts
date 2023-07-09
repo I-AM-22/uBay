@@ -1,3 +1,12 @@
+export const objectToFormData = (object: { [k: string]: any }) => {
+  const formData = new FormData();
+  for (const key in object) {
+    Array.isArray(object[key])
+      ? object[key].forEach((value: string | Blob) => formData.append(key, value))
+      : formData.append(key, object[key]);
+  }
+  return formData;
+};
 export const enumToStringArray = (_enum: any) => {
   return Object.values(_enum) as string[];
 };

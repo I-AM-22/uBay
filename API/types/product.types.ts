@@ -11,6 +11,7 @@ export interface IProduct {
   likedBy: PopulatedDoc<Document<ObjectId>>[] & IUser[];
   comments: number;
   title: string;
+  is_paid: boolean;
 }
 
 export type ProductDoc = IProduct & Document;

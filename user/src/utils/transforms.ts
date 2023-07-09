@@ -1,3 +1,5 @@
+import i18n from "lib/i18next";
+
 export const enumToStringArray = (_enum: any) => {
   return Object.values(_enum) as string[];
 };
@@ -18,6 +20,11 @@ const intlWithTime = new Intl.DateTimeFormat("ar", {
 });
 export const DateFormatter = (date: string | Date | undefined, { withTime = false } = {}) =>
   (withTime ? intlWithTime : intl).format(new Date(Date.parse((date ?? new Date()).toString())));
+
+export const priceFormatter = new Intl.NumberFormat(i18n.language, {
+  style: "currency",
+  currency: "SYP",
+});
 
 export const objectToFormData = (object: { [k: string]: any }) => {
   const formData = new FormData();

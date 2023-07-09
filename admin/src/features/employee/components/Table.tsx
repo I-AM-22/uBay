@@ -59,8 +59,8 @@ export const Table: FC<Props> = ({}) => {
                 </Box>
               </Stack>
             </TableCell>
-            <TableCell>{row.store}</TableCell>
-            <TableCell>{row.phone_number}</TableCell>
+            <TableCell>{row.store.name}</TableCell>
+            <TableCell>{row.email}</TableCell>
             <TableCell>
               <LTR>{dayjs(row.createdAt).format("YYYY/MM/DD hh:mm A")}</LTR>
             </TableCell>
