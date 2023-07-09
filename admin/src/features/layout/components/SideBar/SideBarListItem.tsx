@@ -51,7 +51,7 @@ export const SideBarListItem: FC<SideBarListItemProps> = ({
         }}
         href={data.href}
       >
-        <Tooltip title={!sideBarIsOpen?t(`navLink.${data.href}`):undefined} placement="left">
+        <Tooltip title={!sideBarIsOpen? data.href!=""?t(`navLink.${data.href}`):t("navLink.home"):undefined} placement="left">
           <ListItem key={data.href} disablePadding sx={LinkSx}>
             <ListItemButton
               selected={pathname === data.href && !data.children}
