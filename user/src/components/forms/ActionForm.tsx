@@ -1,4 +1,4 @@
- yarn start:prodimport { Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { FC, ReactNode } from "react";
 import Loading from "../feedback/Loading";
 type Props = {

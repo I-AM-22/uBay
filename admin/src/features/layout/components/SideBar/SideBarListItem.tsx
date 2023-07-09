@@ -1,6 +1,6 @@
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { Box, Collapse, List, SxProps, Tooltip, Typography } from "@mui/material";
+import { Collapse, List, SxProps, Tooltip } from "@mui/material";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -51,7 +51,10 @@ export const SideBarListItem: FC<SideBarListItemProps> = ({
         }}
         href={data.href}
       >
-        <Tooltip title={!sideBarIsOpen?t(`navLink.${data.href}`):undefined} placement="left">
+        <Tooltip
+          title={!sideBarIsOpen ? t(`navLink.${data.href || "home"}`) : undefined}
+          placement="left"
+        >
           <ListItem key={data.href} disablePadding sx={LinkSx}>
             <ListItemButton
               selected={pathname === data.href && !data.children}
