@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,36 +27,26 @@ class GetProductPage extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              Text('محتوى البوست'),
-              SizedBox(
+              const Text('محتوى البوست'),
+              const SizedBox(
                 height: 20,
               ),
               Expanded(
                   child: PageView.builder(
-                controller: controller,
-                itemBuilder: (context, index) =>
-                    SvgPicture.asset('assets/images/login.svg'),
-                itemCount: 3,
-              )),
-              Row(
-                children: [
-                  SmoothPageIndicator(
                     controller: controller,
-                    count: 3,
-                    effect: ExpandingDotsEffect(
-                        dotColor: primaryColor,
-                        dotHeight: 10,
-                        expansionFactor: 4,
-                        dotWidth: 10,
-                        spacing: 5.0),
-                  ),
-                  Spacer(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.arrow_forward),
-                    color: primaryColor,
-                  ),
-                ],
+                    itemBuilder: (context, index) =>
+                        SvgPicture.asset('assets/images/login.svg'),
+                    itemCount: 3,
+                  )),
+              SmoothPageIndicator(
+                controller: controller,
+                count: 3,
+                effect: ExpandingDotsEffect(
+                    dotColor: primaryColor,
+                    dotHeight: 10,
+                    expansionFactor: 4,
+                    dotWidth: 10,
+                    spacing: 5.0),
               )
             ],
           )),

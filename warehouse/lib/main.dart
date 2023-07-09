@@ -7,17 +7,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warehouse/core/dio_helper.dart';
 import 'package:warehouse/core/strings/id_and_token.dart';
 import 'package:warehouse/core/theme.dart';
-import 'package:warehouse/features/auth/presentation/pages/forgot_password_page.dart';
 import 'package:warehouse/features/auth/presentation/pages/login_page.dart';
 import 'package:warehouse/features/product/presentation/pages/get_all_product.dart';
-import 'package:warehouse/features/user/presentation/pages/setting_page.dart';
-import 'package:warehouse/features/user/presentation/pages/update_my_password_page.dart';
 import 'package:warehouse/temp.dart';
-import 'features/auth/data/model/user_login/user_login_model.dart';
-import 'features/auth/presentation/pages/reset_password_page.dart';
-import 'features/auth/presentation/pages/signup_page.dart';
-import 'features/user/presentation/pages/edit_profile_page.dart';
-import 'features/user/presentation/pages/user_profile_page.dart';
+import 'features/auth/data/model/employee_login/employee_login_model.dart';
+import 'features/employee/presentation/pages/setting_page.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -26,11 +20,10 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   await di.configureDependencies();
   // ignore: unused_local_variable
-  final jsonString = di.getIt<SharedPreferences>().getString('USER_LOGIN');
+  final jsonString = di.getIt<SharedPreferences>().getString('EMPLOYEE_MODEL');
   String initialRoot='/loginScreen';
   if(jsonString!=null) {
-    userDetails = UserLogin.fromJson(json.decode(jsonString));
-    print(userDetails!.token);
+    employeeDetails = EmployeeLoginModel.fromJson(json.decode(jsonString));
     initialRoot='/EmployeePage';
   }else{
     initialRoot='/loginScreen';
@@ -49,13 +42,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       routes: {
         '/loginScreen': (context) => const LoginPage(),
-        '/SignupScreen': (context) => const SignupPage(),
-        '/ForgetPasswordPage': (context) => ForgotPasswordPage(),
-        '/ResetPasswordPage': (context) => const ResetPasswordPage(),
         '/EmployeePage': (context) => const Employee(),
-        '/UpdateMyPasswordPage': (context) => const UpdateMyPasswordPage(),
-        '/UserProfilePage': (context) => const UserProfilePage(),
-        '/EditProfilePage':(context)=>const EditProfilePage(),
       },
       initialRoute: initialRoot,
     );

@@ -1,12 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:warehouse/features/auth/data/model/user_login/user_login_model.dart';
+
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network_info.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_local_datasources.dart';
 import '../datasources/auth_remote_datasource.dart';
+import '../model/employee_login/employee_login_model.dart';
 
 @Injectable(as: AuthRepository)
 class AuthRepositoryImplement implements AuthRepository {
@@ -20,7 +21,7 @@ class AuthRepositoryImplement implements AuthRepository {
       required this.networkInfo});
 
   @override
-  Future<Either<Failure, UserLogin>> login(
+  Future<Either<Failure, EmployeeLoginModel>> login(
       String email, String password) async {
     if (await networkInfo.isConnected) {
       try {
@@ -28,54 +29,6 @@ class AuthRepositoryImplement implements AuthRepository {
         await authLocalDataSource.cacheLogin(userLogin: userLogin);
         return Right(userLogin);
       } on ServerException  {
-        return Left(ServerFailure());
-      }
-    } else {
-      return Left(OfflineFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, UserLogin>> signup(String userName, String email,
-      String password, String passwordConfirm) async {
-    if (await networkInfo.isConnected) {
-      try {
-        final userLogin = await authRemoteDataSource.signup(
-            userName, email, password, passwordConfirm);
-        await authLocalDataSource.cacheLogin(userLogin: userLogin);
-        return Right(userLogin);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      return Left(OfflineFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, String>> forgotPassword(String email) async {
-    if (await networkInfo.isConnected) {
-      try {
-        final token = await authRemoteDataSource.forgotPassword(email);
-        return Right(token);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      return Left(OfflineFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, UserLogin>> resetPassword(
-      String token, String password) async {
-    if (await networkInfo.isConnected) {
-      try {
-        final userLogin =
-            await authRemoteDataSource.resetPassword(token, password);
-        await authLocalDataSource.cacheLogin(userLogin: userLogin);
-        return Right(userLogin);
-      } on ServerException {
         return Left(ServerFailure());
       }
     } else {
