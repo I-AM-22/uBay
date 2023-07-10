@@ -5,11 +5,13 @@ import { NextFunction, Request, Response } from "express";
 import AppError from "@utils/appError";
 import { STATUS_CODE } from "../types/helper.types";
 import Wallet from "./wallet.model";
+import Delivery from "./delivery.model";
 
 const paymentSchema = new Schema<PaymentDoc, PaymentModel, any>(
     {
         product: {
             type: Types.ObjectId,
+            unique: true,
             required: true,
             ref: 'Product'
         },
@@ -33,6 +35,10 @@ paymentSchema.pre('save', async function (next) {
     await Product.findByIdAndUpdate(proDoc?.id, { is_paid: true });
     next();
 });
+//send payment to store
+paymentSchema.post('save', async function (doc) {
+    const deliveryDoc = await Delivery.create({ payment: doc.id });
+});
 
 //before delete payment change is_paid to false and return money to his wallet
 paymentSchema.pre<Query<IPayment, IPayment>>('findOneAndRemove', async function (next) {
@@ -41,9 +47,10 @@ paymentSchema.pre<Query<IPayment, IPayment>>('findOneAndRemove', async function 
     await Wallet.findByIdAndUpdate(doc.customer.wallet.id, {
         $inc: { pending: -doc.product.price }
     });
+    //delete delivery with that
+     await Delivery.findOneAndRemove({ payment: doc.id });
     next();
 });
-
 
 paymentSchema.pre<Query<IPayment, IPayment>>(/^find/, function (next) {
 

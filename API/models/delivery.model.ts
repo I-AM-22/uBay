@@ -1,27 +1,33 @@
-import { DeliveryDoc, DeliveryModel, IDelivery } from "../types/delivery.types";
-import { Query, Schema, Types, model } from "mongoose";
-import AppError from "@utils/appError";
-import { STATUS_CODE } from "../types/helper.types";
+import { DeliveryDoc, DeliveryModel } from "../types/delivery.types";
+import { Schema, Types, model } from "mongoose";
 import Wallet from "./wallet.model";
-import Payment from "./payment.models";
 
 const deliverySchema = new Schema<DeliveryDoc, DeliveryModel, any>(
     {
         payment: {
             type: Types.ObjectId,
+            unique: true,
             required: true,
             ref: "Payment"
         },
-        employee: {
+        employee_seller: {
             type: Types.ObjectId,
-            required: true,
             ref: "Employee"
         },
-        customer_status: {
-            type: Boolean,
-            default: false,
+        employee_customer: {
+            type: Types.ObjectId,
+            ref: "Employee"
         },
-        customer_receipt: {
+        delivery_status: {
+            type: String,
+            enum: ['wait', 'seller', 'customer'],
+            default: "wait",
+        },
+        customer_date: {
+            type: Date,
+            default: null
+        },
+        seller_date: {
             type: Date,
             default: null
         }
@@ -30,16 +36,10 @@ const deliverySchema = new Schema<DeliveryDoc, DeliveryModel, any>(
     toJSON: { virtuals: true, versionKey: false },
     toObject: { virtuals: true, versionKey: false },
 });
-// deliverySchema.pre("save", async function (next) {
-//     if (this.customer_status) {
-//         console.log(this.customer_status);
-//         return next(new AppError(STATUS_CODE.BAD_REQUEST, [], ' رقم التوصيل تم تسليمه من قبل للمشتري يرجى اختيار رقم توصيل اخر'));
-//     }
-//     next();
-// });
-//update wallet between buyer and seller
+
 deliverySchema.pre('save', async function (next) {
-    if (!this.isNew) {
+    //Check if this document not new and this happen after receive customer only
+    if (!this.isNew && this.customer_date != null) {
         const doc = await this.populate('payment');
         const product = doc.payment.product;
         //                          buyer

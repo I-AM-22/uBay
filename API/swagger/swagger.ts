@@ -9,6 +9,7 @@ import { employeeSchema } from './routes/employees.swagger';
 import { couponSchema } from './routes/coupon.swagger';
 import { paymentSchema } from './routes/payment.swagger';
 import { deliverySchema } from './routes/delivery.swagger';
+import { QrSchema } from './routes/delivery.swagger';
 const options: Options = {
   url: '',
   definition: {
@@ -37,7 +38,8 @@ const options: Options = {
         employeeSchema,
         couponSchema,
         paymentSchema,
-        deliverySchema
+        deliverySchema,
+        QrSchema
       },
       securitySchemes: {
         Bearer: {
