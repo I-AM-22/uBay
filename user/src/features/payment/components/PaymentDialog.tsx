@@ -1,10 +1,12 @@
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { Box, Divider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
+import { useQueryClient } from "@tanstack/react-query";
 import Submit from "components/buttons/Submit";
 import { useSnackbar } from "context/snackbarContext";
 import { EdgeDrawer } from "features/layout";
 import { Post } from "features/post";
+import { queryStore } from "features/shared";
 import { useIsDesktop } from "hooks/useIsDesktop";
 import useSuccessSnackbar from "hooks/useSuccessSnackbar";
 import { FC } from "react";
@@ -22,17 +24,19 @@ export const PaymentDialog: FC<Props> = ({ setOpen, post, open }) => {
   const { t } = useTranslation("payment", { keyPrefix: "dialog" });
   const snackbar = useSnackbar();
   const successSnackbar = useSuccessSnackbar();
+  const queryClient = useQueryClient();
   const isDesktop = useIsDesktop();
   const handleClose = () => {
     setOpen(false);
   };
   const handleSubmit = () => {
     buy.mutate(
-      { product: post.id },
+      { product: post.id, note: "." },
       {
         onSuccess: () => {
           successSnackbar(t("success"));
           setOpen(false);
+          queryClient.invalidateQueries(queryStore.post.detail(post.id).queryKey);
         },
         onError: parseResponseError({ snackbar }),
       }

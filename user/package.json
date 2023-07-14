@@ -32,6 +32,7 @@
     "react-hook-form": "^7.40.0",
     "react-i18next": "^12.1.1",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-qr-code": "^2.0.11",
     "react-router-dom": "^6.4.5",
     "react-timeago": "^7.1.0",
     "stylis-plugin-rtl": "^2.1.1",
