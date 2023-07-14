@@ -32,7 +32,7 @@ paymentSchema.pre('save', async function (next) {
     if (proDoc?.is_paid) {
         return next(new AppError(STATUS_CODE.BAD_REQUEST, [], 'هذا المنتج غير متاح'));
     }
-    await Product.findByIdAndUpdate(proDoc?.id, { is_paid: true });
+    await Product.findByIdAndUpdate(proDoc?.id, { is_paid: true, customer: this.customer._id });
     next();
 });
 //send payment to store
@@ -43,12 +43,12 @@ paymentSchema.post('save', async function (doc) {
 //before delete payment change is_paid to false and return money to his wallet
 paymentSchema.pre<Query<IPayment, IPayment>>('findOneAndRemove', async function (next) {
     const doc = await this.model.findOne(this.getQuery());
-    await Product.findByIdAndUpdate(doc.product.id, { is_paid: false });
+    await Product.findByIdAndUpdate(doc.product.id, { is_paid: false, customer: null });
     await Wallet.findByIdAndUpdate(doc.customer.wallet.id, {
         $inc: { pending: -doc.product.price }
     });
     //delete delivery with that
-     await Delivery.findOneAndRemove({ payment: doc.id });
+    await Delivery.findOneAndRemove({ payment: doc.id });
     next();
 });
 

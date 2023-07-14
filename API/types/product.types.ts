@@ -5,6 +5,7 @@ import { ICategory } from './category.types';
 export interface IProduct {
   content: string;
   user: PopulatedDoc<Document<ObjectId>> & IUser;
+  customer: PopulatedDoc<Document<ObjectId>> & IUser;
   category: PopulatedDoc<Document<ObjectId>> & ICategory;
   price: number;
   photos: string[];

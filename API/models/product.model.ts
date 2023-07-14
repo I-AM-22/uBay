@@ -14,6 +14,10 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
       required: true,
       ref: 'User',
     },
+    customer: {
+      type: Types.ObjectId,
+      ref: 'User',
+    },
     likedBy: [{ type: Types.ObjectId, ref: 'User' }],
     photos: {
       type: [String],
@@ -80,6 +84,7 @@ productSchema.pre<Query<IProduct, IProduct>>(/^find/, function (next) {
     .populate({ path: 'likedBy', select: { name: 1, photo: 1, wallet: 0 } });
   next();
 });
+
 
 const Product = model<ProductDoc, ProductModel>('Product', productSchema);
 

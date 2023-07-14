@@ -208,6 +208,28 @@
  *         $ref: '#/components/responses/401'
  */
 
+/**
+ * @swagger
+ *   /products/mine:
+ *     get:
+ *       summary: Get my products
+ *       tags: [Products]
+ *       security:
+ *         - Bearer: []
+ *       responses:
+ *         "200":
+ *           description: My Products
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/productSchema'
+
+ *         "400":
+ *           $ref: '#/components/responses/400'
+ *         "401":
+ *           $ref: '#/components/responses/401'
+ */
+
 export const productSchema = {
   type: 'object',
   properties: {

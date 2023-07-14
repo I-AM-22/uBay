@@ -37,6 +37,20 @@ export const dislike = catchAsync(
     res.sendStatus(STATUS_CODE.SUCCESS);
   }
 );
+export const myProduct = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const products = await Product.find({
+      $or: [{ user: req.user }, { customer: req.user }]
+    });
+    if (!products) {
+      return next(
+        new AppError(STATUS_CODE.NOT_FOUND, [], `you don't have any products`)
+      );
+    }
+
+    res.status(STATUS_CODE.SUCCESS).json(products);
+  }
+);
 export const checkIsOwnerProduct = checkIsOwner(Product);
 export const getAllProducts = getAll(Product);
 export const getProduct = getOne(Product);
