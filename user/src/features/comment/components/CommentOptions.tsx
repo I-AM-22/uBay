@@ -31,8 +31,8 @@ export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onCommentRemo
   const handleRemove = () => {
     removeComment.mutate(comment.id, {
       onSuccess: () => {
-        queryClient.invalidateQueries(queryStore.post.all._def);
-        queryClient.removeQueries(queryStore.post.detail(comment.id));
+        queryClient.invalidateQueries(queryStore.comment.all._def);
+        queryClient.removeQueries(queryStore.comment.detail(comment.id));
         handleClose();
         onCommentRemove?.();
       },

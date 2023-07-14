@@ -1,4 +1,5 @@
-import { Typography } from "@mui/material";
+import AddCommentTwoToneIcon from "@mui/icons-material/AddCommentTwoTone";
+import { Stack, Typography } from "@mui/material";
 import { EdgeDrawer, EdgeDrawerProps } from "features/layout";
 import { Post } from "features/post";
 import { useIsDesktop } from "hooks/useIsDesktop";
@@ -17,6 +18,7 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...prop
   const isDesktop = useIsDesktop();
   const scrollId = useId();
   const { t } = useTranslation("comment");
+  const isEmpty = query.isSuccess && query.data.pages[0].data.length === 0;
   const handleCommentSubmit = () => {
     const commentList = document.getElementById(scrollId);
     if (commentList) commentList.scroll({ top: 0 });
@@ -33,6 +35,7 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...prop
       }
       sx={{
         ".MuiDrawer-paper": {
+          height: "100vh",
           width: isDesktop ? 400 : 1,
           pb: 5,
           pt: 1,
@@ -44,9 +47,18 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...prop
         sx={{
           gap: 1,
           p: 2,
+          height: 1,
         }}
         query={query}
       >
+        {isEmpty && (
+          <Stack alignItems={"center"} mt="auto">
+            <AddCommentTwoToneIcon sx={{ color: "", fontSize: 200 }} />
+            <Typography color="#444" fontSize="clamp(17px,4vw,23px)">
+              {t("empty")}
+            </Typography>
+          </Stack>
+        )}
         {query.isSuccess &&
           query.data.pages.map((page) =>
             page.data.map((comment) => <CommentCard key={comment.id} comment={comment} />)
