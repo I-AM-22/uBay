@@ -37,7 +37,12 @@ export const CommentForm: FC<CommentFormProps> = ({ postId, onCommentSubmit }) =
               return {
                 ...comments,
                 pages: [
-                  { ...comments.pages[0], data: [comment, ...comments.pages[0].data] },
+                  {
+                    ...comments.pages[0],
+                    data: [comment, ...comments.pages[0].data].filter((element, index, arr) => {
+                      return arr.findIndex((find) => find.id === element.id) === index;
+                    }),
+                  },
                   ...comments.pages,
                 ],
               };
