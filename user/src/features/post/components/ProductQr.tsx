@@ -1,6 +1,8 @@
 import { Box, Typography } from "@mui/material";
+import Loading from "components/feedback/Loading";
 import { useIsMe } from "features/account";
 import { EdgeDrawer, EdgeDrawerProps } from "features/layout";
+import { paymentQueries } from "features/payment";
 import { Post } from "features/post";
 import { useIsDesktop } from "hooks/useIsDesktop";
 import { FC, useId } from "react";
@@ -12,7 +14,13 @@ export type ProductQrProps = Omit<EdgeDrawerProps, "children"> & {
 export const ProductQr: FC<ProductQrProps> = ({ post, onClose, ...props }) => {
   const isDesktop = useIsDesktop();
   const isSeller = useIsMe(post.user.id);
-  const value = JSON.stringify({ isDeliver: isSeller, product: post.id });
+  const generate = paymentQueries.useGenerateQr({ product: post.id }, isSeller);
+  const value = JSON.stringify({
+    isDeliver: isSeller,
+    product: post.id,
+    payment: generate.data?.payment,
+  });
+
   const scrollId = useId();
   return (
     <EdgeDrawer
@@ -42,7 +50,8 @@ export const ProductQr: FC<ProductQrProps> = ({ post, onClose, ...props }) => {
         {props.title}
       </Typography>
       <Box width="fit-content" mx="auto" mt={10}>
-        <QRCode size={256} value={value} />
+        {generate.isLoading && <Loading size={50} />}
+        {generate.isSuccess && <QRCode size={256} value={value} />}
       </Box>
     </EdgeDrawer>
   );
