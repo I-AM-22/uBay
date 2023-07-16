@@ -7,7 +7,7 @@ import TextField from "components/Inputs/TextField";
 import Submit from "components/buttons/Submit";
 import { useSnackbar } from "context/snackbarContext";
 import { CategoryAutocomplete } from "features/category";
-import { Post, postQueries } from "features/post";
+import { postQueries } from "features/post";
 import { queryStore } from "features/shared";
 import z from "lib/zod";
 import { FC } from "react";
@@ -16,10 +16,10 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { parseResponseError } from "utils/apiHelpers";
 import { fromFormToBody } from "./helpers";
-import { PostForm } from "./type";
+import { Form } from "./type";
 import postSchema, { postFormDefault } from "./validation";
-export type PostFormProps = { edit?: Post };
-export const PostActionForm: FC<PostFormProps> = ({}) => {
+export type PostAddFormProps = {};
+export const PostAddForm: FC<PostAddFormProps> = ({}) => {
   const {
     control,
     setValue,
@@ -35,7 +35,7 @@ export const PostActionForm: FC<PostFormProps> = ({}) => {
   const post = postQueries.usePost();
   const snackbar = useSnackbar();
   const { t } = useTranslation("post", { keyPrefix: "form" });
-  const onSubmit = async (form: PostForm) => {
+  const onSubmit = async (form: Form) => {
     post.mutate(fromFormToBody(form), {
       onSuccess: (post) => {
         queryClient.setQueryData(queryStore.post.detail(post.id).queryKey, post);
@@ -58,7 +58,7 @@ export const PostActionForm: FC<PostFormProps> = ({}) => {
           <Stack gap={3}>
             <Stack gap={1}>
               <Typography color="primary.800" variant="h4" textAlign={"center"}>
-                {t("formTitle")}
+                {t("formAdd")}
               </Typography>
             </Stack>
             <Stack

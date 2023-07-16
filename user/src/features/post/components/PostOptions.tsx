@@ -1,6 +1,7 @@
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+
 import FlagIcon from "@mui/icons-material/Flag";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import QrCode2RoundedIcon from "@mui/icons-material/QrCode2Rounded";
@@ -9,6 +10,7 @@ import Divider from "@mui/material/Divider";
 import MenuItem from "@mui/material/MenuItem";
 import { useQueryClient } from "@tanstack/react-query";
 import Loading from "components/feedback/Loading";
+import RouterLink from "components/links/RouterLink";
 import { Dropdown } from "components/selects/Dropdown";
 import { useSnackbar } from "context/snackbarContext";
 import { useIsMe } from "features/account";
@@ -25,7 +27,6 @@ export const PostOptions: FC<PostOptionsProps> = ({ post, onPostRemove }) => {
   const isMe = useIsMe(post.user.id);
   const { t } = useTranslation();
   const { t: tPost } = useTranslation("post");
-  const editPost = postQueries.useEdit();
   const removePost = postQueries.useRemove();
   const snackbar = useSnackbar();
   const queryClient = useQueryClient();
@@ -56,7 +57,7 @@ export const PostOptions: FC<PostOptionsProps> = ({ post, onPostRemove }) => {
   };
   const handleQr = () => {
     setQrOpen(true);
-    handleClose()
+    handleClose();
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -74,8 +75,13 @@ export const PostOptions: FC<PostOptionsProps> = ({ post, onPostRemove }) => {
           </MenuItem>
         }
         {isMe && (
-          <MenuItem onClick={handleClose}>
-            {editPost.isLoading ? <Loading size={15} /> : <EditIcon />}
+          <MenuItem
+            component={RouterLink}
+            noStyle
+            to={`/posts/${post.id}/edit`}
+            onClick={handleClose}
+          >
+            <EditIcon />
             {t("edit")}
           </MenuItem>
         )}

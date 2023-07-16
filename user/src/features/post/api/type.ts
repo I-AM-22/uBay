@@ -5,7 +5,7 @@ import { APIListParams } from "types/api";
 export type PostBody = {
   title: string;
   content: string;
-  photos: File[];
+  photos?: File[];
   price: number;
   category: string;
 };

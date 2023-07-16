@@ -13,3 +13,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+
+fieldset {
+  border: none;
+}
