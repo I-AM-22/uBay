@@ -16,12 +16,11 @@ import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { parseResponseError } from "utils/apiHelpers";
 import { Comment, commentQueries } from "..";
-export type CommentOptionsProps = { comment: Comment; onCommentRemove?: () => void };
-export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onCommentRemove }) => {
+export type CommentOptionsProps = { comment: Comment; onRemove?: () => void; onEdit: () => void };
+export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onRemove, onEdit }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMe = useIsMe(comment.user.id);
   const { t } = useTranslation();
-  const editComment = commentQueries.useEdit();
   const removeComment = commentQueries.useRemove();
   const snackbar = useSnackbar();
   const queryClient = useQueryClient();
@@ -34,7 +33,7 @@ export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onCommentRemo
         queryClient.invalidateQueries(queryStore.comment.all._def);
         queryClient.removeQueries(queryStore.comment.detail(comment.id));
         handleClose();
-        onCommentRemove?.();
+        onRemove?.();
       },
       onError: parseResponseError({ snackbar }),
     });
@@ -52,6 +51,10 @@ export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onCommentRemo
         }
       );
   };
+  const handleEdit = () => {
+    onEdit();
+    handleClose();
+  };
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -62,8 +65,8 @@ export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onCommentRemo
       </IconButton>
       <Dropdown anchor={anchorEl} onClose={handleClose}>
         {isMe && (
-          <MenuItem onClick={handleClose}>
-            {editComment.isLoading ? <Loading size={15} /> : <EditIcon />}
+          <MenuItem onClick={handleEdit}>
+            <EditIcon />
             {t("edit")}
           </MenuItem>
         )}

@@ -32,7 +32,12 @@ const Submit = forwardRef(function Fr(
       variant="contained"
       type="submit"
       {...props}
-      sx={{ ...defaultSx, position: "relative", bgcolor: error ? "error.main" : "", ...sx }}
+      sx={{
+        ...(props.size !== "small" && defaultSx),
+        position: "relative",
+        bgcolor: error ? "error.main" : "",
+        ...sx,
+      }}
     >
       {isSubmitting && (
         <Box sx={{ position: "absolute", inset: 0 }}>

@@ -5,15 +5,20 @@ import dayjs from "dayjs";
 import Timeago from "lib/Timeago";
 import { FC, useState } from "react";
 import { Comment } from "../api/type";
+import { CommentEdit } from "./CommentEdit";
 import { CommentOptions } from "./CommentOptions";
 export type CommentCardProps =
   | { comment: Comment; skeleton?: undefined }
   | { skeleton: true; comment?: undefined };
 export const CommentCard: FC<CommentCardProps> = ({ comment, skeleton }) => {
   const [open, setOpen] = useState(true);
+  const [editMode, setEditMode] = useState(false);
   const isNewCard = comment && dayjs(Date.now()).diff(comment.createdAt, "seconds") < 10;
   const handleRemove = () => {
     setOpen(false);
+  };
+  const handleEditClick = () => {
+    setEditMode(true);
   };
   return (
     <Slide direction="right" in={open} mountOnEnter appear={false} unmountOnExit>
@@ -25,7 +30,15 @@ export const CommentCard: FC<CommentCardProps> = ({ comment, skeleton }) => {
         >
           <CardHeader
             avatar={<UserAvatar src={comment?.user.photo} isLoading={skeleton} />}
-            action={comment && <CommentOptions onCommentRemove={handleRemove} comment={comment} />}
+            action={
+              comment && (
+                <CommentOptions
+                  onEdit={handleEditClick}
+                  onRemove={handleRemove}
+                  comment={comment}
+                />
+              )
+            }
             title={
               <Stack
                 pt={0.4}
@@ -43,7 +56,10 @@ export const CommentCard: FC<CommentCardProps> = ({ comment, skeleton }) => {
           />
 
           <CardContent sx={{ pt: 0 }}>
-            {comment && <Typography variant="body2">{comment.content}</Typography>}
+            {comment && !editMode && <Typography variant="body2">{comment.content}</Typography>}
+            {comment && editMode && (
+              <CommentEdit comment={comment} onDone={() => setEditMode(false)} />
+            )}
             {skeleton && (
               <Stack>
                 <Skeleton widthRange={{ min: 60, max: 130 }} />
