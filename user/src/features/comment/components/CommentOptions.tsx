@@ -1,4 +1,3 @@
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FlagIcon from "@mui/icons-material/Flag";
@@ -38,19 +37,6 @@ export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onRemove, onE
       onError: parseResponseError({ snackbar }),
     });
   };
-  const handleCopyToClipboard = () => {
-    navigator.clipboard
-      .writeText(`${window.location.origin}/posts/${comment.id}/comments/${comment.id}`)
-      .then(
-        () => {
-          snackbar({ message: t("copyToClipboard.success"), severity: "success" });
-        },
-        (err) => {
-          snackbar({ message: t("copyToClipboard.error"), severity: "error" });
-          console.error(err);
-        }
-      );
-  };
   const handleEdit = () => {
     onEdit();
     handleClose();
@@ -78,11 +64,6 @@ export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onRemove, onE
         )}
 
         <Divider sx={{ "&.MuiDivider-root": { my: 0 } }} />
-
-        <MenuItem onClick={handleCopyToClipboard}>
-          <ContentCopyIcon />
-          {t("copyLink")}
-        </MenuItem>
         <MenuItem onClick={handleClose}>
           <FlagIcon />
           {t("report")}
