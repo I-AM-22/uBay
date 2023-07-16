@@ -43,7 +43,7 @@ export const CommentForm: FC<CommentFormProps> = ({ postId, onCommentSubmit }) =
                       return arr.findIndex((find) => find.id === element.id) === index;
                     }),
                   },
-                  ...comments.pages,
+                  ...comments.pages.slice(1),
                 ],
               };
             }
