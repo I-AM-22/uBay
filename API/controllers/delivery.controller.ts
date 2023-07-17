@@ -12,6 +12,9 @@ import { STATUS_CODE } from '../types/helper.types';
 import Payment from '@models/payment.models';
 import Product from '@models/product.model';
 import AppError from '@utils/appError';
+import Store from '@models/store.model';
+import { model } from 'mongoose';
+import Employee from '@models/employee.model';
 
 export const getAllDeliveries = getAll(Delivery);
 export const getDelivery = getOne(Delivery);
@@ -20,14 +23,25 @@ export const getDelivery = getOne(Delivery);
 export const receive = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { payment, status } = req.body;
 
-    let delivDoc = (await Delivery.find({ payment: payment }))[0];
+    let delivDoc = await Delivery.findOne({ payment: payment }).populate('payment');
+    let storeID = (await Employee.findOne({ _id: req.user?.id }))?.store?.id;
+
     if (!delivDoc) {
         throw new Error('Delivery not found'); // Handle the case where the delivery document is not found
     }
 
+    //to check if he goes to the right store
+    if(storeID!=delivDoc.payment.product.store)
+    {
+        throw new Error('هذا المنتج غير موجود في هذا المتجر يرجى الذهاب الى المتجر الصحيح');
+    }
     const employee: any = req.user?.id;
 
     if (status == 0) {
+        //to prevent repeate data receive
+        if (delivDoc.delivery_status != "wait") {
+            res.status(STATUS_CODE.NOT_FOUND).json("هذا المنتج تم تسليمه من قبل");
+        }
         const time: any = new Date();
         delivDoc.seller_date = time;
         res.status(200).json(delivDoc);
@@ -37,6 +51,12 @@ export const receive = catchAsync(async (req: Request, res: Response, next: Next
         delivDoc = await delivDoc.save();
     }
     else if (status == 1) {
+        if (delivDoc.delivery_status == "wait") {
+            res.status(STATUS_CODE.NOT_FOUND).json('هذا المنتج ليس بل مستودع حاليا');
+        }
+        if (delivDoc.delivery_status == "customer") {
+            res.status(STATUS_CODE.NOT_FOUND).json('لقد تم تسليمك هذا المنتج رجاء التأكد من رمز التوليد');
+        }
         const time: any = new Date();
         delivDoc.customer_date = time;
         delivDoc.delivery_status = "customer";

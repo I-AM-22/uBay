@@ -208,6 +208,28 @@
  *         $ref: '#/components/responses/401'
  */
 
+// /**
+//  * @swagger
+//  *   /products/mine:
+//  *     get:
+//  *       summary: Get my products
+//  *       tags: [Products]
+//  *       security:
+//  *         - Bearer: []
+//  *       responses:
+//  *         "200":
+//  *           description: My Products
+//  *           content:
+//  *             application/json:
+//  *               schema:
+//  *                 $ref: '#/components/schemas/productSchema'
+
+//  *         "400":
+//  *           $ref: '#/components/responses/400'
+//  *         "401":
+//  *           $ref: '#/components/responses/401'
+//  */
+
 /**
  * @swagger
  *   /products/mine:
@@ -216,6 +238,13 @@
  *       tags: [Products]
  *       security:
  *         - Bearer: []
+ *       parameters:
+ *         - in: query
+ *           name: isBuy
+ *           schema:
+ *             type: boolean
+ *           required: true
+ *           description: Specify if the products are for buying (true) or not (false)
  *       responses:
  *         "200":
  *           description: My Products
@@ -223,12 +252,12 @@
  *             application/json:
  *               schema:
  *                 $ref: '#/components/schemas/productSchema'
-
  *         "400":
  *           $ref: '#/components/responses/400'
  *         "401":
  *           $ref: '#/components/responses/401'
  */
+
 
 export const productSchema = {
   type: 'object',
@@ -248,6 +277,10 @@ export const productSchema = {
       type: 'string',
       description: 'The ID of the category to which the product belongs',
     },
+    store: {
+      type: 'string',
+      description: 'The ID of the store to which the product will delivery',
+    },
   },
   example: {
     title: 'Product title',
@@ -259,6 +292,7 @@ export const productSchema = {
     likes: 10,
     likedBy: [],
     likedByMe: false,
+    store:"IdStore"
   },
-  required: ['content', 'photos', 'price', 'category', 'title'],
+  required: ['content', 'photos', 'price', 'category', 'title','store'],
 };

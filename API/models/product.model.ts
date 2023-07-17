@@ -37,6 +37,11 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
       required: true,
       ref: 'Category',
     },
+    store: {
+      type: Types.ObjectId,
+      required: true,
+      ref: 'Store',
+    },
     comments: { type: Number, default: 0 },
   },
   {
@@ -79,7 +84,7 @@ productSchema.pre<Query<IProduct, IProduct>>(/^find/, function (next) {
   this.populate({ path: 'category' })
     .populate({
       path: 'user',
-      select: { name: 1, photo: 1, wallet: 1 },
+      select: { name: 1, photo: 1, wallet: 0},
     })
     .populate({ path: 'likedBy', select: { name: 1, photo: 1, wallet: 0 } });
   next();

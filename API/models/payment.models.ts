@@ -56,7 +56,7 @@ paymentSchema.pre<Query<IPayment, IPayment>>(/^find/, function (next) {
 
     this.populate({
         path: 'product',
-        select: { price: 1, likedBy: 0, category: 0, user: 1 },
+        select: { price: 1, likedBy: 0, category: 0, user: 1, store: 1 },
     }).populate({
         path: 'customer',
         select: { name: 1, email: 1, wallet: 1 },

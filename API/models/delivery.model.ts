@@ -42,16 +42,16 @@ deliverySchema.pre('save', async function (next) {
     if (!this.isNew && this.customer_date != null) {
         const doc = await this.populate('payment');
         const product = doc.payment.product;
-        //                          buyer
+
+        // //                          buyer
         const buyerWallet = doc.payment.customer.wallet;
         await Wallet.findByIdAndUpdate(buyerWallet.id, {
             $inc: { total: -product.price, pending: -product.price },
         });
-        //                         seller
-        const sellerWallet = doc.payment.product.user.wallet;
-        await Wallet.findByIdAndUpdate(sellerWallet.id, {
-            $inc: { total: product.price }
-        });
+
+        // //                         seller
+        const seller = doc.payment.product.user.id;
+         await Wallet.findOneAndUpdate({ user: seller }, { $inc: { total: product.price } });
         next();
     }
 });

@@ -1,6 +1,7 @@
 import { Document, Model, ObjectId, PopulatedDoc } from 'mongoose';
 import { IUser } from './user.types';
 import { ICategory } from './category.types';
+import { IStore } from './store.types';
 
 export interface IProduct {
   content: string;
@@ -13,6 +14,7 @@ export interface IProduct {
   comments: number;
   title: string;
   is_paid: boolean;
+  store: PopulatedDoc<Document<ObjectId>> & IStore;
 }
 
 export type ProductDoc = IProduct & Document;
