@@ -40,7 +40,6 @@ export const checkIsOwner = (Model: Model<any>) =>
       );
 
     const item = await Model.findOne({ _id: id, user: user?.id });
-
     if (!item) {
       throw new AppError(
         STATUS_CODE.FORBIDDEN,

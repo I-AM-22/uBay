@@ -16,7 +16,7 @@
  *     parameters:
  *      - name: params
  *        in: query
- *        description: page=1&limit=10&sort=+price&fields=+content&createdAt[gte]=${Date}
+ *        description: page=1&limit=10&sort=+price&fields=+content&createdAt[gte]=${Date} paid:true for paid product,false for not paid product,remove is_paid for all
  *        required: false
  *        schema:
  *         type: object
@@ -32,6 +32,8 @@
  *            type: string
  *           search:
  *            type: string
+ *           is_paid:
+ *            type: boolean
  *     responses:
  *       '200':
  *         description: The list of products

@@ -125,7 +125,17 @@ export const getAll = (Model: any, path?: string): RequestHandler =>
       query = query.find(filter).select(select);
       counter = counter.where(filter);
     }
-
+    if (Model.modelName === 'Product') {
+      const { is_paid } = req.query;
+      console.log(is_paid);
+      if (is_paid == "true") {
+        query = query.find({ is_paid: true });
+        counter = counter.find({ is_paid: true });
+      } else if (is_paid == "false") {
+        query = query.find({ is_paid: false });
+        counter = counter.find({ is_paid: false });
+      }
+    }
     const countFeature = new APIFeatures(counter, req.query).filter();
     const feature = new APIFeatures(query, req.query)
       .filter()
