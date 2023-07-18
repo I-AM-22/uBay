@@ -3,3 +3,5 @@
 const String BASE_URL = 'http://192.168.1.103:3000/api/v1';
 const String LOGIN = '/employees/login';
 const String MY_PROFILE = '/users/me';
+const String RECEIVE_DELIVERY='/deliveries/receive';
+const String GET_PRODUCT='/products/';
