@@ -10,6 +10,8 @@ import { couponSchema } from './routes/coupon.swagger';
 import { paymentSchema } from './routes/payment.swagger';
 import { deliverySchema } from './routes/delivery.swagger';
 import { QrSchema } from './routes/delivery.swagger';
+import { chatSchema } from './routes/chat.swagger';
+import { updatechatSchema } from './routes/chat.swagger';
 const options: Options = {
   url: '',
   definition: {
@@ -39,7 +41,9 @@ const options: Options = {
         couponSchema,
         paymentSchema,
         deliverySchema,
-        QrSchema
+        QrSchema,
+        chatSchema,
+        updatechatSchema,
       },
       securitySchemes: {
         Bearer: {
@@ -91,6 +95,7 @@ const options: Options = {
     './swagger/routes/wallet.swagger.ts',
     './swagger/routes/payment.swagger.ts',
     './swagger/routes/delivery.swagger.ts',
+    './swagger/routes/chat.swagger.ts',
   ],
 };
 
