@@ -1,6 +1,8 @@
 import { Query, Schema, Types, model } from 'mongoose';
 import { IProduct, ProductDoc, ProductModel } from '../types/product.types';
 import cls from 'cls-hooked';
+import AppError from '@utils/appError';
+import { STATUS_CODE } from '../types/helper.types';
 
 const productSchema = new Schema<ProductDoc, ProductModel, any>(
   {
@@ -12,6 +14,10 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
     user: {
       type: Types.ObjectId,
       required: true,
+      ref: 'User',
+    },
+    customer: {
+      type: Types.ObjectId,
       ref: 'User',
     },
     likedBy: [{ type: Types.ObjectId, ref: 'User' }],
@@ -32,6 +38,11 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
       type: Types.ObjectId,
       required: true,
       ref: 'Category',
+    },
+    store: {
+      type: Types.ObjectId,
+      required: true,
+      ref: 'Store',
     },
     comments: { type: Number, default: 0 },
   },
@@ -71,16 +82,33 @@ productSchema.post('save', async function () {
   });
 });
 
-productSchema.pre<Query<IProduct, IProduct>>(/^find/, function (next) {
+productSchema.pre<Query<IProduct, IProduct>>(/^find/, async function (next) {
   this.populate({ path: 'category' })
     .populate({
       path: 'user',
-      select: { name: 1, photo: 1, wallet: 1 },
+      select: { name: 1, photo: 1, wallet: 0 },
     })
-    .populate({ path: 'likedBy', select: { name: 1, photo: 1, wallet: 0 } });
+    .populate({ path: 'likedBy', select: { name: 1, photo: 1, wallet: 0 } })
   next();
 });
+//can't remove after product is paid
+productSchema.pre<Query<IProduct, IProduct>>('findOneAndRemove', async function (next) {
+  const doc = await this.model.findOne(this.getQuery());
+  if(doc.is_paid)
+  {
+    return next(new AppError(STATUS_CODE.BAD_REQUEST, [], 'لا يمكنك حذف منتج تم بيعه'));
+  }
+});
 
+//can't modify after product is paid
+productSchema.pre<Query<IProduct, IProduct>>('findOneAndUpdate', async function (next) {
+  const doc = await this.model.findOne(this.getQuery());
+  if(doc.is_paid)
+  {
+    return next(new AppError(STATUS_CODE.BAD_REQUEST, [], 'لا يمكنك تعديل منتج تم بيعه'));
+  }
+  next();
+});
 const Product = model<ProductDoc, ProductModel>('Product', productSchema);
 
 export default Product;

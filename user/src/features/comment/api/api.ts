@@ -20,7 +20,7 @@ const API = {
     return data;
   },
   edit: async ({ id, ...body }: WithId<CommentBody>) => {
-    const { data } = await axios.patch(API_ROUTES.COMMENTS.EDIT(id), body);
+    const { data } = await axios.patch<Comment>(API_ROUTES.COMMENTS.EDIT(id), body);
     return data;
   },
   remove: async (id: string) => {

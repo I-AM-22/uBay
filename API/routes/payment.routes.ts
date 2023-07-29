@@ -24,7 +24,7 @@ router.route('/:id')
     )
     .delete(
         passport.authenticate('jwt', { failWithError: true, session: false }),
-        restrictTo('superadmin', 'admin'),
+        restrictTo('superadmin', 'admin',"employee"),
         deletePayment
     )
 export default router;

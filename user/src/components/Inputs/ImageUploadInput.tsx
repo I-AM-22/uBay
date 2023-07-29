@@ -33,6 +33,7 @@ function ImageUploadInput({
 }: ImageUploadProps) {
   const initialArray = typeof initial === "string" ? [initial] : initial ?? [];
   const [uploaded, setUploaded] = useState<string[]>(initialArray);
+
   const handleUploadClick = (e: ChangeEvent<HTMLInputElement>) => {
     if (multiple) {
       const files = Array.from(e.target.files ?? []);

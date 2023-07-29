@@ -10,6 +10,7 @@ import {
   getAllProducts,
   getProduct,
   like,
+  myProduct,
   updateProduct,
 } from '@controllers/product.controller';
 import {
@@ -35,6 +36,7 @@ router.use(
 // Routes requiring authentication
 
 router.get('/', getAllProducts);
+router.get('/mine', myProduct);
 router.get('/:id', getProduct);
 
 router.post(
@@ -58,5 +60,4 @@ router.patch(
 );
 
 router.delete('/:id', checkIsOwnerProduct, deleteProduct);
-
 export default router;

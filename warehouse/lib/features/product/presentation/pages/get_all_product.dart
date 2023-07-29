@@ -9,7 +9,7 @@ class GetAllProductPage extends StatelessWidget {
     return  Center(
       child: TextButton(
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (_)=>GetProductPage()));
+          Navigator.push(context, MaterialPageRoute(builder: (_)=>GetProductPage(payment: 's',product: 'd',)));
         },
         child: Text(
           'منتجات',

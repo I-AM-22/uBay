@@ -2,13 +2,17 @@
   "like": "إعجاب",
   "comment": "تعليق",
   "is_paid": "تم البيع",
+  "qrSeller": "تسليم القطعة",
+  "qrBuyer": "إستلام القطعة",
   "form": {
-    "formTitle": "إضافة منشور جديد",
+    "formAdd": "إضافة منشور جديد",
+    "formEdit": "تعديل المنشور",
     "title": "العنوان",
     "price": "السعر",
     "content": "الوصف",
     "category": "الصنف",
     "photos": "الصور",
-    "create": "إضافة"
+    "create": "إضافة",
+    "save": "حفظ"
   }
 }

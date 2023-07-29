@@ -9,9 +9,11 @@ import 'package:warehouse/core/strings/id_and_token.dart';
 import 'package:warehouse/core/theme.dart';
 import 'package:warehouse/features/auth/presentation/pages/login_page.dart';
 import 'package:warehouse/features/product/presentation/pages/get_all_product.dart';
+import 'package:warehouse/features/product/presentation/pages/get_product_page.dart';
 import 'package:warehouse/temp.dart';
 import 'features/auth/data/model/employee_login/employee_login_model.dart';
 import 'features/employee/presentation/pages/setting_page.dart';
+import 'features/product/presentation/pages/receive_page.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -43,6 +45,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/loginScreen': (context) => const LoginPage(),
         '/EmployeePage': (context) => const Employee(),
+        '/GetProductPage': (context) => const GetProductPage(payment: '', product: ''),
       },
       initialRoute: initialRoot,
     );
@@ -57,7 +60,7 @@ class Employee extends StatefulWidget {
 }
 
 class _EmployeeState extends State<Employee> {
-  final List<Widget> _body = [const GetAllProductPage(), const SettingPage()];
+  final List<Widget> _body = [ ReceiveProductPage(), const SettingPage()];
 
   int index = 0;
 

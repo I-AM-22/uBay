@@ -18,6 +18,7 @@ import {
 import CardContent from "@mui/material/CardContent";
 import Skeleton from "components/feedback/Skeleton";
 import { UserAvatar } from "components/icons/UserAvatar";
+import { useIsMe } from "features/account";
 import { CommentsDrawer } from "features/comment";
 import { PaymentDialog } from "features/payment";
 import { Post } from "features/post";
@@ -41,6 +42,7 @@ export const PostDetails: FC<PostCardProps> = ({ post, skeleton }) => {
   const [commentsDrawerOpen, setCommentsDrawerOpen] = useState(false);
   const navigate = useNavigate();
   const isDesktop = useIsDesktop();
+  const sellerIsMe = useIsMe(post?.user.id ?? "");
   const onCommentClick = () => {
     setCommentsDrawerOpen(true);
   };
@@ -177,15 +179,15 @@ export const PostDetails: FC<PostCardProps> = ({ post, skeleton }) => {
               <CardActions>
                 <Button
                   onClick={() => {
-                    if (post) setPaymentDialogOpen(true);
+                    if (post && !sellerIsMe) setPaymentDialogOpen(true);
                   }}
                   startIcon={<ShoppingCartRoundedIcon sx={{ color: "white" }} />}
                   variant="contained"
                   sx={{ ml: "auto" }}
-                  disabled={post?.is_paid}
+                  disabled={post?.is_paid && !sellerIsMe}
                 >
                   {post && !post.is_paid && priceFormatter.format(post.price)}
-                  {post && post.is_paid && t("is_paid")}
+                  {post && post.is_paid && `${priceFormatter.format(post.price)} (${t("is_paid")})`}
                   {skeleton && <Skeleton width={50} variant="text" />}
                 </Button>
               </CardActions>

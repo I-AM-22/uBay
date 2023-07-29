@@ -16,6 +16,9 @@ export type EdgeDrawerProps = {
   onClose?: () => void;
   title?: React.ReactNode;
   sx?: SxProps;
+  keepMounted?: boolean;
+  puller?: boolean;
+  closeIcon?: boolean;
 };
 
 const Puller = styled(Box)(({ theme }) => ({
@@ -35,6 +38,9 @@ export function EdgeDrawer({
   onClose,
   id,
   title,
+  keepMounted = true,
+  puller = true,
+  closeIcon = true,
   ...props
 }: EdgeDrawerProps) {
   const isDesktop = useIsDesktop();
@@ -53,7 +59,7 @@ export function EdgeDrawer({
       onOpen={toggleDrawer(true)}
       swipeAreaWidth={drawerBleeding}
       ModalProps={{
-        keepMounted: true,
+        keepMounted,
       }}
       {...props}
     >
@@ -69,19 +75,21 @@ export function EdgeDrawer({
             bgcolor: "white",
             left: 0,
             zIndex: 2,
-            pt: isDesktop ? 1 : 2.5,
+            pt: isDesktop || !puller ? 1 : 2.5,
           }}
         >
-          {!isDesktop && <Puller />}
+          {!isDesktop && puller && <Puller />}
 
           <Box position={"relative"}>
             {title}
-            <IconButton
-              onClick={toggleDrawer(false)}
-              sx={{ position: "absolute", top: -4, left: 3 }}
-            >
-              <CancelRoundedIcon sx={{ color: grey[400], borderRadius: "50%" }} />
-            </IconButton>
+            {closeIcon && (
+              <IconButton
+                onClick={toggleDrawer(false)}
+                sx={{ position: "absolute", top: -4, left: 3 }}
+              >
+                <CancelRoundedIcon sx={{ color: grey[400], borderRadius: "50%" }} />
+              </IconButton>
+            )}
           </Box>
           <Divider sx={{ mt: 1 }} />
         </Box>

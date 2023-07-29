@@ -1,13 +1,16 @@
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+
 import FlagIcon from "@mui/icons-material/Flag";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import QrCode2RoundedIcon from "@mui/icons-material/QrCode2Rounded";
 import { IconButton } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import MenuItem from "@mui/material/MenuItem";
 import { useQueryClient } from "@tanstack/react-query";
 import Loading from "components/feedback/Loading";
+import RouterLink from "components/links/RouterLink";
 import { Dropdown } from "components/selects/Dropdown";
 import { useSnackbar } from "context/snackbarContext";
 import { useIsMe } from "features/account";
@@ -16,12 +19,14 @@ import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { parseResponseError } from "utils/apiHelpers";
 import { Post, postQueries } from "..";
+import { ProductQr } from "./ProductQr";
 export type PostOptionsProps = { post: Post; onPostRemove?: () => void };
 export const PostOptions: FC<PostOptionsProps> = ({ post, onPostRemove }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [qrOpen, setQrOpen] = useState(false);
   const isMe = useIsMe(post.user.id);
   const { t } = useTranslation();
-  const editPost = postQueries.useEdit();
+  const { t: tPost } = useTranslation("post");
   const removePost = postQueries.useRemove();
   const snackbar = useSnackbar();
   const queryClient = useQueryClient();
@@ -50,6 +55,10 @@ export const PostOptions: FC<PostOptionsProps> = ({ post, onPostRemove }) => {
       }
     );
   };
+  const handleQr = () => {
+    setQrOpen(true);
+    handleClose();
+  };
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -59,9 +68,20 @@ export const PostOptions: FC<PostOptionsProps> = ({ post, onPostRemove }) => {
         <MoreVertIcon />
       </IconButton>
       <Dropdown anchor={anchorEl} onClose={handleClose}>
+        {
+          <MenuItem onClick={handleQr}>
+            {<QrCode2RoundedIcon />}
+            {isMe ? tPost("qrSeller") : tPost("qrBuyer")}
+          </MenuItem>
+        }
         {isMe && (
-          <MenuItem onClick={handleClose}>
-            {editPost.isLoading ? <Loading size={15} /> : <EditIcon />}
+          <MenuItem
+            component={RouterLink}
+            noStyle
+            to={`/posts/${post.id}/edit`}
+            onClick={handleClose}
+          >
+            <EditIcon />
             {t("edit")}
           </MenuItem>
         )}
@@ -73,7 +93,6 @@ export const PostOptions: FC<PostOptionsProps> = ({ post, onPostRemove }) => {
         )}
 
         <Divider sx={{ "&.MuiDivider-root": { my: 0 } }} />
-
         <MenuItem onClick={handleCopyToClipboard}>
           <ContentCopyIcon />
           {t("copyLink")}
@@ -83,6 +102,14 @@ export const PostOptions: FC<PostOptionsProps> = ({ post, onPostRemove }) => {
           {t("report")}
         </MenuItem>
       </Dropdown>
+      <ProductQr
+        onClose={() => setQrOpen(false)}
+        open={qrOpen}
+        setOpen={setQrOpen}
+        post={post}
+        keepMounted={false}
+        title={`${isMe ? tPost("qrSeller") : tPost("qrBuyer")}: ${post.title}`}
+      />
     </>
   );
 };

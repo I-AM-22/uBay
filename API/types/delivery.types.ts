@@ -2,13 +2,15 @@ import { Date, Document, Model, ObjectId, PopulatedDoc, Schema } from 'mongoose'
 
 import { IPayment } from './payment.types';
 import { IEmployee } from './employee.types';
+import { EnumDeclaration } from 'typescript';
 
 export interface IDelivery {
   payment: PopulatedDoc<Document<ObjectId>> & IPayment;
-  employee: PopulatedDoc<Document<ObjectId>> & IEmployee;
-  user: number;
-  customer_status: boolean;
-  customer_receipt:Date;
+  employee_seller: PopulatedDoc<Document<ObjectId>> & IEmployee;
+  employee_customer: PopulatedDoc<Document<ObjectId>> & IEmployee;
+  delivery_status: string;
+  customer_date: Date;
+  seller_date: Date;
 }
 
 export type DeliveryDoc = IDelivery & Document;

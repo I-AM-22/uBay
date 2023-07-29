@@ -36,6 +36,11 @@ let API_ROUTES = {
     root: "categories",
     GET_ALL: "",
   },
+  DELIVERIES: {
+    root: "deliveries",
+    GENERATE_QR_FOR_SELLER: "generateQrForSeller",
+    GENERATE_QR_FOR_CUSTOMER: "generateQrForCustomer",
+  },
 } as const;
 
 const controllersArr = Object.entries(API_ROUTES).map(([controllerKey, { root, ...routes }]) => {

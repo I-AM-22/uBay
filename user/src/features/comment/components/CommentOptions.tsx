@@ -1,4 +1,3 @@
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FlagIcon from "@mui/icons-material/Flag";
@@ -16,12 +15,11 @@ import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { parseResponseError } from "utils/apiHelpers";
 import { Comment, commentQueries } from "..";
-export type CommentOptionsProps = { comment: Comment; onCommentRemove?: () => void };
-export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onCommentRemove }) => {
+export type CommentOptionsProps = { comment: Comment; onRemove?: () => void; onEdit: () => void };
+export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onRemove, onEdit }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMe = useIsMe(comment.user.id);
   const { t } = useTranslation();
-  const editComment = commentQueries.useEdit();
   const removeComment = commentQueries.useRemove();
   const snackbar = useSnackbar();
   const queryClient = useQueryClient();
@@ -31,26 +29,17 @@ export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onCommentRemo
   const handleRemove = () => {
     removeComment.mutate(comment.id, {
       onSuccess: () => {
-        queryClient.invalidateQueries(queryStore.post.all._def);
-        queryClient.removeQueries(queryStore.post.detail(comment.id));
+        queryClient.invalidateQueries(queryStore.comment.all._def);
+        queryClient.removeQueries(queryStore.comment.detail(comment.id));
         handleClose();
-        onCommentRemove?.();
+        onRemove?.();
       },
       onError: parseResponseError({ snackbar }),
     });
   };
-  const handleCopyToClipboard = () => {
-    navigator.clipboard
-      .writeText(`${window.location.origin}/posts/${comment.id}/comments/${comment.id}`)
-      .then(
-        () => {
-          snackbar({ message: t("copyToClipboard.success"), severity: "success" });
-        },
-        (err) => {
-          snackbar({ message: t("copyToClipboard.error"), severity: "error" });
-          console.error(err);
-        }
-      );
+  const handleEdit = () => {
+    onEdit();
+    handleClose();
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -62,8 +51,8 @@ export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onCommentRemo
       </IconButton>
       <Dropdown anchor={anchorEl} onClose={handleClose}>
         {isMe && (
-          <MenuItem onClick={handleClose}>
-            {editComment.isLoading ? <Loading size={15} /> : <EditIcon />}
+          <MenuItem onClick={handleEdit}>
+            <EditIcon />
             {t("edit")}
           </MenuItem>
         )}
@@ -75,11 +64,6 @@ export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onCommentRemo
         )}
 
         <Divider sx={{ "&.MuiDivider-root": { my: 0 } }} />
-
-        <MenuItem onClick={handleCopyToClipboard}>
-          <ContentCopyIcon />
-          {t("copyLink")}
-        </MenuItem>
         <MenuItem onClick={handleClose}>
           <FlagIcon />
           {t("report")}

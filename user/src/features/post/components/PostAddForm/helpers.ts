@@ -1,7 +1,7 @@
 import { PostBody } from "features/post";
-import { PostForm } from "./type";
+import { Form } from "./type";
 
-export function fromFormToBody(form: PostForm): PostBody {
+export function fromFormToBody(form: Form): PostBody {
   return { ...form, category: form.category?.id ?? "" };
 }
 // export function fromDetailsToForm(post:Post): PostForm {
