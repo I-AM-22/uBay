@@ -8,6 +8,7 @@ export type PostBody = {
   photos?: File[];
   price: number;
   category: string;
+  store: string;
 };
 export type PostAllParams = APIListParams;
 export type Post = {

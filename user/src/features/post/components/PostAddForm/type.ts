@@ -4,4 +4,5 @@ export type Form = {
   photos: File[];
   price: number;
   category: { id: string; name: string } | null;
+  store: { id: string; name: string } | null;
 };

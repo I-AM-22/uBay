@@ -5,6 +5,7 @@ import { Form } from "./type";
 export const postFormDefault: Form = {
   title: "",
   category: null,
+  store: null,
   content: "",
   photos: [],
   price: 0,
@@ -16,6 +17,14 @@ const postSchema: z.ZodType<Form> = z.object({
   price: z.coerce.number().positive(),
   category: z.object(
     { id: z.string(), name: z.string() },
+    { invalid_type_error: i18n.t("validation:required") }
+  ),
+  store: z.object(
+    {
+      id: z.string(),
+      name: z.string(),
+      city: z.object({ id: z.string(), _id: z.string(), name: z.string() }),
+    },
     { invalid_type_error: i18n.t("validation:required") }
   ),
 });

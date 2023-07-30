@@ -14,7 +14,7 @@ export type ProductQrProps = Omit<EdgeDrawerProps, "children"> & {
 export const ProductQr: FC<ProductQrProps> = ({ post, onClose, ...props }) => {
   const isDesktop = useIsDesktop();
   const isSeller = useIsMe(post.user.id);
-  const generate = paymentQueries.useGenerateQr({ product: post.id }, isSeller);
+  const generate = paymentQueries.useGenerateQr({ product: props.open ? post.id : "" }, isSeller);
   const value = JSON.stringify({
     isDeliver: isSeller,
     product: post.id,

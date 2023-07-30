@@ -9,6 +9,7 @@ import { useSnackbar } from "context/snackbarContext";
 import { CategoryAutocomplete } from "features/category";
 import { postQueries } from "features/post";
 import { queryStore } from "features/shared";
+import { StoreAutocomplete } from "features/store";
 import z from "lib/zod";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
@@ -79,6 +80,7 @@ export const PostAddForm: FC<PostAddFormProps> = ({}) => {
               />
               <TextField name="price" control={control} label={t("price")} type="number" />
               <CategoryAutocomplete control={control} name="category" label={t("category")} />
+              <StoreAutocomplete control={control} name="store" label={t("store")} />
               <ImageUploadInput
                 multiple
                 onRemove={handleImagesClear}

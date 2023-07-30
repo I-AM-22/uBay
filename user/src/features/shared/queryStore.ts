@@ -3,4 +3,11 @@ import { accountKeys } from "features/account";
 import { categoryKeys } from "features/category";
 import { commentKeys } from "features/comment";
 import { postKeys } from "features/post";
-export const queryStore = mergeQueryKeys(accountKeys, postKeys, categoryKeys, commentKeys);
+import { storeKeys } from "features/store";
+export const queryStore = mergeQueryKeys(
+  accountKeys,
+  postKeys,
+  categoryKeys,
+  commentKeys,
+  storeKeys
+);

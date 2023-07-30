@@ -14,7 +14,7 @@ export type CommentsDrawerProps = Omit<EdgeDrawerProps, "children"> & {
   onClose: () => void;
 };
 export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...props }) => {
-  const query = commentQueries.useInfinite({ postId: post?.id ?? "" });
+  const query = commentQueries.useInfinite({ postId: props.open ? post?.id ?? "" : "" });
   const isDesktop = useIsDesktop();
   const scrollId = useId();
   const { t } = useTranslation("comment");
