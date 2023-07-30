@@ -4,3 +4,4 @@ export * from "./components/Feed";
 export * from "./components/PostAddForm";
 export * from "./components/PostDetails";
 export * from "./components/PostEditForm";
+export * from "./components/PostMineList";

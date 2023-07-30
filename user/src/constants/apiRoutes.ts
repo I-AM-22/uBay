@@ -18,6 +18,7 @@ let API_ROUTES = {
     LIKE: (id: string) => `${id}/likes`,
     UNLIKE: (id: string) => `${id}/likes`,
     COMMENTS: (id: string) => `${id}/comments`,
+    MINE: "mine",
   },
   COMMENTS: {
     root: "comments",

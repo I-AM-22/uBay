@@ -16,6 +16,7 @@ import { PasswordForgotPage } from "pages/settings/password-forgot";
 import { ProfilePage } from "pages/settings/profile";
 import { ProfileEditPage } from "pages/settings/profile/edit";
 import { SignupPage } from "pages/signup";
+import TransactionsPage from "pages/transactions";
 import {
   Outlet,
   Route,
@@ -48,6 +49,7 @@ export default createBrowserRouter(
           <Route path="posts/new" element={<PostNewPage />} />
           <Route path="posts/:id" element={<PostPage />} />
           <Route path="posts/:id/edit" element={<PostEditPage />} />
+          <Route path="transactions" element={<TransactionsPage />} />
           <Route path="settings/profile" element={<ProfilePage />} />
           <Route path="settings/profile/edit" element={<ProfileEditPage />} />
           <Route path="settings/password-change" element={<PasswordChangePage />} />

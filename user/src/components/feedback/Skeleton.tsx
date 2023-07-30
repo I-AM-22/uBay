@@ -6,14 +6,17 @@ export type SkeletonProps = {
   heightRange?: SkeletonRange;
 } & Props;
 const Skeleton: FC<SkeletonProps> = ({ widthRange, heightRange, ...props }) => {
+  const isWidthRange = !!widthRange;
+  const isHeightRange = !!heightRange;
   const width = useMemo(
-    () => (widthRange ? widthRange.min + Math.random() * widthRange.max : props.width),
-    [widthRange, props.width]
+    () => (isWidthRange ? widthRange.min + Math.random() * widthRange.max : props.width),
+    [isWidthRange, widthRange?.min, widthRange?.max, props.width]
   );
   const height = useMemo(
-    () => (heightRange ? heightRange.min + Math.random() * heightRange.max : props.height),
-    [heightRange, props.height]
+    () => (isHeightRange ? heightRange.min + Math.random() * heightRange.max : props.height),
+    [isHeightRange, heightRange?.min, heightRange?.max, props.height]
   );
+
   return <MuiSkeleton {...props} width={width} height={height} />;
 };
 export default Skeleton;

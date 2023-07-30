@@ -4,6 +4,8 @@
   "is_paid": "تم البيع",
   "qrSeller": "تسليم القطعة",
   "qrBuyer": "إستلام القطعة",
+  "myPurchases": "مشترياتي",
+  "mySales": "مبيعاتي",
   "form": {
     "formAdd": "إضافة منشور جديد",
     "formEdit": "تعديل المنشور",
@@ -15,5 +17,10 @@
     "photos": "الصور",
     "create": "إضافة",
     "save": "حفظ"
+  },
+  "deliveryStatus": {
+    "seller": "بإنتظار البائع",
+    "customer": "بإنتظار المشتري",
+    "wait": "بالإنتظار..."
   }
 }
