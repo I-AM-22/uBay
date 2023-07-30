@@ -17,7 +17,7 @@ const Submit = forwardRef(function Fr(
     isSubmitting = false,
     error = false,
     disabled,
-    loadingSize = 30,
+    loadingSize = 20,
     children,
     sx,
     ...props
