@@ -1,11 +1,11 @@
 import SomethingWentWrong from "components/feedback/SomethingWentWrong";
 import AuthenticatedRoute from "components/routes/AuthenticatedRoute";
 import NotAuthenticatedRoute from "components/routes/NotAuthenticatedRoute";
+import HomePage from "pages";
 import { AdminsPage } from "pages/admins";
 import { CategoriesPage } from "pages/categories";
 import { CitiesPage } from "pages/cities";
 import { EmployeesPage } from "pages/employees";
-import Home from "pages/home";
 import { LoginPage } from "pages/login";
 import { UsersPage } from "pages/users";
 import { WarehousedPage } from "pages/warehouses";
@@ -28,7 +28,7 @@ export default createBrowserRouter(
       </Route>
       <Route element={<AuthenticatedRoute />}>
         <Route element={<Layout />}>
-          <Route path="" element={<Home />} />
+          <Route path="" element={<HomePage />} />
           <Route path="users" element={<UsersPage />} />
           <Route path="admins" element={<AdminsPage />} />
           <Route path="categories" element={<CategoriesPage />} />

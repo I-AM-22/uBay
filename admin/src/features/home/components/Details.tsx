@@ -1,9 +1,9 @@
-import { Box } from "@mui/material";
-import HomeCard from "./components/HomeCard";
-import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import InsertChartOutlinedOutlinedIcon from "@mui/icons-material/InsertChartOutlinedOutlined";
 import ApartmentOutlinedIcon from "@mui/icons-material/ApartmentOutlined";
+import InsertChartOutlinedOutlinedIcon from "@mui/icons-material/InsertChartOutlinedOutlined";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
+import { Box } from "@mui/material";
+import HomeCard from "./HomeCard";
 export default function Details() {
   const dataCard = [
     {
@@ -34,12 +34,7 @@ export default function Details() {
       }}
     >
       {dataCard.map((card) => (
-        <HomeCard
-          icon={card.icon}
-          title={card.title}
-          count={card.count}
-          key={card.title}
-        />
+        <HomeCard icon={card.icon} title={card.title} count={card.count} key={card.title} />
       ))}
     </Box>
   );
