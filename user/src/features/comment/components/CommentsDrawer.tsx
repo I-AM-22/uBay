@@ -4,7 +4,7 @@ import { EdgeDrawer, EdgeDrawerProps } from "features/layout";
 import { Post } from "features/post";
 import { useIsDesktop } from "hooks/useIsDesktop";
 import InfiniteScroll from "lib/infiniteScroll";
-import { FC, useId } from "react";
+import { FC, useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { commentQueries } from "..";
 import { CommentCard } from "./CommentCard";
@@ -17,12 +17,18 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...prop
   const query = commentQueries.useInfinite({ postId: props.open ? post?.id ?? "" : "" });
   const isDesktop = useIsDesktop();
   const scrollId = useId();
+  const [height, setHeight] = useState(window.innerHeight);
   const { t } = useTranslation("comment");
   const isEmpty = query.isSuccess && query.data.pages[0].data.length === 0;
   const handleCommentSubmit = () => {
     const commentList = document.getElementById(scrollId);
     if (commentList) commentList.scroll({ top: 0 });
   };
+  console.log(height);
+
+  window.addEventListener("resize", function () {
+    setHeight(window.visualViewport?.height ?? this.window.innerHeight);
+  });
   return (
     <EdgeDrawer
       {...props}
@@ -35,7 +41,7 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...prop
       }
       sx={{
         ".MuiDrawer-paper": {
-          height: "100vh",
+          height: height,
           width: isDesktop ? 400 : 1,
           pb: 5,
           pt: 1,
