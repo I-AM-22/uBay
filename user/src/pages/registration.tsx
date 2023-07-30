@@ -11,6 +11,7 @@ export const RegistrationPage: FC<{}> = ({}) => {
         minHeight: "100vh",
         width: "100vw",
         position: "relative",
+        bgcolor: { xs: "#fff", sm: "primary.50" },
       }}
     >
       <Box
@@ -46,7 +47,9 @@ export const RegistrationPage: FC<{}> = ({}) => {
                 component="img"
                 src={"images/registration.png"}
                 sx={{
-                  borderRadius: themeConstants.borderRadius,
+                  // display:{xs:"none",sm:"block"},
+                  height: { xs: 0.3, sm: "auto" },
+                  borderRadius: { xs: 0, sm: themeConstants.borderRadius },
                   width: { xs: "100%", sm: "40%" },
                   aspectRatio: { xs: "1", sm: "1" },
                   objectFit: "cover",

@@ -19,7 +19,7 @@ export const FormPage: FC<FormPageProps> = ({ children }) => {
           flexDirection: "column",
           justifyContent: "center",
           overflow: { xs: "hidden", md: "auto" },
-          bgcolor: "primary.100",
+          bgcolor: "primary.50",
         }}
       >
         <Slide in={true} direction="up" timeout={300}>
