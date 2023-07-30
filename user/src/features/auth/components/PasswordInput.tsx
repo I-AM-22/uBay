@@ -20,6 +20,7 @@ const PasswordInput: FC<Props> = ({ ...props }) => {
         endAdornment: (
           <InputAdornment position="end">
             <IconButton
+              sx={{ p: 0 }}
               onClick={() => {
                 setShowPassword((prev) => !prev);
               }}
