@@ -4,6 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import NoData from "components/feedback/NoData";
 import Skeleton from "components/feedback/Skeleton";
 import OptionalLink from "components/links/OptionalLink";
 import { FC } from "react";
@@ -13,6 +14,7 @@ import { PostMine, postQueries } from "..";
 export type PostMineListProps = { isBuy: boolean };
 export const PostMineList: FC<PostMineListProps> = ({ isBuy }) => {
   const query = postQueries.useMine({ isBuy });
+  const noData = query.isSuccess && query.data.length === 0;
   return (
     <Stack gap={1} p={1} maxWidth={600} width="min(500px,100%)" mx="auto" alignItems={"center"}>
       {query.isSuccess &&
@@ -24,6 +26,7 @@ export const PostMineList: FC<PostMineListProps> = ({ isBuy }) => {
           <PostMineCard skeleton />
         </>
       )}
+      {noData && <NoData />}
     </Stack>
   );
 };
