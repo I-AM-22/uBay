@@ -31,8 +31,7 @@ export const receive = catchAsync(async (req: Request, res: Response, next: Next
     }
 
     //to check if he goes to the right store
-    if(storeID!=delivDoc.payment.product.store)
-    {
+    if (storeID != delivDoc.payment.product.store) {
         throw new Error('هذا المنتج غير موجود في هذا المتجر يرجى الذهاب الى المتجر الصحيح');
     }
     const employee: any = req.user?.id;
@@ -40,7 +39,8 @@ export const receive = catchAsync(async (req: Request, res: Response, next: Next
     if (status == 0) {
         //to prevent repeate data receive
         if (delivDoc.delivery_status != "wait") {
-           return res.status(STATUS_CODE.SUCCESS).json("هذا المنتج تم تسليمه من قبل");
+            throw new Error("هذا المنتج تم تسليمه من قبل");
+
         }
         const time: any = new Date();
         delivDoc.seller_date = time;
@@ -51,10 +51,10 @@ export const receive = catchAsync(async (req: Request, res: Response, next: Next
     }
     else if (status == 1) {
         if (delivDoc.delivery_status == "wait") {
-           return res.status(STATUS_CODE.SUCCESS).json('هذا المنتج ليس بل مستودع حاليا');
+            throw new Error('هذا المنتج ليس ضمن مستودع');
         }
         if (delivDoc.delivery_status == "customer") {
-            return res.status(STATUS_CODE.SUCCESS).json('لقد تم تسليمك هذا المنتج رجاء التأكد من رمز التوليد');
+            throw new Error('لقد تم تسليمك هذا المنتج رجاء التأكد من رمز التوليد');
         }
         const time: any = new Date();
         delivDoc.customer_date = time;
