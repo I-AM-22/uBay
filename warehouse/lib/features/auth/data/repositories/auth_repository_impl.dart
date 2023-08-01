@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:warehouse/core/strings/id_and_token.dart';
 
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
@@ -25,9 +26,10 @@ class AuthRepositoryImplement implements AuthRepository {
       String email, String password) async {
     if (await networkInfo.isConnected) {
       try {
-        final userLogin = await authRemoteDataSource.login(email, password);
-        await authLocalDataSource.cacheLogin(userLogin: userLogin);
-        return Right(userLogin);
+        final employeeLoginModel = await authRemoteDataSource.login(email, password);
+        await authLocalDataSource.cacheLogin(token: employeeLoginModel.token);
+        token=employeeLoginModel.token;
+        return Right(employeeLoginModel);
       } on ServerException  {
         return Left(ServerFailure());
       }

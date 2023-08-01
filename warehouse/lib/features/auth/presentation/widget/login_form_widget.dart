@@ -6,7 +6,6 @@ import 'package:warehouse/core/util/snackbar_message.dart';
 import 'package:warehouse/core/widget/elevated_button_widget.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/features/auth/presentation/widget/text_form_widget.dart';
-import 'package:warehouse/main.dart';
 
 import '../../../../core/theme.dart';
 import '../bloc/auth/auth_bloc.dart';
@@ -29,7 +28,7 @@ class LoginFormWidget extends StatelessWidget {
               successLoginState: (message) {
                 SnackBarMessage().snackBarMessageSuccess(context, message);
                 Navigator.pushNamedAndRemoveUntil(
-                    context, '/EmployeePage', (route) => false);
+                    context, '/homePage', (route) => false);
               },
               errorLoginState: (message) {
                 SnackBarMessage().snackBarMessageError(context, message);
@@ -41,8 +40,6 @@ class LoginFormWidget extends StatelessWidget {
               return _buildLoginFormWidget(context);
             }, loading: () {
               return const LoadingWidget();
-            }, successLoginState: (message) {
-              return const Employee();
             }, errorLoginState: (message) {
               return _buildLoginFormWidget(context);
             }, changeIconVisibilityState: (isVisible) {
@@ -73,7 +70,7 @@ class LoginFormWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  SvgPicture.asset('assets/images/register.svg'),
+                  SvgPicture.asset('assets/images/login.svg'),
                   const SizedBox(
                     height: 50,
                   ),

@@ -19,6 +19,9 @@ class DioHelper {
     return await dio.post(
       url,
       data: data,
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+        })
     );
   }
 

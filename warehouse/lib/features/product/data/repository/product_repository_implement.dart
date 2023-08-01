@@ -18,7 +18,6 @@ class ProductRepositoryImplement implements ProductRepository{
   @override
   Future<Either<Failure, ProductModel>> getProduct(String id)async {
     if(await networkInfo.isConnected){
-      print('inside');
       try{
         final productModel=await productRemoteDataSource.getProduct(id);
         return Right(productModel);
@@ -31,7 +30,7 @@ class ProductRepositoryImplement implements ProductRepository{
   }
 
   @override
-  Future<Either<Failure, Unit>> receiveProduct(String id,int status) async{
+  Future<Either<Failure, Unit>> receiveProduct(String id,String status) async{
     if(await networkInfo.isConnected){
       try{
         await productRemoteDataSource.receiveProduct(id,status);
@@ -42,6 +41,12 @@ class ProductRepositoryImplement implements ProductRepository{
     }else{
       return Left(OfflineFailure());
     }
+  }
+
+  @override
+  Future<Unit> logOut() async{
+    await productLocalDataSource.logOut();
+    return Future.value(unit);
   }
 
 }

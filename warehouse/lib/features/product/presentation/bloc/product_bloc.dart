@@ -6,6 +6,7 @@ import 'package:warehouse/features/product/data/model/product_model/product_mode
 import '../../../../core/errors/failures.dart';
 import '../../../../core/strings/failure.dart';
 import '../../domain/usecase/get_product_usecase.dart';
+import '../../domain/usecase/logout_usecase.dart';
 import '../../domain/usecase/receive_product_usecase.dart';
 
 part 'product_event.dart';
@@ -18,8 +19,9 @@ part 'product_bloc.freezed.dart';
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final GetProductUseCase getProductUseCase;
   final ReceiveProductUseCase receiveProductUseCase;
+  final LogOutUseCase logoutUseCase;
 
-  ProductBloc(this.getProductUseCase, this.receiveProductUseCase)
+  ProductBloc(this.getProductUseCase, this.receiveProductUseCase, this.logoutUseCase)
       : super(const ProductState.initial()) {
       on<_$_getProductEvent>((event, emit) async {
         emit(const _$_loading());
@@ -39,6 +41,10 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         }, (r) {
           emit(const _$_successReceiveProductState());
         });
+      });
+      on<_$_logOut>((event, emit) async{
+        await logoutUseCase();
+        emit(const _successLogOutState('تم تسجيل الخروج'));
       });
   }
 

@@ -9,7 +9,7 @@ class ReceiveProductUseCase {
 
   ReceiveProductUseCase(this.productRepository);
 
-  Future<Either<Failure, Unit>> call(String id,int status) async {
+  Future<Either<Failure, Unit>> call(String id,String status) async {
     return await productRepository.receiveProduct(id,status);
   }
 }

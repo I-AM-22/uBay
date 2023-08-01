@@ -18,6 +18,7 @@ class AuthRemoteDataSourceImplement implements AuthRemoteDataSource {
     await DioHelper.postData(
         url: LOGIN, data: {'email': email, 'password': password}).then((value) {
       employeeLoginModel = EmployeeLoginModel.fromJson(value.data);
+
       return Future.value(employeeLoginModel);
     }).catchError((error) {
 

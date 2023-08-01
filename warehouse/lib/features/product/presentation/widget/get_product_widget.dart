@@ -12,13 +12,15 @@ import '../../../../core/theme.dart';
 class GetProductWidget extends StatelessWidget {
   final String payment;
   final String product;
+  final bool isDeliver;
 
-  GetProductWidget({super.key, required this.payment, required this.product});
+  const GetProductWidget({super.key, required this.payment, required this.product, required this.isDeliver});
 
-  final PageController pageController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
+    String message=isDeliver?'تم استلام القطعة بنجاح':'تم تسليم القطعة للمشتري بنجاح';
+    String bottom=isDeliver?'تأكيد استلام القطعة':'تأكيد تسليم القطعة';
     return BlocProvider(
       create: (_) =>
           di.getIt<ProductBloc>()..add(ProductEvent.getProductEvent(product)),
@@ -30,8 +32,8 @@ class GetProductWidget extends StatelessWidget {
                   SnackBarMessage().snackBarMessageError(context, message);
                 },
               successReceiveProductState: (){
-                 // Navigator.pushNamedAndRemoveUntil(context, '/EmployeePage', (route) => false);
-                  SnackBarMessage().snackBarMessageSuccess(context, 'تم استلام المنتج');
+                 Navigator.pushNamedAndRemoveUntil(context, '/homePage', (route) => false);
+                  SnackBarMessage().snackBarMessageSuccess(context, message);
               },
               errorReceiveProductState: (message){
                   SnackBarMessage().snackBarMessageError(context, message);
@@ -41,12 +43,12 @@ class GetProductWidget extends StatelessWidget {
           builder: (context, state) => state.maybeWhen(
               orElse: () => const Center(child: Text('No Data')),
               successGetProductState: (productModel) =>
-                  _buildProduct(productModel, context),
+                  _buildProduct(productModel, context,bottom),
               loading: () => const LoadingWidget())),
     );
   }
 
-  Widget _buildProduct(ProductModel productModel, BuildContext context) {
+  Widget _buildProduct(ProductModel productModel, BuildContext context,String bottom) {
     return Card(
       margin: const EdgeInsets.all(5),
       shape: RoundedRectangleBorder(
@@ -103,13 +105,13 @@ class GetProductWidget extends StatelessWidget {
               ElevatedButtonWidget(
                   onPressed: () {
                     BlocProvider.of<ProductBloc>(context)
-                        .add(ProductEvent.receiveProductEvent(payment, 0));
+                        .add(ProductEvent.receiveProductEvent(payment,isDeliver?'0':'1'));
                   },
                   row: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'تأكيد استلام القطعة',
+                        bottom,
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!

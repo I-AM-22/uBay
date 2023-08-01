@@ -4,9 +4,10 @@ import 'package:warehouse/features/product/presentation/widget/get_product_widge
 class GetProductPage extends StatelessWidget {
   final String payment;
   final String product;
+  final bool isDeliver;
 
   const GetProductPage(
-      {super.key, required this.payment, required this.product});
+      {super.key, required this.payment, required this.product, required this.isDeliver});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class GetProductPage extends StatelessWidget {
               color: Colors.white,
             )),
       ),
-      body: GetProductWidget(payment: payment, product: product),
+      body: GetProductWidget(payment: payment, product: product,isDeliver: isDeliver),
     );
   }
 }

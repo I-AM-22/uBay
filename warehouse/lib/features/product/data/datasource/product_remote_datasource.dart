@@ -12,7 +12,7 @@ import '../../../../core/strings/failure.dart';
 abstract class ProductRemoteDataSource {
   Future<ProductModel> getProduct(String id);
 
-  Future<Unit> receiveProduct(String id, int status);
+  Future<Unit> receiveProduct(String id, String status);
 }
 
 @Injectable(as: ProductRemoteDataSource)
@@ -20,9 +20,9 @@ class ProductRemoteDataSourceImplement implements ProductRemoteDataSource {
   @override
   Future<ProductModel> getProduct(String id) async {
     ProductModel? productModel;
-    await DioHelper.getData(
-            url: '$GET_PRODUCT/$id', token: employeeDetails!.token)
+    await DioHelper.getData(url: '$GET_PRODUCT/$id', token: token)
         .then((value) {
+
       productModel = ProductModel.fromJson(value.data);
       return Future.value(productModel);
     }).catchError((error) {
@@ -36,19 +36,20 @@ class ProductRemoteDataSourceImplement implements ProductRemoteDataSource {
   }
 
   @override
-  Future<Unit> receiveProduct(String id, int status) async{
-   await DioHelper.postData(
-            url: RECEIVE_DELIVERY,
-            token: employeeDetails!.token,
-            data: {'payment': id, 'status': status})
-        .then((value) {
-          print('the product is: ${value.data}');
-    })
-        .catchError((error) {
-          print(error.toString());
-      // if (error.response != null) {
-      //   SERVER_FAILURE = _mapResponseError(error.response);
-      // }
+  Future<Unit> receiveProduct(String id, String status) async {
+    await DioHelper.postData(
+        url: RECEIVE_DELIVERY,
+        token: token,
+        data: {'payment': id, 'status': status}).then((value) {
+      print('the product is: ${value.data}');
+    }).catchError((error) {
+      print(error.toString());
+      DioError dioError = error;
+      print(dioError.response!.statusCode);
+      print('response error : ${dioError.response!.data}');
+      if (dioError.response != null) {
+        SERVER_FAILURE = _mapResponseError(dioError.response!);
+      }
       throw ServerException();
     });
     return Future.value(unit);

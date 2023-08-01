@@ -10,7 +10,6 @@ environment:
   sdk: ">=2.19.6 <3.0.0"
 
 dependencies:
-  barcode_widget: ^2.0.3
   bloc: ^8.1.0
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
@@ -22,19 +21,13 @@ dependencies:
   flutter_svg: ^2.0.6
   freezed_annotation: ^2.2.0
   get_it: ^7.6.0
-  google_fonts: any
-  cached_network_image: ^3.2.3
   conditional_builder_null_safety: ^0.0.6
   image_picker: ^0.8.4+11
   injectable: ^2.1.0
   internet_connection_checker: any
   json_annotation: ^4.8.1
-  reactive_forms: ^15.0.0
   form_builder_validators: ^9.0.0
   shared_preferences: ^2.0.15
-  flutter_cache_manager: ^3.3.0
-  carousel_slider: ^4.2.1
-  smooth_page_indicator: ^1.1.0
 
 dev_dependencies:
   build_runner: ^2.4.4
