@@ -13,8 +13,14 @@ export type CommentsDrawerProps = Omit<EdgeDrawerProps, "children"> & {
   post: Post | null;
   onClose: () => void;
 };
-export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...props }) => {
-  const query = commentQueries.useInfinite({ postId: props.open ? post?.id ?? "" : "" });
+export const CommentsDrawer: FC<CommentsDrawerProps> = ({
+  post,
+  onClose,
+  ...props
+}) => {
+  const query = commentQueries.useInfinite({
+    postId: props.open ? post?.id ?? "" : "",
+  });
   const isDesktop = useIsDesktop();
   const scrollId = useId();
   const [height, setHeight] = useState(window.innerHeight);
@@ -24,8 +30,6 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...prop
     const commentList = document.getElementById(scrollId);
     if (commentList) commentList.scroll({ top: 0 });
   };
-  console.log(height);
-
   window.addEventListener("resize", function () {
     setHeight(window.visualViewport?.height ?? this.window.innerHeight);
   });
@@ -35,7 +39,10 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...prop
       id={scrollId}
       onClose={onClose}
       title={
-        <Typography variant="h6" sx={{ color: "primary.900", textAlign: "center" }}>
+        <Typography
+          variant="h6"
+          sx={{ color: "primary.900", textAlign: "center" }}
+        >
           {t("comments")}
         </Typography>
       }
@@ -67,7 +74,9 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...prop
         )}
         {query.isSuccess &&
           query.data.pages.map((page) =>
-            page.data.map((comment) => <CommentCard key={comment.id} comment={comment} />)
+            page.data.map((comment) => (
+              <CommentCard key={comment.id} comment={comment} />
+            ))
           )}
         {query.isInitialLoading && (
           <>
@@ -80,7 +89,9 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...prop
           </>
         )}
       </InfiniteScroll>
-      {post && <CommentForm onCommentSubmit={handleCommentSubmit} postId={post?.id} />}
+      {post && (
+        <CommentForm onCommentSubmit={handleCommentSubmit} postId={post?.id} />
+      )}
     </EdgeDrawer>
   );
 };
