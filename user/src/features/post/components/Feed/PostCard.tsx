@@ -26,6 +26,7 @@ import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LikeButton } from "../LikeButton";
 import { PostOptions } from "../PostOptions";
+import axios from "axios";
 const priceFormatter = new Intl.NumberFormat(i18n.language, {
   style: "currency",
   currency: "SYP",
@@ -39,6 +40,27 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
   const handleRemove = () => {
     setOpen(false);
   };
+  const token=localStorage.getItem("token")
+  const addToChat=async()=>{
+    try {
+      const response = await axios.post('http://localhost:3000/api/v1/chats', {
+        name: post?.title,
+        product: post?.id,
+        user: post?.user.id
+      }, {
+        headers: {
+          'accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization':`Bearer ${token}`
+        }
+      });
+      console.log(response.data)
+      return response.data
+
+    } catch (error) {
+      throw error;
+    }
+  }
   return (
     <Slide direction="right" in={open} mountOnEnter appear={false} unmountOnExit>
       <Card>
@@ -184,7 +206,7 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
               <Button onClick={onCommentClick}>
                 <ChatBubbleIcon />
               </Button>
-              <Button>
+              <Button onClick={addToChat}>
                 <TelegramIcon />
               </Button>
             </>
