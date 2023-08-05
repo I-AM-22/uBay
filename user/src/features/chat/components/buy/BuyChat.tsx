@@ -1,5 +1,5 @@
-import { Avatar, Button, Stack, Typography } from "@mui/material";
-import Layout from "./Layout";
+import { Stack } from "@mui/material";
+import Layout from "../Layout";
 
 export default function BuyChat() {
   return (
@@ -11,7 +11,7 @@ export default function BuyChat() {
       mx="auto"
       alignItems={"center"}
     >
-      <Layout />
+      <Layout person={true} />
     </Stack>
   );
 }
