@@ -22,7 +22,7 @@ import RouterLink from "components/links/RouterLink";
 import { Post } from "features/post";
 import Timeago from "lib/Timeago";
 import i18n from "lib/i18next";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LikeButton } from "../LikeButton";
 import { PostOptions } from "../PostOptions";
@@ -36,12 +36,37 @@ export type PostCardProps =
   | { post?: undefined; skeleton: true; onCommentClick?: undefined };
 export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) => {
   const [open, setOpen] = useState(true);
+  const [userData, setUserData] = useState("");
   const { t } = useTranslation("post");
+  const token=localStorage.getItem("token")
   const handleRemove = () => {
     setOpen(false);
   };
-  const token=localStorage.getItem("token")
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/v1/users/me",
+          {
+            headers: {
+              accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setUserData(response.data.id);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, []);
   const addToChat=async()=>{
+    console.log("send")
+    console.log("post id",post?.user.id)
+    console.log("user id",userData)
+    if(post?.user.id==userData) return;
+    console.log("good")
     try {
       const response = await axios.post('http://localhost:3000/api/v1/chats', {
         name: post?.title,

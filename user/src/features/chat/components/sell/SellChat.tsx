@@ -1,6 +1,7 @@
 import { Stack } from "@mui/material";
-import ChatBubbleOutlinedIcon from "@mui/icons-material/ChatBubbleOutlined";
-export default function SellChat() {
+import Layout from "../Layout";
+
+function SellChat() {
   return (
     <Stack
       gap={1}
@@ -10,7 +11,8 @@ export default function SellChat() {
       mx="auto"
       alignItems={"center"}
     >
-      Cell
+      <Layout person={false} />
     </Stack>
   );
 }
+export default SellChat

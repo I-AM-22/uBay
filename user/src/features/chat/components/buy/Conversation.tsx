@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import SendIcon from "@mui/icons-material/Send";
 import { useRef } from "react";
 import { grey } from "@mui/material/colors";
-import Layout from "./Layout";
+import Layout from "../Layout";
 import Message from "./Message";
 import UserInformation from "./UserInformation";
 export default function Conversation() {
