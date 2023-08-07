@@ -1,70 +1,109 @@
 import { Box, Typography, useTheme } from "@mui/material";
-
-const Message = () => {
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+type user = {
+  userData: string;
+};
+const Message = ({ userData }: user) => {
+  const userID = userData;
+  const token = localStorage.getItem("token");
+  const pageTitle = useLocation().pathname.split("/")[2];
+  const [messages, setMessages] = useState([]);
   const theme = useTheme();
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/api/v1/chats/${pageTitle}/messages?page=1&limit=11`,
+          {
+            headers: {
+              accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setMessages(response.data.data.reverse());
+        console.log("Response:", response.data.data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchMessages();
+  }, []);
   return (
     <>
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-        }}
-      >
-        <Box
-          bgcolor={theme.palette.primary.main}
-          sx={{
-            width: "fit-content",
-            margin: "10px",
-            padding: "10px",
-            borderRadius: "0 10px 10px 10px",
-            display: "flex",
-            position: "relative",
-          }}
-        >
-          <Typography pr={4}>hello amrs</Typography>
-          <Typography
-            variant="body2"
-            sx={{
-              position: "absolute",
-              bottom: 0,
-              right: 6,
-            }}
-          >
-            11:43
-          </Typography>
-        </Box>
-      </Box>
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "row-reverse",
-        }}
-      >
-        <Box
-          sx={{
-            width: "fit-content",
-            margin: "10px",
-            padding: "10px",
-            borderRadius: "10px 0px 10px 10px",
-            display: "flex",
-            position: "relative",
-            bgcolor: "white",
-          }}
-        >
-          <Typography pr={4}>hello amr</Typography>
-          <Typography
-            variant="body2"
-            sx={{
-              position: "absolute",
-              bottom: 0,
-              right: 6,
-            }}
-          >
-            11:43
-          </Typography>
-        </Box>
-      </Box>
+      {messages.map((message:any,index) => {
+        let time=message.createdAt
+        return (
+          <>
+            <Box
+              key={index}
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection:message.user.id==userData?"row":"row-reverse"
+              }}
+            >
+              <Box
+                bgcolor={message.user.id==userData?theme.palette.primary.main:"white"}
+                sx={{
+                  width: "fit-content",
+                  margin: "10px",
+                  padding: "10px",
+                  borderRadius:message.user.id==userData? "0 10px 10px 10px":"10px 0px 10px 10px",
+                  display: "flex",
+                  position: "relative",
+                }}
+              >
+                <Typography pr={4}>{message.content}</Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    position: "absolute",
+                    bottom: 0,
+                    right: 6,
+                  }}
+                >
+                  {time.slice(11,16)}
+                </Typography>
+              </Box>
+            </Box>
+            {/* <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "row-reverse",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "fit-content",
+                  margin: "10px",
+                  padding: "10px",
+                  borderRadius: "10px 0px 10px 10px",
+                  display: "flex",
+                  position: "relative",
+                  bgcolor: "white",
+                }}
+              >
+                <Typography pr={4}>hello amr</Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    position: "absolute",
+                    bottom: 0,
+                    right: 6,
+                  }}
+                >
+                  11:43
+                </Typography>
+              </Box>
+            </Box> */}
+          </>
+        );
+      })}
     </>
   );
 };
