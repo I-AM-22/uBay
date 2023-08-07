@@ -15,14 +15,14 @@ type per = {
 };
 function Layout({ person }: per) {
   const [data, setData] = useState<any>([]);
-  console.log(data[0]);
+  console.log(data);
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState("");
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   // useEffect(() => {
   //   axios
-  //     .delete('http://localhost:3000/api/v1/chats/64ce9e3cfc7e8570e20a2576', {
+  //     .delete('http://localhost:3000/api/v1/chats/64cea0fdfc7e8570e20a2866', {
   //       headers: {
   //         accept: "*/*",
   //         Authorization: `Bearer ${token}`,
@@ -99,7 +99,7 @@ function Layout({ person }: per) {
                 justifyContent: "unset",
                 width: "100%",
               }}
-              onClick={() => navigate("1")}
+              onClick={() => navigate(`${item.id}`)}
             >
               <Stack
                 direction="row"
@@ -145,7 +145,7 @@ function Layout({ person }: per) {
                 justifyContent: "unset",
                 width: "100%",
               }}
-              onClick={() => navigate("1")}
+              onClick={() => navigate(`${item.id}`)}
             >
               <Stack
                 direction="row"
