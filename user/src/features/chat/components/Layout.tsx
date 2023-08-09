@@ -10,6 +10,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
+import { accountQueries } from "features/account";
 type per = {
   person: boolean;
 };
@@ -18,6 +19,7 @@ function Layout({ person }: per) {
   console.log(data);
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState("");
+  const query = accountQueries.useProfile();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   // useEffect(() => {
@@ -38,25 +40,25 @@ function Layout({ person }: per) {
   //     });
   // }, []);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/api/v1/users/me",
-          {
-            headers: {
-              accept: "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setUserData(response.data.id);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const response = await axios.get(
+  //         "http://localhost:3000/api/v1/users/me",
+  //         {
+  //           headers: {
+  //             accept: "application/json",
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       setUserData(response.data.id);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     const getChats = async () => {
@@ -91,7 +93,7 @@ function Layout({ person }: per) {
         </>
       )}
       {data.map((item: any) => {
-        if (person && item.customer.id === userData) {
+        if (person && item.customer.id === query.data?.id) {
           return (
             <Button
               key={item.id}
@@ -137,7 +139,7 @@ function Layout({ person }: per) {
               </Stack>
             </Button>
           );
-        } else if (!person && item.seller.id === userData) {
+        } else if (!person && item.seller.id === query.data?.id) {
           return (
             <Button
               key={item.id}

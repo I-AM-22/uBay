@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 type user = {
-  userData: string;
+  userData: string|undefined;
 };
 const Message = ({ userData }: user) => {
   const userID = userData;
@@ -24,7 +24,6 @@ const Message = ({ userData }: user) => {
           }
         );
         setMessages(response.data.data.reverse());
-        console.log("Response:", response.data.data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -33,13 +32,13 @@ const Message = ({ userData }: user) => {
     fetchMessages();
   }, []);
   return (
-    <>
+    <Box>
       {messages.map((message:any,index) => {
         let time=message.createdAt
         return (
           <>
             <Box
-              key={index}
+              key={message.content}
               sx={{
                 width: "100%",
                 display: "flex",
@@ -70,41 +69,10 @@ const Message = ({ userData }: user) => {
                 </Typography>
               </Box>
             </Box>
-            {/* <Box
-              sx={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "row-reverse",
-              }}
-            >
-              <Box
-                sx={{
-                  width: "fit-content",
-                  margin: "10px",
-                  padding: "10px",
-                  borderRadius: "10px 0px 10px 10px",
-                  display: "flex",
-                  position: "relative",
-                  bgcolor: "white",
-                }}
-              >
-                <Typography pr={4}>hello amr</Typography>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    position: "absolute",
-                    bottom: 0,
-                    right: 6,
-                  }}
-                >
-                  11:43
-                </Typography>
-              </Box>
-            </Box> */}
           </>
         );
       })}
-    </>
+    </Box>
   );
 };
 export default Message;
