@@ -1,23 +1,13 @@
-import {
-  Box,
-  Divider,
-  IconButton,
-  Stack,
-  TextField,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-import { useForm } from "react-hook-form";
 import SendIcon from "@mui/icons-material/Send";
-import { MouseEvent, useEffect, useRef, useState } from "react";
-import Message from "./Message";
-import { useLocation } from "react-router-dom";
+import { Box, Divider, IconButton, Stack, TextField, useMediaQuery, useTheme } from "@mui/material";
 import axios from "axios";
-import UserInformation from "./UserInformation";
-import  {io}  from "socket.io-client";
 import { accountQueries } from "features/account";
+import { MouseEvent, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useLocation } from "react-router-dom";
+import Message from "./Message";
+import UserInformation from "./UserInformation";
 function Conversation() {
- 
   // const socket=io("http://localhost:3000")
   // console.log(socket)
 
@@ -31,11 +21,7 @@ function Conversation() {
   const pageTitle = useLocation().pathname.split("/")[2];
   const query = accountQueries.useProfile();
 
-  
-
-  const sendMessage = (
-    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-  ) => {
+  const sendMessage = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
     e.preventDefault();
     if (message.trim().length == 0) return;
 
@@ -135,9 +121,7 @@ function Conversation() {
           ) : (
             <SendIcon sx={{ scale: (th) => (th.direction === "rtl" ? "-1" : "1") }} />
           )} */}
-            <SendIcon
-              sx={{ scale: (th) => (th.direction === "rtl" ? "-1" : "1") }}
-            />
+            <SendIcon sx={{ scale: (th) => (th.direction === "rtl" ? "-1" : "1") }} />
           </IconButton>
         </Stack>
       </Box>
