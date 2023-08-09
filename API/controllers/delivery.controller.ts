@@ -32,7 +32,8 @@ export const receive = catchAsync(async (req: Request, res: Response, next: Next
 
     //to check if he goes to the right store
     if (storeID != delivDoc.payment.product.store) {
-        throw new Error('هذا المنتج غير موجود في هذا المتجر يرجى الذهاب الى المتجر الصحيح');
+        const storeDoc = await Store.findById(delivDoc.payment.product.store);
+        throw new Error(`هذا المنتج غير موجود في هذا المستودع يجب الذهاب الى  مستودع ${storeDoc?.name} في العنوان ${storeDoc?.address}`);
     }
     const employee: any = req.user?.id;
 
