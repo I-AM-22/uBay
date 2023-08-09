@@ -10,11 +10,17 @@ import {
 import { useForm } from "react-hook-form";
 import SendIcon from "@mui/icons-material/Send";
 import { MouseEvent, useEffect, useRef, useState } from "react";
-import Message from "./buy/Message";
+import Message from "./Message";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import UserInformation from "./UserInformation";
+import  {io}  from "socket.io-client";
+import { accountQueries } from "features/account";
 function Conversation() {
+ 
+  // const socket=io("http://localhost:3000")
+  // console.log(socket)
+
   const { control, handleSubmit, setError, setValue } = useForm();
   const submitRef = useRef<HTMLButtonElement | null>(null);
   const [userData, setUserData] = useState("");
@@ -23,25 +29,9 @@ function Conversation() {
   const theme = useTheme();
   const sm = useMediaQuery(theme.breakpoints.down("sm"));
   const pageTitle = useLocation().pathname.split("/")[2];
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/api/v1/users/me",
-          {
-            headers: {
-              accept: "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setUserData(response.data.id);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchData();
-  }, []);
+  const query = accountQueries.useProfile();
+
+  
 
   const sendMessage = (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
@@ -49,8 +39,9 @@ function Conversation() {
     e.preventDefault();
     if (message.trim().length == 0) return;
 
+    // socket.emit("join chat","123amrtesting")
     let chatId = pageTitle;
-    const userId = userData;
+    const userId = query.data?.id;
 
     const data = {
       content: message,
@@ -72,7 +63,7 @@ function Conversation() {
       .catch((error) => {
         console.error("Error sending message:", error);
       });
-      setMessage("")
+    setMessage("");
   };
   return (
     <Stack
@@ -83,7 +74,7 @@ function Conversation() {
       bgcolor="#ddddf7"
     >
       <Box p={1} bgcolor={theme.palette.primary.main}>
-        <UserInformation userData={userData} />
+        <UserInformation userData={query.data?.id} />
       </Box>
       <Divider />
       <Box
@@ -91,7 +82,7 @@ function Conversation() {
           overflowY: "auto",
         }}
       >
-        <Message userData={userData} />
+        <Message userData={query.data?.id} />
       </Box>
       <Box
         component={"form"}

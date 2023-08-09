@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 type user = {
-  userData: string;
+  userData: string|undefined;
 };
 const UserInformation = ({ userData }: user) => {
   const token = localStorage.getItem("token");

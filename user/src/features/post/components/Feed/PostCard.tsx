@@ -27,6 +27,8 @@ import { useTranslation } from "react-i18next";
 import { LikeButton } from "../LikeButton";
 import { PostOptions } from "../PostOptions";
 import axios from "axios";
+import { accountQueries } from "features/account";
+import { useNavigate } from "react-router-dom";
 const priceFormatter = new Intl.NumberFormat(i18n.language, {
   style: "currency",
   currency: "SYP",
@@ -35,6 +37,8 @@ export type PostCardProps =
   | { post: Post; skeleton?: undefined; onCommentClick: () => void }
   | { post?: undefined; skeleton: true; onCommentClick?: undefined };
 export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) => {
+  const navigate=useNavigate()
+  const query = accountQueries.useProfile();
   const [open, setOpen] = useState(true);
   const [userData, setUserData] = useState("");
   const { t } = useTranslation("post");
@@ -42,31 +46,8 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
   const handleRemove = () => {
     setOpen(false);
   };
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/api/v1/users/me",
-          {
-            headers: {
-              accept: "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setUserData(response.data.id);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchData();
-  }, []);
   const addToChat=async()=>{
-    console.log("send")
-    console.log("post id",post?.user.id)
-    console.log("user id",userData)
-    if(post?.user.id==userData) return;
-    console.log("good")
+    if(post?.user.id==query.data?.id) return;
     try {
       const response = await axios.post('http://localhost:3000/api/v1/chats', {
         name: post?.title,
@@ -80,6 +61,9 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
         }
       });
       console.log(response.data)
+      console.log("chat",response.data.chat)
+      console.log("data",response.data.data)
+      {response.data.data?navigate(`/chats/${response.data.data.id}`):navigate(`/chats/${response.data.chat.id}`)}
       return response.data
 
     } catch (error) {
