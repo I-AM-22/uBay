@@ -232,18 +232,12 @@ export const couponSchema = {
       description: 'The discount value of the coupon',
       example: 10,
     },
-    code: {
-      type: 'string',
-      description: 'The code of the coupon',
-      example: 'ABC123',
-    },
   },
   example: {
     user: 'user-id',
     product: 'product-id',
     expire: '2023-12-31',
     discount: 10,
-    code: 'ABC123',
   },
-  required: ['user', 'product', 'expire', 'discount', 'code'],
+  required: ['user', 'product', 'expire', 'discount'],
 };

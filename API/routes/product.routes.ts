@@ -4,6 +4,7 @@ import { restrictTo } from '@middlewares/auth.middleware';
 import commentRouter from '@routes/comment.routes';
 import {
   checkIsOwnerProduct,
+  checkProductIsPaid,
   createProduct,
   deleteProduct,
   dislike,
@@ -56,6 +57,7 @@ router.patch(
   checkIsOwnerProduct,
   uploadProductPhotos,
   resizeProductPhotos,
+  checkProductIsPaid,
   updateProduct
 );
 

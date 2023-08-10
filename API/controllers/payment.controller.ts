@@ -10,32 +10,54 @@ import Reservation from '@models/reservation.models';
 import { STATUS_CODE } from "../types/helper.types";
 import Product from '@models/product.model';
 import AppError from '@utils/appError';
+import Coupon from '@models/coupon.model';
 export const getAllPayment = getAll(Payment);
 export const getPayment = getOne(Payment);
 export const deletePayment = deleteOne(Payment);
 
 export const createPayment = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     //take fields to payment from req.body
-    const { product } = req.body;
-    const payment = { customer: req.user, product };
-    const proDoc = await Product.findById(product);
+    const { product, price, is_discount } = req.body;
+    const payment = { customer: req.user?._id, product, price, is_discount };
 
     //check if customer has enough wallet
-    const walletDoc = payment.customer?.wallet;
-    if (!walletDoc || !proDoc || walletDoc.available < proDoc?.price) {
+    const walletDoc = req.user?.wallet;
+    if (!walletDoc || walletDoc.available < req.body.price) {
         return next(new AppError(STATUS_CODE.BAD_REQUEST, [], 'يرجى شحن حسابك قبل عملية شراء المنتج'));
     }
     const paymentDoc = await Payment.create(payment);
 
-    //add fields to reservation req.body
-    const { note } = req.body;
-    const payment_amount = proDoc.price;
-    const reservation = { payment_amount, note, payment: paymentDoc._id };
-    const reservationDoc = await Reservation.create(reservation);
+    res.status(STATUS_CODE.CREATED).json(paymentDoc);
 
-    res.status(STATUS_CODE.CREATED).json({
-        'payment': paymentDoc,
-        'reservation': reservationDoc
+});
+
+export const hasCoupon = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const couponDoc = await Coupon.findOne({
+        user: req.user?.id,
+        product: req.body.product,
+        expire: { $gte: new Date() }
     });
-
+    const productDoc = await Product.findById(req.body.product);
+    if (!productDoc) {
+        return next(
+            new AppError(
+                STATUS_CODE.NOT_FOUND,
+                [],
+                'There is no product with that Id'
+            )
+        );
+    }
+    let discount = 0, is_discount = false;
+    if (couponDoc) {
+        discount = couponDoc.discount;
+        is_discount = true;
+    }
+    let price = productDoc?.price - discount;
+    (price < 0) ? price = 0 : price;
+    const updatedReqBody = {
+        ...req.body, price: price, is_discount: is_discount
+    };
+    // Attach the updated object to req.body
+    req.body = updatedReqBody;
+    next();
 });

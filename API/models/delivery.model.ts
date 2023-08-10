@@ -42,25 +42,25 @@ deliverySchema.pre('save', async function (next) {
     //Check if this document not new and this happen after receive customer only
     if (!this.isNew && this.customer_date != null) {
         const doc = await this.populate('payment');
-        const product = doc.payment.product;
+        const price = doc.payment.price;
 
-        // //                          buyer
+        // // //                          buyer
         const buyerWallet = doc.payment.customer.wallet;
         await Wallet.findByIdAndUpdate(buyerWallet.id, {
-            $inc: { total: -product.price, pending: -product.price },
+            $inc: { total: -price, pending: -price },
         });
 
-        const companyFee = product.price * 5 / 100;
-        const priceForSeller = product.price - companyFee;
+        const companyFee =price * 5 / 100;
+        const priceForSeller = price - companyFee;
 
-        // //                         seller
+        // // //                         seller
         const seller = doc.payment.product.user.id;
         await Wallet.findOneAndUpdate({ user: seller }, { $inc: { total: priceForSeller } });
-        next();
 
         //                            company
         const company = await User.findOne({ email: "company@gmail.com" });
         await Wallet.findByIdAndUpdate(company?.wallet.id, { $inc: { total: companyFee } });
+        next();
     }
 });
 const Delivery = model<DeliveryDoc, DeliveryModel>("Delivery", deliverySchema);
