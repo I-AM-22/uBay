@@ -15,15 +15,12 @@ const UserInformation = ({ userData }: user) => {
   useEffect(() => {
     const getChat = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/api/v1/chats/${pageTitle}`,
-          {
-            headers: {
-              accept: "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get(`http://localhost:3000/api/v1/chats/${pageTitle}`, {
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setData(response.data);
         // setLoading(false);
       } catch (error) {
@@ -44,12 +41,7 @@ const UserInformation = ({ userData }: user) => {
         }}
       >
         <Avatar src={data.seller.photo} alt={data.seller.name} />
-        <Typography
-          variant="h6"
-          margin="0 12px"
-          width="fit-content"
-          color="black"
-        >
+        <Typography variant="h6" margin="0 12px" width="fit-content" color="black">
           {data.seller.name}
         </Typography>
       </Stack>
@@ -64,12 +56,7 @@ const UserInformation = ({ userData }: user) => {
         }}
       >
         <Avatar src={data.customer.photo} alt={data.customer.name} />
-        <Typography
-          variant="h6"
-          margin="0 12px"
-          width="fit-content"
-          color="black"
-        >
+        <Typography variant="h6" margin="0 12px" width="fit-content" color="black">
           {data.customer.name}
         </Typography>
       </Stack>

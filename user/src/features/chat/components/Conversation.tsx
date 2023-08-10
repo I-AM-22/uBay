@@ -8,10 +8,11 @@ import {
   useTheme,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import { MouseEvent, useEffect, useRef, useState } from "react";
-import Message from "./Message";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { MouseEvent, useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useLocation } from "react-router-dom";
+import Message from "./Message";
 import UserInformation from "./UserInformation";
 import { io } from "socket.io-client";
 import { accountQueries } from "features/account";
@@ -142,9 +143,7 @@ function Conversation() {
           ) : (
             <SendIcon sx={{ scale: (th) => (th.direction === "rtl" ? "-1" : "1") }} />
           )} */}
-            <SendIcon
-              sx={{ scale: (th) => (th.direction === "rtl" ? "-1" : "1") }}
-            />
+            <SendIcon sx={{ scale: (th) => (th.direction === "rtl" ? "-1" : "1") }} />
           </IconButton>
         </Stack>
       </Box>

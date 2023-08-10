@@ -1,4 +1,4 @@
-import { Avatar, Button, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Skeleton, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -75,13 +75,7 @@ function Layout({ person }: per) {
               }}
               onClick={() => navigate(`${item.id}`)}
             >
-              <Stack
-                direction="row"
-                m="8px 0"
-                width="100%"
-                alignItems="center"
-                p={1}
-              >
+              <Stack direction="row" m="8px 0" width="100%" alignItems="center" p={1}>
                 <Avatar src={item.seller.photo} />
 
                 <Stack>
@@ -121,13 +115,7 @@ function Layout({ person }: per) {
               }}
               onClick={() => navigate(`${item.id}`)}
             >
-              <Stack
-                direction="row"
-                m="8px 0"
-                width="100%"
-                alignItems="center"
-                p={1}
-              >
+              <Stack direction="row" m="8px 0" width="100%" alignItems="center" p={1}>
                 <Avatar src={item.customer.photo} />
 
                 <Stack>

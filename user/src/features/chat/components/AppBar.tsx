@@ -26,16 +26,8 @@ const AppBarChat: FC<{}> = ({}) => {
         value={activeIndex}
         onChange={(_, index) => handleTabChange(index)}
       >
-        <Tab
-          label={t("myPurchases")}
-          icon={<ChatBubbleOutlinedIcon />}
-          iconPosition="start"
-        />
-        <Tab
-          label={t("mySales")}
-          icon={<ChatBubbleOutlinedIcon />}
-          iconPosition="start"
-        />
+        <Tab label={t("myPurchases")} icon={<ChatBubbleOutlinedIcon />} iconPosition="start" />
+        <Tab label={t("mySales")} icon={<ChatBubbleOutlinedIcon />} iconPosition="start" />
       </Tabs>
       <SwipeableViews index={activeIndex} onChangeIndex={handleTabChange}>
         <TabPanel activeIndex={activeIndex} index={0}>
