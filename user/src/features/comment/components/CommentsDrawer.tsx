@@ -14,7 +14,9 @@ export type CommentsDrawerProps = Omit<EdgeDrawerProps, "children"> & {
   onClose: () => void;
 };
 export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...props }) => {
-  const query = commentQueries.useInfinite({ postId: props.open ? post?.id ?? "" : "" });
+  const query = commentQueries.useInfinite({
+    postId: props.open ? post?.id ?? "" : "",
+  });
   const isDesktop = useIsDesktop();
   const scrollId = useId();
   const [height, setHeight] = useState(window.innerHeight);
@@ -24,8 +26,6 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...prop
     const commentList = document.getElementById(scrollId);
     if (commentList) commentList.scroll({ top: 0 });
   };
-  console.log(height);
-
   window.addEventListener("resize", function () {
     setHeight(window.visualViewport?.height ?? this.window.innerHeight);
   });
