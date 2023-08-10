@@ -54,14 +54,8 @@ export default createBrowserRouter(
           <Route path="transactions" element={<TransactionsPage />} />
           <Route path="settings/profile" element={<ProfilePage />} />
           <Route path="settings/profile/edit" element={<ProfileEditPage />} />
-          <Route
-            path="settings/password-change"
-            element={<PasswordChangePage />}
-          />
-          <Route
-            path="settings/password-forgot"
-            element={<PasswordForgotPage />}
-          />
+          <Route path="settings/password-change" element={<PasswordChangePage />} />
+          <Route path="settings/password-forgot" element={<PasswordForgotPage />} />
           <Route path="settings/*" element={<SettingsPage />} />
           <Route path="chats" element={<Chat />} />
           <Route path="chats/:id" element={<Conversation />} />

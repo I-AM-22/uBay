@@ -13,11 +13,7 @@ export type CommentsDrawerProps = Omit<EdgeDrawerProps, "children"> & {
   post: Post | null;
   onClose: () => void;
 };
-export const CommentsDrawer: FC<CommentsDrawerProps> = ({
-  post,
-  onClose,
-  ...props
-}) => {
+export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...props }) => {
   const query = commentQueries.useInfinite({
     postId: props.open ? post?.id ?? "" : "",
   });
@@ -39,10 +35,7 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({
       id={scrollId}
       onClose={onClose}
       title={
-        <Typography
-          variant="h6"
-          sx={{ color: "primary.900", textAlign: "center" }}
-        >
+        <Typography variant="h6" sx={{ color: "primary.900", textAlign: "center" }}>
           {t("comments")}
         </Typography>
       }
@@ -74,9 +67,7 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({
         )}
         {query.isSuccess &&
           query.data.pages.map((page) =>
-            page.data.map((comment) => (
-              <CommentCard key={comment.id} comment={comment} />
-            ))
+            page.data.map((comment) => <CommentCard key={comment.id} comment={comment} />)
           )}
         {query.isInitialLoading && (
           <>
@@ -89,9 +80,7 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({
           </>
         )}
       </InfiniteScroll>
-      {post && (
-        <CommentForm onCommentSubmit={handleCommentSubmit} postId={post?.id} />
-      )}
+      {post && <CommentForm onCommentSubmit={handleCommentSubmit} postId={post?.id} />}
     </EdgeDrawer>
   );
 };

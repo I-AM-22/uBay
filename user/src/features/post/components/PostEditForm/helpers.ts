@@ -11,6 +11,6 @@ export function detailsToForm(post: Post): Form {
     price: post.price,
     title: post.title,
     //TODO receive from backend
-    store: { id: "", name: "",city:{id:'',name:'',_id:""} },
+    store: { id: "", name: "", city: { id: "", name: "", _id: "" } },
   };
 }
