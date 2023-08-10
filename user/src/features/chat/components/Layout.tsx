@@ -1,11 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Skeleton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Avatar, Button, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,9 +9,7 @@ type per = {
 };
 function Layout({ person }: per) {
   const [data, setData] = useState<any>([]);
-  console.log(data);
   const [loading, setLoading] = useState(true);
-  const [userData, setUserData] = useState("");
   const query = accountQueries.useProfile();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -38,26 +29,6 @@ function Layout({ person }: per) {
   //       // Handle error
   //       console.error("Error deleting resource:", error);
   //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const response = await axios.get(
-  //         "http://localhost:3000/api/v1/users/me",
-  //         {
-  //           headers: {
-  //             accept: "application/json",
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       setUserData(response.data.id);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  //   fetchData();
   // }, []);
 
   useEffect(() => {
@@ -80,6 +51,7 @@ function Layout({ person }: per) {
       }
     };
     getChats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

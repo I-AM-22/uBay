@@ -7,40 +7,46 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
 import SendIcon from "@mui/icons-material/Send";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import Message from "./Message";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import UserInformation from "./UserInformation";
-import  {io}  from "socket.io-client";
+import { io } from "socket.io-client";
 import { accountQueries } from "features/account";
 function Conversation() {
- 
-  // const socket=io("http://localhost:3000")
-  // console.log(socket)
-
-  const { control, handleSubmit, setError, setValue } = useForm();
   const submitRef = useRef<HTMLButtonElement | null>(null);
-  const [userData, setUserData] = useState("");
   const token = localStorage.getItem("token");
   const [message, setMessage] = useState("");
   const theme = useTheme();
   const sm = useMediaQuery(theme.breakpoints.down("sm"));
   const pageTitle = useLocation().pathname.split("/")[2];
   const query = accountQueries.useProfile();
-
+  const socket = io("http://localhost:3000");
+  // console.log(query.data);
+  socket.emit("join chat", pageTitle);
   
+  useEffect(()=>{
+    if(query.data){
+      socket.emit("setup",query.data)
+    }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[query])
+  
+  useEffect(()=>{
+    socket.on('message received',(data)=>{
+      console.log("data from conversation",data)
+    })
+  },[socket])
   const sendMessage = (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
     e.preventDefault();
     if (message.trim().length == 0) return;
 
-    // socket.emit("join chat","123amrtesting")
-    let chatId = pageTitle;
+    const chatId = pageTitle;
     const userId = query.data?.id;
 
     const data = {
@@ -59,6 +65,7 @@ function Conversation() {
       })
       .then((response) => {
         console.log("Message sent successfully:", response.data);
+        socket.emit("new message",response.data)
       })
       .catch((error) => {
         console.error("Error sending message:", error);
