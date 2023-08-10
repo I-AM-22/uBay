@@ -127,7 +127,6 @@ export const getAll = (Model: any, path?: string): RequestHandler =>
     }
     if (Model.modelName === 'Product') {
       const { is_paid } = req.query;
-      console.log(is_paid);
       if (is_paid == "true") {
         query = query.find({ is_paid: true });
         counter = counter.find({ is_paid: true });
