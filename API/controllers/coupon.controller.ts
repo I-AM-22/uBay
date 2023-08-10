@@ -56,7 +56,6 @@ export const getProductCoupons = catchAsync(
 export const couponMaker = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const coupon = await Coupon.findById(req.params.id);
-    console.log(req.params.id);
     if (!coupon)
       return next(
         new AppError(
