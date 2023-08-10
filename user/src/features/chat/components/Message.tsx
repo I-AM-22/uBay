@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 type user = {
-  userData: string|undefined;
+  userData: string | undefined;
 };
 const Message = ({ userData }: user) => {
   const userID = userData;
@@ -30,28 +30,37 @@ const Message = ({ userData }: user) => {
     };
 
     fetchMessages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Box>
-      {messages.map((message:any,index) => {
-        let time=message.createdAt
+      {messages.map((message: any, index) => {
+        const time = message.createdAt;
         return (
           <>
             <Box
-              key={message.content}
+              key={index}
               sx={{
                 width: "100%",
                 display: "flex",
-                flexDirection:message.user.id==userData?"row":"row-reverse"
+                flexDirection:
+                  message.user.id == userID ? "row" : "row-reverse",
               }}
             >
               <Box
-                bgcolor={message.user.id==userData?theme.palette.primary.main:"white"}
+                bgcolor={
+                  message.user.id == userID
+                    ? theme.palette.primary.main
+                    : "white"
+                }
                 sx={{
                   width: "fit-content",
                   margin: "10px",
                   padding: "10px",
-                  borderRadius:message.user.id==userData? "0 10px 10px 10px":"10px 0px 10px 10px",
+                  borderRadius:
+                    message.user.id == userID
+                      ? "0 10px 10px 10px"
+                      : "10px 0px 10px 10px",
                   display: "flex",
                   position: "relative",
                 }}
@@ -65,7 +74,7 @@ const Message = ({ userData }: user) => {
                     right: 6,
                   }}
                 >
-                  {time.slice(11,16)}
+                  {time.slice(11, 16)}
                 </Typography>
               </Box>
             </Box>

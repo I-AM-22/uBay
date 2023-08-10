@@ -1,15 +1,16 @@
-import { Avatar, Box, Skeleton, Stack, Typography } from "@mui/material";
+import { Avatar, Skeleton, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 type user = {
-  userData: string|undefined;
+  userData: string | undefined;
 };
 const UserInformation = ({ userData }: user) => {
   const token = localStorage.getItem("token");
   const [data, setData] = useState<any>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(true);
-  let pageTitle = useLocation().pathname.split("/")[2];
+  const pageTitle = useLocation().pathname.split("/")[2];
 
   useEffect(() => {
     const getChat = async () => {
@@ -30,9 +31,9 @@ const UserInformation = ({ userData }: user) => {
       }
     };
     getChat();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(data.length);
   if (data.length != 0 && data.customer.id == userData) {
     return (
       <Stack
