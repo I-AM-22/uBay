@@ -10,7 +10,7 @@ export type PostBody = {
   category: string;
   store: string;
 };
-export type PostAllParams = APIListParams;
+export type PostAllParams = APIListParams & { is_paid?: boolean };
 export type Post = {
   title: string;
   content: string;
