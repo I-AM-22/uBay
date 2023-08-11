@@ -38,7 +38,7 @@ export const updateCoupon = updateOne(Coupon);
 export const deleteCoupon = deleteOne(Coupon);
 
 export const getMyCoupons = catchAsync(
- async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     req.query.user = req.user?.id;
     req.query.expire = { gt: Date.now().toString() };
     next();
@@ -53,6 +53,7 @@ export const getProductCoupons = catchAsync(
     next();
   }
 );
+
 export const couponMaker = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const coupon = await Coupon.findById(req.params.id);
@@ -74,5 +75,22 @@ export const couponMaker = catchAsync(
         )
       );
     next();
+  }
+);
+//give me product and return discount if exist else return discount 0
+export const getCouponByProduct = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { productId } = req.params;
+    const couponDoc = await Coupon.findOne({
+      product: productId,
+      user: req.user?._id,
+    });
+    let discount = 0;
+    if (couponDoc) {
+       discount = couponDoc.discount;
+    }
+    res.status(STATUS_CODE.SUCCESS).json({
+       discount: discount,
+     });
   }
 );

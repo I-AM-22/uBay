@@ -40,127 +40,137 @@ export const dislike = catchAsync(
     res.sendStatus(STATUS_CODE.SUCCESS);
   }
 );
-    export const myProduct = catchAsync(
-      async (req: Request, res: Response, next: NextFunction) => {
-        const { isBuy } = req.query;
-        let pipeline: any = [];
-        
-        if (isBuy == "false") {
-          pipeline = [
-            {
-              $lookup: {
-                from: 'payments',
-                localField: 'payment',
-                foreignField: '_id',
-                as: 'payment'
-              }
-            },
-            {
-              $unwind: '$payment'
-            },
-            {
-              $lookup: {
-                from: 'products',
-                localField: 'payment.product',
-                foreignField: '_id',
-                as: 'product'
-              }
-            },
-            {
-              $unwind: '$product'
-            },
-            {
-              $match: {
-                'product.user': req.user?._id
-              }
-            },
-            {
-              $addFields: {
-                sortField: {
-                  $switch: {
-                    branches: [
-                      { case: { $eq: ['$delivery_status', 'wait'] }, then: 0 },
-                      { case: { $eq: ['$delivery_status', 'seller'] }, then: 1 },
-                      { case: { $eq: ['$delivery_status', 'customer'] }, then: 2 }
-                    ],
-                    default: 3
-                  }
-                }
-              }
-            },
-            {
-              $sort: { sortField: 1 }
-            },
-            {
-              $replaceRoot: {
-                newRoot: {
-                  delivery_status: '$delivery_status',
-                  product: '$product',
-                }
+export const myProduct = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { isBuy } = req.query;
+    let pipeline: any = [];
+
+    if (isBuy == "false") {
+      pipeline = [
+        {
+          $lookup: {
+            from: 'payments',
+            localField: 'payment',
+            foreignField: '_id',
+            as: 'payment'
+          }
+        },
+        {
+          $unwind: '$payment'
+        },
+        {
+          $lookup: {
+            from: 'products',
+            localField: 'payment.product',
+            foreignField: '_id',
+            as: 'product'
+          }
+        },
+        {
+          $unwind: '$product'
+        },
+        {
+          $match: {
+            'product.user': req.user?._id
+          }
+        },
+        {
+          $addFields: {
+            sortField: {
+              $switch: {
+                branches: [
+                  { case: { $eq: ['$delivery_status', 'wait'] }, then: 0 },
+                  { case: { $eq: ['$delivery_status', 'seller'] }, then: 1 },
+                  { case: { $eq: ['$delivery_status', 'customer'] }, then: 2 }
+                ],
+                default: 3
               }
             }
-          ];
-        } else {
-          pipeline = [
-            {
-              $lookup: {
-                from: 'payments',
-                localField: 'payment',
-                foreignField: '_id',
-                as: 'payment'
-              }
-            },
-            {
-              $unwind: '$payment'
-            },
-            {
-              $lookup: {
-                from: 'products',
-                localField: 'payment.product',
-                foreignField: '_id',
-                as: 'product'
-              }
-            },
-            {
-              $unwind: '$product'
-            },
-            {
-              $match: {
-                'payment.customer': req.user?._id
-              }
-            },
-            {
-              $addFields: {
-                sortField: {
-                  $switch: {
-                    branches: [
-                      { case: { $eq: ['$delivery_status', 'seller'] }, then: 0 },
-                      { case: { $eq: ['$delivery_status', 'customer'] }, then: 1 },
-                      { case: { $eq: ['$delivery_status', 'wait'] }, then: 2 }
-                    ],
-                    default: 3
-                  }
-                }
-              }
-            },
-            {
-              $sort: { sortField: 1 }
-            },
-            {
-              $replaceRoot: {
-                newRoot: {
-                  delivery_status: '$delivery_status',
-                  product: '$product',
-                }
-              }
+          }
+        },
+        {
+          $sort: { sortField: 1 }
+        },
+        {
+          $replaceRoot: {
+            newRoot: {
+              delivery_status: '$delivery_status',
+              product: '$product',
             }
-          ];
+          }
         }
+      ];
+    } else {
+      pipeline = [
+        {
+          $lookup: {
+            from: 'payments',
+            localField: 'payment',
+            foreignField: '_id',
+            as: 'payment'
+          }
+        },
+        {
+          $unwind: '$payment'
+        },
+        {
+          $lookup: {
+            from: 'products',
+            localField: 'payment.product',
+            foreignField: '_id',
+            as: 'product'
+          }
+        },
+        {
+          $unwind: '$product'
+        },
+        {
+          $match: {
+            'payment.customer': req.user?._id
+          }
+        },
+        {
+          $addFields: {
+            sortField: {
+              $switch: {
+                branches: [
+                  { case: { $eq: ['$delivery_status', 'seller'] }, then: 0 },
+                  { case: { $eq: ['$delivery_status', 'customer'] }, then: 1 },
+                  { case: { $eq: ['$delivery_status', 'wait'] }, then: 2 }
+                ],
+                default: 3
+              }
+            }
+          }
+        },
+        {
+          $sort: { sortField: 1 }
+        },
+        {
+          $replaceRoot: {
+            newRoot: {
+              delivery_status: '$delivery_status',
+              product: '$product',
+            }
+          }
+        }
+      ];
+    }
     // Execute the aggregation pipeline
-    const products =await  Delivery.aggregate(pipeline);
-        res.status(STATUS_CODE.SUCCESS).json(products);
-      }
-    );
+    const products = await Delivery.aggregate(pipeline);
+    res.status(STATUS_CODE.SUCCESS).json(products);
+  }
+);
+
+export const checkProductIsPaid = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const id = req.params.id;
+  const productDoc = await Product.findById(id);
+  if (productDoc?.is_paid) {
+    return next(new AppError(STATUS_CODE.BAD_REQUEST, [], 'لا يمكنك تعديل منتج تم بيعه'));
+  }
+  next();
+
+})
 export const checkIsOwnerProduct = checkIsOwner(Product);
 export const getAllProducts = getAll(Product);
 export const getProduct = getOne(Product);

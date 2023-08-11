@@ -65,6 +65,35 @@
 
 /**
  * @swagger
+ * /stores/{storeID}/getAllproduct:
+ *   get:
+ *     summary: Get All Product In The Store
+ *     tags: [Stores]
+ *     security:
+ *       - Bearer: []
+ *     parameters:
+ *       - in: path
+ *         name: storeID
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the store
+ *     responses:
+ *       '200':
+ *         description: ok
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/storeSchema'
+ *       '404':
+ *         description: Comment not found
+ *       '401':
+ *         $ref: '#/components/responses/401'
+ */
+
+
+/**
+ * @swagger
  * /stores:
  *   post:
  *     summary: Create a new store
