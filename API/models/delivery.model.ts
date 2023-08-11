@@ -31,6 +31,10 @@ const deliverySchema = new Schema<DeliveryDoc, DeliveryModel, any>(
         seller_date: {
             type: Date,
             default: null
+        },
+        store:{
+            type: Types.ObjectId,
+            ref: "Store"
         }
     }, {
     timestamps: true,

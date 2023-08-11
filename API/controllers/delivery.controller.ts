@@ -36,7 +36,7 @@ export const receive = catchAsync(async (req: Request, res: Response, next: Next
         throw new Error(`هذا المنتج غير موجود في هذا المستودع يجب الذهاب الى  مستودع ${storeDoc?.name} في العنوان ${storeDoc?.address}`);
     }
     const employee: any = req.user?.id;
-
+    //to check for seller if he comes 
     if (status == 0) {
         //to prevent repeate data receive
         if (delivDoc.delivery_status != "wait") {
@@ -47,9 +47,11 @@ export const receive = catchAsync(async (req: Request, res: Response, next: Next
         delivDoc.seller_date = time;
         delivDoc.delivery_status = "seller";
         delivDoc.employee_seller = employee;
+        delivDoc.store = storeID;
 
         delivDoc = await delivDoc.save();
     }
+    //to check for buyer to take his product
     else if (status == 1) {
         if (delivDoc.delivery_status == "wait") {
             throw new Error('هذا المنتج ليس ضمن مستودع');
@@ -92,3 +94,4 @@ export const generateQrForCustomer = catchAsync(async (req: Request, res: Respon
         status: 1
     });
 });
+
