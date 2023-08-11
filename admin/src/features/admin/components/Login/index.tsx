@@ -38,11 +38,11 @@ export const LoginForm = () => {
       gap={5}
       sx={{
         pt: "40px",
-        px: "50px",
+        px: { xs: 1, sm: "50px" },
         pb: "32px",
       }}
     >
-      <Typography color="primary" variant="h4" textAlign={"center"}>
+      <Typography color="primary" variant="h5" textAlign={"center"}>
         {t("login.title")}
       </Typography>
       <Stack gap={2} component={"form"} width="80%" mx="auto">
