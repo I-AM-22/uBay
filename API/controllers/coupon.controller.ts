@@ -78,19 +78,19 @@ export const couponMaker = catchAsync(
   }
 );
 //give me product and return discount if exist else return discount 0
-export const productCoupon = catchAsync(
+export const getCouponByProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { product } = req.params;
-    console.log(product);
+    const { productId } = req.params;
     const couponDoc = await Coupon.findOne({
-      product: product,
+      product: productId,
       user: req.user?._id,
-      expire: { $gte: new Date() }
     });
     let discount = 0;
     if (couponDoc) {
-      discount = couponDoc.discount;
+       discount = couponDoc.discount;
     }
-    res.status(STATUS_CODE.CREATED).json(discount);
+    res.status(STATUS_CODE.SUCCESS).json({
+       discount: discount,
+     });
   }
 );

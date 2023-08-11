@@ -6,7 +6,6 @@ import {
 } from '@controllers/handlerFactory';
 import catchAsync from '@utils/catchAsync';
 import { NextFunction, Request, Response } from 'express';
-import Reservation from '@models/reservation.models';
 import { STATUS_CODE } from "../types/helper.types";
 import Product from '@models/product.model';
 import AppError from '@utils/appError';

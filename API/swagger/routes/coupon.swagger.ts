@@ -152,6 +152,36 @@
 
 /**
  * @swagger
+ * /products/{productId}/coupons/getCouponByProduct:
+ *   get:
+ *     summary: Get a coupon by product
+ *     tags: [Coupons]
+ *     security:
+ *       - Bearer: []
+ *     parameters:
+ *       - in: path
+ *         name: productId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the product
+ *     responses:
+ *       '200':
+ *         description: ok
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/couponSchema'
+ *       '404':
+ *         description: coupon not found
+ *       '401':
+ *         $ref: '#/components/responses/401'
+ *       '400':
+ *         $ref: '#/components/responses/400'
+ */
+
+/**
+ * @swagger
  * /coupons/{id}:
  *   patch:
  *     summary: Update a coupon by ID
