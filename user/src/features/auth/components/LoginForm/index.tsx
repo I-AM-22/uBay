@@ -40,38 +40,37 @@ export const LoginForm = () => {
     });
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack gap={3} height={"100%"}>
-        <Stack gap={1}>
-          <Typography color="primary.800" variant="h4" textAlign={"center"}>
-            {t("title")}
-          </Typography>
-          <Typography variant="subtitle1" textAlign={"center"}>
-            {t("subtitle")}
-          </Typography>
-        </Stack>
-        <Stack
-          gap={2}
-          sx={{
-            width: "80%",
-            mx: "auto",
-          }}
-        >
-          <EmailInput control={control} name="email" />
-          <PasswordInput sx={{ mb: 5 }} control={control} name="password" />
-          <Submit
-            sx={{ px: 5, py: 1.5, mt: "auto" }}
-            isSubmitting={login.isLoading}
-          >{t`submit`}</Submit>
-        </Stack>
-        <Typography textAlign={"center"}>
-          {t("notAMember")} <RouterLink to="/signup">{t("signup")}</RouterLink>
+    <Stack component="form" onSubmit={handleSubmit(onSubmit)} gap={3} height={"100%"}>
+      <Stack gap={1} flex={0.5} alignItems={"center"}>
+        <Typography color="primary.800" variant="h4" textAlign={"center"}>
+          {t("title")}
         </Typography>
-        <Divider />
-        <Typography textAlign={"center"}>
-          {t("forgotPassword")} <RouterLink to="/forgot-password">{t("resetPassword")}</RouterLink>
+        <Typography variant="subtitle1" textAlign={"center"}>
+          {t("subtitle")}
         </Typography>
       </Stack>
-    </form>
+      <Stack
+        gap={2}
+        flex={2}
+        sx={{
+          width: "80%",
+          mx: "auto",
+        }}
+      >
+        <EmailInput control={control} name="email" />
+        <PasswordInput sx={{ mb: 5 }} control={control} name="password" />
+        <Submit
+          sx={{ px: 5, py: 1.5, mt: "auto" }}
+          isSubmitting={login.isLoading}
+        >{t`submit`}</Submit>
+      </Stack>
+      <Typography textAlign={"center"}>
+        {t("notAMember")} <RouterLink to="/signup">{t("signup")}</RouterLink>
+      </Typography>
+      <Divider />
+      <Typography textAlign={"center"}>
+        {t("forgotPassword")} <RouterLink to="/forgot-password">{t("resetPassword")}</RouterLink>
+      </Typography>
+    </Stack>
   );
 };

@@ -29,7 +29,7 @@ export const RegistrationPage: FC<{}> = ({}) => {
             elevation={2}
             sx={{
               width: { xs: "100vw", sm: "75%", md: "60%" },
-              height: { xs: "100vh", sm: "50vh" },
+              height: { xs: "100vh", sm: "60vh" },
               bgcolor: { xs: "transparent", sm: "white" },
               mx: "auto",
               borderRadius: { xs: 0, sm: 3 },
@@ -47,7 +47,6 @@ export const RegistrationPage: FC<{}> = ({}) => {
                 component="img"
                 src={"images/registration.png"}
                 sx={{
-                  // display:{xs:"none",sm:"block"},
                   height: { xs: 0.3, sm: "auto" },
                   borderRadius: { xs: 0, sm: themeConstants.borderRadius },
                   width: { xs: "100%", sm: "40%" },
@@ -56,11 +55,33 @@ export const RegistrationPage: FC<{}> = ({}) => {
                   objectPosition: "30% 40%",
                 }}
               />
-              <Stack sx={{ alignItems: "center", flex: 1, py: 2, gap: 3 }}>
-                <Stack alignItems={"center"}>
-                  <Typography variant="h3" color="primary.900">
-                    {t("title")}
-                  </Typography>
+              <Paper
+                elevation={3}
+                sx={{
+                  boxShadow: { xs: "inherit", sm: "none" },
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  flex: 1,
+                  py: 2,
+                  gap: 3,
+                }}
+              >
+                <Stack alignItems={"center"} gap={2}>
+                  <Stack direction={"row"} alignItems={"center"} gap={1}>
+                    <Typography color={"primary"} fontSize={37} mt={1} fontFamily={"cursive"}>
+                      <Typography
+                        color="text.primary"
+                        component={"span"}
+                        fontSize={39}
+                        fontFamily={"cursive"}
+                      >
+                        u
+                      </Typography>
+                      Bay
+                    </Typography>
+                    <Box component="img" src={"/logo.svg"} width={70} />
+                  </Stack>
                   <Typography variant="body1">{t("subtitle")}</Typography>
                 </Stack>
                 <List sx={{ width: "90%", fontSize: 11 }} dense>
@@ -116,7 +137,7 @@ export const RegistrationPage: FC<{}> = ({}) => {
                     {t("login")}
                   </Button>
                 </Box>
-              </Stack>
+              </Paper>
             </Stack>
           </Paper>
         </Slide>
