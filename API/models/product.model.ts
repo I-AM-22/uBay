@@ -100,15 +100,6 @@ productSchema.pre<Query<IProduct, IProduct>>('findOneAndRemove', async function 
   }
 });
 
-//can't modify after product is paid
-productSchema.pre<Query<IProduct, IProduct>>('findOneAndUpdate', async function (next) {
-  const doc = await this.model.findOne(this.getQuery());
-  if(doc.is_paid)
-  {
-    return next(new AppError(STATUS_CODE.BAD_REQUEST, [], 'لا يمكنك تعديل منتج تم بيعه'));
-  }
-  next();
-});
 const Product = model<ProductDoc, ProductModel>('Product', productSchema);
 
 export default Product;

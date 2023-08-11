@@ -18,7 +18,6 @@ const couponSchema = new Schema<CouponDoc, CouponModel, any>(
       required: true,
     },
     active: { type: Boolean, default: true },
-    code: { type: String, required: true, unique: true },
   },
   { timestamps: true }
 );
