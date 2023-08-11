@@ -13,7 +13,6 @@ import Payment from '@models/payment.models';
 import Product from '@models/product.model';
 import AppError from '@utils/appError';
 import Store from '@models/store.model';
-import { model } from 'mongoose';
 import Employee from '@models/employee.model';
 
 export const getAllDeliveries = getAll(Delivery);
@@ -31,7 +30,7 @@ export const receive = catchAsync(async (req: Request, res: Response, next: Next
     }
 
     //to check if he goes to the right store
-    if (storeID != delivDoc.payment.product.store) {
+    if (storeID != delivDoc.payment.product.store._id) {
         const storeDoc = await Store.findById(delivDoc.payment.product.store);
         throw new Error(`هذا المنتج غير موجود في هذا المستودع يجب الذهاب الى  مستودع ${storeDoc?.name} في العنوان ${storeDoc?.address}`);
     }
