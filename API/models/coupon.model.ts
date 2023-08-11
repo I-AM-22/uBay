@@ -1,5 +1,6 @@
 import { Query, Schema, Types, model } from 'mongoose';
 import { CouponDoc, CouponModel, ICoupon } from 'types/coupon.types';
+import Product from './product.model';
 
 const couponSchema = new Schema<CouponDoc, CouponModel, any>(
   {
@@ -23,6 +24,12 @@ const couponSchema = new Schema<CouponDoc, CouponModel, any>(
 );
 
 couponSchema.index({ product: 1, user: 1 }, { unique: true });
+//save coupon to product
+// couponSchema.pre('save', async function () {
+//   console.log("doc");
+//   // await Product.findByIdAndUpdate(doc.product,{ $push: { coupons: doc._id } });
+//   console.log("helllo");
+// });
 couponSchema.post('save', async function () {
   await this.populate({
     path: 'product',
@@ -44,6 +51,12 @@ couponSchema.pre<Query<ICoupon, ICoupon>>(/^find/, function (next) {
 couponSchema.pre<Query<ICoupon, ICoupon>>(/^find/, function (next) {
   this.find({ expire: { $gt: Date.now() }, active: true });
   next();
+});
+
+couponSchema.post('save',async function(doc){
+  console.log(doc);
+   await Product.findByIdAndUpdate(doc.product.id,{ $push: { coupons: doc._id } });
+  console.log("ssssssqqq");
 });
 
 const Coupon = model('Coupon', couponSchema);
