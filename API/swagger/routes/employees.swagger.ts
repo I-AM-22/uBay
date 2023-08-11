@@ -94,6 +94,34 @@
 
 /**
  * @swagger
+ * /employees/watchEmployee/{employeeID}:
+ *   get:
+ *     summary: watch employee what he recive and give [admins]
+ *     tags: [Employees]
+ *     security:
+ *       - Bearer: []
+ *     parameters:
+ *       - in: path
+ *         name: employeeID
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the employee
+ *     responses:
+ *       '200':
+ *         description: ok
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/employeeName'
+ *       '404':
+ *         description: Comment not found
+ *       '401':
+ *         $ref: '#/components/responses/401'
+ */
+
+/**
+ * @swagger
  * /employees:
  *   post:
  *     summary: Create a new employee

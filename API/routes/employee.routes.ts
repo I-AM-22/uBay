@@ -7,6 +7,7 @@ import {
   updateEmployee,
   getAllEmployee,
   loginEmployee,
+  watchEmployee,
 } from '@controllers/employee.controller';
 import { restrictTo } from '@middlewares/auth.middleware';
 import { resizeUserImage, uploadUserPhoto } from '@middlewares/uploadingImage';
@@ -18,6 +19,11 @@ router.post(('/login'),
   validate(loginInput),
   loginEmployee
 );
+router.get('/watchEmployee/:employeeID',
+  passport.authenticate('jwt', { session: false, failWithError: true }),
+  restrictTo('superadmin', 'admin'),
+  watchEmployee
+)
 router
   .route('/')
   .get(getAllEmployee)
