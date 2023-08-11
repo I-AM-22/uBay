@@ -33,6 +33,8 @@ export const FormPage: FC<FormPageProps> = ({ children }) => {
               mx: "auto",
               borderRadius: { xs: 0, md: 2 },
               p: 3,
+              display: "flex",
+              flexDirection: "column",
             }}
           >
             {children}

@@ -24,8 +24,6 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...prop
     const commentList = document.getElementById(scrollId);
     if (commentList) commentList.scroll({ top: 0 });
   };
-  console.log(height);
-
   window.addEventListener("resize", function () {
     setHeight(window.visualViewport?.height ?? this.window.innerHeight);
   });
