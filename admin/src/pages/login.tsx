@@ -1,4 +1,4 @@
-import { Box, Slide } from "@mui/material";
+import { Box, Slide, Stack, Typography } from "@mui/material";
 import BottomRightWavesIcon from "components/icons/BottomRightWavesIcon";
 import { LoginForm } from "features/admin";
 
@@ -12,7 +12,6 @@ export const LoginPage: FC<{}> = ({}) => {
         width: "100vw",
         overflow: "hidden",
         backgroundSize: { xs: 300, md: 1000 },
-        bgcolor: "secondary.50",
         "&>svg:nth-of-type(1)": {
           position: "fixed",
           minHeight: "100vh",
@@ -24,17 +23,44 @@ export const LoginPage: FC<{}> = ({}) => {
     >
       <BottomRightWavesIcon />
       <Slide in={true} direction="up" timeout={300}>
-        <Box
-          sx={{
-            position: "relative",
-            zIndex: 1,
-            width: "min(80%,530px)",
-            mx: "auto",
-            mt: "32vh",
-            ml: { xs: "auto", md: 44 },
-          }}
-        >
-          <LoginForm />
+        <Box>
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            gap={3}
+            sx={{
+              zIndex: 1,
+              position: "absolute",
+              top: { xs: 18, md: "3%", lg: "10%" },
+              transform: { xs: "translateX(50%)", md: "none" },
+              right: { xs: "50%", md: 100 },
+            }}
+          >
+            <Typography color={"primary"} fontSize={72} mt={1} fontFamily={"cursive"}>
+              <Typography
+                color="text.primary"
+                component={"span"}
+                fontSize={84}
+                fontFamily={"cursive"}
+              >
+                u
+              </Typography>
+              Bay
+            </Typography>
+            <Box component="img" src={"/logo.svg"} width={{ xs: 100, md: 200 }} />
+          </Stack>
+          <Box
+            sx={{
+              position: "relative",
+              zIndex: 2,
+              width: "min(80%,530px)",
+              mx: "auto",
+              mt: "32vh",
+              ml: { xs: "auto", md: 10, lg: 44 },
+            }}
+          >
+            <LoginForm />
+          </Box>
         </Box>
       </Slide>
     </Box>

@@ -3,6 +3,7 @@ import { IProduct, ProductDoc, ProductModel } from '../types/product.types';
 import cls from 'cls-hooked';
 import AppError from '@utils/appError';
 import { STATUS_CODE } from '../types/helper.types';
+import Coupon from './coupon.model';
 
 const productSchema = new Schema<ProductDoc, ProductModel, any>(
   {
@@ -21,6 +22,7 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
       ref: 'User',
     },
     likedBy: [{ type: Types.ObjectId, ref: 'User' }],
+    coupons: [{ type: Types.ObjectId, ref: 'Coupon' }],
     photos: {
       type: [String],
       required: true,
@@ -89,13 +91,16 @@ productSchema.pre<Query<IProduct, IProduct>>(/^find/, async function (next) {
       select: { name: 1, photo: 1, wallet: 0 },
     })
     .populate({ path: 'likedBy', select: { name: 1, photo: 1, wallet: 0 } })
+    .populate({ path: 'store', select: { name: 1 } });
+  //  this.populate({
+  //   path: 'coupons',
+  // });
   next();
 });
 //can't remove after product is paid
 productSchema.pre<Query<IProduct, IProduct>>('findOneAndRemove', async function (next) {
   const doc = await this.model.findOne(this.getQuery());
-  if(doc.is_paid)
-  {
+  if (doc.is_paid) {
     return next(new AppError(STATUS_CODE.BAD_REQUEST, [], 'لا يمكنك حذف منتج تم بيعه'));
   }
 });
