@@ -41,7 +41,7 @@ export const SignupForm = () => {
     });
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Stack component={"form"} onSubmit={handleSubmit(onSubmit)} flex={1}>
       <Stack gap={8} height={"100%"}>
         <Stack gap={1}>
           <Typography color="primary.800" variant="h4" textAlign={"center"}>
@@ -53,6 +53,7 @@ export const SignupForm = () => {
         </Stack>
         <Stack
           gap={2}
+          flex={1}
           sx={{
             width: "80%",
             mx: "auto",
@@ -88,7 +89,7 @@ export const SignupForm = () => {
           {t("aMember")} <RouterLink to="/login">{t("login")}</RouterLink>
         </Typography>
       </Stack>
-    </form>
+    </Stack>
   );
 };
 export default SignupForm;
