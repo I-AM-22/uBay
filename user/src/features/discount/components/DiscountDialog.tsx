@@ -21,7 +21,7 @@ import { priceFormatter } from "utils/transforms";
 export type Form = {
   product: string;
   user: string;
-  expire?: Date;
+  expire: Date | null;
   discount: number;
 };
 const schema: (price: number) => z.ZodType<Form> = (price) =>
@@ -32,7 +32,7 @@ const schema: (price: number) => z.ZodType<Form> = (price) =>
       .number()
       .positive()
       .max(price - 1, i18n.t("discount:form.discountCannotBeEqualToPrice")),
-    expire: z.date().min(dayjs().add(1, "day").toDate()),
+    expire: z.date().min(dayjs().add(1, "day").toDate()).nullable(),
   });
 export type DiscountFormProps = {
   post: Post;
@@ -44,7 +44,7 @@ export const DiscountForm: FC<DiscountFormProps> = ({ post, user, onSuccess }) =
     resolver: zodResolver(schema(post.price)),
     defaultValues: {
       discount: 0,
-      expire: new Date(dayjs().add(1, "day").format("YYYY-MM-DD")),
+      expire: null,
       product: post._id,
       user: user._id,
     },
