@@ -12,7 +12,7 @@ const couponSchema = new Schema<CouponDoc, CouponModel, any>(
     product: { type: Types.ObjectId, required: true, ref: 'Product' },
     expire: {
       type: Date,
-      required: true,
+      default: null,
     },
     discount: {
       type: Number,
@@ -24,12 +24,6 @@ const couponSchema = new Schema<CouponDoc, CouponModel, any>(
 );
 
 couponSchema.index({ product: 1, user: 1 }, { unique: true });
-//save coupon to product
-// couponSchema.pre('save', async function () {
-//   console.log("doc");
-//   // await Product.findByIdAndUpdate(doc.product,{ $push: { coupons: doc._id } });
-//   console.log("helllo");
-// });
 couponSchema.post('save', async function () {
   await this.populate({
     path: 'product',
@@ -43,20 +37,24 @@ couponSchema.post('save', async function () {
 couponSchema.pre<Query<ICoupon, ICoupon>>(/^find/, function (next) {
   this.populate({
     path: 'product',
-    select: { user: 0, title: 1, photos: 1, category: 1, price: 1, likedBy: 0 },
+    select: { user: 0, title: 1, photos: 1, category: 1, price: 1, likedBy: 0, coupons: 0 },
   }).populate({ path: 'user', select: { name: 1, photo: 1, wallet: 0 } });
   next();
 });
 
 couponSchema.pre<Query<ICoupon, ICoupon>>(/^find/, function (next) {
-  this.find({ expire: { $gt: Date.now() }, active: true });
+  this.find({
+    $or: [
+      { expire: { $gt: Date.now() } },
+      { expire: null } // Expires is null
+    ], active: true
+  });
   next();
 });
 
-couponSchema.post('save',async function(doc){
-  console.log(doc);
-   await Product.findByIdAndUpdate(doc.product.id,{ $push: { coupons: doc._id } });
-  console.log("ssssssqqq");
+//save coupon to product
+couponSchema.post('save', async function (doc) {
+  await Product.findByIdAndUpdate(doc.product.id, { $push: { coupons: doc._id } });
 });
 
 const Coupon = model('Coupon', couponSchema);
