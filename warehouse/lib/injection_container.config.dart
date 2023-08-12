@@ -24,9 +24,9 @@ import 'package:warehouse/features/auth/data/repositories/auth_repository_impl.d
 import 'package:warehouse/features/auth/domain/repositories/auth_repository.dart'
     as _i13;
 import 'package:warehouse/features/auth/domain/usecases/login_usecase.dart'
-    as _i17;
+    as _i18;
 import 'package:warehouse/features/auth/presentation/bloc/auth/auth_bloc.dart'
-    as _i19;
+    as _i20;
 import 'package:warehouse/features/product/data/datasource/product_local_datasource.dart'
     as _i8;
 import 'package:warehouse/features/product/data/datasource/product_remote_datasource.dart'
@@ -35,15 +35,17 @@ import 'package:warehouse/features/product/data/repository/product_repository_im
     as _i11;
 import 'package:warehouse/features/product/domain/repository/product_repository.dart'
     as _i10;
-import 'package:warehouse/features/product/domain/usecase/get_product_usecase.dart'
+import 'package:warehouse/features/product/domain/usecase/get_all_product_usecase.dart'
     as _i15;
-import 'package:warehouse/features/product/domain/usecase/logout_usecase.dart'
+import 'package:warehouse/features/product/domain/usecase/get_product_usecase.dart'
     as _i16;
+import 'package:warehouse/features/product/domain/usecase/logout_usecase.dart'
+    as _i17;
 import 'package:warehouse/features/product/domain/usecase/receive_product_usecase.dart'
     as _i12;
 import 'package:warehouse/features/product/presentation/bloc/product_bloc.dart'
-    as _i18;
-import 'package:warehouse/injection_container.dart' as _i20;
+    as _i19;
+import 'package:warehouse/injection_container.dart' as _i21;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -80,21 +82,23 @@ extension GetItInjectableX on _i1.GetIt {
           authLocalDataSource: gh<_i3.AuthLocalDataSource>(),
           networkInfo: gh<_i7.NetworkInfo>(),
         ));
-    gh.factory<_i15.GetProductUseCase>(
-        () => _i15.GetProductUseCase(gh<_i10.ProductRepository>()));
-    gh.lazySingleton<_i16.LogOutUseCase>(
-        () => _i16.LogOutUseCase(gh<_i10.ProductRepository>()));
-    gh.factory<_i17.LoginUseCase>(
-        () => _i17.LoginUseCase(gh<_i13.AuthRepository>()));
-    gh.factory<_i18.ProductBloc>(() => _i18.ProductBloc(
-          gh<_i15.GetProductUseCase>(),
+    gh.factory<_i15.GetAllProductUseCase>(
+        () => _i15.GetAllProductUseCase(gh<_i10.ProductRepository>()));
+    gh.factory<_i16.GetProductUseCase>(
+        () => _i16.GetProductUseCase(gh<_i10.ProductRepository>()));
+    gh.lazySingleton<_i17.LogOutUseCase>(
+        () => _i17.LogOutUseCase(gh<_i10.ProductRepository>()));
+    gh.factory<_i18.LoginUseCase>(
+        () => _i18.LoginUseCase(gh<_i13.AuthRepository>()));
+    gh.factory<_i19.ProductBloc>(() => _i19.ProductBloc(
+          gh<_i16.GetProductUseCase>(),
           gh<_i12.ReceiveProductUseCase>(),
-          gh<_i16.LogOutUseCase>(),
+          gh<_i17.LogOutUseCase>(),
         ));
-    gh.factory<_i19.AuthBloc>(
-        () => _i19.AuthBloc(loginUseCase: gh<_i17.LoginUseCase>()));
+    gh.factory<_i20.AuthBloc>(
+        () => _i20.AuthBloc(loginUseCase: gh<_i18.LoginUseCase>()));
     return this;
   }
 }
 
-class _$RegisterModule extends _i20.RegisterModule {}
+class _$RegisterModule extends _i21.RegisterModule {}
