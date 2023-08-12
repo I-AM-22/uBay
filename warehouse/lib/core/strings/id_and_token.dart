@@ -1,2 +1,3 @@
 
 String? token;
+String? idStore;

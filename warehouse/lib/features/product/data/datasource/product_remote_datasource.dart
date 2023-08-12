@@ -8,11 +8,14 @@ import 'package:warehouse/core/strings/id_and_token.dart';
 import 'package:warehouse/features/product/data/model/product_model/product_model.dart';
 
 import '../../../../core/strings/failure.dart';
+import '../model/all_product_model/all_product_model.dart';
 
 abstract class ProductRemoteDataSource {
   Future<ProductModel> getProduct(String id);
 
   Future<Unit> receiveProduct(String id, String status);
+
+  Future<AllProductModel> getAllProduct();
 }
 
 @Injectable(as: ProductRemoteDataSource)
@@ -22,7 +25,6 @@ class ProductRemoteDataSourceImplement implements ProductRemoteDataSource {
     ProductModel? productModel;
     await DioHelper.getData(url: '$GET_PRODUCT/$id', token: token)
         .then((value) {
-
       productModel = ProductModel.fromJson(value.data);
       return Future.value(productModel);
     }).catchError((error) {
@@ -43,16 +45,32 @@ class ProductRemoteDataSourceImplement implements ProductRemoteDataSource {
         data: {'payment': id, 'status': status}).then((value) {
       print('the product is: ${value.data}');
     }).catchError((error) {
-      print(error.toString());
       DioError dioError = error;
-      print(dioError.response!.statusCode);
-      print('response error : ${dioError.response!.data}');
       if (dioError.response != null) {
         SERVER_FAILURE = _mapResponseError(dioError.response!);
       }
       throw ServerException();
     });
     return Future.value(unit);
+  }
+
+  @override
+  Future<AllProductModel> getAllProduct() async {
+    AllProductModel? allProductModel;
+    await DioHelper.getData(
+            url: '$GET_ALL_PRODUCT_1$idStore$GET_ALL_PRODUCT_2', token: token)
+        .then((value) {
+          allProductModel=AllProductModel.fromJson(value.data);
+          return Future.value(allProductModel);
+    })
+        .catchError((error) {
+      DioError dioError = error;
+      if (dioError.response != null) {
+        SERVER_FAILURE = _mapResponseError(dioError.response!);
+      }
+      throw ServerException();
+    });
+    return Future.value(allProductModel);
   }
 }
 

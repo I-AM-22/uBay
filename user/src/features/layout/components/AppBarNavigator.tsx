@@ -10,7 +10,6 @@ export const AppBarNavigator: FC<{}> = ({}) => {
   const location = useLocation();
 
   const handlePageChange = useCallback((_: any, index: number) => {
-
     setCurrentIndex(index);
   }, []);
   useEffect(() => {
@@ -40,7 +39,7 @@ export const AppBarNavigator: FC<{}> = ({}) => {
             component={RouterLink}
             to={navLink.href}
             key={navLink.href}
-            icon={<navLink.Icon  />}
+            icon={<navLink.Icon />}
           />
         ))}
       </Tabs>

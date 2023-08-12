@@ -16,8 +16,10 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   await di.configureDependencies();
   // ignore: unused_local_variable
-  token = di.getIt<SharedPreferences>().getString('CACHE_LOGIN');
+  token = di.getIt<SharedPreferences>().getString('CACHE_TOKEN');
+  idStore = di.getIt<SharedPreferences>().getString('CACHE_ID_STORE');
   print(token);
+  print(idStore);
   String initialRoot='/loginScreen';
   if(token!=null) {
     initialRoot='/homePage';
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       routes: {
         '/loginScreen': (context) => const LoginPage(),
-        '/homePage': (context) => const HomePage(),
+        '/homePage': (context) => HomePage(),
       },
       initialRoute: initialRoot,
     );
