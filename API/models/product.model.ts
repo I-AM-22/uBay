@@ -3,7 +3,6 @@ import { IProduct, ProductDoc, ProductModel } from '../types/product.types';
 import cls from 'cls-hooked';
 import AppError from '@utils/appError';
 import { STATUS_CODE } from '../types/helper.types';
-import Coupon from './coupon.model';
 
 const productSchema = new Schema<ProductDoc, ProductModel, any>(
   {
@@ -91,18 +90,28 @@ productSchema.pre<Query<IProduct, IProduct>>(/^find/, async function (next) {
       select: { name: 1, photo: 1, wallet: 0 },
     })
     .populate({ path: 'likedBy', select: { name: 1, photo: 1, wallet: 0 } })
-    .populate({ path: 'store', select: { name: 1 } });
-  //  this.populate({
-  //   path: 'coupons',
-  // });
+    .populate({ path: 'store', select: { name: 1 } })
+    .populate({ path: 'coupons', select: { product: 0 } });
   next();
 });
+
 //can't remove after product is paid
 productSchema.pre<Query<IProduct, IProduct>>('findOneAndRemove', async function (next) {
   const doc = await this.model.findOne(this.getQuery());
   if (doc.is_paid) {
     return next(new AppError(STATUS_CODE.BAD_REQUEST, [], 'لا يمكنك حذف منتج تم بيعه'));
   }
+});
+
+// After the query is executed, filter coupons for the specific user
+productSchema.post(/^find/, function (docs) {
+  const namespace = cls.getNamespace('app');
+  const userId = namespace?.get('loggedInUserId');
+  docs.forEach((doc: { coupons: any[]; }) => {
+    if (doc.coupons) {
+      doc.coupons = doc.coupons.filter(coupon => coupon.user._id.toString() === userId);
+    }
+  });
 });
 
 const Product = model<ProductDoc, ProductModel>('Product', productSchema);
