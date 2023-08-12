@@ -75,6 +75,22 @@ export const myProduct = catchAsync(
           }
         },
         {
+          $lookup: {
+            from: 'coupons',
+            let: { couponIds: '$product.coupons' },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $in: ['$_id', '$$couponIds']
+                  },
+                }
+              }
+            ],
+            as: 'product.coupons'
+          }
+        },
+        {
           $addFields: {
             sortField: {
               $switch: {
@@ -130,6 +146,31 @@ export const myProduct = catchAsync(
           }
         },
         {
+          $lookup: {
+            from: 'coupons',
+            let: { couponIds: '$product.coupons' },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $and: [
+                      { $in: ['$_id', '$$couponIds'] },
+                      { $eq: ['$user', req.user?._id] },
+                      {
+                        $or: [
+                          { $gt: ['$expire', new Date()] },
+                          { $eq: ['$expire', null] }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            ],
+            as: 'product.coupons'
+          }
+        },
+        {
           $addFields: {
             sortField: {
               $switch: {
@@ -171,6 +212,12 @@ export const checkProductIsPaid = catchAsync(async (req: Request, res: Response,
   next();
 
 })
+
+export const filterCoupon = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    next();
+  }
+);
 export const checkIsOwnerProduct = checkIsOwner(Product);
 export const getAllProducts = getAll(Product);
 export const getProduct = getOne(Product);
