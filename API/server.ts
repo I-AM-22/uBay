@@ -17,13 +17,14 @@ const server: http.Server = app.listen(port, async () => {
 
 const io = new Server(server, {
   pingTimeout: 60000,
-  cors: { origin: '' },
+  cors: { origin: 'http://localhost:5432' },
 });
 
 io.on('connection', (socket) => {
   socket.on('setup', (userData) => {
     socket.join(userData.id);
     socket.emit('connected');
+    console.log(userData);
   });
   socket.on('join chat', (room) => {
     socket.join(room);

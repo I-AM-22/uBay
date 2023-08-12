@@ -25,6 +25,7 @@ mixin _$ProductModel {
   String get content => throw _privateConstructorUsedError;
   List<String> get photos => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
+  Store get store => throw _privateConstructorUsedError;
   User get user => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,8 +46,10 @@ abstract class $ProductModelCopyWith<$Res> {
       String content,
       List<String> photos,
       int price,
+      Store store,
       User user});
 
+  $StoreCopyWith<$Res> get store;
   $UserCopyWith<$Res> get user;
 }
 
@@ -68,6 +71,7 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? content = null,
     Object? photos = null,
     Object? price = null,
+    Object? store = null,
     Object? user = null,
   }) {
     return _then(_value.copyWith(
@@ -91,11 +95,23 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
+      store: null == store
+          ? _value.store
+          : store // ignore: cast_nullable_to_non_nullable
+              as Store,
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as User,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $StoreCopyWith<$Res> get store {
+    return $StoreCopyWith<$Res>(_value.store, (value) {
+      return _then(_value.copyWith(store: value) as $Val);
+    });
   }
 
   @override
@@ -121,8 +137,11 @@ abstract class _$$_ProductModelCopyWith<$Res>
       String content,
       List<String> photos,
       int price,
+      Store store,
       User user});
 
+  @override
+  $StoreCopyWith<$Res> get store;
   @override
   $UserCopyWith<$Res> get user;
 }
@@ -143,6 +162,7 @@ class __$$_ProductModelCopyWithImpl<$Res>
     Object? content = null,
     Object? photos = null,
     Object? price = null,
+    Object? store = null,
     Object? user = null,
   }) {
     return _then(_$_ProductModel(
@@ -166,6 +186,10 @@ class __$$_ProductModelCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as int,
+      store: null == store
+          ? _value.store
+          : store // ignore: cast_nullable_to_non_nullable
+              as Store,
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -183,6 +207,7 @@ class _$_ProductModel implements _ProductModel {
       required this.content,
       required final List<String> photos,
       required this.price,
+      required this.store,
       required this.user})
       : _photos = photos;
 
@@ -206,11 +231,13 @@ class _$_ProductModel implements _ProductModel {
   @override
   final int price;
   @override
+  final Store store;
+  @override
   final User user;
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, title: $title, content: $content, photos: $photos, price: $price, user: $user)';
+    return 'ProductModel(id: $id, title: $title, content: $content, photos: $photos, price: $price, store: $store, user: $user)';
   }
 
   @override
@@ -223,13 +250,14 @@ class _$_ProductModel implements _ProductModel {
             (identical(other.content, content) || other.content == content) &&
             const DeepCollectionEquality().equals(other._photos, _photos) &&
             (identical(other.price, price) || other.price == price) &&
+            (identical(other.store, store) || other.store == store) &&
             (identical(other.user, user) || other.user == user));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, title, content,
-      const DeepCollectionEquality().hash(_photos), price, user);
+      const DeepCollectionEquality().hash(_photos), price, store, user);
 
   @JsonKey(ignore: true)
   @override
@@ -252,6 +280,7 @@ abstract class _ProductModel implements ProductModel {
       required final String content,
       required final List<String> photos,
       required final int price,
+      required final Store store,
       required final User user}) = _$_ProductModel;
 
   factory _ProductModel.fromJson(Map<String, dynamic> json) =
@@ -267,6 +296,8 @@ abstract class _ProductModel implements ProductModel {
   List<String> get photos;
   @override
   int get price;
+  @override
+  Store get store;
   @override
   User get user;
   @override
@@ -435,4 +466,150 @@ abstract class _User implements User {
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
+}
+
+Store _$StoreFromJson(Map<String, dynamic> json) {
+  return _Store.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Store {
+  String get name => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $StoreCopyWith<Store> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $StoreCopyWith<$Res> {
+  factory $StoreCopyWith(Store value, $Res Function(Store) then) =
+      _$StoreCopyWithImpl<$Res, Store>;
+  @useResult
+  $Res call({String name, String id});
+}
+
+/// @nodoc
+class _$StoreCopyWithImpl<$Res, $Val extends Store>
+    implements $StoreCopyWith<$Res> {
+  _$StoreCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? id = null,
+  }) {
+    return _then(_value.copyWith(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_StoreCopyWith<$Res> implements $StoreCopyWith<$Res> {
+  factory _$$_StoreCopyWith(_$_Store value, $Res Function(_$_Store) then) =
+      __$$_StoreCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String id});
+}
+
+/// @nodoc
+class __$$_StoreCopyWithImpl<$Res> extends _$StoreCopyWithImpl<$Res, _$_Store>
+    implements _$$_StoreCopyWith<$Res> {
+  __$$_StoreCopyWithImpl(_$_Store _value, $Res Function(_$_Store) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? id = null,
+  }) {
+    return _then(_$_Store(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Store implements _Store {
+  _$_Store({required this.name, required this.id});
+
+  factory _$_Store.fromJson(Map<String, dynamic> json) =>
+      _$$_StoreFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'Store(name: $name, id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Store &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.id, id) || other.id == id));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, id);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_StoreCopyWith<_$_Store> get copyWith =>
+      __$$_StoreCopyWithImpl<_$_Store>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_StoreToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Store implements Store {
+  factory _Store({required final String name, required final String id}) =
+      _$_Store;
+
+  factory _Store.fromJson(Map<String, dynamic> json) = _$_Store.fromJson;
+
+  @override
+  String get name;
+  @override
+  String get id;
+  @override
+  @JsonKey(ignore: true)
+  _$$_StoreCopyWith<_$_Store> get copyWith =>
+      throw _privateConstructorUsedError;
 }

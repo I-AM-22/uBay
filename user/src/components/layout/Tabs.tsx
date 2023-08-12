@@ -6,7 +6,6 @@ import { FC } from "react";
 export type TabsProps = MuiProps;
 export const Tabs: FC<TabsProps> = (props) => {
   const sx = {
-
     mx: 1,
     ".MuiTab-root": {
       color: (theme) => alpha(theme.palette.primary.main, 0.8),
