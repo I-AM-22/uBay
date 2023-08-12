@@ -1,7 +1,7 @@
 import {
-  styled,
   TextField as MuiTextField,
   TextFieldProps as MuiTextFieldProps,
+  styled,
 } from "@mui/material";
 import { Control, Controller } from "react-hook-form";
 const TextFieldStyled = styled(MuiTextField, {
@@ -32,9 +32,9 @@ export const TextField = ({ control, name, ...props }: TextFieldProps<true | fal
           <TextFieldStyled
             fullWidth
             error={!!error}
-            helperText={error && error.message}
             {...field}
             {...props}
+            helperText={error ? error.message : props.helperText}
           />
         )}
       />

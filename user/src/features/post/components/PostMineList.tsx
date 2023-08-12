@@ -98,6 +98,7 @@ export const PostMineCard: FC<PostMineCardProps> = ({ isBuy, data, skeleton, onQ
               <Button
                 size="small"
                 variant="outlined"
+                color="secondary"
                 component={Link}
                 to={`/posts/${data?.product._id}`}
               >
