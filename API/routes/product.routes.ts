@@ -36,7 +36,7 @@ router.use(
 
 // Routes requiring authentication
 
-router.get('/', getAllProducts);
+router.get('/',getAllProducts);
 router.get('/mine', myProduct);
 router.get('/:id', getProduct);
 
