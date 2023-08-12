@@ -84,7 +84,6 @@ export const myProduct = catchAsync(
                   $expr: {
                     $in: ['$_id', '$$couponIds']
                   },
-                  'user': req.user?._id
                 }
               }
             ],
@@ -154,13 +153,17 @@ export const myProduct = catchAsync(
               {
                 $match: {
                   $expr: {
-                    $in: ['$_id', '$$couponIds']
-                  },
-                  'user': req.user?._id,
-                  $or: [
-                    { expire: null },
-                    // { expire: { $gt: { expire: { $gt: new Date() } } } }
-                  ]
+                    $and: [
+                      { $in: ['$_id', '$$couponIds'] },
+                      { $eq: ['$user', req.user?._id] },
+                      {
+                        $or: [
+                          { $gt: ['$expire', new Date()] },
+                          { $eq: ['$expire', null] }
+                        ]
+                      }
+                    ]
+                  }
                 }
               }
             ],
