@@ -20,6 +20,15 @@ let API_ROUTES = {
     COMMENTS: (id: string) => `${id}/comments`,
     MINE: "mine",
   },
+  COUPON: {
+    root: "coupons",
+    CREATE: "",
+    BY_PRODUCT: (id: string) => `${id}/coupons`,
+    GET_ALL: "myCoupons",
+    GET: (id: string) => id,
+    EDIT: (id: string) => id,
+    DELETE: (id: string) => id,
+  },
   COMMENTS: {
     root: "comments",
     POST: "",

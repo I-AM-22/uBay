@@ -2,16 +2,24 @@ import { Card, CardContent, CardHeader, Fade, Slide, Stack, Typography } from "@
 import Skeleton from "components/feedback/Skeleton";
 import { UserAvatar } from "components/icons/UserAvatar";
 import dayjs from "dayjs";
+import { useIsMe } from "features/account";
 import Timeago from "lib/Timeago";
 import { FC, useState } from "react";
 import { Comment } from "../api/type";
 import { CommentEdit } from "./CommentEdit";
 import { CommentOptions } from "./CommentOptions";
 export type CommentCardProps =
-  | { comment: Comment; skeleton?: undefined }
-  | { skeleton: true; comment?: undefined };
-export const CommentCard: FC<CommentCardProps> = ({ comment, skeleton }) => {
+  | { comment: Comment; skeleton?: undefined; onDiscount: () => void; postAuthorId: string }
+  | { skeleton: true; postAuthorId?: undefined; comment?: undefined; onDiscount?: undefined };
+export const CommentCard: FC<CommentCardProps> = ({
+  comment,
+  postAuthorId,
+  skeleton,
+  onDiscount,
+}) => {
   const [open, setOpen] = useState(true);
+  const isCommentAuthorMe = useIsMe(comment?.user.id ?? "");
+  const isPostAuthorMe = useIsMe(postAuthorId ?? "");
   const [editMode, setEditMode] = useState(false);
   const isNewCard = comment && dayjs(Date.now()).diff(comment.createdAt, "seconds") < 10;
   const handleRemove = () => {
@@ -33,6 +41,8 @@ export const CommentCard: FC<CommentCardProps> = ({ comment, skeleton }) => {
             action={
               comment && (
                 <CommentOptions
+                  showDiscount={!isCommentAuthorMe && isPostAuthorMe}
+                  onDiscount={onDiscount}
                   onEdit={handleEditClick}
                   onRemove={handleRemove}
                   comment={comment}

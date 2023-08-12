@@ -1,4 +1,4 @@
-import DeleteIcon from "@mui/icons-material/Delete";
+import DiscountIcon from "@mui/icons-material/Discount";
 import EditIcon from "@mui/icons-material/Edit";
 import FlagIcon from "@mui/icons-material/Flag";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -15,8 +15,20 @@ import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { parseResponseError } from "utils/apiHelpers";
 import { Comment, commentQueries } from "..";
-export type CommentOptionsProps = { comment: Comment; onRemove?: () => void; onEdit: () => void };
-export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onRemove, onEdit }) => {
+export type CommentOptionsProps = {
+  showDiscount: boolean;
+  comment: Comment;
+  onRemove?: () => void;
+  onEdit: () => void;
+  onDiscount: () => void;
+};
+export const CommentOptions: FC<CommentOptionsProps> = ({
+  comment,
+  showDiscount,
+  onDiscount,
+  onRemove,
+  onEdit,
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMe = useIsMe(comment.user.id);
   const { t } = useTranslation();
@@ -41,6 +53,10 @@ export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onRemove, onE
     onEdit();
     handleClose();
   };
+  const handleDiscount = () => {
+    onDiscount();
+    handleClose();
+  };
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -58,12 +74,18 @@ export const CommentOptions: FC<CommentOptionsProps> = ({ comment, onRemove, onE
         )}
         {isMe && (
           <MenuItem onClick={handleRemove}>
-            {removeComment.isLoading ? <Loading size={15} mr={2} /> : <DeleteIcon />}
+            {removeComment.isLoading ? <Loading size={15} mr={2} /> : <DiscountIcon />}
             {t("remove")}
           </MenuItem>
         )}
 
         <Divider sx={{ "&.MuiDivider-root": { my: 0 } }} />
+        {showDiscount && (
+          <MenuItem onClick={handleDiscount}>
+            <DiscountIcon />
+            {t("discount:discountForUser")}
+          </MenuItem>
+        )}
         <MenuItem onClick={handleClose}>
           <FlagIcon />
           {t("report")}
