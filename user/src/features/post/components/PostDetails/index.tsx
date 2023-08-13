@@ -223,13 +223,9 @@ export const PostDetails: FC<PostCardProps> = ({ post, skeleton }) => {
                       >
                         {priceFormatter.format(post.price)}
                       </Box>
-                      {priceFormatter.format(post.price - discount)}
+                      {priceFormatter.format(post.price - discount)} {post.is_paid && t("is_paid")}
                     </>
                   )}
-                  {post &&
-                    discount !== 0 &&
-                    post.is_paid &&
-                    `${priceFormatter.format(post.price)} (${t("is_paid")})`}
                   {skeleton && <Skeleton width={50} variant="text" />}
                 </Button>
               </CardActions>

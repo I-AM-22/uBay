@@ -37,6 +37,7 @@ export type PostCardProps =
   | { post: Post; skeleton?: undefined; onCommentClick: () => void }
   | { post?: undefined; skeleton: true; onCommentClick?: undefined };
 export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) => {
+  const discount = post?.coupons[0]?.discount ?? 0;
   const navigate = useNavigate();
   const query = accountQueries.useProfile();
   const [open, setOpen] = useState(true);
@@ -106,9 +107,11 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
                       />
                     )}
                     <Chip
-                      clickable
                       color="secondary"
-                      label={priceFormatter.format(post.price)}
+                      label={
+                        (discount === 0 && priceFormatter.format(post.price)) ||
+                        (discount !== 0 && priceFormatter.format(post.price - discount))
+                      }
                       size="small"
                     />
                   </Stack>
