@@ -23,6 +23,7 @@ router.use(
   passport.authenticate('jwt', { session: false, failWithError: true }),
   restrictTo('user')
 );
+router.get('/myCoupons', getMyCoupons, getCoupons);
 
 router
   .route('/')
@@ -35,11 +36,7 @@ router
   );
 router
   .route('/:id')
-  .get(getCoupon, getCoupon)
-  .patch(getCoupon, updateCoupon)
-  .delete(getCoupon, deleteCoupon);
-router.get('/myCoupons', getMyCoupons, getCoupons);
-
-router.get('/getCouponByProduct', getCouponByProduct);
-
+  .get(couponMaker, getCoupon)
+  .patch(couponMaker, updateCoupon)
+  .delete(couponMaker, deleteCoupon);
 export default router;

@@ -37,8 +37,9 @@ couponSchema.post('save', async function () {
 couponSchema.pre<Query<ICoupon, ICoupon>>(/^find/, function (next) {
   this.populate({
     path: 'product',
-    select: { user: 0, title: 1, photos: 1, category: 1, price: 1, likedBy: 0, coupons: 0 },
-  }).populate({ path: 'user', select: { name: 1, photo: 1, wallet: 0 } });
+    select: { user: 1, title: 1, photos: 1, category: 1, price: 1, likedBy: 0, coupons: 0 },
+  })
+  this.populate({ path: 'user', select: { name: 1, photo: 1, wallet: 0 } });
   next();
 });
 

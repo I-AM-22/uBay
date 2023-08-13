@@ -49,16 +49,13 @@ export const getProductCoupons = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     if (req.params.productId) req.params.id = req.params.productId;
     if (req.body.product) req.params.id = req.body.product;
-
     next();
   }
 );
 
 export const couponMaker = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.params.id);
     const coupon = await Coupon.findById(req.params.id);
-    console.log(coupon);
     if (!coupon)
       return next(
         new AppError(
@@ -67,7 +64,7 @@ export const couponMaker = catchAsync(
           'There is no coupon with that Id'
         )
       );
-    if (req.user?.id !== coupon.product.user?.id)
+    if (req.user?.id !== coupon.product.user.id)
       return next(
         new AppError(
           STATUS_CODE.FORBIDDEN,
