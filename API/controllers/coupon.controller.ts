@@ -56,7 +56,9 @@ export const getProductCoupons = catchAsync(
 
 export const couponMaker = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.params.id);
     const coupon = await Coupon.findById(req.params.id);
+    console.log(coupon);
     if (!coupon)
       return next(
         new AppError(
@@ -65,7 +67,6 @@ export const couponMaker = catchAsync(
           'There is no coupon with that Id'
         )
       );
-
     if (req.user?.id !== coupon.product.user?.id)
       return next(
         new AppError(
@@ -87,10 +88,10 @@ export const getCouponByProduct = catchAsync(
     });
     let discount = 0;
     if (couponDoc) {
-       discount = couponDoc.discount;
+      discount = couponDoc.discount;
     }
     res.status(STATUS_CODE.SUCCESS).json({
-       discount: discount,
-     });
+      discount: discount,
+    });
   }
 );
