@@ -34,11 +34,6 @@ router
     createCoupon
   );
 
-router
-  .route('/:id')
-  .get(couponMaker, getCoupon)
-  .patch(couponMaker, updateCoupon)
-  .delete(couponMaker, deleteCoupon);
 router.get('/myCoupons', getMyCoupons, getCoupons);
 
 router.get('/getCouponByProduct', getCouponByProduct);
