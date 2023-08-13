@@ -90,6 +90,7 @@ export const forgotPassword = catchAsync(
       user.passwordResetToken = undefined;
       user.passwordResetExpires = undefined;
       await user.save({ validateBeforeSave: false });
+
       return next(
         new AppError(
           STATUS_CODE.INTERNAL_SERVER_ERROR,
