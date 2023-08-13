@@ -67,13 +67,13 @@ class GetProductWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(store,),
-                  SizedBox(width: 5,),
-                  Icon(Icons.error_outline,color: Colors.red,)
+                  const SizedBox(width: 5,),
+                  const Icon(Icons.error_outline,color: Colors.red,)
                 ],
               ),
             ),
           ),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
         ],
         Card(
           margin: const EdgeInsets.all(5),

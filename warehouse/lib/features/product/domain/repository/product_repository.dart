@@ -7,6 +7,6 @@ import '../../data/model/product_model/product_model.dart';
 abstract class ProductRepository{
   Future<Either<Failure,ProductModel>> getProduct(String id);
   Future<Either<Failure,Unit>> receiveProduct(String id,String status);
-  Future<Either<Failure,AllProductModel>> getAllProducts();
+  Future<Either<Failure,List<AllProductModel>>> getAllProducts();
   Future<Unit> logOut();
 }

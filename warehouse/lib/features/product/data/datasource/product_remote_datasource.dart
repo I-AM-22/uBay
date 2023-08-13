@@ -15,7 +15,7 @@ abstract class ProductRemoteDataSource {
 
   Future<Unit> receiveProduct(String id, String status);
 
-  Future<AllProductModel> getAllProduct();
+  Future<List<AllProductModel>> getAllProduct();
 }
 
 @Injectable(as: ProductRemoteDataSource)
@@ -55,15 +55,19 @@ class ProductRemoteDataSourceImplement implements ProductRemoteDataSource {
   }
 
   @override
-  Future<AllProductModel> getAllProduct() async {
-    AllProductModel? allProductModel;
+  Future<List<AllProductModel>> getAllProduct() async {
+    List<AllProductModel>? allProductModel;
     await DioHelper.getData(
             url: '$GET_ALL_PRODUCT_1$idStore$GET_ALL_PRODUCT_2', token: token)
         .then((value) {
-          allProductModel=AllProductModel.fromJson(value.data);
+            value.data.forEach((element) {
+              print(element);
+              AllProductModel.fromJson(element);
+            });
           return Future.value(allProductModel);
     })
         .catchError((error) {
+          print('error is: $error');
       DioError dioError = error;
       if (dioError.response != null) {
         SERVER_FAILURE = _mapResponseError(dioError.response!);
