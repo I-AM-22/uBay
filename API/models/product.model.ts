@@ -107,11 +107,19 @@ productSchema.pre<Query<IProduct, IProduct>>('findOneAndRemove', async function 
 productSchema.post(/^find/, function (docs) {
   const namespace = cls.getNamespace('app');
   const userId = namespace?.get('loggedInUserId');
-  docs.forEach((doc: { coupons: any[]; }) => {
-    if (doc.coupons) {
-      doc.coupons = doc.coupons.filter(coupon => coupon.user._id.toString() === userId);
+  //i check docs.length because if i search product.findbyId() it give me error when i use doc foreach because it not array
+  if (docs.length == undefined) {
+    if (docs.coupons) {
+      docs.coupons = docs.coupons.filter((coupon: { user: { _id: { toString: () => any; }; }; }) => coupon.user._id.toString() === userId);
     }
-  });
+  } else {
+    docs.forEach((doc: { coupons: any[]; }) => {
+      if (doc.coupons[0]) {
+        doc.coupons = doc.coupons.filter(coupon => coupon.user._id.toString() === userId);
+      }
+    });
+  }
+
 });
 
 const Product = model<ProductDoc, ProductModel>('Product', productSchema);
