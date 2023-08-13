@@ -9,7 +9,7 @@ class GetAllProductUseCase{
   final ProductRepository productRepository;
 
   GetAllProductUseCase(this.productRepository);
-  Future<Either<Failure,AllProductModel>> call()async{
+  Future<Either<Failure,List<AllProductModel>>> call()async{
     return await productRepository.getAllProducts();
   }
 }
