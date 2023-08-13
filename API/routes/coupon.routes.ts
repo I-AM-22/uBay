@@ -34,9 +34,10 @@ router
     createCoupon
   );
 
+  router.use('/:id', couponMaker);
+  router.route('/:id').get(getCoupon).patch(updateCoupon).delete(deleteCoupon);
 router.get('/myCoupons', getMyCoupons, getCoupons);
+
 router.get('/getCouponByProduct', getCouponByProduct);
-router.use('/:id', couponMaker);
-router.route('/:id').get(getCoupon).patch(updateCoupon).delete(deleteCoupon);
 
 export default router;
