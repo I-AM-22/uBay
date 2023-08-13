@@ -33,7 +33,11 @@ router
     checkIsOwnerProduct,
     createCoupon
   );
-
+router
+  .route('/:id')
+  .get(getCoupon, getCoupon)
+  .patch(getCoupon, updateCoupon)
+  .delete(getCoupon, deleteCoupon);
 router.get('/myCoupons', getMyCoupons, getCoupons);
 
 router.get('/getCouponByProduct', getCouponByProduct);
