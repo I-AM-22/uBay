@@ -26,6 +26,8 @@ export const PaymentDialog: FC<Props> = ({ setOpen, post, open }) => {
   const successSnackbar = useSuccessSnackbar();
   const queryClient = useQueryClient();
   const isDesktop = useIsDesktop();
+  const discount = post?.coupons[0]?.discount ?? 0;
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -67,7 +69,18 @@ export const PaymentDialog: FC<Props> = ({ setOpen, post, open }) => {
         </Box>
         <Stack direction={"row"} mx={1} mt="auto" justifyContent={"space-between"}>
           <Typography>{t("price")}</Typography>
-          <Typography color="secondary">{priceFormatter.format(post.price)}</Typography>
+          {discount === 0 && priceFormatter.format(post.price)}
+          {post && discount !== 0 && (
+            <Stack direction={"row"} flexWrap={"wrap"} sx={{ color: "secondary.main" }}>
+              <Box
+                component={"span"}
+                sx={{ fontSize: 11, mr: 1, opacity: 0.5, textDecoration: "line-through" }}
+              >
+                {priceFormatter.format(post.price)}
+              </Box>
+              {priceFormatter.format(post.price - discount)}
+            </Stack>
+          )}
         </Stack>
         <Submit
           type="button"

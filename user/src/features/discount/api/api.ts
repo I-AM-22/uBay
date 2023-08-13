@@ -1,6 +1,6 @@
 import API_ROUTES from "constants/apiRoutes";
 import axios from "lib/axios";
-import { DiscountCreateBody } from "./type";
+import { DiscountCreateBody, DiscountProductList } from "./type";
 
 const API = {
   create: async (body: DiscountCreateBody) => {
@@ -8,7 +8,11 @@ const API = {
     return data;
   },
   getByProduct: async (productId: string) => {
-    const { data } = await axios.get(API_ROUTES.COUPON.BY_PRODUCT(productId));
+    const { data } = await axios.get<DiscountProductList>(API_ROUTES.PRODUCTS.COUPONS(productId));
+    return data;
+  },
+  remove: async (id: string) => {
+    const { data } = await axios.delete(API_ROUTES.COUPON.DELETE(id));
     return data;
   },
 };

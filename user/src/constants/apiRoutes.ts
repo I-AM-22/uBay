@@ -15,6 +15,7 @@ let API_ROUTES = {
     GET: (id: string) => id,
     EDIT: (id: string) => id,
     DELETE: (id: string) => id,
+    COUPONS: (id: string) => `${id}/coupons`,
     LIKE: (id: string) => `${id}/likes`,
     UNLIKE: (id: string) => `${id}/likes`,
     COMMENTS: (id: string) => `${id}/comments`,
@@ -23,7 +24,6 @@ let API_ROUTES = {
   COUPON: {
     root: "coupons",
     CREATE: "",
-    BY_PRODUCT: (id: string) => `${id}/coupons`,
     GET_ALL: "myCoupons",
     GET: (id: string) => id,
     EDIT: (id: string) => id,

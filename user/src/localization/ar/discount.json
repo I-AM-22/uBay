@@ -1,5 +1,8 @@
 {
   "discountForUser": "إضافة حسم للمستخدم",
+  "discounts": "الحسومات",
+  "discount": "الحسم",
+  "priceAfterDiscount": "السعر بعد الحسم",
   "form": {
     "title": "إضافة حسم للقطعة: {{product}}",
     "user": "المستخدم الذي سيحصل على الحسم",

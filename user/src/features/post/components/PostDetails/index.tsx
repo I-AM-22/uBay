@@ -1,4 +1,5 @@
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import DiscountIcon from "@mui/icons-material/Discount";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import {
@@ -20,6 +21,7 @@ import Skeleton from "components/feedback/Skeleton";
 import { UserAvatar } from "components/icons/UserAvatar";
 import { useIsMe } from "features/account";
 import { CommentsDrawer } from "features/comment";
+import { DiscountsDrawer } from "features/discount";
 import { PaymentDialog } from "features/payment";
 import { Post } from "features/post";
 import { useIsDesktop } from "hooks/useIsDesktop";
@@ -38,11 +40,14 @@ export type PostCardProps =
 export const PostDetails: FC<PostCardProps> = ({ post, skeleton }) => {
   const [, setSearchParams] = useSearchParams();
   const { t } = useTranslation("post");
-  const [paymentDialogOpen, setPaymentDialogOpen] = useState(false);
+  const [paymentDrawerOpen, setPaymentDrawerOpen] = useState(false);
+  const [discountsDrawerOpen, setDiscountsDrawerOpen] = useState(false);
   const [commentsDrawerOpen, setCommentsDrawerOpen] = useState(false);
   const navigate = useNavigate();
   const isDesktop = useIsDesktop();
   const sellerIsMe = useIsMe(post?.user.id ?? "");
+  const discount = post?.coupons[0]?.discount ?? 0;
+
   const onCommentClick = () => {
     setCommentsDrawerOpen(true);
   };
@@ -176,18 +181,55 @@ export const PostDetails: FC<PostCardProps> = ({ post, skeleton }) => {
             {post && <Divider sx={{ mb: 0.2, display: { xs: "none", md: "block" } }} />}
             <Box sx={{ zIndex: 2, position: "sticky", mt: "auto", bottom: 0, bgcolor: "white" }}>
               <Divider />
-              <CardActions>
+              <CardActions
+                sx={{
+                  alignItems: "stretch",
+                  flexWrap: "wrap",
+                  gap: 1,
+                  justifyContent: "space-between",
+                }}
+              >
+                {sellerIsMe && (
+                  <Button
+                    onClick={() => {
+                      setDiscountsDrawerOpen(true);
+                    }}
+                    startIcon={<DiscountIcon sx={{ color: "white" }} />}
+                    variant="contained"
+                  >
+                    {t("discounts")}
+                  </Button>
+                )}
                 <Button
+                  disableRipple={sellerIsMe}
                   onClick={() => {
-                    if (post && !sellerIsMe) setPaymentDialogOpen(true);
+                    if (post && !sellerIsMe) setPaymentDrawerOpen(true);
                   }}
+                  sx={{ ml: "auto" }}
                   startIcon={<ShoppingCartRoundedIcon sx={{ color: "white" }} />}
                   variant="contained"
-                  sx={{ ml: "auto" }}
                   disabled={post?.is_paid && !sellerIsMe}
                 >
-                  {post && !post.is_paid && priceFormatter.format(post.price)}
-                  {post && post.is_paid && `${priceFormatter.format(post.price)} (${t("is_paid")})`}
+                  {post && discount === 0 && !post.is_paid && priceFormatter.format(post.price)}
+                  {post &&
+                    discount === 0 &&
+                    post.is_paid &&
+                    `${priceFormatter.format(post.price)} (${t("is_paid")})`}
+                  {post && discount !== 0 && (
+                    <>
+                      <Box
+                        component={"span"}
+                        sx={{ fontSize: 10, mr: 1, opacity: 0.5, textDecoration: "line-through" }}
+                      >
+                        {priceFormatter.format(post.price)}
+                      </Box>
+                      {priceFormatter.format(post.price - discount)}
+                    </>
+                  )}
+                  {post &&
+                    discount !== 0 &&
+                    post.is_paid &&
+                    `${priceFormatter.format(post.price)} (${t("is_paid")})`}
                   {skeleton && <Skeleton width={50} variant="text" />}
                 </Button>
               </CardActions>
@@ -268,7 +310,15 @@ export const PostDetails: FC<PostCardProps> = ({ post, skeleton }) => {
       />
       <ImageDialog />
       {post && (
-        <PaymentDialog setOpen={setPaymentDialogOpen} open={paymentDialogOpen} post={post} />
+        <PaymentDialog setOpen={setPaymentDrawerOpen} open={paymentDrawerOpen} post={post} />
+      )}
+      {sellerIsMe && post && (
+        <DiscountsDrawer
+          open={discountsDrawerOpen}
+          setOpen={setDiscountsDrawerOpen}
+          onClose={() => {}}
+          post={post}
+        />
       )}
       <ScrollRestoration
         getKey={({ pathname }) => {

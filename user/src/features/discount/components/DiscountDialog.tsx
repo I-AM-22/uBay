@@ -44,7 +44,7 @@ export const DiscountForm: FC<DiscountFormProps> = ({ post, user, onSuccess }) =
     resolver: zodResolver(schema(post.price)),
     defaultValues: {
       discount: 0,
-      expire: null,
+      expire: dayjs().add(7, "day").toDate(),
       product: post._id,
       user: user._id,
     },
