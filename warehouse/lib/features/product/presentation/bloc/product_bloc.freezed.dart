@@ -21,6 +21,7 @@ mixin _$ProductEvent {
     required TResult Function(String id) getProductEvent,
     required TResult Function(String id, String status) receiveProductEvent,
     required TResult Function() logOut,
+    required TResult Function() getAllProduct,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$ProductEvent {
     TResult? Function(String id)? getProductEvent,
     TResult? Function(String id, String status)? receiveProductEvent,
     TResult? Function()? logOut,
+    TResult? Function()? getAllProduct,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$ProductEvent {
     TResult Function(String id)? getProductEvent,
     TResult Function(String id, String status)? receiveProductEvent,
     TResult Function()? logOut,
+    TResult Function()? getAllProduct,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$ProductEvent {
     required TResult Function(_getProductEvent value) getProductEvent,
     required TResult Function(_receiveProductEvent value) receiveProductEvent,
     required TResult Function(_logOut value) logOut,
+    required TResult Function(_getAllProduct value) getAllProduct,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$ProductEvent {
     TResult? Function(_getProductEvent value)? getProductEvent,
     TResult? Function(_receiveProductEvent value)? receiveProductEvent,
     TResult? Function(_logOut value)? logOut,
+    TResult? Function(_getAllProduct value)? getAllProduct,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$ProductEvent {
     TResult Function(_getProductEvent value)? getProductEvent,
     TResult Function(_receiveProductEvent value)? receiveProductEvent,
     TResult Function(_logOut value)? logOut,
+    TResult Function(_getAllProduct value)? getAllProduct,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -147,6 +153,7 @@ class _$_getProductEvent implements _getProductEvent {
     required TResult Function(String id) getProductEvent,
     required TResult Function(String id, String status) receiveProductEvent,
     required TResult Function() logOut,
+    required TResult Function() getAllProduct,
   }) {
     return getProductEvent(id);
   }
@@ -157,6 +164,7 @@ class _$_getProductEvent implements _getProductEvent {
     TResult? Function(String id)? getProductEvent,
     TResult? Function(String id, String status)? receiveProductEvent,
     TResult? Function()? logOut,
+    TResult? Function()? getAllProduct,
   }) {
     return getProductEvent?.call(id);
   }
@@ -167,6 +175,7 @@ class _$_getProductEvent implements _getProductEvent {
     TResult Function(String id)? getProductEvent,
     TResult Function(String id, String status)? receiveProductEvent,
     TResult Function()? logOut,
+    TResult Function()? getAllProduct,
     required TResult orElse(),
   }) {
     if (getProductEvent != null) {
@@ -181,6 +190,7 @@ class _$_getProductEvent implements _getProductEvent {
     required TResult Function(_getProductEvent value) getProductEvent,
     required TResult Function(_receiveProductEvent value) receiveProductEvent,
     required TResult Function(_logOut value) logOut,
+    required TResult Function(_getAllProduct value) getAllProduct,
   }) {
     return getProductEvent(this);
   }
@@ -191,6 +201,7 @@ class _$_getProductEvent implements _getProductEvent {
     TResult? Function(_getProductEvent value)? getProductEvent,
     TResult? Function(_receiveProductEvent value)? receiveProductEvent,
     TResult? Function(_logOut value)? logOut,
+    TResult? Function(_getAllProduct value)? getAllProduct,
   }) {
     return getProductEvent?.call(this);
   }
@@ -201,6 +212,7 @@ class _$_getProductEvent implements _getProductEvent {
     TResult Function(_getProductEvent value)? getProductEvent,
     TResult Function(_receiveProductEvent value)? receiveProductEvent,
     TResult Function(_logOut value)? logOut,
+    TResult Function(_getAllProduct value)? getAllProduct,
     required TResult orElse(),
   }) {
     if (getProductEvent != null) {
@@ -295,6 +307,7 @@ class _$_receiveProductEvent implements _receiveProductEvent {
     required TResult Function(String id) getProductEvent,
     required TResult Function(String id, String status) receiveProductEvent,
     required TResult Function() logOut,
+    required TResult Function() getAllProduct,
   }) {
     return receiveProductEvent(id, status);
   }
@@ -305,6 +318,7 @@ class _$_receiveProductEvent implements _receiveProductEvent {
     TResult? Function(String id)? getProductEvent,
     TResult? Function(String id, String status)? receiveProductEvent,
     TResult? Function()? logOut,
+    TResult? Function()? getAllProduct,
   }) {
     return receiveProductEvent?.call(id, status);
   }
@@ -315,6 +329,7 @@ class _$_receiveProductEvent implements _receiveProductEvent {
     TResult Function(String id)? getProductEvent,
     TResult Function(String id, String status)? receiveProductEvent,
     TResult Function()? logOut,
+    TResult Function()? getAllProduct,
     required TResult orElse(),
   }) {
     if (receiveProductEvent != null) {
@@ -329,6 +344,7 @@ class _$_receiveProductEvent implements _receiveProductEvent {
     required TResult Function(_getProductEvent value) getProductEvent,
     required TResult Function(_receiveProductEvent value) receiveProductEvent,
     required TResult Function(_logOut value) logOut,
+    required TResult Function(_getAllProduct value) getAllProduct,
   }) {
     return receiveProductEvent(this);
   }
@@ -339,6 +355,7 @@ class _$_receiveProductEvent implements _receiveProductEvent {
     TResult? Function(_getProductEvent value)? getProductEvent,
     TResult? Function(_receiveProductEvent value)? receiveProductEvent,
     TResult? Function(_logOut value)? logOut,
+    TResult? Function(_getAllProduct value)? getAllProduct,
   }) {
     return receiveProductEvent?.call(this);
   }
@@ -349,6 +366,7 @@ class _$_receiveProductEvent implements _receiveProductEvent {
     TResult Function(_getProductEvent value)? getProductEvent,
     TResult Function(_receiveProductEvent value)? receiveProductEvent,
     TResult Function(_logOut value)? logOut,
+    TResult Function(_getAllProduct value)? getAllProduct,
     required TResult orElse(),
   }) {
     if (receiveProductEvent != null) {
@@ -408,6 +426,7 @@ class _$_logOut implements _logOut {
     required TResult Function(String id) getProductEvent,
     required TResult Function(String id, String status) receiveProductEvent,
     required TResult Function() logOut,
+    required TResult Function() getAllProduct,
   }) {
     return logOut();
   }
@@ -418,6 +437,7 @@ class _$_logOut implements _logOut {
     TResult? Function(String id)? getProductEvent,
     TResult? Function(String id, String status)? receiveProductEvent,
     TResult? Function()? logOut,
+    TResult? Function()? getAllProduct,
   }) {
     return logOut?.call();
   }
@@ -428,6 +448,7 @@ class _$_logOut implements _logOut {
     TResult Function(String id)? getProductEvent,
     TResult Function(String id, String status)? receiveProductEvent,
     TResult Function()? logOut,
+    TResult Function()? getAllProduct,
     required TResult orElse(),
   }) {
     if (logOut != null) {
@@ -442,6 +463,7 @@ class _$_logOut implements _logOut {
     required TResult Function(_getProductEvent value) getProductEvent,
     required TResult Function(_receiveProductEvent value) receiveProductEvent,
     required TResult Function(_logOut value) logOut,
+    required TResult Function(_getAllProduct value) getAllProduct,
   }) {
     return logOut(this);
   }
@@ -452,6 +474,7 @@ class _$_logOut implements _logOut {
     TResult? Function(_getProductEvent value)? getProductEvent,
     TResult? Function(_receiveProductEvent value)? receiveProductEvent,
     TResult? Function(_logOut value)? logOut,
+    TResult? Function(_getAllProduct value)? getAllProduct,
   }) {
     return logOut?.call(this);
   }
@@ -462,6 +485,7 @@ class _$_logOut implements _logOut {
     TResult Function(_getProductEvent value)? getProductEvent,
     TResult Function(_receiveProductEvent value)? receiveProductEvent,
     TResult Function(_logOut value)? logOut,
+    TResult Function(_getAllProduct value)? getAllProduct,
     required TResult orElse(),
   }) {
     if (logOut != null) {
@@ -476,6 +500,120 @@ abstract class _logOut implements ProductEvent {
 }
 
 /// @nodoc
+abstract class _$$_getAllProductCopyWith<$Res> {
+  factory _$$_getAllProductCopyWith(
+          _$_getAllProduct value, $Res Function(_$_getAllProduct) then) =
+      __$$_getAllProductCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_getAllProductCopyWithImpl<$Res>
+    extends _$ProductEventCopyWithImpl<$Res, _$_getAllProduct>
+    implements _$$_getAllProductCopyWith<$Res> {
+  __$$_getAllProductCopyWithImpl(
+      _$_getAllProduct _value, $Res Function(_$_getAllProduct) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_getAllProduct implements _getAllProduct {
+  const _$_getAllProduct();
+
+  @override
+  String toString() {
+    return 'ProductEvent.getAllProduct()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_getAllProduct);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String id) getProductEvent,
+    required TResult Function(String id, String status) receiveProductEvent,
+    required TResult Function() logOut,
+    required TResult Function() getAllProduct,
+  }) {
+    return getAllProduct();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String id)? getProductEvent,
+    TResult? Function(String id, String status)? receiveProductEvent,
+    TResult? Function()? logOut,
+    TResult? Function()? getAllProduct,
+  }) {
+    return getAllProduct?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String id)? getProductEvent,
+    TResult Function(String id, String status)? receiveProductEvent,
+    TResult Function()? logOut,
+    TResult Function()? getAllProduct,
+    required TResult orElse(),
+  }) {
+    if (getAllProduct != null) {
+      return getAllProduct();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_getProductEvent value) getProductEvent,
+    required TResult Function(_receiveProductEvent value) receiveProductEvent,
+    required TResult Function(_logOut value) logOut,
+    required TResult Function(_getAllProduct value) getAllProduct,
+  }) {
+    return getAllProduct(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_getProductEvent value)? getProductEvent,
+    TResult? Function(_receiveProductEvent value)? receiveProductEvent,
+    TResult? Function(_logOut value)? logOut,
+    TResult? Function(_getAllProduct value)? getAllProduct,
+  }) {
+    return getAllProduct?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_getProductEvent value)? getProductEvent,
+    TResult Function(_receiveProductEvent value)? receiveProductEvent,
+    TResult Function(_logOut value)? logOut,
+    TResult Function(_getAllProduct value)? getAllProduct,
+    required TResult orElse(),
+  }) {
+    if (getAllProduct != null) {
+      return getAllProduct(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _getAllProduct implements ProductEvent {
+  const factory _getAllProduct() = _$_getAllProduct;
+}
+
+/// @nodoc
 mixin _$ProductState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -486,6 +624,9 @@ mixin _$ProductState {
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
+    required TResult Function(List<AllProductModel> allProductModel)
+        successGetAllProductState,
+    required TResult Function(String message) errorGetAllProductState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -497,6 +638,9 @@ mixin _$ProductState {
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
+    TResult? Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult? Function(String message)? errorGetAllProductState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -508,6 +652,9 @@ mixin _$ProductState {
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
+    TResult Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult Function(String message)? errorGetAllProductState,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -523,6 +670,10 @@ mixin _$ProductState {
     required TResult Function(_errorReceiveProductState value)
         errorReceiveProductState,
     required TResult Function(_successLogOutState value) successLogOutState,
+    required TResult Function(_successGetAllProductState value)
+        successGetAllProductState,
+    required TResult Function(_errorGetAllProductState value)
+        errorGetAllProductState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -536,6 +687,9 @@ mixin _$ProductState {
     TResult? Function(_errorReceiveProductState value)?
         errorReceiveProductState,
     TResult? Function(_successLogOutState value)? successLogOutState,
+    TResult? Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult? Function(_errorGetAllProductState value)? errorGetAllProductState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -548,6 +702,9 @@ mixin _$ProductState {
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
     TResult Function(_successLogOutState value)? successLogOutState,
+    TResult Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult Function(_errorGetAllProductState value)? errorGetAllProductState,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -615,6 +772,9 @@ class _$_Initial implements _Initial {
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
+    required TResult Function(List<AllProductModel> allProductModel)
+        successGetAllProductState,
+    required TResult Function(String message) errorGetAllProductState,
   }) {
     return initial();
   }
@@ -629,6 +789,9 @@ class _$_Initial implements _Initial {
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
+    TResult? Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult? Function(String message)? errorGetAllProductState,
   }) {
     return initial?.call();
   }
@@ -643,6 +806,9 @@ class _$_Initial implements _Initial {
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
+    TResult Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult Function(String message)? errorGetAllProductState,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -664,6 +830,10 @@ class _$_Initial implements _Initial {
     required TResult Function(_errorReceiveProductState value)
         errorReceiveProductState,
     required TResult Function(_successLogOutState value) successLogOutState,
+    required TResult Function(_successGetAllProductState value)
+        successGetAllProductState,
+    required TResult Function(_errorGetAllProductState value)
+        errorGetAllProductState,
   }) {
     return initial(this);
   }
@@ -680,6 +850,9 @@ class _$_Initial implements _Initial {
     TResult? Function(_errorReceiveProductState value)?
         errorReceiveProductState,
     TResult? Function(_successLogOutState value)? successLogOutState,
+    TResult? Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult? Function(_errorGetAllProductState value)? errorGetAllProductState,
   }) {
     return initial?.call(this);
   }
@@ -695,6 +868,9 @@ class _$_Initial implements _Initial {
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
     TResult Function(_successLogOutState value)? successLogOutState,
+    TResult Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult Function(_errorGetAllProductState value)? errorGetAllProductState,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -752,6 +928,9 @@ class _$_loading implements _loading {
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
+    required TResult Function(List<AllProductModel> allProductModel)
+        successGetAllProductState,
+    required TResult Function(String message) errorGetAllProductState,
   }) {
     return loading();
   }
@@ -766,6 +945,9 @@ class _$_loading implements _loading {
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
+    TResult? Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult? Function(String message)? errorGetAllProductState,
   }) {
     return loading?.call();
   }
@@ -780,6 +962,9 @@ class _$_loading implements _loading {
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
+    TResult Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult Function(String message)? errorGetAllProductState,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -801,6 +986,10 @@ class _$_loading implements _loading {
     required TResult Function(_errorReceiveProductState value)
         errorReceiveProductState,
     required TResult Function(_successLogOutState value) successLogOutState,
+    required TResult Function(_successGetAllProductState value)
+        successGetAllProductState,
+    required TResult Function(_errorGetAllProductState value)
+        errorGetAllProductState,
   }) {
     return loading(this);
   }
@@ -817,6 +1006,9 @@ class _$_loading implements _loading {
     TResult? Function(_errorReceiveProductState value)?
         errorReceiveProductState,
     TResult? Function(_successLogOutState value)? successLogOutState,
+    TResult? Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult? Function(_errorGetAllProductState value)? errorGetAllProductState,
   }) {
     return loading?.call(this);
   }
@@ -832,6 +1024,9 @@ class _$_loading implements _loading {
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
     TResult Function(_successLogOutState value)? successLogOutState,
+    TResult Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult Function(_errorGetAllProductState value)? errorGetAllProductState,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -928,6 +1123,9 @@ class _$_successGetProductState implements _successGetProductState {
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
+    required TResult Function(List<AllProductModel> allProductModel)
+        successGetAllProductState,
+    required TResult Function(String message) errorGetAllProductState,
   }) {
     return successGetProductState(productModel);
   }
@@ -942,6 +1140,9 @@ class _$_successGetProductState implements _successGetProductState {
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
+    TResult? Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult? Function(String message)? errorGetAllProductState,
   }) {
     return successGetProductState?.call(productModel);
   }
@@ -956,6 +1157,9 @@ class _$_successGetProductState implements _successGetProductState {
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
+    TResult Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult Function(String message)? errorGetAllProductState,
     required TResult orElse(),
   }) {
     if (successGetProductState != null) {
@@ -977,6 +1181,10 @@ class _$_successGetProductState implements _successGetProductState {
     required TResult Function(_errorReceiveProductState value)
         errorReceiveProductState,
     required TResult Function(_successLogOutState value) successLogOutState,
+    required TResult Function(_successGetAllProductState value)
+        successGetAllProductState,
+    required TResult Function(_errorGetAllProductState value)
+        errorGetAllProductState,
   }) {
     return successGetProductState(this);
   }
@@ -993,6 +1201,9 @@ class _$_successGetProductState implements _successGetProductState {
     TResult? Function(_errorReceiveProductState value)?
         errorReceiveProductState,
     TResult? Function(_successLogOutState value)? successLogOutState,
+    TResult? Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult? Function(_errorGetAllProductState value)? errorGetAllProductState,
   }) {
     return successGetProductState?.call(this);
   }
@@ -1008,6 +1219,9 @@ class _$_successGetProductState implements _successGetProductState {
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
     TResult Function(_successLogOutState value)? successLogOutState,
+    TResult Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult Function(_errorGetAllProductState value)? errorGetAllProductState,
     required TResult orElse(),
   }) {
     if (successGetProductState != null) {
@@ -1099,6 +1313,9 @@ class _$_errorGetProductState implements _errorGetProductState {
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
+    required TResult Function(List<AllProductModel> allProductModel)
+        successGetAllProductState,
+    required TResult Function(String message) errorGetAllProductState,
   }) {
     return errorGetProductState(message);
   }
@@ -1113,6 +1330,9 @@ class _$_errorGetProductState implements _errorGetProductState {
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
+    TResult? Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult? Function(String message)? errorGetAllProductState,
   }) {
     return errorGetProductState?.call(message);
   }
@@ -1127,6 +1347,9 @@ class _$_errorGetProductState implements _errorGetProductState {
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
+    TResult Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult Function(String message)? errorGetAllProductState,
     required TResult orElse(),
   }) {
     if (errorGetProductState != null) {
@@ -1148,6 +1371,10 @@ class _$_errorGetProductState implements _errorGetProductState {
     required TResult Function(_errorReceiveProductState value)
         errorReceiveProductState,
     required TResult Function(_successLogOutState value) successLogOutState,
+    required TResult Function(_successGetAllProductState value)
+        successGetAllProductState,
+    required TResult Function(_errorGetAllProductState value)
+        errorGetAllProductState,
   }) {
     return errorGetProductState(this);
   }
@@ -1164,6 +1391,9 @@ class _$_errorGetProductState implements _errorGetProductState {
     TResult? Function(_errorReceiveProductState value)?
         errorReceiveProductState,
     TResult? Function(_successLogOutState value)? successLogOutState,
+    TResult? Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult? Function(_errorGetAllProductState value)? errorGetAllProductState,
   }) {
     return errorGetProductState?.call(this);
   }
@@ -1179,6 +1409,9 @@ class _$_errorGetProductState implements _errorGetProductState {
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
     TResult Function(_successLogOutState value)? successLogOutState,
+    TResult Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult Function(_errorGetAllProductState value)? errorGetAllProductState,
     required TResult orElse(),
   }) {
     if (errorGetProductState != null) {
@@ -1246,6 +1479,9 @@ class _$_successReceiveProductState implements _successReceiveProductState {
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
+    required TResult Function(List<AllProductModel> allProductModel)
+        successGetAllProductState,
+    required TResult Function(String message) errorGetAllProductState,
   }) {
     return successReceiveProductState();
   }
@@ -1260,6 +1496,9 @@ class _$_successReceiveProductState implements _successReceiveProductState {
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
+    TResult? Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult? Function(String message)? errorGetAllProductState,
   }) {
     return successReceiveProductState?.call();
   }
@@ -1274,6 +1513,9 @@ class _$_successReceiveProductState implements _successReceiveProductState {
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
+    TResult Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult Function(String message)? errorGetAllProductState,
     required TResult orElse(),
   }) {
     if (successReceiveProductState != null) {
@@ -1295,6 +1537,10 @@ class _$_successReceiveProductState implements _successReceiveProductState {
     required TResult Function(_errorReceiveProductState value)
         errorReceiveProductState,
     required TResult Function(_successLogOutState value) successLogOutState,
+    required TResult Function(_successGetAllProductState value)
+        successGetAllProductState,
+    required TResult Function(_errorGetAllProductState value)
+        errorGetAllProductState,
   }) {
     return successReceiveProductState(this);
   }
@@ -1311,6 +1557,9 @@ class _$_successReceiveProductState implements _successReceiveProductState {
     TResult? Function(_errorReceiveProductState value)?
         errorReceiveProductState,
     TResult? Function(_successLogOutState value)? successLogOutState,
+    TResult? Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult? Function(_errorGetAllProductState value)? errorGetAllProductState,
   }) {
     return successReceiveProductState?.call(this);
   }
@@ -1326,6 +1575,9 @@ class _$_successReceiveProductState implements _successReceiveProductState {
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
     TResult Function(_successLogOutState value)? successLogOutState,
+    TResult Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult Function(_errorGetAllProductState value)? errorGetAllProductState,
     required TResult orElse(),
   }) {
     if (successReceiveProductState != null) {
@@ -1412,6 +1664,9 @@ class _$_errorReceiveProductState implements _errorReceiveProductState {
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
+    required TResult Function(List<AllProductModel> allProductModel)
+        successGetAllProductState,
+    required TResult Function(String message) errorGetAllProductState,
   }) {
     return errorReceiveProductState(message);
   }
@@ -1426,6 +1681,9 @@ class _$_errorReceiveProductState implements _errorReceiveProductState {
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
+    TResult? Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult? Function(String message)? errorGetAllProductState,
   }) {
     return errorReceiveProductState?.call(message);
   }
@@ -1440,6 +1698,9 @@ class _$_errorReceiveProductState implements _errorReceiveProductState {
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
+    TResult Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult Function(String message)? errorGetAllProductState,
     required TResult orElse(),
   }) {
     if (errorReceiveProductState != null) {
@@ -1461,6 +1722,10 @@ class _$_errorReceiveProductState implements _errorReceiveProductState {
     required TResult Function(_errorReceiveProductState value)
         errorReceiveProductState,
     required TResult Function(_successLogOutState value) successLogOutState,
+    required TResult Function(_successGetAllProductState value)
+        successGetAllProductState,
+    required TResult Function(_errorGetAllProductState value)
+        errorGetAllProductState,
   }) {
     return errorReceiveProductState(this);
   }
@@ -1477,6 +1742,9 @@ class _$_errorReceiveProductState implements _errorReceiveProductState {
     TResult? Function(_errorReceiveProductState value)?
         errorReceiveProductState,
     TResult? Function(_successLogOutState value)? successLogOutState,
+    TResult? Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult? Function(_errorGetAllProductState value)? errorGetAllProductState,
   }) {
     return errorReceiveProductState?.call(this);
   }
@@ -1492,6 +1760,9 @@ class _$_errorReceiveProductState implements _errorReceiveProductState {
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
     TResult Function(_successLogOutState value)? successLogOutState,
+    TResult Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult Function(_errorGetAllProductState value)? errorGetAllProductState,
     required TResult orElse(),
   }) {
     if (errorReceiveProductState != null) {
@@ -1583,6 +1854,9 @@ class _$_successLogOutState implements _successLogOutState {
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
+    required TResult Function(List<AllProductModel> allProductModel)
+        successGetAllProductState,
+    required TResult Function(String message) errorGetAllProductState,
   }) {
     return successLogOutState(message);
   }
@@ -1597,6 +1871,9 @@ class _$_successLogOutState implements _successLogOutState {
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
+    TResult? Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult? Function(String message)? errorGetAllProductState,
   }) {
     return successLogOutState?.call(message);
   }
@@ -1611,6 +1888,9 @@ class _$_successLogOutState implements _successLogOutState {
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
+    TResult Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult Function(String message)? errorGetAllProductState,
     required TResult orElse(),
   }) {
     if (successLogOutState != null) {
@@ -1632,6 +1912,10 @@ class _$_successLogOutState implements _successLogOutState {
     required TResult Function(_errorReceiveProductState value)
         errorReceiveProductState,
     required TResult Function(_successLogOutState value) successLogOutState,
+    required TResult Function(_successGetAllProductState value)
+        successGetAllProductState,
+    required TResult Function(_errorGetAllProductState value)
+        errorGetAllProductState,
   }) {
     return successLogOutState(this);
   }
@@ -1648,6 +1932,9 @@ class _$_successLogOutState implements _successLogOutState {
     TResult? Function(_errorReceiveProductState value)?
         errorReceiveProductState,
     TResult? Function(_successLogOutState value)? successLogOutState,
+    TResult? Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult? Function(_errorGetAllProductState value)? errorGetAllProductState,
   }) {
     return successLogOutState?.call(this);
   }
@@ -1663,6 +1950,9 @@ class _$_successLogOutState implements _successLogOutState {
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
     TResult Function(_successLogOutState value)? successLogOutState,
+    TResult Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult Function(_errorGetAllProductState value)? errorGetAllProductState,
     required TResult orElse(),
   }) {
     if (successLogOutState != null) {
@@ -1680,4 +1970,397 @@ abstract class _successLogOutState implements ProductState {
   @JsonKey(ignore: true)
   _$$_successLogOutStateCopyWith<_$_successLogOutState> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_successGetAllProductStateCopyWith<$Res> {
+  factory _$$_successGetAllProductStateCopyWith(
+          _$_successGetAllProductState value,
+          $Res Function(_$_successGetAllProductState) then) =
+      __$$_successGetAllProductStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<AllProductModel> allProductModel});
+}
+
+/// @nodoc
+class __$$_successGetAllProductStateCopyWithImpl<$Res>
+    extends _$ProductStateCopyWithImpl<$Res, _$_successGetAllProductState>
+    implements _$$_successGetAllProductStateCopyWith<$Res> {
+  __$$_successGetAllProductStateCopyWithImpl(
+      _$_successGetAllProductState _value,
+      $Res Function(_$_successGetAllProductState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? allProductModel = null,
+  }) {
+    return _then(_$_successGetAllProductState(
+      null == allProductModel
+          ? _value._allProductModel
+          : allProductModel // ignore: cast_nullable_to_non_nullable
+              as List<AllProductModel>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_successGetAllProductState implements _successGetAllProductState {
+  const _$_successGetAllProductState(
+      final List<AllProductModel> allProductModel)
+      : _allProductModel = allProductModel;
+
+  final List<AllProductModel> _allProductModel;
+  @override
+  List<AllProductModel> get allProductModel {
+    if (_allProductModel is EqualUnmodifiableListView) return _allProductModel;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_allProductModel);
+  }
+
+  @override
+  String toString() {
+    return 'ProductState.successGetAllProductState(allProductModel: $allProductModel)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_successGetAllProductState &&
+            const DeepCollectionEquality()
+                .equals(other._allProductModel, _allProductModel));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_allProductModel));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_successGetAllProductStateCopyWith<_$_successGetAllProductState>
+      get copyWith => __$$_successGetAllProductStateCopyWithImpl<
+          _$_successGetAllProductState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(ProductModel productModel) successGetProductState,
+    required TResult Function(String message) errorGetProductState,
+    required TResult Function() successReceiveProductState,
+    required TResult Function(String message) errorReceiveProductState,
+    required TResult Function(String message) successLogOutState,
+    required TResult Function(List<AllProductModel> allProductModel)
+        successGetAllProductState,
+    required TResult Function(String message) errorGetAllProductState,
+  }) {
+    return successGetAllProductState(allProductModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(ProductModel productModel)? successGetProductState,
+    TResult? Function(String message)? errorGetProductState,
+    TResult? Function()? successReceiveProductState,
+    TResult? Function(String message)? errorReceiveProductState,
+    TResult? Function(String message)? successLogOutState,
+    TResult? Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult? Function(String message)? errorGetAllProductState,
+  }) {
+    return successGetAllProductState?.call(allProductModel);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(ProductModel productModel)? successGetProductState,
+    TResult Function(String message)? errorGetProductState,
+    TResult Function()? successReceiveProductState,
+    TResult Function(String message)? errorReceiveProductState,
+    TResult Function(String message)? successLogOutState,
+    TResult Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult Function(String message)? errorGetAllProductState,
+    required TResult orElse(),
+  }) {
+    if (successGetAllProductState != null) {
+      return successGetAllProductState(allProductModel);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_loading value) loading,
+    required TResult Function(_successGetProductState value)
+        successGetProductState,
+    required TResult Function(_errorGetProductState value) errorGetProductState,
+    required TResult Function(_successReceiveProductState value)
+        successReceiveProductState,
+    required TResult Function(_errorReceiveProductState value)
+        errorReceiveProductState,
+    required TResult Function(_successLogOutState value) successLogOutState,
+    required TResult Function(_successGetAllProductState value)
+        successGetAllProductState,
+    required TResult Function(_errorGetAllProductState value)
+        errorGetAllProductState,
+  }) {
+    return successGetAllProductState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_loading value)? loading,
+    TResult? Function(_successGetProductState value)? successGetProductState,
+    TResult? Function(_errorGetProductState value)? errorGetProductState,
+    TResult? Function(_successReceiveProductState value)?
+        successReceiveProductState,
+    TResult? Function(_errorReceiveProductState value)?
+        errorReceiveProductState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
+    TResult? Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult? Function(_errorGetAllProductState value)? errorGetAllProductState,
+  }) {
+    return successGetAllProductState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_loading value)? loading,
+    TResult Function(_successGetProductState value)? successGetProductState,
+    TResult Function(_errorGetProductState value)? errorGetProductState,
+    TResult Function(_successReceiveProductState value)?
+        successReceiveProductState,
+    TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
+    TResult Function(_successLogOutState value)? successLogOutState,
+    TResult Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult Function(_errorGetAllProductState value)? errorGetAllProductState,
+    required TResult orElse(),
+  }) {
+    if (successGetAllProductState != null) {
+      return successGetAllProductState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _successGetAllProductState implements ProductState {
+  const factory _successGetAllProductState(
+          final List<AllProductModel> allProductModel) =
+      _$_successGetAllProductState;
+
+  List<AllProductModel> get allProductModel;
+  @JsonKey(ignore: true)
+  _$$_successGetAllProductStateCopyWith<_$_successGetAllProductState>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_errorGetAllProductStateCopyWith<$Res> {
+  factory _$$_errorGetAllProductStateCopyWith(_$_errorGetAllProductState value,
+          $Res Function(_$_errorGetAllProductState) then) =
+      __$$_errorGetAllProductStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$_errorGetAllProductStateCopyWithImpl<$Res>
+    extends _$ProductStateCopyWithImpl<$Res, _$_errorGetAllProductState>
+    implements _$$_errorGetAllProductStateCopyWith<$Res> {
+  __$$_errorGetAllProductStateCopyWithImpl(_$_errorGetAllProductState _value,
+      $Res Function(_$_errorGetAllProductState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$_errorGetAllProductState(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_errorGetAllProductState implements _errorGetAllProductState {
+  const _$_errorGetAllProductState(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'ProductState.errorGetAllProductState(message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_errorGetAllProductState &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_errorGetAllProductStateCopyWith<_$_errorGetAllProductState>
+      get copyWith =>
+          __$$_errorGetAllProductStateCopyWithImpl<_$_errorGetAllProductState>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(ProductModel productModel) successGetProductState,
+    required TResult Function(String message) errorGetProductState,
+    required TResult Function() successReceiveProductState,
+    required TResult Function(String message) errorReceiveProductState,
+    required TResult Function(String message) successLogOutState,
+    required TResult Function(List<AllProductModel> allProductModel)
+        successGetAllProductState,
+    required TResult Function(String message) errorGetAllProductState,
+  }) {
+    return errorGetAllProductState(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(ProductModel productModel)? successGetProductState,
+    TResult? Function(String message)? errorGetProductState,
+    TResult? Function()? successReceiveProductState,
+    TResult? Function(String message)? errorReceiveProductState,
+    TResult? Function(String message)? successLogOutState,
+    TResult? Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult? Function(String message)? errorGetAllProductState,
+  }) {
+    return errorGetAllProductState?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(ProductModel productModel)? successGetProductState,
+    TResult Function(String message)? errorGetProductState,
+    TResult Function()? successReceiveProductState,
+    TResult Function(String message)? errorReceiveProductState,
+    TResult Function(String message)? successLogOutState,
+    TResult Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult Function(String message)? errorGetAllProductState,
+    required TResult orElse(),
+  }) {
+    if (errorGetAllProductState != null) {
+      return errorGetAllProductState(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_loading value) loading,
+    required TResult Function(_successGetProductState value)
+        successGetProductState,
+    required TResult Function(_errorGetProductState value) errorGetProductState,
+    required TResult Function(_successReceiveProductState value)
+        successReceiveProductState,
+    required TResult Function(_errorReceiveProductState value)
+        errorReceiveProductState,
+    required TResult Function(_successLogOutState value) successLogOutState,
+    required TResult Function(_successGetAllProductState value)
+        successGetAllProductState,
+    required TResult Function(_errorGetAllProductState value)
+        errorGetAllProductState,
+  }) {
+    return errorGetAllProductState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_loading value)? loading,
+    TResult? Function(_successGetProductState value)? successGetProductState,
+    TResult? Function(_errorGetProductState value)? errorGetProductState,
+    TResult? Function(_successReceiveProductState value)?
+        successReceiveProductState,
+    TResult? Function(_errorReceiveProductState value)?
+        errorReceiveProductState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
+    TResult? Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult? Function(_errorGetAllProductState value)? errorGetAllProductState,
+  }) {
+    return errorGetAllProductState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_loading value)? loading,
+    TResult Function(_successGetProductState value)? successGetProductState,
+    TResult Function(_errorGetProductState value)? errorGetProductState,
+    TResult Function(_successReceiveProductState value)?
+        successReceiveProductState,
+    TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
+    TResult Function(_successLogOutState value)? successLogOutState,
+    TResult Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult Function(_errorGetAllProductState value)? errorGetAllProductState,
+    required TResult orElse(),
+  }) {
+    if (errorGetAllProductState != null) {
+      return errorGetAllProductState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _errorGetAllProductState implements ProductState {
+  const factory _errorGetAllProductState(final String message) =
+      _$_errorGetAllProductState;
+
+  String get message;
+  @JsonKey(ignore: true)
+  _$$_errorGetAllProductStateCopyWith<_$_errorGetAllProductState>
+      get copyWith => throw _privateConstructorUsedError;
 }
