@@ -94,6 +94,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i16.GetProductUseCase>(),
           gh<_i12.ReceiveProductUseCase>(),
           gh<_i17.LogOutUseCase>(),
+          gh<_i15.GetAllProductUseCase>(),
         ));
     gh.factory<_i20.AuthBloc>(
         () => _i20.AuthBloc(loginUseCase: gh<_i18.LoginUseCase>()));

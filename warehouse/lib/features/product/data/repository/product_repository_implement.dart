@@ -10,59 +10,66 @@ import 'package:warehouse/features/product/data/model/product_model/product_mode
 import 'package:warehouse/features/product/domain/repository/product_repository.dart';
 
 @Injectable(as: ProductRepository)
-class ProductRepositoryImplement implements ProductRepository{
+class ProductRepositoryImplement implements ProductRepository {
   final NetworkInfo networkInfo;
   final ProductRemoteDataSource productRemoteDataSource;
   final ProductLocalDataSource productLocalDataSource;
 
-  ProductRepositoryImplement(this.networkInfo, this.productRemoteDataSource, this.productLocalDataSource);
+  ProductRepositoryImplement(this.networkInfo, this.productRemoteDataSource,
+      this.productLocalDataSource);
+
   @override
-  Future<Either<Failure, ProductModel>> getProduct(String id)async {
-    if(await networkInfo.isConnected){
-      try{
-        final productModel=await productRemoteDataSource.getProduct(id);
+  Future<Either<Failure, ProductModel>> getProduct(String id) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final productModel = await productRemoteDataSource.getProduct(id);
         return Right(productModel);
-      }on ServerException{
+      } on ServerException {
         return Left(ServerFailure());
       }
-    }else{
+    } else {
       return Left(OfflineFailure());
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> receiveProduct(String id,String status) async{
-    if(await networkInfo.isConnected){
-      try{
-        await productRemoteDataSource.receiveProduct(id,status);
+  Future<Either<Failure, Unit>> receiveProduct(String id, String status) async {
+    if (await networkInfo.isConnected) {
+      try {
+        await productRemoteDataSource.receiveProduct(id, status);
         return const Right(unit);
-      }on ServerException{
+      } on ServerException {
         return Left(ServerFailure());
       }
-    }else{
+    } else {
       return Left(OfflineFailure());
     }
   }
 
   @override
-  Future<Unit> logOut() async{
+  Future<Unit> logOut() async {
     await productLocalDataSource.logOut();
     return Future.value(unit);
   }
 
   @override
-  Future<Either<Failure, AllProductModel>> getAllProducts()async{
-    if(await networkInfo.isConnected){
-      try{
-        final response=await productRemoteDataSource.getAllProduct();
+  Future<Either<Failure, List<AllProductModel>>> getAllProducts() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final response = await productRemoteDataSource.getAllProduct();
+        await productLocalDataSource.cacheAllProduct(response);
         return Right(response);
-      }on ServerException{
+      } on ServerException {
         return Left(ServerFailure());
       }
-    }else{
-      return Left(OfflineFailure());
+    } else {
+      try{
+        final response = await productLocalDataSource.getCacheAllProduct();
+        return Right(response);
+      }on EmptyCacheException{
+        return Left(EmptyCacheFailure());
+      }
+
     }
-
   }
-
 }
