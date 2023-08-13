@@ -15,6 +15,20 @@ export type Post = {
   title: string;
   content: string;
   user: User;
+  coupons: {
+    _id: string;
+    user: {
+      _id: string;
+      name: string;
+      photo: string;
+      id: string;
+    };
+    expire: string;
+    discount: number;
+    active: boolean;
+    createdAt: string;
+    updatedAt: string;
+  }[];
   likes: number;
   photos: string[];
   price: number;

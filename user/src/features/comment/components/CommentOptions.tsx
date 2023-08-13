@@ -1,3 +1,4 @@
+import DeleteIcon from "@mui/icons-material/Delete";
 import DiscountIcon from "@mui/icons-material/Discount";
 import EditIcon from "@mui/icons-material/Edit";
 import FlagIcon from "@mui/icons-material/Flag";
@@ -74,7 +75,7 @@ export const CommentOptions: FC<CommentOptionsProps> = ({
         )}
         {isMe && (
           <MenuItem onClick={handleRemove}>
-            {removeComment.isLoading ? <Loading size={15} mr={2} /> : <DiscountIcon />}
+            {removeComment.isLoading ? <Loading size={15} mr={2} /> : <DeleteIcon />}
             {t("remove")}
           </MenuItem>
         )}
