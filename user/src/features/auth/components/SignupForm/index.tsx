@@ -74,14 +74,9 @@ export const SignupForm = () => {
           />
           <EmailInput control={control} name="email" />
           <PasswordInput control={control} name="password" />
-          <PasswordInput
-            sx={{ mb: 5 }}
-            control={control}
-            name="passwordConfirm"
-            label={t("passwordConfirm")}
-          />
+          <PasswordInput control={control} name="passwordConfirm" label={t("passwordConfirm")} />
           <Submit
-            sx={{ px: 5, py: 1.5, mt: "auto" }}
+            sx={{ px: 5, py: 1.5, mx: { xs: 0, md: "auto" } }}
             isSubmitting={signup.isLoading}
           >{t`submit`}</Submit>
         </Stack>

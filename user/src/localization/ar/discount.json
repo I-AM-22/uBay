@@ -3,6 +3,9 @@
   "discounts": "الحسومات",
   "discount": "الحسم",
   "priceAfterDiscount": "السعر بعد الحسم",
+  "afterDays": "بعد {{days}} إيام",
+  "expireDate": "الإنتهاء",
+  "expired": "منتهي",
   "form": {
     "title": "إضافة حسم للقطعة: {{product}}",
     "user": "المستخدم الذي سيحصل على الحسم",

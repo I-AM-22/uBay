@@ -9,6 +9,7 @@
   "mySales": "مبيعاتي",
   "details": "تفاصيل القطعة",
   "discounts": "عرض الخصومات",
+  "discountExpires": "الحسم ينتهي بعد {{days}} أيام",
   "generateQr": "توليد رمز QR",
   "form": {
     "formAdd": "إضافة منشور جديد",
