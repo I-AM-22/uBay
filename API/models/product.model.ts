@@ -31,6 +31,11 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
       required: true,
       min: [1, 'يجب ان يكون السعر بقيمة موجبة'],
     },
+    discount: {
+      type: Number,
+      min: [1, 'يجب ان يكون السعر بقيمة موجبة'],
+      default: 0
+    },
     is_paid: {
       type: Boolean,
       default: false
@@ -57,6 +62,10 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
 productSchema.virtual('likes').get(function () {
   if (!this.likedBy) return undefined;
   return this.likedBy.length;
+});
+productSchema.virtual('priceAfterDiscount').get(function () {
+  if (!this.is_paid) return undefined;
+  return this.price - this.discount;
 });
 
 productSchema.virtual('likedByMe').get(function () {
@@ -107,15 +116,15 @@ productSchema.pre<Query<IProduct, IProduct>>('findOneAndRemove', async function 
 productSchema.post(/^find/, function (docs) {
   const namespace = cls.getNamespace('app');
   const userId = namespace?.get('loggedInUserId');
-  // i put this condition for in coupon when i populate proudct the doc it will be null
-  if (docs != null && docs.coupons != undefined) {
-    if (docs.coupons) {
+  const a = docs;//just to remove any error from typescript
+  if (docs != null) {
+    //if doc is not array and there is coupons filter this coupon
+    if (!Array.isArray(a) && docs.coupons != undefined) {
       docs.coupons = docs.coupons.filter((coupon: { user: { _id: { toString: () => any; }; }; }) => coupon.user._id.toString() === userId);
-    } else {
+    }///and if doc is array i need to check if he has coupon but is array i need to check just the first element 
+    else if (Array.isArray(a) && docs[0].coupons != undefined) {
       docs.forEach((doc: { coupons: any[]; }) => {
-        if (doc.coupons[0]) {
-          doc.coupons = doc.coupons.filter(coupon => coupon.user._id.toString() === userId);
-        }
+        doc.coupons = doc.coupons.filter(coupon => coupon.user._id.toString() === userId);
       });
     }
   }

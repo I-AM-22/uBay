@@ -43,9 +43,15 @@ paymentSchema.pre('save', async function (next) {
     await Product.findByIdAndUpdate(proDoc?.id, { is_paid: true });
     next();
 });
-//send payment to store
+//send payment to store and save discount in the product
 paymentSchema.post('save', async function (doc) {
     const deliveryDoc = await Delivery.create({ payment: doc.id });
+    const productDoc = await Product.findById(doc.product);
+    if (productDoc != null) {
+        const discount: number = productDoc?.price - doc.price;
+        productDoc.discount = discount;
+        await productDoc.save(); // Save the updated product document
+    }
 });
 
 //take money from wallet
@@ -59,7 +65,7 @@ paymentSchema.post("save", async function (doc) {
 //before delete payment change is_paid to false and return money to his wallet
 paymentSchema.pre<Query<IPayment, IPayment>>('findOneAndRemove', async function (next) {
     const doc = await this.model.findOne(this.getQuery());
-    await Product.findByIdAndUpdate(doc.product.id, { is_paid: false, customer: null });
+    await Product.findByIdAndUpdate(doc.product.id, { is_paid: false, customer: null, discount: 0 });
     await Wallet.findByIdAndUpdate(doc.customer.wallet.id, {
         $inc: { pending: -doc.price }
     });

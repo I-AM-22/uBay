@@ -17,6 +17,7 @@ export interface IProduct {
   title: string;
   is_paid: boolean;
   store: PopulatedDoc<Document<ObjectId>> & IStore;
+  discount: number;
 }
 
 export type ProductDoc = IProduct & Document;
