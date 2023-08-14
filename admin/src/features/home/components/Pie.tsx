@@ -1,16 +1,33 @@
-import { Box, useTheme } from "@mui/material";
+import { Box, Theme, useMediaQuery, useTheme } from "@mui/material";
 import { ResponsivePie } from "@nivo/pie";
-import { data } from "./data";
-type isSmall = {
-  isSmallScreen: Boolean;
-};
-export const Pie = ({ isSmallScreen }: isSmall) => {
+import { homeQueries } from "features/home";
+import { useTranslation } from "react-i18next";
+
+export const Pie = () => {
+  const isSmallScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down(500));
+  const query = homeQueries.useStatics();
+  const { t } = useTranslation("home");
   const theme = useTheme();
   return (
     <>
-      <Box height="500px" width="100%" sx={{ svg: { width: "100%" } }}>
+      <Box
+        height="500px"
+        width="100%"
+        sx={{
+          "*": { fontFamily: "MontserratArabic !important" },
+          svg: { width: "100%" },
+        }}
+      >
         <ResponsivePie
-          data={data}
+          data={
+            query.isSuccess
+              ? query.data.salesPerCategory.map((category) => ({
+                  label: category.categoryName,
+                  id: category.categoryName,
+                  value: Number(category.categoryPercentage.toPrecision(3)),
+                }))
+              : [{ label: t("loadingPie"), id: "", value: 100 }]
+          }
           theme={{
             axis: {
               domain: {
@@ -124,6 +141,7 @@ export const Pie = ({ isSmallScreen }: isSmall) => {
           }}
           enableArcLinkLabels={true}
           enableArcLabels={true}
+          arcLinkLabelsDiagonalLength={36}
           arcLinkLabelsSkipAngle={10}
           arcLinkLabelsTextColor={theme.palette.text.primary}
           arcLinkLabelsThickness={2}
@@ -153,74 +171,24 @@ export const Pie = ({ isSmallScreen }: isSmall) => {
               spacing: 10,
             },
           ]}
-          fill={[
-            {
-              match: {
-                id: "ruby",
-              },
-              id: "dots",
-            },
-            {
-              match: {
-                id: "c",
-              },
-              id: "dots",
-            },
-            {
-              match: {
-                id: "go",
-              },
-              id: "dots",
-            },
-            {
-              match: {
-                id: "python",
-              },
-              id: "dots",
-            },
-            {
-              match: {
-                id: "scala",
-              },
-              id: "lines",
-            },
-            {
-              match: {
-                id: "lisp",
-              },
-              id: "lines",
-            },
-            {
-              match: {
-                id: "elixir",
-              },
-              id: "lines",
-            },
-            {
-              match: {
-                id: "javascript",
-              },
-              id: "lines",
-            },
-          ]}
           legends={
             isSmallScreen
               ? []
               : [
                   {
-                    anchor: "bottom",
+                    anchor: "bottom-right",
                     direction: "row",
-                    justify: false,
                     translateX: 0,
-                    translateY: 56,
-                    itemsSpacing: 0,
+                    symbolSpacing: 4,
+                    translateY: 63,
+                    itemsSpacing: -20,
                     itemWidth: 100,
                     itemHeight: 18,
-                    itemTextColor: "#999",
-                    itemDirection: "left-to-right",
+                    itemTextColor: "#555",
                     itemOpacity: 1,
                     symbolSize: 18,
                     symbolShape: "circle",
+                    itemDirection: "top-to-bottom",
                     effects: [
                       {
                         on: "hover",

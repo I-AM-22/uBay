@@ -4,6 +4,7 @@ import category from "./category.json";
 import city from "./city.json";
 import common from "./common.json";
 import employee from "./employee.json";
+import home from "./home.json";
 import layout from "./layout.json";
 import user from "./user.json";
 import validation from "./validation.json";
@@ -19,5 +20,6 @@ const language = {
   user,
   city,
   warehouse,
+  home,
 } as const;
 export default language;
