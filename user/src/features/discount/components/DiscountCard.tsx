@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, Slide, Stack, Typography } from "@mui/ma
 import Skeleton from "components/feedback/Skeleton";
 import { UserAvatar } from "components/icons/UserAvatar";
 import LabelValue from "components/typography/LabelValue";
+import dayjs from "dayjs";
 import Timeago from "lib/Timeago";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -20,7 +21,11 @@ export const DiscountCard: FC<DiscountCardProps> = ({ discount, skeleton }) => {
 
   return (
     <Slide direction="right" in={open} mountOnEnter appear={false} unmountOnExit>
-      <Card>
+      <Card
+        sx={{
+          opacity: discount && dayjs(discount.expire).diff(dayjs(), "day") <= 0 ? 0.8 : 1,
+        }}
+      >
         <CardHeader
           avatar={<UserAvatar src={discount?.user.photo} isLoading={skeleton} />}
           action={discount && <DiscountOptions onRemove={handleRemove} discount={discount} />}
@@ -45,9 +50,14 @@ export const DiscountCard: FC<DiscountCardProps> = ({ discount, skeleton }) => {
             <Stack
               sx={{
                 ".label-value": {
-                  justifyContent: "space-between",
-                  minWidth: 0.8,
-                  width: "fit-content",
+                  minWidth: 1,
+                  ".label": {
+                    width: 0.4,
+                    minWidth: "fit-content",
+                  },
+                  ".value": {
+                    color: "primary.900",
+                  },
                 },
               }}
             >
@@ -56,6 +66,12 @@ export const DiscountCard: FC<DiscountCardProps> = ({ discount, skeleton }) => {
               </LabelValue>
               <LabelValue noColon label={t("priceAfterDiscount")}>
                 {priceFormatter.format(discount.product.price - discount.discount)}
+              </LabelValue>
+              <LabelValue noColon label={t("expireDate")}>
+                {dayjs(discount.expire).diff(dayjs(), "day") > 0
+                  ? t("afterDays", { days: dayjs(discount.expire).diff(dayjs(), "day") })
+                  : t("expired")}{" "}
+                {`(${dayjs(discount.expire).format("YYYY/DD/MM")})`}
               </LabelValue>
             </Stack>
           )}

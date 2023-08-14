@@ -54,13 +54,14 @@ export const LoginForm = () => {
         flex={2}
         sx={{
           width: "80%",
+          mt: { xs: 4, md: 0 },
           mx: "auto",
         }}
       >
         <EmailInput control={control} name="email" />
-        <PasswordInput sx={{ mb: 5 }} control={control} name="password" />
+        <PasswordInput control={control} name="password" />
         <Submit
-          sx={{ px: 5, py: 1.5, mt: "auto" }}
+          sx={{ px: 5, py: 1.5, mx: { xs: 0, md: "auto" } }}
           isSubmitting={login.isLoading}
         >{t`submit`}</Submit>
       </Stack>

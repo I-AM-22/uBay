@@ -12,9 +12,8 @@ import { CommentCard } from "./CommentCard";
 import { CommentForm } from "./CommentForm";
 export type CommentsDrawerProps = Omit<EdgeDrawerProps, "children"> & {
   post: Post | null;
-  onClose: () => void;
 };
-export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...props }) => {
+export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, ...props }) => {
   const query = commentQueries.useInfinite({ postId: props.open ? post?.id ?? "" : "" });
   const [userForDiscount, setUserForDiscount] = useState<Comment["user"] | null>(null);
   const isDesktop = useIsDesktop();
@@ -42,7 +41,6 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, onClose, ...prop
       <EdgeDrawer
         {...props}
         id={scrollId}
-        onClose={onClose}
         title={
           <Typography variant="h6" sx={{ color: "primary.900", textAlign: "center" }}>
             {t("comments")}

@@ -4,6 +4,7 @@ import { Stack } from "@mui/system";
 import { useQueryClient } from "@tanstack/react-query";
 import Submit from "components/buttons/Submit";
 import { useSnackbar } from "context/snackbarContext";
+import dayjs from "dayjs";
 import { EdgeDrawer } from "features/layout";
 import { Post } from "features/post";
 import { queryStore } from "features/shared";
@@ -27,7 +28,9 @@ export const PaymentDialog: FC<Props> = ({ setOpen, post, open }) => {
   const queryClient = useQueryClient();
   const isDesktop = useIsDesktop();
   const discount = post?.coupons[0]?.discount ?? 0;
-
+  const discountDaysToExpire =
+    (discount !== 0 && dayjs(post?.coupons[0].expire).diff(dayjs(), "day")) || 0;
+  const isThereADiscount = discount !== 0 && discountDaysToExpire >= 0;
   const handleClose = () => {
     setOpen(false);
   };
@@ -69,8 +72,8 @@ export const PaymentDialog: FC<Props> = ({ setOpen, post, open }) => {
         </Box>
         <Stack direction={"row"} mx={1} mt="auto" justifyContent={"space-between"}>
           <Typography>{t("price")}</Typography>
-          {discount === 0 && priceFormatter.format(post.price)}
-          {post && discount !== 0 && (
+          {!isThereADiscount && priceFormatter.format(post.price)}
+          {post && isThereADiscount && (
             <Stack direction={"row"} flexWrap={"wrap"} sx={{ color: "secondary.main" }}>
               <Box
                 component={"span"}

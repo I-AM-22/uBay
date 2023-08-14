@@ -10,9 +10,8 @@ import { useTranslation } from "react-i18next";
 import { DiscountCard } from "./DiscountCard";
 export type DiscountsDrawerProps = Omit<EdgeDrawerProps, "children"> & {
   post: Post | null;
-  onClose: () => void;
 };
-export const DiscountsDrawer: FC<DiscountsDrawerProps> = ({ post, onClose, ...props }) => {
+export const DiscountsDrawer: FC<DiscountsDrawerProps> = ({ post, ...props }) => {
   const query = discountQueries.useByProduct(props.open ? post?.id ?? "" : "");
   const isDesktop = useIsDesktop();
   const scrollId = useId();
@@ -24,7 +23,6 @@ export const DiscountsDrawer: FC<DiscountsDrawerProps> = ({ post, onClose, ...pr
       <EdgeDrawer
         {...props}
         id={scrollId}
-        onClose={onClose}
         title={
           <Typography variant="h6" sx={{ color: "primary.900", textAlign: "center" }}>
             {t("discounts")}
@@ -33,6 +31,7 @@ export const DiscountsDrawer: FC<DiscountsDrawerProps> = ({ post, onClose, ...pr
         sx={{
           ".MuiDrawer-paper": {
             width: isDesktop ? 400 : 1,
+            height: 1,
             pb: 5,
             pt: 1,
           },
