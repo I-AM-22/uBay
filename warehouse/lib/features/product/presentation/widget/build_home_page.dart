@@ -1,16 +1,10 @@
-import 'dart:convert';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:warehouse/core/util/snackbar_message.dart';
+import 'package:warehouse/core/util/chose_date_time.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/features/product/data/model/all_product_model/all_product_model.dart';
 import 'package:warehouse/features/product/presentation/bloc/product_bloc.dart';
-import 'package:warehouse/features/product/presentation/pages/get_product_page.dart';
+import 'package:warehouse/features/product/presentation/widget/photo_grid.dart';
 import 'package:warehouse/injection_container.dart' as di;
 import '../../../../core/theme.dart';
 
@@ -29,7 +23,10 @@ class BuildHomeProductPage extends StatelessWidget {
               return Center(
                 child: Text(
                   'لا يوجد بيانات لعرضها',
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(fontSize: 20),
                 ),
               );
             },
@@ -41,102 +38,129 @@ class BuildHomeProductPage extends StatelessWidget {
                 return Center(
                   child: Text(
                     'لا يوجد بيانات لعرضها',
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(fontSize: 20),
                   ),
                 );
               }
             },
             errorGetAllProductState: (message) => Center(
-              child: Text(
+                  child: Text(
                     message,
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(fontSize: 20),
                   ),
-            )),
+                )),
       ),
     );
   }
 
   Widget _buildListProduct(
       List<AllProductModel> allProductModel, BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(borderRadius),
-                  ),
-                  color: primaryColor,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Text(
-                      '1500',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(color: Colors.white),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'majed',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(fontSize: 18),
-                    ),
-                    Text('11-5-2020',
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: ListView.separated(
+          physics: const BouncingScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (context, index) => Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(borderRadius),
+                            ),
+                            color: primaryColor,
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Text(
+                                '${allProductModel[index].product.price} ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'majed',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(fontSize: 18),
+                              ),
+                              Text(
+                                  ChoseDateTime().chose(
+                                      allProductModel[index].product.createdAt),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                          fontSize: 13, color: Colors.grey))
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          const CircleAvatar(
+                              radius: 25,
+                              backgroundImage: NetworkImage(
+                                  'https://i.imgur.com/7rlze8l.jpg')),
+                        ],
+                      ),
+                      const Divider(),
+                      Text(
+                        allProductModel[index].product.title,
                         style: Theme.of(context)
                             .textTheme
-                            .bodySmall!
-                            .copyWith(fontSize: 13, color: Colors.grey))
-                  ],
+                            .bodyLarge!
+                            .copyWith(fontSize: 18),
+                      ),
+                      const SizedBox(
+                        height: 1,
+                      ),
+                      Text(
+                        allProductModel[index].product.content,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(color: Colors.black),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                          height:
+                              allProductModel[index].product.photos.length < 3
+                                  ? 200
+                                  : 400,
+                          child: PhotoGrid(
+                              imageUrls:
+                                  allProductModel[index].product.photos))
+                    ],
+                  ),
                 ),
-                const SizedBox(
-                  width: 20,
-                ),
-                const CircleAvatar(
-                    radius: 25,
-                    backgroundImage:
-                        NetworkImage('https://i.imgur.com/7rlze8l.jpg')),
-              ],
-            ),
-            const Divider(),
-            Text(
-              'data',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(color: Colors.black),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                children: [
-                  Image.network('https://i.imgur.com/7rlze8l.jpg'),
-                  Image.network('https://i.imgur.com/7rlze8l.jpg'),
-                  Image.network('https://i.imgur.com/7rlze8l.jpg'),
-                ],
               ),
-            )
-          ],
-        ),
-      ),
+          separatorBuilder: (context, index) => const SizedBox(
+                height: 5,
+              ),
+          itemCount: allProductModel.length),
     );
   }
 }

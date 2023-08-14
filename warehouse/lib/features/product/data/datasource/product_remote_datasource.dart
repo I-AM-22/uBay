@@ -56,22 +56,22 @@ class ProductRemoteDataSourceImplement implements ProductRemoteDataSource {
 
   @override
   Future<List<AllProductModel>> getAllProduct() async {
-    List<AllProductModel>? allProductModel;
+    List<AllProductModel> allProductModel=[];
     await DioHelper.getData(
             url: '$GET_ALL_PRODUCT_1$idStore$GET_ALL_PRODUCT_2', token: token)
         .then((value) {
             value.data.forEach((element) {
               print(element);
-              AllProductModel.fromJson(element);
+             allProductModel.add( AllProductModel.fromJson(element));
             });
           return Future.value(allProductModel);
     })
         .catchError((error) {
           print('error is: $error');
-      DioError dioError = error;
-      if (dioError.response != null) {
-        SERVER_FAILURE = _mapResponseError(dioError.response!);
-      }
+      // DioError dioError = error;
+      // if (dioError.response != null) {
+      //   SERVER_FAILURE = _mapResponseError(dioError.response!);
+      // }
       throw ServerException();
     });
     return Future.value(allProductModel);
