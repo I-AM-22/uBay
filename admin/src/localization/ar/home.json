@@ -1,0 +1,14 @@
+{
+  "products": "القطع المنشورة",
+  "users": "المستخدمين",
+  "warehouses": "المستودعات",
+  "soldProducts": "القطع المباعة",
+  "employees": "الموظفين",
+  "loadingPie": "جاري التحميل...",
+  "bar": {
+    "today": "اليوم",
+    "products": "القطع المنشورة",
+    "soldProducts": "القطع المباعة",
+    "comments": "التعليقات المضافة"
+  }
+}
