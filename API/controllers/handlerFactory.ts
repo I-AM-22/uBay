@@ -67,6 +67,10 @@ export const createOne = (Model: Model<any>, addFiled?: any): RequestHandler =>
     //if there any photo to save them
     if (req.file?.filename) req.body.photo = req.file.filename;
     const newDoc = await Model.create(req.body);
+    if (Model.modelName === 'User') {
+      newDoc.password = undefined;
+      newDoc.includeActive = undefined;
+    }
     res.status(STATUS_CODE.CREATED).json(newDoc);
   });
 
@@ -127,10 +131,10 @@ export const getAll = (Model: any, path?: string): RequestHandler =>
     }
     if (Model.modelName === 'Product') {
       const { is_paid } = req.query;
-      if (is_paid == "true") {
+      if (is_paid == 'true') {
         query = query.find({ is_paid: true });
         counter = counter.find({ is_paid: true });
-      } else if (is_paid == "false") {
+      } else if (is_paid == 'false') {
         query = query.find({ is_paid: false });
         counter = counter.find({ is_paid: false });
       }
@@ -159,4 +163,3 @@ export const getAll = (Model: any, path?: string): RequestHandler =>
 
     res.status(STATUS_CODE.SUCCESS).json(result);
   });
-

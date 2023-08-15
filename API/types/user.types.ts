@@ -9,8 +9,10 @@ export interface IUser {
   role: string;
   password: string;
   wallet: PopulatedDoc<Document<ObjectId>> & IWallet;
-  favoriteCities: PopulatedDoc<Document<ObjectId>>[] & ICity[];
-  favoriteCategories: PopulatedDoc<Document<ObjectId>>[] & ICategory[];
+  favoriteCities: (PopulatedDoc<Document<ObjectId>>[] & ICity[]) | undefined;
+  favoriteCategories:
+    | (PopulatedDoc<Document<ObjectId>>[] & ICategory[])
+    | undefined;
 }
 export interface UserDoc extends IUser, mongoose.Document {
   createdAt: Date;
