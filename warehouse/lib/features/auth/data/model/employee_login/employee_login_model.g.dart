@@ -23,7 +23,6 @@ Map<String, dynamic> _$$_EmployeeLoginModelToJson(
 _$_Employee _$$_EmployeeFromJson(Map<String, dynamic> json) => _$_Employee(
       name: json['name'] as String,
       email: json['email'] as String,
-      photo: json['photo'] as String,
       store: Store.fromJson(json['store'] as Map<String, dynamic>),
       address: json['address'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
@@ -36,7 +35,6 @@ Map<String, dynamic> _$$_EmployeeToJson(_$_Employee instance) =>
     <String, dynamic>{
       'name': instance.name,
       'email': instance.email,
-      'photo': instance.photo,
       'store': instance.store,
       'address': instance.address,
       'createdAt': instance.createdAt.toIso8601String(),

@@ -20,15 +20,18 @@ class _PhotoGridState extends State<PhotoGrid> {
   @override
   Widget build(BuildContext context) {
     var images = buildImages();
-
-    return GridView(
+    if (widget.imageUrls.length==1){
+      return Image.network(widget.imageUrls[0]);
+    }else {
+      return GridView(
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 200,
+        maxCrossAxisExtent: 300,
         crossAxisSpacing: 2,
         mainAxisSpacing: 2,
       ),
       children: images,
     );
+    }
   }
 
   List<Widget> buildImages() {
@@ -44,8 +47,7 @@ class _PhotoGridState extends State<PhotoGrid> {
         // If no more are remaining return a simple image widget
         if (remaining == 0) {
           return GestureDetector(
-            child: Image.network(
-              imageUrl,
+            child: Image.network(imageUrl,
               fit: BoxFit.cover,
             ),
             onTap: (){},
