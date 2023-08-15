@@ -10,7 +10,6 @@ import {
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
 import { MouseEvent, useEffect, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import Message from "./Message";
 import UserInformation from "./UserInformation";
