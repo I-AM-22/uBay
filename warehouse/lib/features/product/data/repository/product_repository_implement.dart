@@ -7,6 +7,7 @@ import 'package:warehouse/features/product/data/datasource/product_local_datasou
 import 'package:warehouse/features/product/data/datasource/product_remote_datasource.dart';
 import 'package:warehouse/features/product/data/model/all_product_model/all_product_model.dart';
 import 'package:warehouse/features/product/data/model/product_model/product_model.dart';
+import 'package:warehouse/features/product/data/model/recive_and_give_model/recive_and_give_model.dart';
 import 'package:warehouse/features/product/domain/repository/product_repository.dart';
 
 @Injectable(as: ProductRepository)
@@ -70,6 +71,20 @@ class ProductRepositoryImplement implements ProductRepository {
         return Left(EmptyCacheFailure());
       }
 
+    }
+  }
+
+  @override
+  Future<Either<Failure, ReceiveAndGiveModel>> getReceiveAndGiveProducts() async{
+    if(await networkInfo.isConnected){
+      try{
+        final response=await productRemoteDataSource.getReceiveAndGiveProducts();
+        return Right(response);
+      }on ServerException{
+        return Left(ServerFailure());
+      }
+    }else{
+      return Left(OfflineFailure());
     }
   }
 }
