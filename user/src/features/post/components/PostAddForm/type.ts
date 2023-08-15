@@ -3,6 +3,6 @@ export type Form = {
   content: string;
   photos: File[];
   price: number;
-  category: { id: string; name: string } | null;
-  store: { id: string; name: string } | null;
+  category: { _id: string; name: string } | null;
+  store: { _id: string; name: string } | null;
 };

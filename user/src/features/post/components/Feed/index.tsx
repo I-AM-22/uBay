@@ -18,7 +18,7 @@ export const Feed: FC<FeedProps> = ({}) => {
         {query.data?.pages.map((page) =>
           page.data.map((post) => (
             <PostCard
-              key={post.id}
+              key={post._id}
               post={post}
               onCommentClick={() => {
                 setCommentsDrawerOpen(true);

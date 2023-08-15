@@ -21,7 +21,7 @@ import { Post, postQueries } from "..";
 export type PostOptionsProps = { post: Post; onPostRemove?: () => void };
 export const PostOptions: FC<PostOptionsProps> = ({ post, onPostRemove }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const isMe = useIsMe(post.user.id);
+  const isMe = useIsMe(post.user._id);
   const { t } = useTranslation();
   const removePost = postQueries.useRemove();
   const snackbar = useSnackbar();
@@ -30,10 +30,10 @@ export const PostOptions: FC<PostOptionsProps> = ({ post, onPostRemove }) => {
     setAnchorEl(event.currentTarget);
   };
   const handleRemove = () => {
-    removePost.mutate(post.id, {
+    removePost.mutate(post._id, {
       onSuccess: () => {
         queryClient.invalidateQueries(queryStore.post.all._def);
-        queryClient.removeQueries(queryStore.post.detail(post.id));
+        queryClient.removeQueries(queryStore.post.detail(post._id));
         handleClose();
         onPostRemove?.();
       },
@@ -41,7 +41,7 @@ export const PostOptions: FC<PostOptionsProps> = ({ post, onPostRemove }) => {
     });
   };
   const handleCopyToClipboard = () => {
-    navigator.clipboard.writeText(`${window.location.origin}/posts/${post.id}`).then(
+    navigator.clipboard.writeText(`${window.location.origin}/posts/${post._id}`).then(
       () => {
         snackbar({ message: t("copyToClipboard.success"), severity: "success" });
       },
@@ -64,7 +64,7 @@ export const PostOptions: FC<PostOptionsProps> = ({ post, onPostRemove }) => {
           <MenuItem
             component={RouterLink}
             noStyle
-            to={`/posts/${post.id}/edit`}
+            to={`/posts/${post._id}/edit`}
             onClick={handleClose}
           >
             <EditIcon />

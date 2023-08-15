@@ -39,9 +39,9 @@ export const PostAddForm: FC<PostAddFormProps> = ({}) => {
   const onSubmit = async (form: Form) => {
     post.mutate(fromFormToBody(form), {
       onSuccess: (post) => {
-        queryClient.setQueryData(queryStore.post.detail(post.id).queryKey, post);
+        queryClient.setQueryData(queryStore.post.detail(post._id).queryKey, post);
         queryClient.invalidateQueries(queryStore.post.all._def);
-        navigate(`/posts/${post.id}`);
+        navigate(`/posts/${post._id}`);
       },
       onError: parseResponseError({ setFormError: setError, snackbar }),
     });

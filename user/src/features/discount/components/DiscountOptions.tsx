@@ -27,7 +27,7 @@ export const DiscountOptions: FC<CommentOptionsProps> = ({ discount, onRemove })
   const handleRemove = () => {
     removeComment.mutate(discount._id, {
       onSuccess: () => {
-        queryClient.invalidateQueries(queryStore.discount.byProduct(discount.product.id));
+        queryClient.invalidateQueries(queryStore.discount.byProduct(discount.product._id));
         handleClose();
         onRemove?.();
       },

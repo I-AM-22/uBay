@@ -24,7 +24,6 @@ export type Product = {
   photos: string[];
   price: number;
   category: Category;
-  id: string;
 };
 
 export type Category = {
@@ -33,12 +32,10 @@ export type Category = {
   description: string;
   createdAt: Date;
   updatedAt: Date;
-  id: string;
 };
 
 export type User = {
   _id: string;
   name: string;
   photo: string;
-  id: string;
 };

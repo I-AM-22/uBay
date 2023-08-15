@@ -57,7 +57,7 @@ export const DiscountForm: FC<DiscountFormProps> = ({ post, user, onSuccess }) =
   const onSubmit = async (form: Form) => {
     createDiscount.mutate(fromFormToBody(form), {
       onSuccess: () => {
-        queryClient.invalidateQueries(queryStore.discount.byProduct(post.id).queryKey);
+        queryClient.invalidateQueries(queryStore.discount.byProduct(post._id).queryKey);
         onSuccess();
         snackbar({ severity: "success", message: t("success") });
       },

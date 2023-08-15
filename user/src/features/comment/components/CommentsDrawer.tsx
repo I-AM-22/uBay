@@ -14,7 +14,7 @@ export type CommentsDrawerProps = Omit<EdgeDrawerProps, "children"> & {
   post: Post | null;
 };
 export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, ...props }) => {
-  const query = commentQueries.useInfinite({ postId: props.open ? post?.id ?? "" : "" });
+  const query = commentQueries.useInfinite({ postId: props.open ? post?._id ?? "" : "" });
   const [userForDiscount, setUserForDiscount] = useState<Comment["user"] | null>(null);
   const isDesktop = useIsDesktop();
   const scrollId = useId();
@@ -76,9 +76,9 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, ...props }) => {
             query.data.pages.map((page) =>
               page.data.map((comment) => (
                 <CommentCard
-                  postAuthorId={post?.user.id ?? ""}
+                  postAuthorId={post?.user._id ?? ""}
                   onDiscount={() => handleDiscount(comment)}
-                  key={comment.id}
+                  key={comment._id}
                   comment={comment}
                 />
               ))
@@ -94,7 +94,7 @@ export const CommentsDrawer: FC<CommentsDrawerProps> = ({ post, ...props }) => {
             </>
           )}
         </InfiniteScroll>
-        {post && <CommentForm onCommentSubmit={handleCommentSubmit} postId={post?.id} />}
+        {post && <CommentForm onCommentSubmit={handleCommentSubmit} postId={post?._id} />}
       </EdgeDrawer>
       <DiscountDialog post={post} user={userForDiscount} onClose={() => setUserForDiscount(null)} />
     </>

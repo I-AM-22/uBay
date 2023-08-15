@@ -29,7 +29,7 @@ export const CommentForm: FC<CommentFormProps> = ({ postId, onCommentSubmit }) =
     postComment.mutate(form, {
       onSuccess: (comment) => {
         onCommentSubmit();
-        queryClient.setQueryData(queryStore.comment.detail(comment.id).queryKey, postComment);
+        queryClient.setQueryData(queryStore.comment.detail(comment._id).queryKey, postComment);
         queryClient.setQueryData(
           queryStore.comment.all({ postId }).queryKey,
           (comments: InfiniteData<APIList<Comment>> | undefined) => {
@@ -40,7 +40,7 @@ export const CommentForm: FC<CommentFormProps> = ({ postId, onCommentSubmit }) =
                   {
                     ...comments.pages[0],
                     data: [comment, ...comments.pages[0].data].filter((element, index, arr) => {
-                      return arr.findIndex((find) => find.id === element.id) === index;
+                      return arr.findIndex((find) => find._id === element._id) === index;
                     }),
                   },
                   ...comments.pages.slice(1),

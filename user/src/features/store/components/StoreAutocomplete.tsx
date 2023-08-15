@@ -15,14 +15,14 @@ export const StoreAutocomplete: FC<Props> = ({ name, control, label, ...props })
   return (
     <AutocompleteControl control={control} label={label} name={name}>
       <Autocomplete
-        isOptionEqualToValue={(option, value) => option.id === value.id}
+        isOptionEqualToValue={(option, value) => option._id === value._id}
         {...props}
         loading={isLoading}
         options={data ?? []}
         getOptionLabel={(option) => `${option.name} - ${option.city.name}`}
         renderInput={() => null}
         renderOption={(props, option) => (
-          <li {...props} key={option.id}>{`${option.name} - ${option.city.name}`}</li>
+          <li {...props} key={option._id}>{`${option.name} - ${option.city.name}`}</li>
         )}
         loadingText={<Loading />}
         noOptionsText={t("error.noData")}
