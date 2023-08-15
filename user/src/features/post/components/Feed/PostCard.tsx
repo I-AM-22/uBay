@@ -41,7 +41,6 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
   const navigate = useNavigate();
   const query = accountQueries.useProfile();
   const [open, setOpen] = useState(true);
-  const [userData, setUserData] = useState("");
   const { t } = useTranslation("post");
   const token = localStorage.getItem("token");
   const handleRemove = () => {
@@ -49,6 +48,7 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
   };
   const addToChat = async () => {
     if (post?.user.id == query.data?.id) return;
+    // eslint-disable-next-line no-useless-catch
     try {
       const response = await axios.post(
         "http://localhost:3000/api/v1/chats",
