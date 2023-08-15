@@ -5,6 +5,8 @@ import catchAsync from '@utils/catchAsync';
 import { NextFunction, Request, Response } from 'express-serve-static-core';
 import { STATUS_CODE } from './../types/helper.types';
 import Store from '@models/store.model';
+import Comment from '@models/comment.model';
+import Delivery from '@models/delivery.model';
 
 export const getStatistics = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -65,6 +67,45 @@ export const getStatistics = catchAsync(
         },
       },
     ]);
+
+    const commentsCountByDay = await Comment.aggregate([
+      {
+        $group: {
+          _id: {
+            $dateToString: { format: '%Y-%m-%d', date: '$createdAt' },
+          },
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    const productsCountByDay = await Product.aggregate([
+      { $match: {} },
+      {
+        $group: {
+          _id: {
+            $dateToString: { format: '%Y-%m-%d', date: '$createdAt' },
+          },
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    const deliveriesCountByDay = await Delivery.aggregate([
+      {
+        $match: { delivery_status: 'customer' },
+      },
+      {
+        $group: {
+          _id: {
+            $dateToString: { format: '%Y-%m-%d', date: '$createdAt' },
+          },
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    // Call the function to retrieve the counts
     res.status(STATUS_CODE.SUCCESS).json({
       users,
       employees,
@@ -73,6 +114,11 @@ export const getStatistics = catchAsync(
       soldProducts,
       salesPercentage,
       salesPerCategory,
+      countByDay: {
+        commentsCountByDay,
+        productsCountByDay,
+        deliveriesCountByDay,
+      },
     });
   }
 );

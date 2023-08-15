@@ -4,60 +4,60 @@ import cls from 'cls-hooked';
 import AppError from '@utils/appError';
 import { STATUS_CODE } from '../types/helper.types';
 
-const productSchema = new Schema<ProductDoc, ProductModel, any>(
-  {
-    title: { type: String, required: true },
-    content: {
-      type: String,
-      required: true,
+  const productSchema = new Schema<ProductDoc, ProductModel, any>(
+    {
+      title: { type: String, required: true },
+      content: {
+        type: String,
+        required: true,
+      },
+      user: {
+        type: Types.ObjectId,
+        required: true,
+        ref: 'User',
+      },
+      customer: {
+        type: Types.ObjectId,
+        ref: 'User',
+      },
+      likedBy: [{ type: Types.ObjectId, ref: 'User' }],
+      coupons: [{ type: Types.ObjectId, ref: 'Coupon' }],
+      photos: {
+        type: [String],
+        required: true,
+      },
+      price: {
+        type: Number,
+        required: true,
+        min: [1, 'يجب ان يكون السعر بقيمة موجبة'],
+      },
+      discount: {
+        type: Number,
+        min: [0, 'يجب ان يكون السعر بقيمة موجبة'],
+        default: 0,
+      },
+      is_paid: {
+        type: Boolean,
+        default: false,
+      },
+      category: {
+        type: Types.ObjectId,
+        required: true,
+        ref: 'Category',
+      },
+      store: {
+        type: Types.ObjectId,
+        required: true,
+        ref: 'Store',
+      },
+      comments: { type: Number, default: 0 },
     },
-    user: {
-      type: Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
-    customer: {
-      type: Types.ObjectId,
-      ref: 'User',
-    },
-    likedBy: [{ type: Types.ObjectId, ref: 'User' }],
-    coupons: [{ type: Types.ObjectId, ref: 'Coupon' }],
-    photos: {
-      type: [String],
-      required: true,
-    },
-    price: {
-      type: Number,
-      required: true,
-      min: [1, 'يجب ان يكون السعر بقيمة موجبة'],
-    },
-    discount: {
-      type: Number,
-      min: [0, 'يجب ان يكون السعر بقيمة موجبة'],
-      default: 0,
-    },
-    is_paid: {
-      type: Boolean,
-      default: false,
-    },
-    category: {
-      type: Types.ObjectId,
-      required: true,
-      ref: 'Category',
-    },
-    store: {
-      type: Types.ObjectId,
-      required: true,
-      ref: 'Store',
-    },
-    comments: { type: Number, default: 0 },
-  },
-  {
-    timestamps: true,
-    toJSON: { virtuals: true, versionKey: false },
-    toObject: { virtuals: true, versionKey: false },
-  }
-);
+    {
+      timestamps: true,
+      toJSON: { virtuals: true, versionKey: false },
+      toObject: { virtuals: true, versionKey: false },
+    }
+  );
 
 productSchema.virtual('likes').get(function () {
   if (!this.likedBy) return undefined;

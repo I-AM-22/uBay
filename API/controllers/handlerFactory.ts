@@ -5,12 +5,12 @@ import AppError from '../utils/appError';
 import catchAsync from '../utils/catchAsync';
 import { STATUS_CODE } from '../types/helper.types';
 
+const a = 10;
 /**
  * Deletes a document of the specified model by ID.
  * @param {Model<Document>} Model - The Mongoose model.
  * @returns {RequestHandler} - Express middleware function.
  */
-
 export const deleteOne = (Model: any): RequestHandler =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
@@ -69,7 +69,7 @@ export const createOne = (Model: Model<any>, addFiled?: any): RequestHandler =>
     const newDoc = await Model.create(req.body);
     if (Model.modelName === 'User') {
       newDoc.password = undefined;
-      newDoc.includeActive = undefined;
+      newDoc.includeInActive = undefined;
     }
     res.status(STATUS_CODE.CREATED).json(newDoc);
   });

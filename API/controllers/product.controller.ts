@@ -234,6 +234,7 @@ export const getAllPros = catchAsync(
     const aggregateFeatures = new AggregateFeatures(req.query);
 
     aggregateFeatures
+      .match({})
       .lookup({
         from: 'categories', // The collection to join with
         localField: 'category', // Field from the main collection
@@ -310,39 +311,24 @@ export const getAllPros = catchAsync(
         sortField: 1,
         // Include name and photo from storeData
       }) // Project stage
+      .addFields({
+        likedByMe: {
+          $switch: {
+            branches: [
+              {
+                case: {
+                  $in: [user._id, '$likedBy'],
+                },
+                then: true,
+              },
+            ],
+            default: false,
+          },
+        },
+      })
       .facet(); // Facet stage
 
     let result = await aggregateFeatures.build(Product);
-
-    // const result = await Product.aggregate([
-    //   // Match products based on your criteria
-    //   {
-    //     $match: {
-    //       is_paid: false,
-    //     },
-    //   },
-    //   // Sort products
-    //   {
-    //     $addFields: {
-    //       sortField: {
-    //         $switch: {
-    //           branches: [
-    //             {
-    //               case: { $in: ['$category', user?.favoriteCategories] },
-    //               then: 0,
-    //             },
-    //           ],
-    //           default: 1,
-    //         },
-    //       },
-    //     },
-    //   },
-
-    //   {
-    //     $sort: { sortField: 1 },
-    //   },
-    //   { $unset: ['sortField'] },
-    // ]);
     res.status(200).json(result);
   }
 );
