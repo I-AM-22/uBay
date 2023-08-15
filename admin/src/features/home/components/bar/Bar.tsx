@@ -1,15 +1,30 @@
-import { ResponsiveBar } from "@nivo/bar";
-import { data } from "./data";
 import { Box, useTheme } from "@mui/material";
+import { ResponsiveBar } from "@nivo/bar";
+import { useTranslation } from "react-i18next";
+import { data } from "./data";
 export const Bar = () => {
   const theme = useTheme();
+  const { t } = useTranslation("home", { keyPrefix: "bar" });
   return (
     <>
-      <Box height="500px" width="100%" sx={{ svg: { width: "100%" } }}>
+      <Box
+        height="500px"
+        width="100%"
+        sx={{
+          "*": {
+            fontFamily: "MontserratArabic !important",
+          },
+          svg: { width: "100%" },
+        }}
+      >
         <ResponsiveBar
-          data={data}
-          keys={["product", "user", "trans", "company"]}
-          indexBy="year"
+          data={data
+            .sort((a, b) => (a.day > b.day ? 1 : -1))
+            .map((value) =>
+              Object.fromEntries(Object.entries(value).map(([key, value]) => [t(key), value]))
+            )}
+          keys={[t("products"), t("comments"), t("soldProducts")]}
+          indexBy={t("day")}
           theme={{
             axis: {
               domain: {
@@ -183,20 +198,21 @@ export const Bar = () => {
               dataFrom: "keys",
               anchor: "bottom-right",
               direction: "column",
-              justify: false,
-              translateX: 120,
-              translateY: 0,
-              itemsSpacing: 2,
+              translateX: 100,
+              symbolSpacing: 2,
+              itemsSpacing: 21,
               itemWidth: 100,
-              itemHeight: 20,
-              itemDirection: "left-to-right",
-              itemOpacity: 0.85,
-              symbolSize: 20,
+              itemHeight: 18,
+              itemTextColor: "#555",
+              itemOpacity: 1,
+              symbolSize: 18,
+              symbolShape: "circle",
+              itemDirection: "top-to-bottom",
               effects: [
                 {
                   on: "hover",
                   style: {
-                    itemOpacity: 1,
+                    itemTextColor: theme.palette.text.primary,
                   },
                 },
               ],
@@ -204,9 +220,7 @@ export const Bar = () => {
           ]}
           role="application"
           ariaLabel="Nivo bar chart demo"
-          barAriaLabel={(e) =>
-            e.id + ": " + e.formattedValue + " in country: " + e.indexValue
-          }
+          barAriaLabel={(e) => e.id + ": " + e.formattedValue + " in country: " + e.indexValue}
         />
       </Box>
     </>

@@ -9,7 +9,7 @@ const ConnDB = async () => {
   return mongoose
     .connect(DB)
     .then(() => console.log('DB connection succeeded'))
-    .catch(() => console.log(console.log('Mongo connection error')));
+    .catch(() => console.log('Mongo connection error'));
 };
 
 export default ConnDB;

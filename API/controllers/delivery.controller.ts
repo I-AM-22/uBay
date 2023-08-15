@@ -13,7 +13,6 @@ import Payment from '@models/payment.models';
 import Product from '@models/product.model';
 import AppError from '@utils/appError';
 import Store from '@models/store.model';
-import { model } from 'mongoose';
 import Employee from '@models/employee.model';
 
 export const getAllDeliveries = getAll(Delivery);
@@ -27,35 +26,37 @@ export const receive = catchAsync(async (req: Request, res: Response, next: Next
     let storeID = (await Employee.findOne({ _id: req.user?.id }))?.store?.id;
 
     if (!delivDoc) {
-        throw new Error('Delivery not found'); // Handle the case where the delivery document is not found
+        return next(new AppError(STATUS_CODE.BAD_REQUEST, [], 'هذا المنتج غير موجود بالمستودع'));// Handle the case where the delivery document is not found
     }
 
     //to check if he goes to the right store
-    if (storeID != delivDoc.payment.product.store) {
+    if (storeID != delivDoc.payment.product.store._id) {
         const storeDoc = await Store.findById(delivDoc.payment.product.store);
-        throw new Error(`هذا المنتج غير موجود في هذا المستودع يجب الذهاب الى  مستودع ${storeDoc?.name} في العنوان ${storeDoc?.address}`);
+        return next(new AppError(STATUS_CODE.BAD_REQUEST, [], `هذا المنتج غير موجود في هذا المستودع يجب الذهاب الى  مستودع ${storeDoc?.name} في العنوان ${storeDoc?.address}`));
     }
     const employee: any = req.user?.id;
-
+    //to check for seller if he comes 
     if (status == 0) {
         //to prevent repeate data receive
         if (delivDoc.delivery_status != "wait") {
-            throw new Error("هذا المنتج تم تسليمه من قبل");
-
+            return next(new AppError(STATUS_CODE.BAD_REQUEST, [],"هذا المنتج تم تسليمه من قبل" ));
         }
         const time: any = new Date();
         delivDoc.seller_date = time;
         delivDoc.delivery_status = "seller";
         delivDoc.employee_seller = employee;
+        delivDoc.store = storeID;
 
         delivDoc = await delivDoc.save();
     }
+    //to check for buyer to take his product
     else if (status == 1) {
         if (delivDoc.delivery_status == "wait") {
-            throw new Error('هذا المنتج ليس ضمن مستودع');
+            return next(new AppError(STATUS_CODE.BAD_REQUEST, [],'هذا المنتج ليس ضمن مستودع'));
+
         }
         if (delivDoc.delivery_status == "customer") {
-            throw new Error('لقد تم تسليمك هذا المنتج رجاء التأكد من رمز التوليد');
+            return next(new AppError(STATUS_CODE.BAD_REQUEST, [],'لقد تم تسليمك هذا المنتج رجاء التأكد من رمز التوليد'));
         }
         const time: any = new Date();
         delivDoc.customer_date = time;
@@ -92,3 +93,4 @@ export const generateQrForCustomer = catchAsync(async (req: Request, res: Respon
         status: 1
     });
 });
+

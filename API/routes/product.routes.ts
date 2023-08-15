@@ -4,10 +4,12 @@ import { restrictTo } from '@middlewares/auth.middleware';
 import commentRouter from '@routes/comment.routes';
 import {
   checkIsOwnerProduct,
+  checkProductIsPaid,
   createProduct,
   deleteProduct,
   dislike,
   getAllProducts,
+  getAllPros,
   getProduct,
   like,
   myProduct,
@@ -35,7 +37,7 @@ router.use(
 
 // Routes requiring authentication
 
-router.get('/', getAllProducts);
+router.get('/', getAllPros);
 router.get('/mine', myProduct);
 router.get('/:id', getProduct);
 
@@ -56,6 +58,7 @@ router.patch(
   checkIsOwnerProduct,
   uploadProductPhotos,
   resizeProductPhotos,
+  checkProductIsPaid,
   updateProduct
 );
 

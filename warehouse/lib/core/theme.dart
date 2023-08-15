@@ -35,6 +35,10 @@ final lightTheme = ThemeData(
         TextStyle(color: primaryColor, fontFamily: 'Mont', fontSize: 12),
     titleMedium: const TextStyle(color: Colors.white,fontFamily: 'Mont',fontSize: 18)
   ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    elevation: 10,
+    selectedItemColor: primaryColor,
+  ),
   appBarTheme: AppBarTheme(
       backgroundColor: primaryColor,
       systemOverlayStyle: SystemUiOverlayStyle(

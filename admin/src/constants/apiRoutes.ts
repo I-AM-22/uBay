@@ -46,6 +46,10 @@ let API_ROUTES = {
     EDIT: (id: string) => id,
     DELETE: (id: string) => id,
   },
+  STATICS: {
+    root: "statistics",
+    GET: "",
+  },
 } as const;
 
 const controllersArr = Object.entries(API_ROUTES).map(([controllerKey, { root, ...routes }]) => {

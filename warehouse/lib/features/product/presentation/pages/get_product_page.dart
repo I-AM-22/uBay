@@ -14,7 +14,7 @@ class GetProductPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/homePage', (route) => false),
             icon: const Icon(
               Icons.arrow_back,
               color: Colors.white,

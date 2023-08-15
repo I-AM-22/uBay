@@ -1,23 +1,46 @@
+import dayjs from "dayjs";
+
 export const data = [
   {
-    year: 2021,
-    user: 2000,
-    product: 1900,
-    trans: 2300,
-    company: 2200,
+    day: dayjs().format("MM/DD"),
+    products: 342,
+    soldProducts: 123,
+    comments: 132,
   },
   {
-    year: 2022,
-    user: 1800,
-    product: 2200,
-    trans: 2600,
-    company: 2100,
+    day: dayjs().subtract(1, "day").format("MM/DD"),
+    products: 32,
+    soldProducts: 23,
+    comments: 312,
   },
   {
-    year: 2023,
-    user: 2200,
-    product: 1800,
-    trans: 2100,
-    company: 1900,
+    day: dayjs().subtract(2, "day").format("MM/DD"),
+    products: 132,
+    soldProducts: 43,
+    comments: 368,
+  },
+  {
+    day: dayjs().subtract(3, "day").format("MM/DD"),
+    products: 245,
+    soldProducts: 346,
+    comments: 31,
+  },
+  {
+    day: dayjs().subtract(4, "day").format("MM/DD"),
+    products: 124,
+    soldProducts: 211,
+    comments: 74,
+  },
+  {
+    day: dayjs().subtract(5, "day").format("MM/DD"),
+    products: 213,
+    soldProducts: 223,
+    comments: 354,
+  },
+  {
+    day: dayjs().subtract(6, "day").format("MM/DD"),
+    products: 243,
+    soldProducts: 300,
+    comments: 108,
   },
 ];

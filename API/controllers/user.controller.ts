@@ -37,8 +37,13 @@ export const updateMe = catchAsync(
         )
       );
     if (!req.user) return next();
-
-    const filteredBody = filterObj(req.body, 'name', 'email');
+    const filteredBody = filterObj(
+      req.body,
+      'name',
+      'email',
+      'favoriteCategories',
+      'favoriteCities'
+    );
     if (req.file) filteredBody.photo = req.file.filename;
     const user = await User.findByIdAndUpdate(
       req.user.id,

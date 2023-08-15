@@ -1,6 +1,4 @@
-import ToggleOffIcon from "@mui/icons-material/ToggleOff";
-import ToggleOnIcon from "@mui/icons-material/ToggleOn";
-import { Avatar, Box, IconButton, Stack } from "@mui/material";
+import { Avatar, Box, Stack } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
@@ -77,25 +75,6 @@ export const Table: FC<Props> = ({}) => {
             <TableCell>{row.email}</TableCell>
             <TableCell>
               <LTR>{dayjs(row.createdAt).format("YYYY/MM/DD hh:mm A")}</LTR>
-            </TableCell>
-            <TableCell>
-              <Stack direction="row" alignItems={"center"} justifyContent={"center"}>
-                {row.active ? (
-                  <>
-                    {t("active")}
-                    <IconButton>
-                      <ToggleOnIcon sx={{ color: "success.main" }} />
-                    </IconButton>
-                  </>
-                ) : (
-                  <>
-                    {t("notActive")}
-                    <IconButton>
-                      <ToggleOffIcon sx={{ color: "error.main" }} />
-                    </IconButton>
-                  </>
-                )}
-              </Stack>
             </TableCell>
             <TableCell>
               <ButtonsStack>

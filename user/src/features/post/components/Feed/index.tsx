@@ -6,7 +6,7 @@ import { FC, useState } from "react";
 import { PostCard } from "./PostCard";
 export type FeedProps = {};
 export const Feed: FC<FeedProps> = ({}) => {
-  const query = postQueries.useInfinite({ limit: 10 });
+  const query = postQueries.useInfinite({ limit: 10, is_paid: false });
   const [commentsPost, setCommentsPost] = useState<Post | null>(null);
   const [CommentsDrawerOpen, setCommentsDrawerOpen] = useState(false);
   return (
