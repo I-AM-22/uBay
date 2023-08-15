@@ -43,8 +43,12 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
       select: false,
     },
     wallet: { type: Types.ObjectId, ref: 'Wallet' },
-    favoriteCategories: [{ type: Types.ObjectId, ref: 'Category' }],
-    favoriteCities: [{ type: Types.ObjectId, ref: 'City' }],
+    favoriteCategories: {
+      type: [Types.ObjectId],
+      ref: 'Category',
+      default: [],
+    },
+    favoriteCities: { type: [Types.ObjectId], ref: 'City', default: [] },
   },
   {
     toJSON: { virtuals: true, versionKey: false },
@@ -65,6 +69,14 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+userSchema.pre('save', async function (next) {
+  //if the password not changed end the process
+  if (this.role === 'user') return next();
+  //crypt the password
+  this.favoriteCategories = undefined;
+  this.favoriteCities = undefined;
+  next();
+});
 //Change password
 userSchema.pre('save', function (next) {
   //if the password not changed or newUser made end the process
