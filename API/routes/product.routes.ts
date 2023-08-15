@@ -9,6 +9,7 @@ import {
   deleteProduct,
   dislike,
   getAllProducts,
+  getAllPros,
   getProduct,
   like,
   myProduct,
@@ -36,7 +37,7 @@ router.use(
 
 // Routes requiring authentication
 
-router.get('/',getAllProducts);
+router.get('/', getAllPros);
 router.get('/mine', myProduct);
 router.get('/:id', getProduct);
 

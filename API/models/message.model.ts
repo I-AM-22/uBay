@@ -42,7 +42,13 @@ messageSchema.post('save', async function (doc, next) {
   await Chat.findByIdAndUpdate(this.chat, { lastMessage: doc });
   await doc.populate({
     path: 'user',
-    select: { name: 1, photo: 1, wallet: 0 },
+    select: {
+      name: 1,
+      photo: 1,
+      wallet: 0,
+      favoriteCategories: 0,
+      favoriteCities: 0,
+    },
   });
   await doc.populate({ path: 'chat', select: { lastMessage: 0 } });
   next();

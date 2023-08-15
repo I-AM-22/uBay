@@ -33,12 +33,12 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
     },
     discount: {
       type: Number,
-      min: [1, 'يجب ان يكون السعر بقيمة موجبة'],
-      default: 0
+      min: [0, 'يجب ان يكون السعر بقيمة موجبة'],
+      default: 0,
     },
     is_paid: {
       type: Boolean,
-      default: false
+      default: false,
     },
     category: {
       type: Types.ObjectId,
@@ -84,19 +84,38 @@ productSchema.post('save', async function () {
   await this.populate('category');
   await this.populate({
     path: 'user',
-    select: { name: 1, photo: 1, wallet: 0 },
+    select: {
+      name: 1,
+      photo: 1,
+      wallet: 0,
+      favoriteCategories: 0,
+      favoriteCities: 0,
+    },
   });
   await this.populate({
     path: 'likedBy',
-    select: { name: 1, photo: 1, wallet: 0 },
+    select: {
+      name: 1,
+      photo: 1,
+      wallet: 0,
+      favoriteCategories: 0,
+      favoriteCities: 0,
+    },
   });
+  await this.populate('store');
 });
 
 productSchema.pre<Query<IProduct, IProduct>>(/^find/, async function (next) {
   this.populate({ path: 'category' })
     .populate({
       path: 'user',
-      select: { name: 1, photo: 1, wallet: 0 },
+      select: {
+        name: 1,
+        photo: 1,
+        wallet: 0,
+        favoriteCategories: 0,
+        favoriteCities: 0,
+      },
     })
     .populate({ path: 'likedBy', select: { name: 1, photo: 1, wallet: 0 } })
     .populate({ path: 'store', select: { name: 1 } })
@@ -105,26 +124,36 @@ productSchema.pre<Query<IProduct, IProduct>>(/^find/, async function (next) {
 });
 
 //can't remove after product is paid
-productSchema.pre<Query<IProduct, IProduct>>('findOneAndRemove', async function (next) {
-  const doc = await this.model.findOne(this.getQuery());
-  if (doc.is_paid) {
-    return next(new AppError(STATUS_CODE.BAD_REQUEST, [], 'لا يمكنك حذف منتج تم بيعه'));
+productSchema.pre<Query<IProduct, IProduct>>(
+  'findOneAndRemove',
+  async function (next) {
+    const doc = await this.model.findOne(this.getQuery());
+    if (doc.is_paid) {
+      return next(
+        new AppError(STATUS_CODE.BAD_REQUEST, [], 'لا يمكنك حذف منتج تم بيعه')
+      );
+    }
   }
-});
+);
 
 // After the query is executed, filter coupons for the specific user
 productSchema.post(/^find/, function (docs) {
   const namespace = cls.getNamespace('app');
   const userId = namespace?.get('loggedInUserId');
-  const a = docs;//just to remove any error from typescript
-  if (docs != null) {
-    //if doc is not array and there is coupons filter this coupon
-    if (!Array.isArray(a) && docs.coupons != undefined) {
-      docs.coupons = docs.coupons.filter((coupon: { user: { _id: { toString: () => any; }; }; }) => coupon.user._id.toString() === userId);
-    }///and if doc is array i need to check if he has coupon but is array i need to check just the first element 
-    else if (Array.isArray(a) && docs[0].coupons != undefined) {
-      docs.forEach((doc: { coupons: any[]; }) => {
-        doc.coupons = doc.coupons.filter(coupon => coupon.user._id.toString() === userId);
+  // i put this condition for in coupon when i populate proudct the doc it will be null
+  if (docs != null && docs.coupons != undefined) {
+    if (docs.coupons) {
+      docs.coupons = docs.coupons.filter(
+        (coupon: { user: { _id: { toString: () => any } } }) =>
+          coupon.user._id.toString() === userId
+      );
+    } else {
+      docs.forEach((doc: { coupons: any[] }) => {
+        if (doc.coupons[0]) {
+          doc.coupons = doc.coupons.filter(
+            (coupon) => coupon.user._id.toString() === userId
+          );
+        }
       });
     }
   }
