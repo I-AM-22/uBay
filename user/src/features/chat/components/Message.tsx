@@ -30,15 +30,16 @@ const Message = ({ userData }: user) => {
     };
 
     fetchMessages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Box>
       {messages.map((message: any, index) => {
-        let time = message.createdAt;
+        const time = message.createdAt;
         return (
           <>
             <Box
-              key={message.content}
+              key={index}
               sx={{
                 width: "100%",
                 display: "flex",

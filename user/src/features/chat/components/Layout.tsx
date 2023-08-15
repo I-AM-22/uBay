@@ -9,9 +9,7 @@ type per = {
 };
 function Layout({ person }: per) {
   const [data, setData] = useState<any>([]);
-  console.log(data);
   const [loading, setLoading] = useState(true);
-  const [userData, setUserData] = useState("");
   const query = accountQueries.useProfile();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -73,6 +71,7 @@ function Layout({ person }: per) {
       }
     };
     getChats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
