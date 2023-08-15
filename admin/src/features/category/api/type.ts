@@ -10,7 +10,6 @@ export type Category = {
   description: string;
   createdAt: string;
   updatedAt: string;
-  id: string;
 };
 export type CategoryAllParams = APIListParams;
 export type CategoryAddPayload = Payload<undefined, CategoryAction>;

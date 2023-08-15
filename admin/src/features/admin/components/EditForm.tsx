@@ -34,7 +34,7 @@ export const EditForm: FC<EditFormProps> = ({}) => {
   };
   const onSubmit = async (body: AdminActionBody) => {
     edit.mutate(
-      { id, ...body },
+      { _id: id, ...body },
       {
         onSuccess: () => {
           queryClient.invalidateQueries(queryStore.admin.all._def);

@@ -10,13 +10,12 @@ export type Warehouse = {
   _id: string;
   name: string;
   address: string;
-  city: Pick<City, "id" | "name">;
+  city: Pick<City, "_id" | "name">;
   createdAt: string;
   updatedAt: string;
-  id: string;
 };
 export type WarehouseAllParams = APIListParams;
 export type WarehouseSelect = {
   name: string;
-  id: string;
+  _id: string;
 };

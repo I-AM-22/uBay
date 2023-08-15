@@ -49,12 +49,12 @@ export const Table: FC<Props> = ({}) => {
     >
       <TableBody>
         {currentPage.map((row) => (
-          <TableRowStriped key={row.id}>
+          <TableRowStriped key={row._id}>
             <TableCell sx={{ "&.MuiTableCell-root": { width: 0.7, pr: 30 } }}>{row.name}</TableCell>
             <TableCell>
               <ButtonsStack>
-                <EditIconButton onClick={() => edit(row.id)} />
-                <RemoveIconButton onClick={() => remove(row.id)} />
+                <EditIconButton onClick={() => edit(row._id)} />
+                <RemoveIconButton onClick={() => remove(row._id)} />
               </ButtonsStack>
             </TableCell>
           </TableRowStriped>
