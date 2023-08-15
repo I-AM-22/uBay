@@ -25,7 +25,7 @@ const API = {
     });
     return data.data;
   },
-  edit: async ({ id, ...body }: WithId<CityAction>) => {
+  edit: async ({ _id: id, ...body }: WithId<CityAction>) => {
     const { data } = await axios.patch<City>(API_ROUTES.CITIES.EDIT(id), body);
     return data;
   },

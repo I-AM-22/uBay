@@ -16,5 +16,5 @@ export const employeeEditSchema: z.ZodType<Form> = z.object({
   password: z.union([z.undefined(), passwordSchema]),
   address: z.string().nonempty(),
   photo: z.instanceof(File).optional(),
-  store: z.object({ id: z.string(), name: z.string() }),
+  store: z.object({ _id: z.string(), name: z.string() }),
 });
