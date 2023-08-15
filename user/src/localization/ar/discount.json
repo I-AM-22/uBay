@@ -1,0 +1,19 @@
+{
+  "discountForUser": "إضافة حسم للمستخدم",
+  "discounts": "الحسومات",
+  "discount": "الحسم",
+  "priceAfterDiscount": "السعر بعد الحسم",
+  "afterDays": "بعد {{days}} إيام",
+  "expireDate": "الإنتهاء",
+  "expired": "منتهي",
+  "form": {
+    "title": "إضافة حسم للقطعة: {{product}}",
+    "user": "المستخدم الذي سيحصل على الحسم",
+    "discount": "الحسم",
+    "expire": "نهاية الصلاحية (اختياري)",
+    "priceWillBecome": "سيصبح السعر: {{price}}",
+    "create": "إضافة",
+    "success": "تمت إضافة الحسم بنجاح",
+    "discountCannotBeEqualToPrice": "لا يمكن للحسم ان يساوي السعر"
+  }
+}

@@ -3,7 +3,7 @@ import {
     getDelivery,
     generateQrForSeller,
     generateQrForCustomer,
-    receive
+    receive,
 } from '@controllers/delivery.controller';
 import passport from 'passport';
 import { restrictTo } from '@middlewares/auth.middleware';
@@ -39,15 +39,16 @@ router.
 
 router.post(
     "/generateQrForCustomer",
-    restrictTo("user"),
+    restrictTo('user'),
     validate(QrSchema)
     , generateQrForCustomer
 );
 
 router.post("/receive",
-    restrictTo("employee"),
+    restrictTo('employee'),
     validate(deliverySchema),
     receive
 );
+
 
 export default router;

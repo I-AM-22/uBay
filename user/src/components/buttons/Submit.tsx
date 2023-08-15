@@ -9,7 +9,7 @@ export type SubmitProps = {
   loadingSize?: number;
 } & ButtonProps;
 const defaultSx: SxProps = {
-  fontSize: { xs: 15, sm: 20 },
+  fontSize: { xs: 15, sm: 17 },
   minWidth: 110,
 };
 const Submit = forwardRef(function Fr(

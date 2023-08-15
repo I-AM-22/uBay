@@ -9,6 +9,8 @@ import {
   deleteCoupon,
   getMyCoupons,
   couponMaker,
+  checkProductIspaid,
+  removeCouponfromProduct,
 } from '@controllers/coupon.controller';
 import passport from 'passport';
 import validate from '@middlewares/validateResource';
@@ -22,6 +24,7 @@ router.use(
   passport.authenticate('jwt', { session: false, failWithError: true }),
   restrictTo('user')
 );
+router.get('/myCoupons', getMyCoupons, getCoupons);
 
 router
   .route('/')
@@ -32,10 +35,12 @@ router
     checkIsOwnerProduct,
     createCoupon
   );
-
-router.get('/myCoupons', getMyCoupons, getCoupons);
-
-router.use('/:id', couponMaker);
-router.route('/:id').get(getCoupon).patch(updateCoupon).delete(deleteCoupon);
-
+router
+  .route('/:id')
+  .get(couponMaker, getCoupon)
+  .patch(couponMaker,checkProductIspaid, updateCoupon)
+  .delete(couponMaker
+          ,checkProductIspaid
+          // ,removeCouponfromProduct
+          , deleteCoupon);
 export default router;

@@ -12,14 +12,14 @@ import adminRouter from '@routes/admin.routes';
 import cityRouter from '@routes/city.routes';
 import employeeRouter from '@routes/employee.routes';
 import walletRouter from '@routes/wallet.routes';
-import paymentRouter from '@routes/payment.routes'
-import reservationRouter from '@routes/reservation.routes'
-import deliveryRouter from '@routes/delivery.routes'
+import paymentRouter from '@routes/payment.routes';
+import deliveryRouter from '@routes/delivery.routes';
 
 import { settings } from '@config/settings';
 import { Request, Response, NextFunction } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from '../swagger/swagger';
+import statisticsRouter from '@routes/statistics.routes';
 const port = settings.PORT;
 const router = Router();
 
@@ -38,9 +38,8 @@ api.use('/coupons', couponRouter);
 api.use('/admins', adminRouter);
 api.use('/wallets', walletRouter);
 api.use('/payments', paymentRouter);
-api.use('/reservations', reservationRouter);
 api.use('/deliveries', deliveryRouter);
-
+api.use('/statistics', statisticsRouter);
 //API ROUTES
 router.use('/api/v1', api);
 //swagger page

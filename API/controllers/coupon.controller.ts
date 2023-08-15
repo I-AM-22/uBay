@@ -13,6 +13,7 @@ import catchAsync from '@utils/catchAsync';
 import { NextFunction, Request, Response } from 'express';
 import AppError from '@utils/appError';
 import { STATUS_CODE } from './../types/helper.types';
+import Product from '@models/product.model';
 
 // @access  Private/Admin-Manager
 export const getCoupons = getAll(Coupon);
@@ -37,8 +38,17 @@ export const updateCoupon = updateOne(Coupon);
 // @access  Private/Admin-Manager
 export const deleteCoupon = deleteOne(Coupon);
 
+export const removeCouponfromProduct = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const productId = req.body.coupon.product.id;
+    await Product.findByIdAndUpdate(productId, {
+      $pull: { coupons: req.body.coupon.id },
+    });
+    next();
+  }
+);
 export const getMyCoupons = catchAsync(
- async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     req.query.user = req.user?.id;
     req.query.expire = { gt: Date.now().toString() };
     next();
@@ -49,14 +59,26 @@ export const getProductCoupons = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     if (req.params.productId) req.params.id = req.params.productId;
     if (req.body.product) req.params.id = req.body.product;
-
     next();
   }
 );
+export const checkProductIspaid = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    if (req.body.coupon.product.is_paid)
+      return next(
+        new AppError(
+          STATUS_CODE.BAD_REQUEST,
+          [],
+          'لا يمكن تعديل او حذف خصم لمنتج تم بيعه'
+        )
+      );
+    next();
+  }
+);
+
 export const couponMaker = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const coupon = await Coupon.findById(req.params.id);
-    console.log(req.params.id);
     if (!coupon)
       return next(
         new AppError(
@@ -65,8 +87,7 @@ export const couponMaker = catchAsync(
           'There is no coupon with that Id'
         )
       );
-
-    if (req.user?.id !== coupon.product.user?.id)
+    if (req.user?.id !== coupon.product.user.id)
       return next(
         new AppError(
           STATUS_CODE.FORBIDDEN,
@@ -74,6 +95,8 @@ export const couponMaker = catchAsync(
           'You are not authorized to perform this action'
         )
       );
+
+    req.body.coupon = coupon;
     next();
   }
 );
