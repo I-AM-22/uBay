@@ -18,8 +18,9 @@ void main() async {
   // ignore: unused_local_variable
   token = di.getIt<SharedPreferences>().getString('CACHE_TOKEN');
   idStore = di.getIt<SharedPreferences>().getString('CACHE_ID_STORE');
+  idEmployee=di.getIt<SharedPreferences>().getString('CACHE_ID_STORE');
   print(token);
-  print(idStore);
+  print(idEmployee);
   String initialRoot='/loginScreen';
   if(token!=null) {
     initialRoot='/homePage';
