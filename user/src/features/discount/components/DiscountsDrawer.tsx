@@ -12,7 +12,7 @@ export type DiscountsDrawerProps = Omit<EdgeDrawerProps, "children"> & {
   post: Post | null;
 };
 export const DiscountsDrawer: FC<DiscountsDrawerProps> = ({ post, ...props }) => {
-  const query = discountQueries.useByProduct(props.open ? post?.id ?? "" : "");
+  const query = discountQueries.useByProduct(props.open ? post?._id ?? "" : "");
   const isDesktop = useIsDesktop();
   const scrollId = useId();
   const { t } = useTranslation("discount");

@@ -46,7 +46,7 @@ export const PostDetails: FC<PostCardProps> = ({ post, skeleton }) => {
   const [commentsDrawerOpen, setCommentsDrawerOpen] = useState(false);
   const navigate = useNavigate();
   const isDesktop = useIsDesktop();
-  const sellerIsMe = useIsMe(post?.user.id ?? "");
+  const sellerIsMe = useIsMe(post?.user._id ?? "");
   const discount = post?.coupons[0]?.discount ?? 0;
   const discountDaysToExpire =
     (discount !== 0 && dayjs(post?.coupons[0].expire).diff(dayjs(), "day")) || 0;
@@ -164,7 +164,7 @@ export const PostDetails: FC<PostCardProps> = ({ post, skeleton }) => {
             >
               {post && (
                 <>
-                  <LikeButton postId={post.id} isLiked={post.likedByMe} />
+                  <LikeButton postId={post._id} isLiked={post.likedByMe} />
                   <Button onClick={onCommentClick}>
                     <ChatBubbleIcon />
                   </Button>

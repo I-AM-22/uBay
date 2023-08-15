@@ -36,5 +36,5 @@ export type APIListParams = Partial<{
   search: string;
 }>;
 export type WithId<T> = {
-  id: string;
+  _id: string;
 } & T;

@@ -19,7 +19,7 @@ const API = {
     const { data } = await axios.get<Comment>(API_ROUTES.COMMENTS.GET(id));
     return data;
   },
-  edit: async ({ id, ...body }: WithId<CommentBody>) => {
+  edit: async ({ _id: id, ...body }: WithId<CommentBody>) => {
     const { data } = await axios.patch<Comment>(API_ROUTES.COMMENTS.EDIT(id), body);
     return data;
   },

@@ -5,10 +5,8 @@ export type Store = {
   city: {
     _id: string;
     name: string;
-    id: string;
   };
   createdAt: string;
   updatedAt: string;
-  id: string;
 };
-export type StoreSelect = Pick<Store, "id" | "name" | "city">;
+export type StoreSelect = Pick<Store, "_id" | "name" | "city">;

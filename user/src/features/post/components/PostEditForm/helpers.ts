@@ -2,7 +2,7 @@ import { Post, PostBody } from "features/post";
 import { Form } from "./type";
 
 export function formToBody(form: Form): PostBody {
-  return { ...form, store: form.store?.id ?? "", category: form.category?.id ?? "" };
+  return { ...form, store: form.store?._id ?? "", category: form.category?._id ?? "" };
 }
 export function detailsToForm(post: Post): Form {
   return {
@@ -11,6 +11,6 @@ export function detailsToForm(post: Post): Form {
     price: post.price,
     title: post.title,
     //TODO receive from backend
-    store: { id: "", name: "", city: { id: "", name: "", _id: "" } },
+    store: { _id: "", name: "", city: { _id: "", name: "" } },
   };
 }
