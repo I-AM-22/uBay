@@ -21,7 +21,6 @@ export type Post = {
       _id: string;
       name: string;
       photo: string;
-      id: string;
     };
     expire: string;
     discount: number;
@@ -37,7 +36,6 @@ export type Post = {
   is_paid: boolean;
   createdAt: string;
   updatedAt: string;
-  id: string;
   likedBy: string[];
   likedByMe: boolean;
   comments: number;

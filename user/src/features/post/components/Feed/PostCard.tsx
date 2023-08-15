@@ -47,15 +47,15 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
     setOpen(false);
   };
   const addToChat = async () => {
-    if (post?.user.id == query.data?.id) return;
+    if (post?.user._id == query.data?._id) return;
     // eslint-disable-next-line no-useless-catch
     try {
       const response = await axios.post(
         "http://localhost:3000/api/v1/chats",
         {
           name: post?.title,
-          product: post?.id,
-          user: post?.user.id,
+          product: post?._id,
+          user: post?.user._id,
         },
         {
           headers: {
@@ -70,8 +70,8 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
       console.log("data", response.data.data);
       {
         response.data.data
-          ? navigate(`/chats/${response.data.data.id}`)
-          : navigate(`/chats/${response.data.chat.id}`);
+          ? navigate(`/chats/${response.data.data._id}`)
+          : navigate(`/chats/${response.data.chat._id}`);
       }
       return response.data;
     } catch (error) {
@@ -125,7 +125,7 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
         <OptionalWrap
           Element={RouterLink}
           wrap={!!post}
-          ElementProps={{ to: `/posts/${post?.id}`, noStyle: true }}
+          ElementProps={{ to: `/posts/${post?._id}`, noStyle: true }}
         >
           <CardContent sx={{ pt: 0 }}>
             {post && (
@@ -221,7 +221,7 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
         >
           {post && (
             <>
-              <LikeButton postId={post.id} isLiked={post.likedByMe} />
+              <LikeButton postId={post._id} isLiked={post.likedByMe} />
               <Button onClick={onCommentClick}>
                 <ChatBubbleIcon />
               </Button>

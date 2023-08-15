@@ -9,7 +9,6 @@ export type User = {
   active: boolean;
   createdAt: string;
   updatedAt: string;
-  id: string;
   passwordChangedAt: string;
 };
 export type UserAllParams = APIListParams;

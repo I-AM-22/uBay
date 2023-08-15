@@ -15,6 +15,6 @@ export const employeeAddSchema: z.ZodType<Form> = z.object({
   email: emailSchema,
   password: passwordSchema,
   address: z.string().nonempty(),
-  store: z.object({ id: z.string(), name: z.string() }),
+  store: z.object({ _id: z.string(), name: z.string() }),
   photo: z.instanceof(File).optional(),
 });

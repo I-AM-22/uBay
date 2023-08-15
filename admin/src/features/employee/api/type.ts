@@ -13,7 +13,6 @@ export type Employee = {
   createdAt: string;
   updatedAt: string;
   role: string;
-  id: string;
 };
 
 export type EmployeeDetails = {
@@ -26,7 +25,6 @@ export type EmployeeDetails = {
   createdAt: string;
   updatedAt: string;
   role: string;
-  id: string;
 };
 
 export type EmployeeAddBody = {

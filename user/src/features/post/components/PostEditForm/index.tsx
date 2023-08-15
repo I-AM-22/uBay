@@ -7,7 +7,7 @@ import TextField from "components/Inputs/TextField";
 import Submit from "components/buttons/Submit";
 import { useSnackbar } from "context/snackbarContext";
 import { CategoryAutocomplete } from "features/category";
-import { postQueries } from "features/post";
+import { Post, postQueries } from "features/post";
 import { queryStore } from "features/shared";
 import { StoreAutocomplete } from "features/store";
 import z from "lib/zod";
@@ -41,12 +41,12 @@ export const PostEditForm: FC<PostEditFormProps> = ({}) => {
   const { t } = useTranslation("post", { keyPrefix: "form" });
   const onSubmit = async (form: Form) => {
     edit.mutate(
-      { id, ...formToBody(form) },
+      { _id: id, ...formToBody(form) },
       {
-        onSuccess: (post) => {
-          queryClient.setQueryData(queryStore.post.detail(post.id).queryKey, post);
+        onSuccess: (post:Post) => {
+          queryClient.setQueryData(queryStore.post.detail(post._id).queryKey, post);
           queryClient.invalidateQueries(queryStore.post.all._def);
-          navigate(`/posts/${post.id}`);
+          navigate(`/posts/${post._id}`);
         },
         onError: parseResponseError({ setFormError: setError, snackbar }),
       }

@@ -27,7 +27,7 @@ function Conversation() {
 
     // socket.emit("join chat","123amrtesting")
     let chatId = pageTitle;
-    const userId = query.data?.id;
+    const userId = query.data?._id;
 
     const data = {
       content: message,
@@ -60,7 +60,7 @@ function Conversation() {
       bgcolor="#ddddf7"
     >
       <Box p={1} bgcolor={theme.palette.primary.main}>
-        <UserInformation userData={query.data?.id} />
+        <UserInformation userData={query.data?._id} />
       </Box>
       <Divider />
       <Box
@@ -68,7 +68,7 @@ function Conversation() {
           overflowY: "auto",
         }}
       >
-        <Message userData={query.data?.id} />
+        <Message userData={query.data?._id} />
       </Box>
       <Box
         component={"form"}

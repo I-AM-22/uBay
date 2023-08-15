@@ -1,4 +1,4 @@
-import { Avatar, Box, Skeleton, Stack, Typography } from "@mui/material";
+import { Avatar, Skeleton, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -30,10 +30,10 @@ const UserInformation = ({ userData }: user) => {
   }, []);
 
   console.log(data.length);
-  if (data.length != 0 && data.customer.id == userData) {
+  if (data.length != 0 && data.customer._id == userData) {
     return (
       <Stack
-        key={data.seller.id}
+        key={data.seller._id}
         direction="row"
         sx={{
           alignItems: "center",
@@ -45,10 +45,10 @@ const UserInformation = ({ userData }: user) => {
         </Typography>
       </Stack>
     );
-  } else if (data.length != 0 && data.seller.id == userData) {
+  } else if (data.length != 0 && data.seller._id == userData) {
     return (
       <Stack
-        key={data.customer.id}
+        key={data.customer._id}
         direction="row"
         sx={{
           alignItems: "center",
