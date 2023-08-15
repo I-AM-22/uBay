@@ -1,13 +1,12 @@
 import { Tab } from "@mui/material";
 import TabPanel from "components/layout/TabPanel";
 import Tabs from "components/layout/Tabs";
-import { PostMineList } from "features/post";
 import SwipeableViews from "lib/SwipeableViews";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import BuyChat from "./buy/BuyChat";
-import SellChat from "./sell/SellChat";
 import ChatBubbleOutlinedIcon from "@mui/icons-material/ChatBubbleOutlined";
+import SellChat from "./sell/SellChat";
 const AppBarChat: FC<{}> = ({}) => {
   const { t } = useTranslation("chat");
   const [activeIndex, setActiveIndex] = useState(0);
@@ -27,16 +26,8 @@ const AppBarChat: FC<{}> = ({}) => {
         value={activeIndex}
         onChange={(_, index) => handleTabChange(index)}
       >
-        <Tab
-          label={t("myPurchases")}
-          icon={<ChatBubbleOutlinedIcon />}
-          iconPosition="start"
-        />
-        <Tab
-          label={t("mySales")}
-          icon={<ChatBubbleOutlinedIcon />}
-          iconPosition="start"
-        />
+        <Tab label={t("myPurchases")} icon={<ChatBubbleOutlinedIcon />} iconPosition="start" />
+        <Tab label={t("mySales")} icon={<ChatBubbleOutlinedIcon />} iconPosition="start" />
       </Tabs>
       <SwipeableViews index={activeIndex} onChangeIndex={handleTabChange}>
         <TabPanel activeIndex={activeIndex} index={0}>

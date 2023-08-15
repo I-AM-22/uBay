@@ -202,7 +202,6 @@ Employee _$EmployeeFromJson(Map<String, dynamic> json) {
 mixin _$Employee {
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  String get photo => throw _privateConstructorUsedError;
   Store get store => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -224,7 +223,6 @@ abstract class $EmployeeCopyWith<$Res> {
   $Res call(
       {String name,
       String email,
-      String photo,
       Store store,
       String address,
       DateTime createdAt,
@@ -250,7 +248,6 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
   $Res call({
     Object? name = null,
     Object? email = null,
-    Object? photo = null,
     Object? store = null,
     Object? address = null,
     Object? createdAt = null,
@@ -266,10 +263,6 @@ class _$EmployeeCopyWithImpl<$Res, $Val extends Employee>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      photo: null == photo
-          ? _value.photo
-          : photo // ignore: cast_nullable_to_non_nullable
               as String,
       store: null == store
           ? _value.store
@@ -317,7 +310,6 @@ abstract class _$$_EmployeeCopyWith<$Res> implements $EmployeeCopyWith<$Res> {
   $Res call(
       {String name,
       String email,
-      String photo,
       Store store,
       String address,
       DateTime createdAt,
@@ -342,7 +334,6 @@ class __$$_EmployeeCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? email = null,
-    Object? photo = null,
     Object? store = null,
     Object? address = null,
     Object? createdAt = null,
@@ -358,10 +349,6 @@ class __$$_EmployeeCopyWithImpl<$Res>
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      photo: null == photo
-          ? _value.photo
-          : photo // ignore: cast_nullable_to_non_nullable
               as String,
       store: null == store
           ? _value.store
@@ -397,7 +384,6 @@ class _$_Employee with DiagnosticableTreeMixin implements _Employee {
   _$_Employee(
       {required this.name,
       required this.email,
-      required this.photo,
       required this.store,
       required this.address,
       required this.createdAt,
@@ -413,8 +399,6 @@ class _$_Employee with DiagnosticableTreeMixin implements _Employee {
   @override
   final String email;
   @override
-  final String photo;
-  @override
   final Store store;
   @override
   final String address;
@@ -429,7 +413,7 @@ class _$_Employee with DiagnosticableTreeMixin implements _Employee {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Employee(name: $name, email: $email, photo: $photo, store: $store, address: $address, createdAt: $createdAt, updatedAt: $updatedAt, role: $role, id: $id)';
+    return 'Employee(name: $name, email: $email, store: $store, address: $address, createdAt: $createdAt, updatedAt: $updatedAt, role: $role, id: $id)';
   }
 
   @override
@@ -439,7 +423,6 @@ class _$_Employee with DiagnosticableTreeMixin implements _Employee {
       ..add(DiagnosticsProperty('type', 'Employee'))
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('email', email))
-      ..add(DiagnosticsProperty('photo', photo))
       ..add(DiagnosticsProperty('store', store))
       ..add(DiagnosticsProperty('address', address))
       ..add(DiagnosticsProperty('createdAt', createdAt))
@@ -455,7 +438,6 @@ class _$_Employee with DiagnosticableTreeMixin implements _Employee {
             other is _$_Employee &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.photo, photo) || other.photo == photo) &&
             (identical(other.store, store) || other.store == store) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.createdAt, createdAt) ||
@@ -468,8 +450,8 @@ class _$_Employee with DiagnosticableTreeMixin implements _Employee {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, email, photo, store,
-      address, createdAt, updatedAt, role, id);
+  int get hashCode => Object.hash(
+      runtimeType, name, email, store, address, createdAt, updatedAt, role, id);
 
   @JsonKey(ignore: true)
   @override
@@ -489,7 +471,6 @@ abstract class _Employee implements Employee {
   factory _Employee(
       {required final String name,
       required final String email,
-      required final String photo,
       required final Store store,
       required final String address,
       required final DateTime createdAt,
@@ -503,8 +484,6 @@ abstract class _Employee implements Employee {
   String get name;
   @override
   String get email;
-  @override
-  String get photo;
   @override
   Store get store;
   @override

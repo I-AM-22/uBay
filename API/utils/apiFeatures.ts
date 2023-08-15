@@ -17,6 +17,7 @@
       'search',
       'role',
     ];
+    
     excludedFields.forEach((el) => delete queryObj[el]);
     //Advance
     //For find

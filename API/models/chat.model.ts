@@ -35,11 +35,23 @@ const chatSchema = new Schema<ChatDoc, ChatModel, any>(
 chatSchema.post('save', async function () {
   await this.populate({
     path: 'customer',
-    select: { name: 1, photo: 1, wallet: 0 },
+    select: {
+      name: 1,
+      photo: 1,
+      wallet: 0,
+      favoriteCategories: 0,
+      favoriteCities: 0,
+    },
   });
   await this.populate({
     path: 'seller',
-    select: { name: 1, photo: 1, wallet: 0 },
+    select: {
+      name: 1,
+      photo: 1,
+      wallet: 0,
+      favoriteCategories: 0,
+      favoriteCities: 0,
+    },
   });
   await this.populate({
     path: 'product',
