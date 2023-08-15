@@ -6,6 +6,7 @@ import 'package:warehouse/core/errors/exceptions.dart';
 import 'package:warehouse/core/strings/end_points.dart';
 import 'package:warehouse/core/strings/id_and_token.dart';
 import 'package:warehouse/features/product/data/model/product_model/product_model.dart';
+import 'package:warehouse/features/product/data/model/recive_and_give_model/recive_and_give_model.dart';
 
 import '../../../../core/strings/failure.dart';
 import '../model/all_product_model/all_product_model.dart';
@@ -16,6 +17,8 @@ abstract class ProductRemoteDataSource {
   Future<Unit> receiveProduct(String id, String status);
 
   Future<List<AllProductModel>> getAllProduct();
+
+  Future<ReceiveAndGiveModel> getReceiveAndGiveProducts();
 }
 
 @Injectable(as: ProductRemoteDataSource)
@@ -56,25 +59,43 @@ class ProductRemoteDataSourceImplement implements ProductRemoteDataSource {
 
   @override
   Future<List<AllProductModel>> getAllProduct() async {
-    List<AllProductModel> allProductModel=[];
+    List<AllProductModel> allProductModel = [];
     await DioHelper.getData(
             url: '$GET_ALL_PRODUCT_1$idStore$GET_ALL_PRODUCT_2', token: token)
         .then((value) {
-            value.data.forEach((element) {
-              print(element);
-             allProductModel.add( AllProductModel.fromJson(element));
-            });
-          return Future.value(allProductModel);
-    })
-        .catchError((error) {
-          print('error is: $error');
-      // DioError dioError = error;
-      // if (dioError.response != null) {
-      //   SERVER_FAILURE = _mapResponseError(dioError.response!);
-      // }
+      value.data.forEach((element) {
+        allProductModel.add(AllProductModel.fromJson(element));
+      });
+      return Future.value(allProductModel);
+    }).catchError((error) {
+      print('error is: $error');
+      DioError dioError = error;
+      if (dioError.response != null) {
+        SERVER_FAILURE = _mapResponseError(dioError.response!);
+      }
       throw ServerException();
     });
     return Future.value(allProductModel);
+  }
+
+  @override
+  Future<ReceiveAndGiveModel> getReceiveAndGiveProducts() async {
+    ReceiveAndGiveModel? receiveAndGiveModel;
+    await DioHelper.getData(
+            url: '$GET_ALL_GIVE_RECEIVE_PRODUCT$idEmployee', token: token)
+        .then((value) {
+          print(value.data);
+      receiveAndGiveModel = ReceiveAndGiveModel.fromJson(value.data);
+      return Future.value(receiveAndGiveModel);
+    }).catchError((error) {
+      print(error.toString());
+      DioError dioError = error;
+      if (dioError.response != null) {
+        SERVER_FAILURE = _mapResponseError(dioError.response!);
+      }
+      return Future.value(receiveAndGiveModel);
+    });
+    return Future.value(receiveAndGiveModel);
   }
 }
 

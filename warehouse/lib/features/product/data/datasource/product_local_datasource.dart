@@ -24,6 +24,7 @@ class ProductLocalDataSourceImplement implements ProductLocalDataSource {
   Future<Unit> logOut() {
     sharedPreferences.remove('CACHE_TOKEN');
     sharedPreferences.remove('CACHE_ID_STORE');
+    sharedPreferences.remove('CACHE_ID_EMPLOYEE');
     return Future.value(unit);
   }
 

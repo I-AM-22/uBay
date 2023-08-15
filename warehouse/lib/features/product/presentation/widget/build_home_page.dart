@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:warehouse/core/util/chose_date_time.dart';
+import 'package:warehouse/core/util/snackbar_message.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/features/product/data/model/all_product_model/all_product_model.dart';
 import 'package:warehouse/features/product/presentation/bloc/product_bloc.dart';
@@ -17,12 +18,19 @@ class BuildHomeProductPage extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           di.getIt<ProductBloc>()..add(const ProductEvent.getAllProduct()),
-      child: BlocBuilder<ProductBloc, ProductState>(
+      child: BlocConsumer<ProductBloc, ProductState>(
+        listener: (context, state) {
+          state.maybeWhen(
+              orElse: () {},
+              errorGetAllProductState: (message) {
+                SnackBarMessage().snackBarMessageError(context, message);
+              });
+        },
         builder: (context, state) => state.maybeWhen(
             orElse: () {
               return Center(
                 child: Text(
-                  'لا يوجد بيانات لعرضها',
+                  'خطأ غير معروف',
                   style: Theme.of(context)
                       .textTheme
                       .bodyLarge!
@@ -41,7 +49,7 @@ class BuildHomeProductPage extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge!
-                        .copyWith(fontSize: 20),
+                        .copyWith(fontSize: 18),
                   ),
                 );
               }
@@ -150,9 +158,9 @@ class BuildHomeProductPage extends StatelessWidget {
                               allProductModel[index].product.photos.length < 3
                                   ? 200
                                   : 400,
+                          width: double.infinity,
                           child: PhotoGrid(
-                              imageUrls:
-                                  allProductModel[index].product.photos))
+                              imageUrls: allProductModel[index].product.photos))
                     ],
                   ),
                 ),

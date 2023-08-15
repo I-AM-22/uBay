@@ -26,12 +26,17 @@ class AuthRepositoryImplement implements AuthRepository {
       String email, String password) async {
     if (await networkInfo.isConnected) {
       try {
-        final employeeLoginModel = await authRemoteDataSource.login(email, password);
-        await authLocalDataSource.cacheLogin(token: employeeLoginModel.token,idStore: employeeLoginModel.employee.store.id);
-        token=employeeLoginModel.token;
-        idStore=employeeLoginModel.employee.store.id;
+        final employeeLoginModel =
+            await authRemoteDataSource.login(email, password);
+        await authLocalDataSource.cacheLogin(
+            token: employeeLoginModel.token,
+            idStore: employeeLoginModel.employee.store.id,
+            idEmployee: employeeLoginModel.employee.id);
+        token = employeeLoginModel.token;
+        idStore = employeeLoginModel.employee.store.id;
+        idEmployee = employeeLoginModel.employee.id;
         return Right(employeeLoginModel);
-      } on ServerException  {
+      } on ServerException {
         return Left(ServerFailure());
       }
     } else {

@@ -11,18 +11,15 @@ environment:
 
 dependencies:
   bloc: ^8.1.0
-  cached_network_image: ^3.2.3
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   dio: ^5.1.2
   flutter:
     sdk: flutter
-  flutter_barcode_scanner: ^2.0.0
   flutter_bloc: ^8.1.1
   flutter_svg: ^2.0.6
   freezed_annotation: ^2.2.0
   get_it: ^7.6.0
-  conditional_builder_null_safety: ^0.0.6
   image_picker: ^0.8.4+11
   injectable: ^2.1.0
   internet_connection_checker: any

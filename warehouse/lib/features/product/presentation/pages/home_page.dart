@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:warehouse/core/theme.dart';
 import 'package:warehouse/features/product/presentation/bloc/product_bloc.dart';
+import 'package:warehouse/features/product/presentation/pages/my_transactions.dart';
 import 'package:warehouse/features/product/presentation/pages/products_delivered.dart';
 import 'package:warehouse/features/product/presentation/pages/products_received.dart';
 import 'package:warehouse/features/product/presentation/widget/build_home_page.dart';
@@ -18,49 +19,37 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
-  int index=0;
-  TabController? tabController;
-  List<Widget> body = [
-    const BuildHomeProductPage(),
-    const ProductsReceived()
-  ];
+class _HomePageState extends State<HomePage> {
+  int index = 0;
+  List<Widget> body = [const BuildHomeProductPage(), MyTransactions()];
   List<String> bar = ['الرئيسية', 'معاملاتي'];
 
   @override
-  void initState() {
-    tabController=TabController(length: 3, vsync: this);
-    super.initState();
-  }
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(context),
-      body:  TabBarView(
-        controller: tabController!,
-        children: const [
-          BuildHomeProductPage(),
-          ProductsDelivered(),
-          ProductsReceived(),
-        ],
+    return BlocProvider(
+      create: (context) => di.getIt<ProductBloc>(),
+      child: BlocBuilder<ProductBloc, ProductState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: _buildAppBar(context),
+            body: body[index],
+            floatingActionButton: floatingActionButton(),
+            bottomNavigationBar: _bottomNavigationBar(),
+          );
+        },
       ),
-      floatingActionButton: floatingActionButton(),
-      bottomNavigationBar: _bottomNavigationBar(),
     );
   }
 
   AppBar _buildAppBar(BuildContext context) => AppBar(
         centerTitle: true,
-        bottom: TabBar(controller: tabController,tabs: const [
-          Tab(text: 'الرئيسية',),
-          Tab(text: 'تم تسليمها',),
-          Tab(text: 'تم استلامها',)
-        ],),
         actions: [
           IconButton(
               onPressed: () {
                 BlocProvider.of<ProductBloc>(context)
                     .add(const ProductEvent.logOut());
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/loginScreen', (route) => false);
               },
               icon: const Icon(
                 Icons.logout,

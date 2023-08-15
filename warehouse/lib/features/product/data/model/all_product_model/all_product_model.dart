@@ -1,41 +1,79 @@
+class AllProductModel {
+  Product product;
+  Employee employee;
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+  AllProductModel({
+    required this.product,
+    required this.employee,
+  });
 
-part 'all_product_model.freezed.dart';
-part 'all_product_model.g.dart';
+  factory AllProductModel.fromJson(Map<String, dynamic> json) => AllProductModel(
+    product: Product.fromJson(json["Product"]),
+    employee: Employee.fromJson(json["Employee"]),
+  );
 
-@freezed
-class AllProductModel with _$AllProductModel {
-  const factory AllProductModel({
-    required Product product,
-    required Employee employee,
-  }) = _AllProductModel;
-
-  factory AllProductModel.fromJson(Map<String, dynamic> json) => _$AllProductModelFromJson(json);
+  Map<String, dynamic> toJson() => {
+    "Product": product.toJson(),
+    "Employee": employee.toJson(),
+  };
 }
 
-@freezed
-class Employee with _$Employee {
-  const factory Employee({
-    required String id,
-    required String name,
-    required String email,
-  }) = _employee;
+class Employee {
+  String id;
+  String name;
+  String email;
 
-  factory Employee.fromJson(Map<String, dynamic> json) => _$EmployeeFromJson(json);
+  Employee({
+    required this.id,
+    required this.name,
+    required this.email,
+  });
+
+  factory Employee.fromJson(Map<String, dynamic> json) => Employee(
+    id: json["_id"],
+    name: json["name"],
+    email: json["email"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "name": name,
+    "email": email,
+  };
 }
 
-@freezed
-class Product with _$Product {
-  const factory Product({
-    required String id,
-    required String title,
-    required String content,
-    required List<dynamic> coupons,
-    required List<String> photos,
-    required int price,
-    required DateTime createdAt,
-  }) = _product;
+class Product {
+  String id;
+  String title;
+  String content;
+  List<String> photos;
+  int price;
+  DateTime createdAt;
 
-  factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
+  Product({
+    required this.id,
+    required this.title,
+    required this.content,
+    required this.photos,
+    required this.price,
+    required this.createdAt,
+  });
+
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+    id: json["_id"],
+    title: json["title"],
+    content: json["content"],
+    photos: List<String>.from(json["photos"].map((x) => x)),
+    price: json["price"],
+    createdAt: DateTime.parse(json["createdAt"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "title": title,
+    "content": content,
+    "photos": List<dynamic>.from(photos.map((x) => x)),
+    "price": price,
+    "createdAt": createdAt.toIso8601String(),
+  };
 }
