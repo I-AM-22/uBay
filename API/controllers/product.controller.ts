@@ -296,20 +296,35 @@ export const getAllPros = catchAsync(
         likes: { $size: '$likedBy' },
       })
       .project({
-        _id: 1,
         title: 1,
         content: 1,
-        user: { _id: 1, name: 1, photo: 1, id: 1 }, // Include name and photo from userData
-        store: { _id: 1, name: 1, id: 1 },
-        category: 1,
-        price: 1,
-        comments: 1,
-        likedBy: 1,
+        user: { photo: 1, name: 1, _id: 1, id: 1 },
+        coupons: {
+          _id: 1,
+          user: {
+            _id: 1,
+            name: 1,
+            photo: 1,
+            id: 1,
+          },
+          expire: 1,
+          discount: 1,
+          active: 1,
+          createdAt: 1,
+          updatedAt: 1,
+        },
         likes: 1,
+        photos: 1,
+        price: 1,
+        category: { name: 1, description: 1, _id: 1, id: 1 },
+        _id: 1,
+        is_paid: 1,
         createdAt: 1,
         updatedAt: 1,
-        sortField: 1,
-        // Include name and photo from storeData
+        id: 1,
+        likedBy: 1,
+        likedByMe: 1,
+        comments: 1,
       }) // Project stage
       .addFields({
         likedByMe: {
