@@ -24,7 +24,7 @@ export const LikeButton: FC<LikeButtonProps> = ({ isLiked, postId }) => {
               return {
                 ...page,
                 data: page.data.map((post) => {
-                  if (post.id === postId) {
+                  if (post._id === postId) {
                     return {
                       ...post,
                       likedByMe: newLikeState,

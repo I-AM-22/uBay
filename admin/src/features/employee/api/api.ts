@@ -17,7 +17,7 @@ const API = {
     const { data } = await axios.get<EmployeeDetails>(API_ROUTES.EMPLOYEES.GET(id));
     return data;
   },
-  edit: async ({ id, ...body }: WithId<EmployeeEditBody>) => {
+  edit: async ({ _id: id, ...body }: WithId<EmployeeEditBody>) => {
     const { data } = await axios.patch(API_ROUTES.EMPLOYEES.EDIT(id), objectToFormData(body));
     return data;
   },

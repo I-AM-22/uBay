@@ -31,10 +31,11 @@ const UserInformation = ({ userData }: user) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (data.length != 0 && data.customer.id == userData) {
+  console.log(data.length);
+  if (data.length != 0 && data.customer._id == userData) {
     return (
       <Stack
-        key={data.seller.id}
+        key={data.seller._id}
         direction="row"
         sx={{
           alignItems: "center",
@@ -46,10 +47,10 @@ const UserInformation = ({ userData }: user) => {
         </Typography>
       </Stack>
     );
-  } else if (data.length != 0 && data.seller.id == userData) {
+  } else if (data.length != 0 && data.seller._id == userData) {
     return (
       <Stack
-        key={data.customer.id}
+        key={data.customer._id}
         direction="row"
         sx={{
           alignItems: "center",

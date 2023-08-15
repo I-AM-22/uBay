@@ -43,24 +43,17 @@ const Message = ({ userData }: user) => {
               sx={{
                 width: "100%",
                 display: "flex",
-                flexDirection:
-                  message.user.id == userID ? "row" : "row-reverse",
+                flexDirection: message.user._id == userData ? "row" : "row-reverse",
               }}
             >
               <Box
-                bgcolor={
-                  message.user.id == userID
-                    ? theme.palette.primary.main
-                    : "white"
-                }
+                bgcolor={message.user._id == userData ? theme.palette.primary.main : "white"}
                 sx={{
                   width: "fit-content",
                   margin: "10px",
                   padding: "10px",
                   borderRadius:
-                    message.user.id == userID
-                      ? "0 10px 10px 10px"
-                      : "10px 0px 10px 10px",
+                    message.user._id == userData ? "0 10px 10px 10px" : "10px 0px 10px 10px",
                   display: "flex",
                   position: "relative",
                 }}

@@ -58,15 +58,15 @@ export const Table: FC<Props> = ({}) => {
     >
       <TableBody>
         {currentPage.map((row) => (
-          <TableRowStriped key={row.id}>
+          <TableRowStriped key={row._id}>
             <TableCell>{row.name}</TableCell>
             <TableCell width={"60%"} sx={{ "&.MuiTableCell-root": { textAlign: "start" } }}>
               {row.description}
             </TableCell>
             <TableCell>
               <ButtonsStack>
-                <EditIconButton onClick={() => edit(row.id)} />
-                <RemoveIconButton onClick={() => remove(row.id)} />
+                <EditIconButton onClick={() => edit(row._id)} />
+                <RemoveIconButton onClick={() => remove(row._id)} />
               </ButtonsStack>
             </TableCell>
           </TableRowStriped>

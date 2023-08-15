@@ -10,5 +10,5 @@ export const warehouseDefaultForm: Form = {
 export const warehouseSchema: z.ZodType<Form> = z.object({
   name: z.string().nonempty(),
   address: z.string().nonempty().min(15),
-  city: z.object({ id: z.string(), name: z.string() }),
+  city: z.object({ _id: z.string(), name: z.string() }),
 });

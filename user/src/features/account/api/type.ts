@@ -6,7 +6,6 @@ export type User = {
   role: string;
   createdAt: string;
   updatedAt: string;
-  id: string;
 };
 export type UserEditBody = {
   name: string;
