@@ -49,6 +49,7 @@ couponSchema.pre<Query<ICoupon, ICoupon>>(/^find/, function (next) {
       photos: 1,
       category: 1,
       price: 1,
+      is_paid: 1,
       likedBy: 0,
       coupons: 0,
     },

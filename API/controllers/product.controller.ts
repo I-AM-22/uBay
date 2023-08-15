@@ -71,6 +71,50 @@ export const myProduct = catchAsync(
           $unwind: '$product',
         },
         {
+          $lookup: {
+            from: 'users',
+            localField: 'product.user',
+            foreignField: '_id',
+            as: 'user',
+          },
+        },
+        {
+          $unwind: '$user',
+        },
+        // {
+        //   $lookup: {
+        //     from: 'users',
+        //     localField: 'payment.customer',
+        //     foreignField: '_id',
+        //     as: 'customer',
+        //   },
+        // },
+        // {
+        //   $unwind: '$customer',
+        // },
+        // {
+        //   $lookup: {
+        //     from: 'wallets',
+        //     localField: 'customer.wallet',
+        //     foreignField: '_id',
+        //     as: 'walletCustomer',
+        //   },
+        // },
+        // {
+        //   $unwind: '$walletCustomer',
+        // },
+        {
+          $lookup: {
+            from: 'wallets',
+            localField: 'user.wallet',
+            foreignField: '_id',
+            as: 'wallet',
+          },
+        },
+        {
+          $unwind: '$wallet',
+        },
+        {
           $match: {
             'product.user': req.user?._id,
           },
@@ -112,7 +156,24 @@ export const myProduct = catchAsync(
           $replaceRoot: {
             newRoot: {
               delivery_status: '$delivery_status',
-              product: '$product',
+              product: {
+                'user': {
+                  'id': '$user._id',
+                  'wallet': '$wallet'
+                },
+                '_id': '$product._id',
+                'title': '$product.title',
+                'content': '$product.content',
+                'photos': '$product.photos',
+                'price': '$product.title',
+                'store': '$product.store',
+                'discount': '$product.discount',
+                'priceAfterDiscount': '$payment.price'
+              },
+              customer: {
+                'id': '$payment.customer',
+                // 'wallet': '$walletCustomer'
+              }
             },
           },
         },
@@ -141,6 +202,50 @@ export const myProduct = catchAsync(
         {
           $unwind: '$product',
         },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'product.user',
+            foreignField: '_id',
+            as: 'user',
+          },
+        },
+        {
+          $unwind: '$user',
+        },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'payment.customer',
+            foreignField: '_id',
+            as: 'customer',
+          },
+        },
+        {
+          $unwind: '$customer',
+        },
+        {
+          $lookup: {
+            from: 'wallets',
+            localField: 'customer.wallet',
+            foreignField: '_id',
+            as: 'walletCustomer',
+          },
+        },
+        {
+          $unwind: '$walletCustomer',
+        },
+        // {
+        //   $lookup: {
+        //     from: 'wallets',
+        //     localField: 'user.wallet',
+        //     foreignField: '_id',
+        //     as: 'wallet',
+        //   },
+        // },
+        // {
+        //   $unwind: '$wallet',
+        // },
         {
           $match: {
             'payment.customer': req.user?._id,
@@ -192,7 +297,24 @@ export const myProduct = catchAsync(
           $replaceRoot: {
             newRoot: {
               delivery_status: '$delivery_status',
-              product: '$product',
+              product: {
+                'user': {
+                  'id': '$user._id',
+                  // 'wallet': '$wallet'
+                },
+                '_id': '$product._id',
+                'title': '$product.title',
+                'content': '$product.content',
+                'photos': '$product.photos',
+                'price': '$product.title',
+                'store': '$product.store',
+                'discount': '$product.discount',
+                'priceAfterDiscount': '$payment.price'
+              },
+              customer: {
+                'id': '$customer._id',
+                'wallet': '$walletCustomer'
+              }
             },
           },
         },

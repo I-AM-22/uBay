@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.use(
   passport.authenticate('jwt', { failWithError: true, session: false }),
-  restrictTo('user')
+  restrictTo('admin','superadmin','employee')
 );
 
 // POST /charge route to charge the wallet
