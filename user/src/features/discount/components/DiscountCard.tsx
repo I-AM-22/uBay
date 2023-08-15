@@ -68,10 +68,15 @@ export const DiscountCard: FC<DiscountCardProps> = ({ discount, skeleton }) => {
                 {priceFormatter.format(discount.product.price - discount.discount)}
               </LabelValue>
               <LabelValue noColon label={t("expireDate")}>
-                {dayjs(discount.expire).diff(dayjs(), "day") > 0
-                  ? t("afterDays", { days: dayjs(discount.expire).diff(dayjs(), "day") })
-                  : t("expired")}{" "}
-                {`(${dayjs(discount.expire).format("YYYY/DD/MM")})`}
+                {discount.expire !== null && (
+                  <>
+                    {dayjs(discount.expire).diff(dayjs(), "day") > 0
+                      ? t("afterDays", { days: dayjs(discount.expire).diff(dayjs(), "day") })
+                      : t("expired")}{" "}
+                    {`(${dayjs(discount.expire).format("YYYY/DD/MM")})`}
+                  </>
+                )}
+                {discount.expire === null && t("noExpire")}
               </LabelValue>
             </Stack>
           )}

@@ -1,4 +1,4 @@
-import AddCommentTwoToneIcon from "@mui/icons-material/AddCommentTwoTone";
+import DiscountIcon from "@mui/icons-material/Discount";
 import { Stack, Typography } from "@mui/material";
 import { discountQueries } from "features/discount";
 import { EdgeDrawer, EdgeDrawerProps } from "features/layout";
@@ -47,8 +47,8 @@ export const DiscountsDrawer: FC<DiscountsDrawerProps> = ({ post, ...props }) =>
           query={query}
         >
           {isEmpty && (
-            <Stack alignItems={"center"} mt="auto">
-              <AddCommentTwoToneIcon sx={{ color: "", fontSize: 200 }} />
+            <Stack alignItems={"center"} mt="auto" gap={4}>
+              <DiscountIcon sx={{ color: "", fontSize: 100 }} />
               <Typography color="#444" fontSize="clamp(17px,4vw,23px)">
                 {t("empty")}
               </Typography>
