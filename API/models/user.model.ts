@@ -43,6 +43,8 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
       select: false,
     },
     wallet: { type: Types.ObjectId, ref: 'Wallet' },
+    favoriteCategories: [{ type: Types.ObjectId, ref: 'Category' }],
+    favoriteCities: [{ type: Types.ObjectId, ref: 'City' }],
   },
   {
     toJSON: { virtuals: true, versionKey: false },
@@ -82,12 +84,19 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.pre<Query<IUser, IUser>>(/^find/, function (next) {
-  this.populate('wallet');
+  this.populate('wallet')
+    .populate({
+      path: 'favoriteCategories',
+      select: { name: 1, description: 1 },
+    })
+    .populate({ path: 'favoriteCities', select: { name: 1 } });
   next();
 });
 
 userSchema.post('save', async function () {
   await this.populate('wallet');
+  await this.populate({ path: 'favoriteCategories' });
+  await this.populate({ path: 'favoriteCities' });
 });
 
 //pre find user

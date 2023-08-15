@@ -31,14 +31,28 @@ couponSchema.post('save', async function () {
   });
   await this.populate({
     path: 'user',
-    select: { name: 1, photo: 1, wallet: 0 },
+    select: {
+      name: 1,
+      photo: 1,
+      wallet: 0,
+      favoriteCategories: 0,
+      favoriteCities: 0,
+    },
   });
 });
 couponSchema.pre<Query<ICoupon, ICoupon>>(/^find/, function (next) {
   this.populate({
     path: 'product',
-    select: { user: 1, title: 1, photos: 1, category: 1, price: 1, likedBy: 0, coupons: 0 },
-  })
+    select: {
+      user: 1,
+      title: 1,
+      photos: 1,
+      category: 1,
+      price: 1,
+      likedBy: 0,
+      coupons: 0,
+    },
+  });
   this.populate({ path: 'user', select: { name: 1, photo: 1, wallet: 0 } });
   next();
 });
@@ -47,15 +61,18 @@ couponSchema.pre<Query<ICoupon, ICoupon>>(/^find/, function (next) {
   this.find({
     $or: [
       { expire: { $gt: Date.now() } },
-      { expire: null } // Expires is null
-    ], active: true
+      { expire: null }, // Expires is null
+    ],
+    active: true,
   });
   next();
 });
 
 //save coupon to product
 couponSchema.post('save', async function (doc) {
-  await Product.findByIdAndUpdate(doc.product.id, { $push: { coupons: doc._id } });
+  await Product.findByIdAndUpdate(doc.product.id, {
+    $push: { coupons: doc._id },
+  });
 });
 
 const Coupon = model('Coupon', couponSchema);

@@ -13,7 +13,8 @@ import AppError from '@utils/appError';
 import { STATUS_CODE } from '../types/helper.types';
 import Delivery from '@models/delivery.model';
 import APIFeatures from '../utils/apiFeatures';
-
+import AggregateFeatures from '@utils/aggregateFeatures';
+import User from '../models/user.model';
 
 export const like = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -45,34 +46,34 @@ export const myProduct = catchAsync(
     const { isBuy } = req.query;
     let pipeline: any = [];
 
-    if (isBuy == "false") {
+    if (isBuy == 'false') {
       pipeline = [
         {
           $lookup: {
             from: 'payments',
             localField: 'payment',
             foreignField: '_id',
-            as: 'payment'
-          }
+            as: 'payment',
+          },
         },
         {
-          $unwind: '$payment'
+          $unwind: '$payment',
         },
         {
           $lookup: {
             from: 'products',
             localField: 'payment.product',
             foreignField: '_id',
-            as: 'product'
-          }
+            as: 'product',
+          },
         },
         {
-          $unwind: '$product'
+          $unwind: '$product',
         },
         {
           $match: {
-            'product.user': req.user?._id
-          }
+            'product.user': req.user?._id,
+          },
         },
         {
           $lookup: {
@@ -82,13 +83,13 @@ export const myProduct = catchAsync(
               {
                 $match: {
                   $expr: {
-                    $in: ['$_id', '$$couponIds']
+                    $in: ['$_id', '$$couponIds'],
                   },
-                }
-              }
+                },
+              },
             ],
-            as: 'product.coupons'
-          }
+            as: 'product.coupons',
+          },
         },
         {
           $addFields: {
@@ -97,24 +98,24 @@ export const myProduct = catchAsync(
                 branches: [
                   { case: { $eq: ['$delivery_status', 'wait'] }, then: 0 },
                   { case: { $eq: ['$delivery_status', 'seller'] }, then: 1 },
-                  { case: { $eq: ['$delivery_status', 'customer'] }, then: 2 }
+                  { case: { $eq: ['$delivery_status', 'customer'] }, then: 2 },
                 ],
-                default: 3
-              }
-            }
-          }
+                default: 3,
+              },
+            },
+          },
         },
         {
-          $sort: { sortField: 1 }
+          $sort: { sortField: 1 },
         },
         {
           $replaceRoot: {
             newRoot: {
               delivery_status: '$delivery_status',
               product: '$product',
-            }
-          }
-        }
+            },
+          },
+        },
       ];
     } else {
       pipeline = [
@@ -123,27 +124,27 @@ export const myProduct = catchAsync(
             from: 'payments',
             localField: 'payment',
             foreignField: '_id',
-            as: 'payment'
-          }
+            as: 'payment',
+          },
         },
         {
-          $unwind: '$payment'
+          $unwind: '$payment',
         },
         {
           $lookup: {
             from: 'products',
             localField: 'payment.product',
             foreignField: '_id',
-            as: 'product'
-          }
+            as: 'product',
+          },
         },
         {
-          $unwind: '$product'
+          $unwind: '$product',
         },
         {
           $match: {
-            'payment.customer': req.user?._id
-          }
+            'payment.customer': req.user?._id,
+          },
         },
         {
           $lookup: {
@@ -159,16 +160,16 @@ export const myProduct = catchAsync(
                       {
                         $or: [
                           { $gt: ['$expire', new Date()] },
-                          { $eq: ['$expire', null] }
-                        ]
-                      }
-                    ]
-                  }
-                }
-              }
+                          { $eq: ['$expire', null] },
+                        ],
+                      },
+                    ],
+                  },
+                },
+              },
             ],
-            as: 'product.coupons'
-          }
+            as: 'product.coupons',
+          },
         },
         {
           $addFields: {
@@ -177,24 +178,24 @@ export const myProduct = catchAsync(
                 branches: [
                   { case: { $eq: ['$delivery_status', 'seller'] }, then: 0 },
                   { case: { $eq: ['$delivery_status', 'customer'] }, then: 1 },
-                  { case: { $eq: ['$delivery_status', 'wait'] }, then: 2 }
+                  { case: { $eq: ['$delivery_status', 'wait'] }, then: 2 },
                 ],
-                default: 3
-              }
-            }
-          }
+                default: 3,
+              },
+            },
+          },
         },
         {
-          $sort: { sortField: 1 }
+          $sort: { sortField: 1 },
         },
         {
           $replaceRoot: {
             newRoot: {
               delivery_status: '$delivery_status',
               product: '$product',
-            }
-          }
-        }
+            },
+          },
+        },
       ];
     }
     // Execute the aggregation pipeline
@@ -203,15 +204,18 @@ export const myProduct = catchAsync(
   }
 );
 
-export const checkProductIsPaid = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-  const id = req.params.id;
-  const productDoc = await Product.findById(id);
-  if (productDoc?.is_paid) {
-    return next(new AppError(STATUS_CODE.BAD_REQUEST, [], 'لا يمكنك تعديل منتج تم بيعه'));
+export const checkProductIsPaid = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+    const productDoc = await Product.findById(id);
+    if (productDoc?.is_paid) {
+      return next(
+        new AppError(STATUS_CODE.BAD_REQUEST, [], 'لا يمكنك تعديل منتج تم بيعه')
+      );
+    }
+    next();
   }
-  next();
-
-})
+);
 
 export const filterCoupon = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -224,3 +228,121 @@ export const getProduct = getOne(Product);
 export const createProduct = createOne(Product);
 export const updateProduct = updateOne(Product);
 export const deleteProduct = deleteOne(Product);
+export const getAllPros = catchAsync(
+  async (req: any, res: Response, next: NextFunction) => {
+    const user: Express.User = req.user; // User's ObjectId
+    const aggregateFeatures = new AggregateFeatures(req.query);
+
+    aggregateFeatures
+      .lookup({
+        from: 'categories', // The collection to join with
+        localField: 'category', // Field from the main collection
+        foreignField: '_id', // Field from the joined collection
+        as: 'category', // Alias for the joined data
+      })
+      .lookup({
+        from: 'coupons', // The collection to join with
+        localField: 'coupons', // Field from the main collection
+        foreignField: '_id', // Field from the joined collection
+        as: 'coupons', // Alias for the joined data
+      })
+      .lookup({
+        from: 'users', // The collection to join with
+        localField: 'user', // Field from the main collection
+        foreignField: '_id', // Field from the joined collection
+        as: 'user', // Alias for the joined data
+      })
+      .lookup({
+        from: 'stores', // The collection to join with
+        localField: 'store', // Field from the main collection
+        foreignField: '_id', // Field from the joined collection
+        as: 'store', // Alias for the joined data
+      })
+      .unwind('$category') // Unwind the category data array
+      .unwind('$user') // Unwind the user data array
+      .unwind('$store') // Unwind the store data array
+      .addFields({
+        sortField: {
+          $switch: {
+            branches: [
+              {
+                case: {
+                  $and: [
+                    { $in: ['$category._id', user?.favoriteCategories] },
+                    { $in: ['$store.city', user.favoriteCities] },
+                  ],
+                },
+                then: 0,
+              },
+              {
+                case: {
+                  $or: [
+                    { $in: ['$category._id', user?.favoriteCategories] },
+                    { $in: ['$store.city', user.favoriteCities] },
+                  ],
+                },
+                then: 1,
+              },
+            ],
+            default: 2,
+          },
+        },
+      }) // Add fields stage
+      .sort({ sortField: 1 }) // Sort stage
+      .unset('sortField') //S Unset stage
+      .filter('store.city')
+      .addFields({
+        likes: { $size: '$likedBy' },
+      })
+      .project({
+        _id: 1,
+        title: 1,
+        content: 1,
+        user: { _id: 1, name: 1, photo: 1, id: 1 }, // Include name and photo from userData
+        store: { _id: 1, name: 1, id: 1 },
+        category: 1,
+        price: 1,
+        comments: 1,
+        likedBy: 1,
+        likes: 1,
+        createdAt: 1,
+        updatedAt: 1,
+        sortField: 1,
+        // Include name and photo from storeData
+      }) // Project stage
+      .facet(); // Facet stage
+
+    let result = await aggregateFeatures.build(Product);
+
+    // const result = await Product.aggregate([
+    //   // Match products based on your criteria
+    //   {
+    //     $match: {
+    //       is_paid: false,
+    //     },
+    //   },
+    //   // Sort products
+    //   {
+    //     $addFields: {
+    //       sortField: {
+    //         $switch: {
+    //           branches: [
+    //             {
+    //               case: { $in: ['$category', user?.favoriteCategories] },
+    //               then: 0,
+    //             },
+    //           ],
+    //           default: 1,
+    //         },
+    //       },
+    //     },
+    //   },
+
+    //   {
+    //     $sort: { sortField: 1 },
+    //   },
+    //   { $unset: ['sortField'] },
+    // ]);
+    res.status(200).json(result);
+  }
+);

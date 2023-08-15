@@ -36,7 +36,13 @@ notificationSchema.pre<Query<INotification, INotification>>(
   function (next) {
     this.populate({
       path: 'user',
-      select: { name: 1, photo: 1, wallet: 0 },
+      select: {
+        name: 1,
+        photo: 1,
+        wallet: 0,
+        favoriteCategories: 0,
+        favoriteCities: 0,
+      },
     }).populate('message');
     next();
   }
