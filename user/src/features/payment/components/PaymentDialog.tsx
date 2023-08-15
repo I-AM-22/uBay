@@ -91,7 +91,7 @@ export const PaymentDialog: FC<Props> = ({ setOpen, post, open }) => {
           endIcon={<ShoppingCartCheckoutIcon sx={{ color: "white" }} />}
           variant="contained"
           onClick={handleSubmit}
-          disabled={buy.isLoading}
+          isSubmitting={buy.isLoading}
         >
           {t("submit")}
         </Submit>

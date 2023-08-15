@@ -11,7 +11,7 @@ export type DiscountProduct = {
   _id: string;
   user: User;
   product: Product;
-  expire: Date;
+  expire: Date | null;
   discount: number;
   active: boolean;
   createdAt: Date;
