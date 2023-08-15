@@ -4,7 +4,6 @@
  *  name: Wallets
  *  description: API to manage Wallets
  */
-
 /**
  * @swagger
  * /wallets/chargeMyWallet:
@@ -23,17 +22,20 @@
  *             properties:
  *               amount:
  *                 type: number
+ *               userId:
+ *                 type: string
  *           example:
- *              amount: 100
+ *             amount: 100
+ *             userId: user_Id
  *     responses:
- *       200:
+ *       '200':
  *         description: Wallet charged successfully
- *       400:
+ *       '400':
  *         description: Invalid request body
- *       401:
+ *       '401':
  *         description: Unauthorized - Invalid token
- *       403:
+ *       '403':
  *         description: Forbidden - User not allowed to perform this action
- *       500:
+ *       '500':
  *         description: Internal server error
  */

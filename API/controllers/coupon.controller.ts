@@ -13,6 +13,7 @@ import catchAsync from '@utils/catchAsync';
 import { NextFunction, Request, Response } from 'express';
 import AppError from '@utils/appError';
 import { STATUS_CODE } from './../types/helper.types';
+import Product from '@models/product.model';
 
 // @access  Private/Admin-Manager
 export const getCoupons = getAll(Coupon);
@@ -37,6 +38,15 @@ export const updateCoupon = updateOne(Coupon);
 // @access  Private/Admin-Manager
 export const deleteCoupon = deleteOne(Coupon);
 
+export const removeCouponfromProduct = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const productId = req.body.coupon.product.id;
+    await Product.findByIdAndUpdate(productId, {
+      $pull: { coupons: req.body.coupon.id },
+    });
+    next();
+  }
+);
 export const getMyCoupons = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     req.query.user = req.user?.id;
@@ -49,6 +59,19 @@ export const getProductCoupons = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     if (req.params.productId) req.params.id = req.params.productId;
     if (req.body.product) req.params.id = req.body.product;
+    next();
+  }
+);
+export const checkProductIspaid = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    if (req.body.coupon.product.is_paid)
+      return next(
+        new AppError(
+          STATUS_CODE.BAD_REQUEST,
+          [],
+          'لا يمكن تعديل او حذف خصم لمنتج تم بيعه'
+        )
+      );
     next();
   }
 );
@@ -72,23 +95,8 @@ export const couponMaker = catchAsync(
           'You are not authorized to perform this action'
         )
       );
+
+    req.body.coupon = coupon;
     next();
-  }
-);
-//give me product and return discount if exist else return discount 0
-export const getCouponByProduct = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const { productId } = req.params;
-    const couponDoc = await Coupon.findOne({
-      product: productId,
-      user: req.user?._id,
-    });
-    let discount = 0;
-    if (couponDoc) {
-      discount = couponDoc.discount;
-    }
-    res.status(STATUS_CODE.SUCCESS).json({
-      discount: discount,
-    });
   }
 );

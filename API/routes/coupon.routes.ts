@@ -9,7 +9,8 @@ import {
   deleteCoupon,
   getMyCoupons,
   couponMaker,
-  getCouponByProduct,
+  checkProductIspaid,
+  removeCouponfromProduct,
 } from '@controllers/coupon.controller';
 import passport from 'passport';
 import validate from '@middlewares/validateResource';
@@ -37,6 +38,9 @@ router
 router
   .route('/:id')
   .get(couponMaker, getCoupon)
-  .patch(couponMaker, updateCoupon)
-  .delete(couponMaker, deleteCoupon);
+  .patch(couponMaker,checkProductIspaid, updateCoupon)
+  .delete(couponMaker
+          ,checkProductIspaid
+          // ,removeCouponfromProduct
+          , deleteCoupon);
 export default router;
