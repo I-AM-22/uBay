@@ -7,7 +7,6 @@ export interface ICoupon {
   user: PopulatedDoc<Document<ObjectId>> & IUser;
   product: PopulatedDoc<Document<ObjectId>> & IProduct;
   expire: Date;
-  code: string;
   active: boolean;
 }
 

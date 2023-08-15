@@ -4,6 +4,7 @@ import { Stack } from "@mui/system";
 import { useQueryClient } from "@tanstack/react-query";
 import Submit from "components/buttons/Submit";
 import { useSnackbar } from "context/snackbarContext";
+import dayjs from "dayjs";
 import { EdgeDrawer } from "features/layout";
 import { Post } from "features/post";
 import { queryStore } from "features/shared";
@@ -26,6 +27,10 @@ export const PaymentDialog: FC<Props> = ({ setOpen, post, open }) => {
   const successSnackbar = useSuccessSnackbar();
   const queryClient = useQueryClient();
   const isDesktop = useIsDesktop();
+  const discount = post?.coupons[0]?.discount ?? 0;
+  const discountDaysToExpire =
+    (discount !== 0 && dayjs(post?.coupons[0].expire).diff(dayjs(), "day")) || 0;
+  const isThereADiscount = discount !== 0 && discountDaysToExpire >= 0;
   const handleClose = () => {
     setOpen(false);
   };
@@ -67,7 +72,18 @@ export const PaymentDialog: FC<Props> = ({ setOpen, post, open }) => {
         </Box>
         <Stack direction={"row"} mx={1} mt="auto" justifyContent={"space-between"}>
           <Typography>{t("price")}</Typography>
-          <Typography color="secondary">{priceFormatter.format(post.price)}</Typography>
+          {!isThereADiscount && priceFormatter.format(post.price)}
+          {post && isThereADiscount && (
+            <Stack direction={"row"} flexWrap={"wrap"} sx={{ color: "secondary.main" }}>
+              <Box
+                component={"span"}
+                sx={{ fontSize: 11, mr: 1, opacity: 0.5, textDecoration: "line-through" }}
+              >
+                {priceFormatter.format(post.price)}
+              </Box>
+              {priceFormatter.format(post.price - discount)}
+            </Stack>
+          )}
         </Stack>
         <Submit
           type="button"

@@ -15,18 +15,20 @@ import {
   Typography,
 } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
+import axios from "axios";
 import Skeleton from "components/feedback/Skeleton";
 import { UserAvatar } from "components/icons/UserAvatar";
 import { OptionalWrap } from "components/layout/OptionalWrap";
 import RouterLink from "components/links/RouterLink";
+import { accountQueries } from "features/account";
 import { Post } from "features/post";
 import Timeago from "lib/Timeago";
 import i18n from "lib/i18next";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { LikeButton } from "../LikeButton";
 import { PostOptions } from "../PostOptions";
-import axios from "axios";
 const priceFormatter = new Intl.NumberFormat(i18n.language, {
   style: "currency",
   currency: "SYP",
@@ -35,32 +37,47 @@ export type PostCardProps =
   | { post: Post; skeleton?: undefined; onCommentClick: () => void }
   | { post?: undefined; skeleton: true; onCommentClick?: undefined };
 export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) => {
+  const discount = post?.coupons[0]?.discount ?? 0;
+  const navigate = useNavigate();
+  const query = accountQueries.useProfile();
   const [open, setOpen] = useState(true);
+  const [userData, setUserData] = useState("");
   const { t } = useTranslation("post");
+  const token = localStorage.getItem("token");
   const handleRemove = () => {
     setOpen(false);
   };
-  const token=localStorage.getItem("token")
-  const addToChat=async()=>{
+  const addToChat = async () => {
+    if (post?.user.id == query.data?.id) return;
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/chats', {
-        name: post?.title,
-        product: post?.id,
-        user: post?.user.id
-      }, {
-        headers: {
-          'accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization':`Bearer ${token}`
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/chats",
+        {
+          name: post?.title,
+          product: post?.id,
+          user: post?.user.id,
+        },
+        {
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
-      console.log(response.data)
-      return response.data
-
+      );
+      console.log(response.data);
+      console.log("chat", response.data.chat);
+      console.log("data", response.data.data);
+      {
+        response.data.data
+          ? navigate(`/chats/${response.data.data.id}`)
+          : navigate(`/chats/${response.data.chat.id}`);
+      }
+      return response.data;
     } catch (error) {
       throw error;
     }
-  }
+  };
   return (
     <Slide direction="right" in={open} mountOnEnter appear={false} unmountOnExit>
       <Card>
@@ -90,9 +107,11 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
                       />
                     )}
                     <Chip
-                      clickable
                       color="secondary"
-                      label={priceFormatter.format(post.price)}
+                      label={
+                        (discount === 0 && priceFormatter.format(post.price)) ||
+                        (discount !== 0 && priceFormatter.format(post.price - discount))
+                      }
                       size="small"
                     />
                   </Stack>

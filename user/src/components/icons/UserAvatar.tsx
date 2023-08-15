@@ -2,9 +2,9 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import { Avatar, AvatarProps, Skeleton } from "@mui/material";
 import { FC } from "react";
 export type UserAvatarProps = AvatarProps & { src: string | undefined } & {
-    isLoading?: boolean;
-    isError?: boolean;
-  };
+  isLoading?: boolean;
+  isError?: boolean;
+};
 export const UserAvatar: FC<UserAvatarProps> = ({ src, isLoading, isError, ...props }) => {
   return (
     <>

@@ -1,4 +1,4 @@
-import { createPayment, deletePayment, getAllPayment, getPayment } from '@controllers/payment.controller';
+import { createPayment, deletePayment, getAllPayment, getPayment, hasCoupon } from '@controllers/payment.controller';
 import express from 'express';
 import passport from 'passport';
 import { restrictTo } from '@middlewares/auth.middleware';
@@ -15,6 +15,7 @@ router.route('/')
         passport.authenticate('jwt', { failWithError: true, session: false }),
         restrictTo('user'),
         validate(paymentSchema),
+        hasCoupon,
         createPayment
     );
 router.route('/:id')

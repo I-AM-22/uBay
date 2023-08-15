@@ -1,28 +1,58 @@
-import {
-  Box,
-  Divider,
-  IconButton,
-  Stack,
-  TextField,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-import { useForm } from "react-hook-form";
 import SendIcon from "@mui/icons-material/Send";
-import { useRef } from "react";
-import { grey } from "@mui/material/colors";
-import Layout from "./Layout";
+import { Box, Divider, IconButton, Stack, TextField, useMediaQuery, useTheme } from "@mui/material";
+import axios from "axios";
+import { accountQueries } from "features/account";
+import { MouseEvent, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useLocation } from "react-router-dom";
 import Message from "./Message";
 import UserInformation from "./UserInformation";
-export default function Conversation() {
+function Conversation() {
+  // const socket=io("http://localhost:3000")
+  // console.log(socket)
+
   const { control, handleSubmit, setError, setValue } = useForm();
   const submitRef = useRef<HTMLButtonElement | null>(null);
+  const [userData, setUserData] = useState("");
+  const token = localStorage.getItem("token");
+  const [message, setMessage] = useState("");
   const theme = useTheme();
   const sm = useMediaQuery(theme.breakpoints.down("sm"));
+  const pageTitle = useLocation().pathname.split("/")[2];
+  const query = accountQueries.useProfile();
+
+  const sendMessage = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+    e.preventDefault();
+    if (message.trim().length == 0) return;
+
+    // socket.emit("join chat","123amrtesting")
+    let chatId = pageTitle;
+    const userId = query.data?.id;
+
+    const data = {
+      content: message,
+      chat: chatId,
+      user: userId,
+    };
+
+    axios
+      .post(`http://localhost:3000/api/v1/chats/${chatId}/messages`, data, {
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log("Message sent successfully:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error sending message:", error);
+      });
+    setMessage("");
+  };
   return (
     <Stack
-      // gap={1}
-      // p={1}
       maxWidth={600}
       width="min(500px,100%)"
       mx="auto"
@@ -30,7 +60,7 @@ export default function Conversation() {
       bgcolor="#ddddf7"
     >
       <Box p={1} bgcolor={theme.palette.primary.main}>
-        <UserInformation />
+        <UserInformation userData={query.data?.id} />
       </Box>
       <Divider />
       <Box
@@ -38,12 +68,7 @@ export default function Conversation() {
           overflowY: "auto",
         }}
       >
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
+        <Message userData={query.data?.id} />
       </Box>
       <Box
         component={"form"}
@@ -79,6 +104,8 @@ export default function Conversation() {
                 submitRef.current?.click();
               }
             }}
+            onChange={(e) => setMessage(e.target.value)}
+            value={message}
             multiline
             maxRows={10}
           />
@@ -86,6 +113,7 @@ export default function Conversation() {
             type="submit"
             sx={{ minWidth: 40 }}
             ref={submitRef}
+            onClick={(e) => sendMessage(e)}
             // disabled={postComment.isLoading}
           >
             {/* {postComment.isLoading ? (
@@ -93,12 +121,11 @@ export default function Conversation() {
           ) : (
             <SendIcon sx={{ scale: (th) => (th.direction === "rtl" ? "-1" : "1") }} />
           )} */}
-            <SendIcon
-              sx={{ scale: (th) => (th.direction === "rtl" ? "-1" : "1") }}
-            />
+            <SendIcon sx={{ scale: (th) => (th.direction === "rtl" ? "-1" : "1") }} />
           </IconButton>
         </Stack>
       </Box>
     </Stack>
   );
 }
+export default Conversation;

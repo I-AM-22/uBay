@@ -43,6 +43,12 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
       select: false,
     },
     wallet: { type: Types.ObjectId, ref: 'Wallet' },
+    favoriteCategories: {
+      type: [Types.ObjectId],
+      ref: 'Category',
+      default: [],
+    },
+    favoriteCities: { type: [Types.ObjectId], ref: 'City', default: [] },
   },
   {
     toJSON: { virtuals: true, versionKey: false },
@@ -63,6 +69,14 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+userSchema.pre('save', async function (next) {
+  //if the password not changed end the process
+  if (this.role === 'user') return next();
+  //crypt the password
+  this.favoriteCategories = undefined;
+  this.favoriteCities = undefined;
+  next();
+});
 //Change password
 userSchema.pre('save', function (next) {
   //if the password not changed or newUser made end the process
@@ -82,12 +96,19 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.pre<Query<IUser, IUser>>(/^find/, function (next) {
-  this.populate('wallet');
+  this.populate('wallet')
+    .populate({
+      path: 'favoriteCategories',
+      select: { name: 1, description: 1 },
+    })
+    .populate({ path: 'favoriteCities', select: { name: 1 } });
   next();
 });
 
 userSchema.post('save', async function () {
   await this.populate('wallet');
+  await this.populate({ path: 'favoriteCategories' });
+  await this.populate({ path: 'favoriteCities' });
 });
 
 //pre find user

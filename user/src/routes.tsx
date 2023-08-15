@@ -2,7 +2,7 @@ import SomethingWentWrong from "components/feedback/SomethingWentWrong";
 import AuthenticatedRoute from "components/routes/AuthenticatedRoute";
 import NotAuthenticatedRoute from "components/routes/NotAuthenticatedRoute";
 import Chat from "features/chat/Chat";
-import Conversation from "features/chat/components/buy/Conversation";
+import Conversation from "features/chat/components/Conversation";
 import { AppBar, MobileNavigator } from "features/layout";
 import { HomePage } from "pages";
 import { ForgotPasswordPage } from "pages/forgot-password";
@@ -54,14 +54,8 @@ export default createBrowserRouter(
           <Route path="transactions" element={<TransactionsPage />} />
           <Route path="settings/profile" element={<ProfilePage />} />
           <Route path="settings/profile/edit" element={<ProfileEditPage />} />
-          <Route
-            path="settings/password-change"
-            element={<PasswordChangePage />}
-          />
-          <Route
-            path="settings/password-forgot"
-            element={<PasswordForgotPage />}
-          />
+          <Route path="settings/password-change" element={<PasswordChangePage />} />
+          <Route path="settings/password-forgot" element={<PasswordForgotPage />} />
           <Route path="settings/*" element={<SettingsPage />} />
           <Route path="chats" element={<Chat />} />
           <Route path="chats/:id" element={<Conversation />} />

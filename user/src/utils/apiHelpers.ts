@@ -28,8 +28,8 @@ export function parseResponseError(feedbacks: Feedbacks) {
       case "form":
         if (!feedbacks.setFormError)
           throw new Error('Backend error is "form" but didn\'t provide a setFormError');
-        data.errors.forEach((error) =>
-          feedbacks.setFormError?.(`${error.path.join(".")}`, { message: error.message })
+        data.errors.forEach(
+          (error) => feedbacks.setFormError?.(`${error.path.join(".")}`, { message: error.message })
         );
 
         break;

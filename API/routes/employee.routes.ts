@@ -1,4 +1,8 @@
-import { employeeSchema, loginInput, updateEmployeeSchema } from '../schema/employee.schema';
+import {
+  employeeSchema,
+  loginInput,
+  updateEmployeeSchema,
+} from '../schema/employee.schema';
 import { Router } from 'express';
 import {
   createEmployee,
@@ -7,6 +11,7 @@ import {
   updateEmployee,
   getAllEmployee,
   loginEmployee,
+  watchEmployee,
 } from '@controllers/employee.controller';
 import { restrictTo } from '@middlewares/auth.middleware';
 import { resizeUserImage, uploadUserPhoto } from '@middlewares/uploadingImage';
@@ -14,9 +19,12 @@ import passport from 'passport';
 import validate from '@middlewares/validateResource';
 
 const router = Router();
-router.post(('/login'),
-  validate(loginInput),
-  loginEmployee
+router.post('/login', validate(loginInput), loginEmployee);
+router.get(
+  '/watchEmployee/:employeeID',
+  passport.authenticate('jwt', { session: false, failWithError: true }),
+  restrictTo('superadmin', 'admin', 'employee'),
+  watchEmployee
 );
 router
   .route('/')

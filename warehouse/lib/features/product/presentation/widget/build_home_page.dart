@@ -1,87 +1,174 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:warehouse/core/util/chose_date_time.dart';
 import 'package:warehouse/core/util/snackbar_message.dart';
+import 'package:warehouse/core/widget/loading_widget.dart';
+import 'package:warehouse/features/product/data/model/all_product_model/all_product_model.dart';
 import 'package:warehouse/features/product/presentation/bloc/product_bloc.dart';
-import 'package:warehouse/features/product/presentation/pages/get_product_page.dart';
+import 'package:warehouse/features/product/presentation/widget/photo_grid.dart';
 import 'package:warehouse/injection_container.dart' as di;
 import '../../../../core/theme.dart';
 
 // ignore: must_be_immutable
-class BuildHomeProductPage extends StatefulWidget {
-  BuildHomeProductPage({super.key});
+class BuildHomeProductPage extends StatelessWidget {
+  const BuildHomeProductPage({super.key});
 
-  String qrCode = 'UnKnown';
-
-  @override
-  State<BuildHomeProductPage> createState() => _BuildHomeProductPageState();
-}
-
-class _BuildHomeProductPageState extends State<BuildHomeProductPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: primaryColor,
-                side: BorderSide(color: primaryColor),
-                //border width and color
-                elevation: 3,
-                //elevation of button
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(borderRadius)),
-              ),
-
-              onPressed: ()=>scanQRCode(),
-              child: const Icon(Icons.qr_code_scanner,size: 100,color: Colors.white,)),
-          const SizedBox(
-            height: 20,
-          ),
-          Text('اضغط على الزر لمسح الباركود',style: Theme.of(context).textTheme.bodyMedium,)
-        ],
+    return BlocProvider(
+      create: (context) =>
+          di.getIt<ProductBloc>()..add(const ProductEvent.getAllProduct()),
+      child: BlocConsumer<ProductBloc, ProductState>(
+        listener: (context, state) {
+          state.maybeWhen(
+              orElse: () {},
+              errorGetAllProductState: (message) {
+                SnackBarMessage().snackBarMessageError(context, message);
+              });
+        },
+        builder: (context, state) => state.maybeWhen(
+            orElse: () {
+              return Center(
+                child: Text(
+                  'خطأ غير معروف',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge!
+                      .copyWith(fontSize: 20),
+                ),
+              );
+            },
+            loading: () => const LoadingWidget(),
+            successGetAllProductState: (allProductModel) {
+              if (allProductModel.isNotEmpty) {
+                return _buildListProduct(allProductModel, context);
+              } else {
+                return Center(
+                  child: Text(
+                    'لا يوجد بيانات لعرضها',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(fontSize: 18),
+                  ),
+                );
+              }
+            },
+            errorGetAllProductState: (message) => Center(
+                  child: Text(
+                    message,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(fontSize: 20),
+                  ),
+                )),
       ),
     );
   }
 
-  AppBar _buildAppBar(BuildContext context)=>AppBar(
-    centerTitle: true,
-    actions: [
-      IconButton(onPressed: (){
-        BlocProvider.of<ProductBloc>(context).add(const ProductEvent.logOut());
-      }, icon: const Icon(Icons.logout,color: Colors.white,))
-    ],
-    title: const Text(
-      'الرئيسية',
-      style: TextStyle(color: Colors.white, fontFamily: 'Mont'),
-    ),
-  );
-  Future<void> scanQRCode() async {
-    try {
-      final qrCode = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'cancel', true, ScanMode.QR);
-      if (!mounted) return;
-
-      setState(() {
-        widget.qrCode = qrCode;
-        if (widget.qrCode.contains('isDeliver')) {
-          Map<String, dynamic> js = json.decode(qrCode);
-          print('$qrCode \n');
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => GetProductPage(
-                    payment: js['payment'], product: js['product'],isDeliver: js['isDeliver'],)));
-        }
-      });
-    } on PlatformException {
-      widget.qrCode = 'Failed to get platform version';
-    }
+  Widget _buildListProduct(
+      List<AllProductModel> allProductModel, BuildContext context) {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: ListView.separated(
+          physics: const BouncingScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (context, index) => Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(borderRadius),
+                            ),
+                            color: primaryColor,
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Text(
+                                '${allProductModel[index].product.price} ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'majed',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(fontSize: 18),
+                              ),
+                              Text(
+                                  ChoseDateTime().chose(
+                                      allProductModel[index].product.createdAt),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                          fontSize: 13, color: Colors.grey))
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          const CircleAvatar(
+                              radius: 25,
+                              backgroundImage: NetworkImage(
+                                  'https://i.imgur.com/7rlze8l.jpg')),
+                        ],
+                      ),
+                      const Divider(),
+                      Text(
+                        allProductModel[index].product.title,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(fontSize: 18),
+                      ),
+                      const SizedBox(
+                        height: 1,
+                      ),
+                      Text(
+                        allProductModel[index].product.content,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(color: Colors.black),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                          height:
+                              allProductModel[index].product.photos.length < 3
+                                  ? 200
+                                  : 400,
+                          width: double.infinity,
+                          child: PhotoGrid(
+                              imageUrls: allProductModel[index].product.photos))
+                    ],
+                  ),
+                ),
+              ),
+          separatorBuilder: (context, index) => const SizedBox(
+                height: 5,
+              ),
+          itemCount: allProductModel.length),
+    );
   }
 }

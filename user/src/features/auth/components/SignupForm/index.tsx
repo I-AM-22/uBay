@@ -41,7 +41,7 @@ export const SignupForm = () => {
     });
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Stack component={"form"} onSubmit={handleSubmit(onSubmit)} flex={1}>
       <Stack gap={8} height={"100%"}>
         <Stack gap={1}>
           <Typography color="primary.800" variant="h4" textAlign={"center"}>
@@ -53,6 +53,7 @@ export const SignupForm = () => {
         </Stack>
         <Stack
           gap={2}
+          flex={1}
           sx={{
             width: "80%",
             mx: "auto",
@@ -73,14 +74,9 @@ export const SignupForm = () => {
           />
           <EmailInput control={control} name="email" />
           <PasswordInput control={control} name="password" />
-          <PasswordInput
-            sx={{ mb: 5 }}
-            control={control}
-            name="passwordConfirm"
-            label={t("passwordConfirm")}
-          />
+          <PasswordInput control={control} name="passwordConfirm" label={t("passwordConfirm")} />
           <Submit
-            sx={{ px: 5, py: 1.5, mt: "auto" }}
+            sx={{ px: 5, py: 1.5, mx: { xs: 0, md: "auto" } }}
             isSubmitting={signup.isLoading}
           >{t`submit`}</Submit>
         </Stack>
@@ -88,7 +84,7 @@ export const SignupForm = () => {
           {t("aMember")} <RouterLink to="/login">{t("login")}</RouterLink>
         </Typography>
       </Stack>
-    </form>
+    </Stack>
   );
 };
 export default SignupForm;

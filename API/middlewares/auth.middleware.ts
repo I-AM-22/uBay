@@ -3,6 +3,7 @@ import catchAsync from '@utils/catchAsync';
 import { Request, Response, NextFunction } from 'express';
 import { STATUS_CODE } from './../types/helper.types';
 import { Model } from 'mongoose';
+import Product from '@models/product.model';
 
 //Check the role of the user
 export const restrictTo =
@@ -38,7 +39,6 @@ export const checkIsOwner = (Model: Model<any>) =>
           'Wrong use for CheckIsError'
         )
       );
-
     const item = await Model.findOne({ _id: id, user: user?.id });
     if (!item) {
       throw new AppError(

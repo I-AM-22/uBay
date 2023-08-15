@@ -99,6 +99,7 @@ const options: Options = {
     './swagger/routes/delivery.swagger.ts',
     './swagger/routes/chat.swagger.ts',
     './swagger/routes/messages.swagger.ts',
+    './swagger/routes/statistics.swagger.ts',
   ],
 };
 
