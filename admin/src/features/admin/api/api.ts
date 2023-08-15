@@ -27,7 +27,7 @@ const API = {
     const { data } = await axios.get<AdminDetails>(API_ROUTES.ADMINS.GET(id));
     return data;
   },
-  edit: async ({ id, ...body }: WithId<AdminLoginBody>) => {
+  edit: async ({ _id: id, ...body }: WithId<AdminLoginBody>) => {
     const { data } = await axios.patch<AdminAction>(API_ROUTES.ADMINS.EDIT(id), body);
     return data;
   },

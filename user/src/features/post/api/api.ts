@@ -20,7 +20,7 @@ const API = {
     const { data } = await axios.get<Post>(API_ROUTES.PRODUCTS.GET(id));
     return data;
   },
-  edit: async ({ id, ...body }: WithId<PostBody>) => {
+  edit: async ({ _id: id, ...body }: WithId<PostBody>) => {
     const { data } = await axios.patch(API_ROUTES.PRODUCTS.EDIT(id), objectToFormData(body));
     return data;
   },

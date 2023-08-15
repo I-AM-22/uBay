@@ -5,6 +5,6 @@ export type Form = {
   content: string;
   photos?: File[];
   price: number;
-  category: { id: string; name: string } | null;
+  category: { _id: string; name: string } | null;
   store: StoreSelect | null;
 };

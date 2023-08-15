@@ -25,7 +25,7 @@ const API = {
     const { data } = await axios.get<Warehouse>(API_ROUTES.STORES.GET(id));
     return data;
   },
-  edit: async ({ id, ...body }: WithId<WarehouseAction>) => {
+  edit: async ({ _id: id, ...body }: WithId<WarehouseAction>) => {
     const { data } = await axios.patch<Warehouse>(API_ROUTES.STORES.EDIT(id), body);
     return data;
   },

@@ -39,13 +39,7 @@ io.on('connection', (socket) => {
   });
   socket.on('new message', (newMessageReceived) => {
     const { chat } = newMessageReceived;
-
-    if (!chat.customer || !chat.seller)
-      return console.log('chat did not have users');
-    else {
-      socket.in(chat.seller.id).emit('message received', newMessageReceived);
-      socket.in(chat.customer.id).emit('message received', newMessageReceived);
-    }
+    socket.broadcast.in(chat).emit('message received', { newMessageReceived });
   });
 });
 

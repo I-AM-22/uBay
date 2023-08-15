@@ -16,11 +16,11 @@ const postSchema: z.ZodType<Form> = z.object({
   photos: z.array(z.any()).min(1),
   price: z.coerce.number().positive(),
   category: z.object(
-    { id: z.string(), name: z.string() },
+    { _id: z.string(), name: z.string() },
     { invalid_type_error: i18n.t("validation:required") }
   ),
   store: z.object(
-    { id: z.string(), name: z.string() },
+    { _id: z.string(), name: z.string() },
     { invalid_type_error: i18n.t("validation:required") }
   ),
 });

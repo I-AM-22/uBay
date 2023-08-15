@@ -27,18 +27,18 @@ export const CommentEdit: FC<CommentEditProps> = ({ comment, onDone }) => {
   const onSubmit = async (form: CommentBody) => {
     if (form.content === "") return;
     editComment.mutate(
-      { id: comment.id, ...form },
+      { _id: comment._id, ...form },
       {
         onSuccess: (comment) => {
           onDone();
-          queryClient.setQueryData(queryStore.comment.detail(comment.id).queryKey, editComment);
+          queryClient.setQueryData(queryStore.comment.detail(comment._id).queryKey, editComment);
           queryClient.setQueryData(
             queryStore.comment.all({ postId: comment.product }).queryKey,
             (comments: InfiniteData<APIList<Comment>> | undefined) => {
               if (comments) {
                 const pages = comments.pages.map((page) => {
                   const data = page.data.map((old) => {
-                    if (comment.id === old.id) return comment;
+                    if (comment._id === old._id) return comment;
                     return old;
                   });
                   return { ...page, data };

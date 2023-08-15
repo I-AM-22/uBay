@@ -34,7 +34,7 @@ export const EditForm: FC<EditFormProps> = ({}) => {
   };
   const onSubmit = async (body: CityAction) => {
     mutation.mutate(
-      { id, ...body },
+      { _id: id, ...body },
       {
         onSuccess: () => {
           queryClient.invalidateQueries(queryStore.city.all._def);
