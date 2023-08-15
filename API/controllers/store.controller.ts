@@ -65,8 +65,8 @@ export const getAllproductInstore = catchAsync(
       {
         $replaceRoot: {
           newRoot: {
-            product: '$product',
-            employee: {
+            Product: '$product',
+            Employee: {
               _id: { $arrayElemAt: ['$employee_seller._id', 0] },
               name: { $arrayElemAt: ['$employee_seller.name', 0] },
               email: { $arrayElemAt: ['$employee_seller.email', 0] },
