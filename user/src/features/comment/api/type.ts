@@ -14,5 +14,4 @@ export type Comment = {
   product: string;
   createdAt: string;
   updatedAt: string;
-  id: string;
 };

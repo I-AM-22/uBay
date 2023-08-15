@@ -1,9 +1,9 @@
-import { Avatar, Box, Button, Skeleton, Stack, Typography } from "@mui/material";
+import { Avatar, Button, Stack, Typography } from "@mui/material";
 import axios from "axios";
+import { accountQueries } from "features/account";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
-import { accountQueries } from "features/account";
 type per = {
   person: boolean;
 };
@@ -29,6 +29,26 @@ function Layout({ person }: per) {
   //       // Handle error
   //       console.error("Error deleting resource:", error);
   //     });
+  // }, []);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const response = await axios.get(
+  //         "http://localhost:3000/api/v1/users/me",
+  //         {
+  //           headers: {
+  //             accept: "application/json",
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       setUserData(response.data._id);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  //   fetchData();
   // }, []);
 
   useEffect(() => {
@@ -65,15 +85,15 @@ function Layout({ person }: per) {
         </>
       )}
       {data.map((item: any) => {
-        if (person && item.customer.id === query.data?.id) {
+        if (person && item.customer._id === query.data?._id) {
           return (
             <Button
-              key={item.id}
+              key={item._id}
               sx={{
                 justifyContent: "unset",
                 width: "100%",
               }}
-              onClick={() => navigate(`${item.id}`)}
+              onClick={() => navigate(`${item._id}`)}
             >
               <Stack direction="row" m="8px 0" width="100%" alignItems="center" p={1}>
                 <Avatar src={item.seller.photo} />
@@ -105,15 +125,15 @@ function Layout({ person }: per) {
               </Stack>
             </Button>
           );
-        } else if (!person && item.seller.id === query.data?.id) {
+        } else if (!person && item.seller._id === query.data?._id) {
           return (
             <Button
-              key={item.id}
+              key={item._id}
               sx={{
                 justifyContent: "unset",
                 width: "100%",
               }}
-              onClick={() => navigate(`${item.id}`)}
+              onClick={() => navigate(`${item._id}`)}
             >
               <Stack direction="row" m="8px 0" width="100%" alignItems="center" p={1}>
                 <Avatar src={item.customer.photo} />

@@ -4,6 +4,5 @@ export type Category = {
   description: string;
   createdAt: string;
   updatedAt: string;
-  id: string;
 };
-export type CategorySelect = Pick<Category, "id" | "name">;
+export type CategorySelect = Pick<Category, "_id" | "name">;

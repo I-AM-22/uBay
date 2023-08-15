@@ -19,7 +19,6 @@ export type Admin = {
   active: boolean;
   createdAt: string;
   updatedAt: string;
-  id: string;
 };
 
 export type AdminDetails = {
@@ -30,7 +29,6 @@ export type AdminDetails = {
   role: string;
   createdAt: string;
   updatedAt: string;
-  id: string;
 };
 
 export type AdminActionBody = { name: string; email: string; password: string };
@@ -43,5 +41,4 @@ export type AdminAction = {
   _id: string;
   createdAt: string;
   updatedAt: string;
-  id: string;
 };

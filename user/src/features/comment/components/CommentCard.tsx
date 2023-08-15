@@ -18,7 +18,7 @@ export const CommentCard: FC<CommentCardProps> = ({
   onDiscount,
 }) => {
   const [open, setOpen] = useState(true);
-  const isCommentAuthorMe = useIsMe(comment?.user.id ?? "");
+  const isCommentAuthorMe = useIsMe(comment?.user._id ?? "");
   const isPostAuthorMe = useIsMe(postAuthorId ?? "");
   const [editMode, setEditMode] = useState(false);
   const isNewCard = comment && dayjs(Date.now()).diff(comment.createdAt, "seconds") < 10;

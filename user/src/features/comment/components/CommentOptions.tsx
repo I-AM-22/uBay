@@ -31,7 +31,7 @@ export const CommentOptions: FC<CommentOptionsProps> = ({
   onEdit,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const isMe = useIsMe(comment.user.id);
+  const isMe = useIsMe(comment.user._id);
   const { t } = useTranslation();
   const removeComment = commentQueries.useRemove();
   const snackbar = useSnackbar();
@@ -40,10 +40,10 @@ export const CommentOptions: FC<CommentOptionsProps> = ({
     setAnchorEl(event.currentTarget);
   };
   const handleRemove = () => {
-    removeComment.mutate(comment.id, {
+    removeComment.mutate(comment._id, {
       onSuccess: () => {
         queryClient.invalidateQueries(queryStore.comment.all._def);
-        queryClient.removeQueries(queryStore.comment.detail(comment.id));
+        queryClient.removeQueries(queryStore.comment.detail(comment._id));
         handleClose();
         onRemove?.();
       },

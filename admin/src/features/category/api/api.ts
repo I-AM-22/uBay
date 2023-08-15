@@ -19,7 +19,7 @@ const API = {
     const { data } = await axios.get<Category>(API_ROUTES.CATEGORIES.GET(id));
     return data;
   },
-  edit: async ({ id, ...body }: WithId<CategoryAction>) => {
+  edit: async ({ _id: id, ...body }: WithId<CategoryAction>) => {
     const { data } = await axios.patch<Category>(API_ROUTES.CATEGORIES.EDIT(id), body);
     return data;
   },

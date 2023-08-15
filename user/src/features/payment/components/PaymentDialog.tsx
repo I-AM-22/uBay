@@ -36,12 +36,12 @@ export const PaymentDialog: FC<Props> = ({ setOpen, post, open }) => {
   };
   const handleSubmit = () => {
     buy.mutate(
-      { product: post.id, note: "." },
+      { product: post._id, note: "." },
       {
         onSuccess: () => {
           successSnackbar(t("success"));
           setOpen(false);
-          queryClient.invalidateQueries(queryStore.post.detail(post.id).queryKey);
+          queryClient.invalidateQueries(queryStore.post.detail(post._id).queryKey);
         },
         onError: parseResponseError({ snackbar }),
       }

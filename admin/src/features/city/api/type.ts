@@ -8,10 +8,9 @@ export type City = {
   name: string;
   createdAt: string;
   updatedAt: string;
-  id: string;
 };
 export type CitySelect = {
   name: string;
-  id: string;
+  _id: string;
 };
 export type CityAllParams = APIListParams;
