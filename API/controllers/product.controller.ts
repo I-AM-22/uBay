@@ -410,6 +410,7 @@ export const deleteProduct = deleteOne(Product);
 export const getAllPros = catchAsync(
   async (req: any, res: Response, next: NextFunction) => {
     const user: Express.User = req.user; // User's ObjectId
+    console.log(new mongoose.Types.ObjectId(req.user.id));
     const aggregateFeatures = new AggregateFeatures(req.query);
     aggregateFeatures
       .match({})
@@ -434,7 +435,7 @@ export const getAllPros = catchAsync(
               $expr: {
                 $and: [
                   { $in: ['$_id', '$$couponIds'] },
-                  { $eq: ['$user', new mongoose.Types.ObjectId(req.user.id)] },
+                  { $eq: ['$user', new mongoose.Types.ObjectId(req.user?.id)] },
                   {
                     $or: [
                       { $gt: ['$expire', new Date()] },
