@@ -69,7 +69,6 @@ const Message = ({ userData, messageReal}: user) => {
                   }}
                 >
                   {time.slice(11, 16)}
-                  
                 </Typography>
               </Box>
             </Box>

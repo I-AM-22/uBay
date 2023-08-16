@@ -1,20 +1,12 @@
-import {
-  Box,
-  Divider,
-  IconButton,
-  Stack,
-  TextField,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
+import { Box, Divider, IconButton, Stack, TextField, useMediaQuery, useTheme } from "@mui/material";
 import axios from "axios";
+import { accountQueries } from "features/account";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { io } from "socket.io-client";
 import Message from "./Message";
 import UserInformation from "./UserInformation";
-import { io } from "socket.io-client";
-import { accountQueries } from "features/account";
 function Conversation() {
   const submitRef = useRef<HTMLButtonElement | null>(null);
   const token = localStorage.getItem("token");
@@ -27,10 +19,10 @@ function Conversation() {
   const socket = io("http://localhost:3000");
   // console.log(query.data);
   socket.emit("join chat", pageTitle);
-  
-  useEffect(()=>{
-    if(query.data){
-      socket.emit("setup",query.data)
+
+  useEffect(() => {
+    if (query.data) {
+      socket.emit("setup", query.data);
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,7 +66,7 @@ function Conversation() {
       })
       .then((response) => {
         console.log("Message sent successfully:", response.data);
-        socket.emit("new message",response.data)
+        socket.emit("new message", response.data);
       })
       .catch((error) => {
         console.error("Error sending message:", error);

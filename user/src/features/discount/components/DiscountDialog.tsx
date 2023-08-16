@@ -21,7 +21,7 @@ import { priceFormatter } from "utils/transforms";
 export type Form = {
   product: string;
   user: string;
-  expire: Date | null;
+  expire?: Date | undefined;
   discount: number;
 };
 const schema: (price: number) => z.ZodType<Form> = (price) =>
@@ -32,7 +32,7 @@ const schema: (price: number) => z.ZodType<Form> = (price) =>
       .number()
       .positive()
       .max(price - 1, i18n.t("discount:form.discountCannotBeEqualToPrice")),
-    expire: z.date().min(dayjs().add(1, "day").toDate()).nullable(),
+    expire: z.date().min(dayjs().add(1, "day").toDate()).optional(),
   });
 export type DiscountFormProps = {
   post: Post;
@@ -44,12 +44,13 @@ export const DiscountForm: FC<DiscountFormProps> = ({ post, user, onSuccess }) =
     resolver: zodResolver(schema(post.price)),
     defaultValues: {
       discount: 0,
-      expire: dayjs().add(7, "day").toDate(),
+      expire: undefined,
       product: post._id,
       user: user._id,
     },
   });
   const queryClient = useQueryClient();
+  console.log(watch("expire"));
 
   const createDiscount = discountQueries.useCreate();
   const snackbar = useSnackbar();
@@ -103,9 +104,12 @@ export const DiscountForm: FC<DiscountFormProps> = ({ post, user, onSuccess }) =
           />
           <TextField
             type="date"
-            value={dayjs(watch("expire")).format("YYYY-MM-DD")}
+            value={watch("expire") && dayjs(watch("expire")).format("YYYY-MM-DD")}
             control={control}
-            onChange={(event) => setValue("expire", new Date(event.target.value))}
+            onChange={(event) =>
+              setValue("expire", event.target.value ? new Date(event.target.value) : undefined)
+            }
+            InputLabelProps={{ shrink: true }}
             label={t("expire")}
             name="expire"
           />
