@@ -39,7 +39,10 @@ io.on('connection', (socket) => {
   });
   socket.on('new message', (newMessageReceived) => {
     const { chat } = newMessageReceived;
-    socket.broadcast.in(chat).emit('message received', { newMessageReceived });
+    // socket.broadcast.in(chat).emit('message received', { newMessageReceived });
+    socket.to(chat.id).emit("message received",{newMessageReceived});
+    console.log("new Message Arrived",newMessageReceived)
+    
   });
 });
 
