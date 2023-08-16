@@ -93,6 +93,46 @@ const Message = ({ userData,messageReal }: user) => {
           </Box>
         );
       })}
+      {messageReal.map((message: any, index) => {
+        const time = message.newMessageReceived.createdAt;
+        const isMe = message.newMessageReceived.user.id == userData;
+        return (
+          <Box
+            key={index}
+            sx={{
+              display: "flex",
+              flexDirection: isMe ? "row" : "row-reverse",
+            }}
+          >
+            <Box
+              bgcolor={isMe ? theme.palette.primary.main : "white"}
+              sx={{
+                maxWidth: "90%",
+
+                p: 1,
+                borderRadius: isMe ? "0 10px 10px 10px" : "10px 0px 10px 10px",
+                display: "flex",
+                position: "relative",
+              }}
+            >
+              <Typography pr={5} color={isMe ? "white" : "text.primary"}>
+                {message.newMessageReceived.content}
+              </Typography>
+              <Typography
+                variant="body2"
+                color={isMe ? "#fff7" : "text.secondary"}
+                sx={{
+                  position: "absolute",
+                  bottom: 2,
+                  right: 6,
+                }}
+              >
+                {time.slice(11, 16)}
+              </Typography>
+            </Box>
+          </Box>
+        );
+      })}
     </Stack>
   );
 };

@@ -31,6 +31,7 @@ function Conversation() {
   },[query])
   console.log(receiveMes)
   useEffect(() => {
+    console.log("hello")
     const listener = (data:any) => {
       console.log("data from conversation", data);
       setReceiveMes((prev:any)=>[...prev,data])
@@ -97,7 +98,7 @@ function Conversation() {
           <UserInformation userData={query.data?._id} />
         </Box>
         <Divider />
-        <Message userData={query.data?._id} messageReal={[]} />
+        <Message userData={query.data?._id} messageReal={receiveMes} />
         <Box
           component={"form"}
           sx={{
