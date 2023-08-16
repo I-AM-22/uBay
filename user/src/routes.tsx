@@ -1,8 +1,7 @@
 import SomethingWentWrong from "components/feedback/SomethingWentWrong";
 import AuthenticatedRoute from "components/routes/AuthenticatedRoute";
 import NotAuthenticatedRoute from "components/routes/NotAuthenticatedRoute";
-import Chat from "features/chat/Chat";
-import Conversation from "features/chat/components/Conversation";
+import { Chat, Conversation } from "features/chat";
 import { AppBar, MobileNavigator } from "features/layout";
 import { HomePage } from "pages";
 import { ForgotPasswordPage } from "pages/forgot-password";
