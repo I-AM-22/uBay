@@ -3,18 +3,18 @@ import Loading from "components/feedback/Loading";
 import { useIsMe } from "features/account";
 import { EdgeDrawer, EdgeDrawerProps } from "features/layout";
 import { paymentQueries } from "features/payment";
-import { PostMine } from "features/post";
+import { ProductMine } from "features/post";
 import { useIsDesktop } from "hooks/useIsDesktop";
 import { FC, useId } from "react";
 import QRCode from "react-qr-code";
 import { isBackendError } from "utils/apiHelpers";
 export type ProductQrProps = Omit<EdgeDrawerProps, "children"> & {
-  post: PostMine["product"] | null;
+  post: ProductMine | null;
   onClose: () => void;
 };
 export const ProductQr: FC<ProductQrProps> = ({ post, onClose, ...props }) => {
   const isDesktop = useIsDesktop();
-  const isSeller = useIsMe(post?.user ?? "");
+  const isSeller = useIsMe(post?.seller._id ?? "");
   const generate = paymentQueries.useGenerateQr(
     { product: props.open && post ? post._id : "" },
     isSeller
