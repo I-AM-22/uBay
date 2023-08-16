@@ -24,7 +24,6 @@ io.on('connection', (socket) => {
   socket.on('setup', (userData) => {
     socket.join(userData.id);
     socket.emit('connected');
-    console.log(userData);
   });
   socket.on('join chat', (room) => {
     socket.join(room);
@@ -37,12 +36,10 @@ io.on('connection', (socket) => {
   socket.on('stop typing', ({ chatId, userId }) => {
     socket.broadcast.in(chatId).emit('stop typing', { chatId, userId });
   });
-  socket.on('new message', (newMessageReceived) => {
-    const { chat } = newMessageReceived;
+  socket.on('new message', ({ chatId, message }) => {
     // socket.broadcast.in(chat).emit('message received', { newMessageReceived });
-    socket.to(chat.id).emit("message received",{newMessageReceived});
-    console.log("new Message Arrived",newMessageReceived)
-    
+    socket.to(chatId).emit('message received', { newMessageReceived: message });
+    console.log('new Message Arrived', {message,chatId});
   });
 });
 

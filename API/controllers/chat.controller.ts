@@ -42,9 +42,7 @@ export const accessChat = catchAsync(
     // If the chat existed
     const isChat = await Chat.findOne(req.body);
     if (isChat) {
-      return res
-        .status(STATUS_CODE.SUCCESS)
-        .json({  data: isChat });
+      return res.status(STATUS_CODE.SUCCESS).json({ data: isChat });
     }
 
     const createdChat = await Chat.create(req.body);
@@ -59,6 +57,7 @@ export const getAllChats = catchAsync(
     }).sort({
       updatedAt: -1,
     });
+
     res.status(STATUS_CODE.SUCCESS).json({ result: chats.length, data: chats });
   }
 );

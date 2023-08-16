@@ -71,7 +71,13 @@ export const createOne = (Model: Model<any>, addFiled?: any): RequestHandler =>
       newDoc.password = undefined;
       newDoc.includeInActive = undefined;
     }
-    res.status(STATUS_CODE.CREATED).json(newDoc);
+    if (Model.modelName === 'Message') {
+      let { content, _id, createdAt, user } = newDoc;
+ 
+      res.status(STATUS_CODE.CREATED).json({ content, _id, createdAt, user });
+    } else {
+      res.status(STATUS_CODE.CREATED).json(newDoc);
+    }
   });
 
 /**
