@@ -4,7 +4,7 @@ import { navLinks } from "constants/navLinks";
 import { FC, useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getIndexFromLink, getLinkFromIndex } from "../utils/linksParsers";
-
+export const BOTTOM_NAVIGATOR_HEIGHT_IN_SPACINGS = 7;
 export const BottomNavigator: FC<{}> = ({}) => {
   const [currentIndex, setCurrentIndex] = useState<number | false>(false);
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export const BottomNavigator: FC<{}> = ({}) => {
   }, [location]);
   return (
     <>
-      <Box mt={7} />
+      <Box mt={BOTTOM_NAVIGATOR_HEIGHT_IN_SPACINGS} />
       <Paper
         sx={{
           position: "fixed",
