@@ -42,18 +42,18 @@ export type Post = {
 };
 
 export type PostMineParams = { isBuy: boolean };
-export type PostMine<IsBuy extends boolean = boolean> = {
+export type PostMine = {
   wait: ProductMine[];
   seller: ProductMine[];
   customer: ProductMine[];
-  unpaid: IsBuy extends false ? ProductMine[] : never;
+  unpaid: Product[];
 };
-export type DeliveryStatusEnum = keyof PostMine<boolean>;
+export type DeliveryStatusEnum = keyof PostMine;
 export type ProductMine = {
   _id: string;
   payment: Payment;
-  customer_date: null;
-  seller_date: null;
+  customer_date: string;
+  seller_date: string;
   createdAt: Date;
   product: Product;
   seller: Seller;
