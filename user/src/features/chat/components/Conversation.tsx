@@ -1,56 +1,59 @@
 import SendIcon from "@mui/icons-material/Send";
 import { Box, Divider, IconButton, Stack, TextField, useMediaQuery, useTheme } from "@mui/material";
 import axios from "axios";
+import Loading from "components/feedback/Loading";
 import { accountQueries } from "features/account";
 import { BOTTOM_NAVIGATOR_HEIGHT_IN_SPACINGS } from "features/layout";
-import { MouseEvent, useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { ElementRef, MouseEvent, useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
-import Chat from "../Chat";
+import Chat from "./Chat";
 import Message from "./Message";
 import UserInformation from "./UserInformation";
 function Conversation() {
+  const { id } = useParams();
+  return <ConversationById key={id} />;
+}
+const socket = io("http://localhost:3000");
+function ConversationById() {
   const submitRef = useRef<HTMLButtonElement | null>(null);
   const token = localStorage.getItem("token");
   const [message, setMessage] = useState("");
-  const [receiveMes,setReceiveMes]=useState<any>([]);
+  const [receiveMes, setReceiveMes] = useState<any>([]);
   const theme = useTheme();
   const isMdOrLarger = useMediaQuery(theme.breakpoints.up("md"));
-  const pageTitle = useLocation().pathname.split("/")[2];
+  const [isSending, setIsSending] = useState(false);
+  const { id } = useParams();
   const query = accountQueries.useProfile();
-  const socket = io("http://localhost:3000");
+  const messagesRef = useRef<ElementRef<typeof Message>>();
   // console.log(query.data);
-  socket.emit("join chat", pageTitle);
-
+  useEffect(() => {
+    socket.emit("join chat", id);
+  }, [id]);
   useEffect(() => {
     if (query.data) {
       socket.emit("setup", query.data);
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[query])
-  console.log(receiveMes)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
+  console.log(receiveMes);
   useEffect(() => {
-    console.log("hello")
-    const listener = (data:any) => {
-      console.log("data from conversation", data);
-      setReceiveMes((prev:any)=>[...prev,data])
+    const listener = (data: any) => {
+      setReceiveMes((prev: any) => [...prev, data.newMessageReceived]);
+      messagesRef.current?.scrollToEnd();
     };
-  
-    socket.on('message received', listener);
-  
+
+    socket.on("message received", listener);
+
     return () => {
-      socket.off('message received', listener);
+      socket.off("message received", listener);
     };
-  }, [socket]);
-  const sendMessage = (
-    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-  ) => {
+  }, []);
+  const sendMessage = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
     e.preventDefault();
     if (message.trim().length == 0) return;
-
-    // socket.emit("join chat","123amrtesting")
-    const chatId = pageTitle;
+    const chatId = id;
     const userId = query.data?._id;
 
     const data = {
@@ -59,6 +62,7 @@ function Conversation() {
       user: userId,
     };
 
+    setIsSending(true);
     axios
       .post(`http://localhost:3000/api/v1/chats/${chatId}/messages`, data, {
         headers: {
@@ -68,19 +72,19 @@ function Conversation() {
         },
       })
       .then((response) => {
-        console.log("Message sent successfully:", response.data);
         socket.emit("new message", response.data);
+        setIsSending(false);
+        setReceiveMes((prev: any) => [...prev, response.data]);
+        setMessage("");
+        messagesRef.current?.scrollToEnd();
       })
       .catch((error) => {
         console.error("Error sending message:", error);
       });
-    setMessage("");
   };
-  
-    
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
 
-  console.log(receiveMes)
   return (
     <Stack direction={"row"} flex={1}>
       {isMdOrLarger && <Chat />}
@@ -98,7 +102,7 @@ function Conversation() {
           <UserInformation userData={query.data?._id} />
         </Box>
         <Divider />
-        <Message userData={query.data?._id} messageReal={receiveMes} />
+        <Message ref={messagesRef} userData={query.data?._id} messageReal={receiveMes} />
         <Box
           component={"form"}
           sx={{
@@ -140,12 +144,11 @@ function Conversation() {
               onClick={(e) => sendMessage(e)}
               // disabled={postComment.isLoading}
             >
-              {/* {postComment.isLoading ? (
-            <Loading size={15} />
-          ) : (
-            <SendIcon sx={{ scale: (th) => (th.direction === "rtl" ? "-1" : "1") }} />
-          )} */}
-              <SendIcon sx={{ scale: (th) => (th.direction === "rtl" ? "-1" : "1") }} />
+              {isSending ? (
+                <Loading size={15} />
+              ) : (
+                <SendIcon sx={{ scale: (th) => (th.direction === "rtl" ? "-1" : "1") }} />
+              )}
             </IconButton>
           </Stack>
         </Box>

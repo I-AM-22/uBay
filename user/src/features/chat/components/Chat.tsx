@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import AppBarChat from "./components/AppBar";
+import AppBarChat from "./AppBar";
 
 export default function Chat() {
   return (
