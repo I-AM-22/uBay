@@ -5,6 +5,5 @@ export * from "./components/Logout";
 export * from "./components/ProfileBasicInformation";
 export * from "./components/ProfileEditForm";
 export * from "./components/ProfilePhoto";
-export * from "./components/ProfileRemoveDialog";
 export * from "./components/SettingsTabs";
 export * from "./hooks/useIsMe";

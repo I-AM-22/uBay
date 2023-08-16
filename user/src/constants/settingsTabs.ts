@@ -31,9 +31,6 @@ export const accountLists: {
   },
   {
     title: "account",
-    items: [
-      { href: "/settings/profile/remove", name: "profile-remove", color: "error.main" },
-      { href: "/settings/logout", name: "profile-logout", color: "error.main" },
-    ],
+    items: [{ href: "/settings/logout", name: "profile-logout", color: "error.main" }],
   },
 ];

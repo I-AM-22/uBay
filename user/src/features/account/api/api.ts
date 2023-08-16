@@ -12,10 +12,6 @@ const API = {
     const { data } = await axios.patch<User>(API_ROUTES.USERS.ME, objectToFormData(body));
     return data;
   },
-  remove: async () => {
-    const { data } = await axios.delete(API_ROUTES.USERS.ME);
-    return data;
-  },
 };
 
 export default API;
