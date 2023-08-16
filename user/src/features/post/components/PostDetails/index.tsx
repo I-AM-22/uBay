@@ -1,7 +1,6 @@
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import DiscountIcon from "@mui/icons-material/Discount";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
-import TelegramIcon from "@mui/icons-material/Telegram";
 import {
   Box,
   Button,
@@ -31,6 +30,7 @@ import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollRestoration, useNavigate, useSearchParams } from "react-router-dom";
 import { priceFormatter } from "utils/transforms";
+import { ChatButton } from "../ChatButton";
 import { LikeButton } from "../LikeButton";
 import { PostOptions } from "../PostOptions";
 import { ImageDialog } from "./ImageDialog";
@@ -169,9 +169,7 @@ export const PostDetails: FC<PostCardProps> = ({ post, skeleton }) => {
                   <Button onClick={onCommentClick}>
                     <ChatBubbleIcon />
                   </Button>
-                  <Button>
-                    <TelegramIcon />
-                  </Button>
+                  <ChatButton post={post} />
                 </>
               )}
               {skeleton && (
