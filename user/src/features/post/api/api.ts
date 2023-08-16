@@ -37,7 +37,7 @@ const API = {
     return data;
   },
   mine: async (params: PostMineParams) => {
-    const { data } = await axios.get<PostMine[]>(API_ROUTES.PRODUCTS.MINE, {
+    const { data } = await axios.get<PostMine>(API_ROUTES.PRODUCTS.MINE, {
       params,
     });
     return data;

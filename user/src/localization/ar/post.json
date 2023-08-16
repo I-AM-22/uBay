@@ -11,6 +11,8 @@
   "discounts": "عرض الخصومات",
   "discountExpires": "الحسم ينتهي بعد {{days}} أيام",
   "generateQr": "توليد رمز QR",
+  "customer_date": "تاريخ إستلام المشتري",
+  "seller_date": "تاريخ تسليم البائع",
   "form": {
     "formAdd": "إضافة منشور جديد",
     "formEdit": "تعديل المنشور",
