@@ -11,7 +11,7 @@ import AppError from '@utils/appError';
 import catchAsync from '@utils/catchAsync';
 import { STATUS_CODE } from '../types/helper.types';
 import Delivery from '@models/delivery.model';
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 
 export const getAllStores = getAll(Store);
 export const getStore = getOne(Store);
@@ -53,6 +53,17 @@ export const getAllproductInstore = catchAsync(
       },
       {
         $lookup: {
+          from: 'users',
+          localField: 'product.user',
+          foreignField: '_id',
+          as: 'product.user',
+        },
+      },
+      {
+        $unwind: '$product.user',
+      },
+      {
+        $lookup: {
           from: 'employees',
           localField: 'employee_seller',
           foreignField: '_id',
@@ -60,17 +71,25 @@ export const getAllproductInstore = catchAsync(
         },
       },
       {
-        $unwind: '$product',
+        $unwind: '$employee_seller',
       },
+      // { $unset: [] },
       {
-        $replaceRoot: {
-          newRoot: {
-            Product: '$product',
-            Employee: {
-              _id: { $arrayElemAt: ['$employee_seller._id', 0] },
-              name: { $arrayElemAt: ['$employee_seller.name', 0] },
-              email: { $arrayElemAt: ['$employee_seller.email', 0] },
+        $project: {
+          Product: {
+            _id: '$product._id',
+            title: '$product.title',
+            price: '$product.price',
+            user: {
+              _id: '$product.user._id',
+              name: '$product.user.name',
+              photo: '$product.user.photo',
             },
+          },
+          Employee: {
+            _id: '$employee_seller._id',
+            name: '$employee_seller.name',
+            email: '$employee_seller.email',
           },
         },
       },

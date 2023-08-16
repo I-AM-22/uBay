@@ -69,10 +69,11 @@ export const getStatistics = catchAsync(
     ]);
 
     const commentsCountByDay = await Comment.aggregate([
+      { $match: {} },
       {
         $group: {
           _id: {
-            $dateToString: { format: '%Y-%m-%d', date: '$createdAt' },
+            $dateToString: { format: '%m-%d', date: '$createdAt' },
           },
           count: { $sum: 1 },
         },
@@ -84,7 +85,7 @@ export const getStatistics = catchAsync(
       {
         $group: {
           _id: {
-            $dateToString: { format: '%Y-%m-%d', date: '$createdAt' },
+            $dateToString: { format: '%m-%d', date: '$createdAt' },
           },
           count: { $sum: 1 },
         },
@@ -98,13 +99,41 @@ export const getStatistics = catchAsync(
       {
         $group: {
           _id: {
-            $dateToString: { format: '%Y-%m-%d', date: '$createdAt' },
+            $dateToString: { format: '%m-%d', date: '$createdAt' },
           },
           count: { $sum: 1 },
         },
       },
     ]);
+    const result: any = {};
 
+    commentsCountByDay.forEach((entry) => {
+      const date = entry._id;
+      if (!result[date]) {
+        result[date] = {};
+      }
+      result[date].comments = entry.count;
+    });
+
+    productsCountByDay.forEach((entry) => {
+      const date = entry._id;
+      if (!result[date]) {
+        result[date] = {};
+      }
+      result[date].products = entry.count;
+    });
+    deliveriesCountByDay.forEach((entry) => {
+      const date = entry._id;
+      if (!result[date]) {
+        result[date] = {};
+      }
+      result[date].soldProducts = entry.count;
+    });
+    let byDay = [];
+    for (const day in result) {
+      const value = result[day];
+      byDay.push({ day, ...value });
+    }
     // Call the function to retrieve the counts
     res.status(STATUS_CODE.SUCCESS).json({
       users,
@@ -114,11 +143,7 @@ export const getStatistics = catchAsync(
       soldProducts,
       salesPercentage,
       salesPerCategory,
-      countByDay: {
-        commentsCountByDay,
-        productsCountByDay,
-        deliveriesCountByDay,
-      },
+      byDay,
     });
   }
 );
