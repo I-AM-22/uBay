@@ -15,6 +15,8 @@ import Delivery from '@models/delivery.model';
 import APIFeatures from '../utils/apiFeatures';
 import AggregateFeatures from '@utils/aggregateFeatures';
 import User from '../models/user.model';
+import mongoose, { Types } from 'mongoose';
+
 
 export const like = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -299,7 +301,7 @@ export const myProduct = catchAsync(
                   $expr: {
                     $and: [
                       { $in: ['$_id', '$$couponIds'] },
-                      { $eq: ['$user', req.user?._id] },
+                      { $eq: ['$user', new mongoose.Types.ObjectId(req.user?.id)] },
                       {
                         $or: [
                           { $gt: ['$expire', new Date()] },
@@ -409,7 +411,6 @@ export const getAllPros = catchAsync(
   async (req: any, res: Response, next: NextFunction) => {
     const user: Express.User = req.user; // User's ObjectId
     const aggregateFeatures = new AggregateFeatures(req.query);
-
     aggregateFeatures
       .match({})
       .lookup({
@@ -433,7 +434,7 @@ export const getAllPros = catchAsync(
               $expr: {
                 $and: [
                   { $in: ['$_id', '$$couponIds'] },
-                  { $eq: ['$user', req.user?._id] },
+                  { $eq: ['$user', new mongoose.Types.ObjectId(req.user.id)] },
                   {
                     $or: [
                       { $gt: ['$expire', new Date()] },
