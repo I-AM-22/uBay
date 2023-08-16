@@ -11,5 +11,5 @@ export const keys = createQueryKeys("payment", {
 export const queries = {
   useBuy: () => useMutation(API.buy),
   useGenerateQr: (body: PaymentGenerateQrBody, isSeller: boolean) =>
-    useQuery({ ...keys.generateQr(body, isSeller), enabled: !!body.product }),
+    useQuery({ ...keys.generateQr(body, isSeller), enabled: !!body.product, retry: false }),
 };
