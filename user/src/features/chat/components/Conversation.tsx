@@ -19,6 +19,7 @@ function Conversation() {
   const submitRef = useRef<HTMLButtonElement | null>(null);
   const token = localStorage.getItem("token");
   const [message, setMessage] = useState("");
+  const [receiveMes,setReceiveMes]=useState<any>([]);
   const theme = useTheme();
   const sm = useMediaQuery(theme.breakpoints.down("sm"));
   const pageTitle = useLocation().pathname.split("/")[2];
@@ -34,12 +35,19 @@ function Conversation() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[query])
+  console.log(receiveMes)
+  useEffect(() => {
+    const listener = (data:any) => {
+      console.log("data from conversation", data);
+      setReceiveMes((prev:any)=>[...prev,data])
+    };
   
-  useEffect(()=>{
-    socket.on('message received',(data)=>{
-      console.log("data from conversation",data)
-    })
-  },[socket])
+    socket.on('message received', listener);
+  
+    return () => {
+      socket.off('message received', listener);
+    };
+  }, [socket]);
   const sendMessage = (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
@@ -73,6 +81,11 @@ function Conversation() {
       });
     setMessage("");
   };
+  
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  console.log(receiveMes)
   return (
     <Stack
       maxWidth={600}
@@ -90,7 +103,7 @@ function Conversation() {
           overflowY: "auto",
         }}
       >
-        <Message userData={query.data?._id} />
+        <Message userData={query.data?._id} messageReal={receiveMes}/>
       </Box>
       <Box
         component={"form"}

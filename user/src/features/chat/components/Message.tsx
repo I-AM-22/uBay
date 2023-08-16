@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 type user = {
   userData: string | undefined;
+  messageReal:[]
 };
-const Message = ({ userData }: user) => {
-  const userID = userData;
+const Message = ({ userData, messageReal}: user) => {
   const token = localStorage.getItem("token");
   const pageTitle = useLocation().pathname.split("/")[2];
   const [messages, setMessages] = useState([]);
   const theme = useTheme();
+  console.log("from message",messageReal)
   useEffect(() => {
     const fetchMessages = async () => {
       try {
