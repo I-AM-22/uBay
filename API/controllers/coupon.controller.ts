@@ -40,9 +40,9 @@ export const deleteCoupon = deleteOne(Coupon);
 
 export const removeCouponfromProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const productId = req.body.coupon.product.id;
+    const productId = req.body.coupon.product._id;
     await Product.findByIdAndUpdate(productId, {
-      $pull: { coupons: req.body.coupon.id },
+      $pull: { coupons: req.body.coupon._id },
     });
     next();
   }

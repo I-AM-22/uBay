@@ -41,6 +41,6 @@ router
   .patch(couponMaker,checkProductIspaid, updateCoupon)
   .delete(couponMaker
           ,checkProductIspaid
-          // ,removeCouponfromProduct
+          ,removeCouponfromProduct
           , deleteCoupon);
 export default router;

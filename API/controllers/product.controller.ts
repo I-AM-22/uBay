@@ -45,8 +45,76 @@ export const myProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { isBuy } = req.query;
     let pipeline: any = [];
-
+    let unpaid: any;
     if (isBuy == 'false') {
+      unpaid = await Product.aggregate([
+        { $match: { is_paid: false, user: req.user?._id } },
+        {
+          $lookup: {
+            from: 'coupons',
+            localField: 'coupons',
+            foreignField: '_id',
+            as: 'coupons',
+          },
+        },
+
+        {
+          $unwind: { path: '$coupons', preserveNullAndEmptyArrays: true }, // Unwind the coupons array
+        },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'coupons.user',
+            foreignField: '_id',
+            as: 'coupons.user',
+          },
+        },
+        {
+          $unwind: { path: '$coupons.user', preserveNullAndEmptyArrays: true }, // Unwind the userDetails array
+        },
+        {
+          $group: {
+            _id: '$_id',
+            title: { $first: '$title' },
+            photos: { $first: '$photos' },
+            price: { $first: '$price' },
+            category: { $first: '$category' },
+            store: { $first: '$store' },
+            coupons: {
+              $push: {
+                $cond: {
+                  if: { $eq: ['$coupons', {}] }, // Check if coupons field is empty object
+                  then: '$$REMOVE', // If empty, remove the field
+                  else: {
+                    _id: '$coupons._id',
+                    expire: '$coupons.expire',
+                    discount: '$coupons.discount',
+                    active: '$coupons.active',
+                    user: '$coupons.userDetails',
+                  },
+                },
+              },
+            },
+          },
+        },
+        {
+          $project: {
+            _id: 1,
+            title: 1,
+            price: 1,
+            photos: 1,
+            category: 1,
+            store: 1,
+            coupons: {
+              _id: 1,
+              user: { _id: 1, name: 1, photo: 1 },
+              expire: 1,
+              active: 1,
+              discount: 1,
+            },
+          },
+        },
+      ]);
       pipeline = [
         {
           $lookup: {
@@ -58,6 +126,17 @@ export const myProduct = catchAsync(
         },
         {
           $unwind: '$payment',
+        },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'payment.customer',
+            foreignField: '_id',
+            as: 'customer',
+          },
+        },
+        {
+          $unwind: '$customer',
         },
         {
           $lookup: {
@@ -75,48 +154,26 @@ export const myProduct = catchAsync(
             from: 'users',
             localField: 'product.user',
             foreignField: '_id',
-            as: 'user',
+            as: 'product.user',
           },
         },
         {
-          $unwind: '$user',
+          $unwind: '$product.user',
         },
-        // {
-        //   $lookup: {
-        //     from: 'users',
-        //     localField: 'payment.customer',
-        //     foreignField: '_id',
-        //     as: 'customer',
-        //   },
-        // },
-        // {
-        //   $unwind: '$customer',
-        // },
-        // {
-        //   $lookup: {
-        //     from: 'wallets',
-        //     localField: 'customer.wallet',
-        //     foreignField: '_id',
-        //     as: 'walletCustomer',
-        //   },
-        // },
-        // {
-        //   $unwind: '$walletCustomer',
-        // },
         {
           $lookup: {
             from: 'wallets',
-            localField: 'user.wallet',
+            localField: 'product.user.wallet',
             foreignField: '_id',
-            as: 'wallet',
+            as: 'product.user.wallet',
           },
         },
         {
-          $unwind: '$wallet',
+          $unwind: '$product.user.wallet',
         },
         {
           $match: {
-            'product.user': req.user?._id,
+            'product.user._id': req.user?._id,
           },
         },
         {
@@ -153,28 +210,42 @@ export const myProduct = catchAsync(
           $sort: { sortField: 1 },
         },
         {
-          $replaceRoot: {
-            newRoot: {
-              delivery_status: '$delivery_status',
-              product: {
-                'user': {
-                  'id': '$user._id',
-                  'wallet': '$wallet'
-                },
-                '_id': '$product._id',
-                'title': '$product.title',
-                'content': '$product.content',
-                'photos': '$product.photos',
-                'price': '$product.title',
-                'store': '$product.store',
-                'discount': '$product.discount',
-                'priceAfterDiscount': '$payment.price'
-              },
-              customer: {
-                'id': '$payment.customer',
-                // 'wallet': '$walletCustomer'
-              }
+          $project: {
+            _id: 1,
+            payment: {
+              _id: 1,
+              price_after: '$payment.price',
+              is_discount: 1,
+              createdAt: 1,
             },
+            customer: { name: 1, _id: 1, photo: 1 },
+            createdAt: 1,
+            customer_date: 1,
+            seller_date: 1,
+            product: {
+              _id: 1,
+              title: 1,
+              price: 1,
+              photos: 1,
+              category: 1,
+              store: 1,
+            },
+          },
+        },
+        {
+          $facet: {
+            wait: [
+              { $match: { delivery_status: 'wait' } },
+              { $unset: 'delivery_status' },
+            ],
+            seller: [
+              { $match: { delivery_status: 'seller' } },
+              { $unset: 'delivery_status' },
+            ],
+            customer: [
+              { $match: { delivery_status: 'customer' } },
+              { $unset: 'delivery_status' },
+            ],
           },
         },
       ];
@@ -207,45 +278,12 @@ export const myProduct = catchAsync(
             from: 'users',
             localField: 'product.user',
             foreignField: '_id',
-            as: 'user',
+            as: 'seller',
           },
         },
         {
-          $unwind: '$user',
+          $unwind: '$seller',
         },
-        {
-          $lookup: {
-            from: 'users',
-            localField: 'payment.customer',
-            foreignField: '_id',
-            as: 'customer',
-          },
-        },
-        {
-          $unwind: '$customer',
-        },
-        {
-          $lookup: {
-            from: 'wallets',
-            localField: 'customer.wallet',
-            foreignField: '_id',
-            as: 'walletCustomer',
-          },
-        },
-        {
-          $unwind: '$walletCustomer',
-        },
-        // {
-        //   $lookup: {
-        //     from: 'wallets',
-        //     localField: 'user.wallet',
-        //     foreignField: '_id',
-        //     as: 'wallet',
-        //   },
-        // },
-        // {
-        //   $unwind: '$wallet',
-        // },
         {
           $match: {
             'payment.customer': req.user?._id,
@@ -294,35 +332,52 @@ export const myProduct = catchAsync(
           $sort: { sortField: 1 },
         },
         {
-          $replaceRoot: {
-            newRoot: {
-              delivery_status: '$delivery_status',
-              product: {
-                'user': {
-                  'id': '$user._id',
-                  // 'wallet': '$wallet'
-                },
-                '_id': '$product._id',
-                'title': '$product.title',
-                'content': '$product.content',
-                'photos': '$product.photos',
-                'price': '$product.title',
-                'store': '$product.store',
-                'discount': '$product.discount',
-                'priceAfterDiscount': '$payment.price'
-              },
-              customer: {
-                'id': '$customer._id',
-                'wallet': '$walletCustomer'
-              }
+          $project: {
+            delivery_status: 1,
+            _id: 1,
+            payment: {
+              _id: 1,
+              price_after: '$payment.price',
+              is_discount: 1,
+              createdAt: 1,
             },
+            seller: { name: 1, _id: 1, photo: 1 },
+            createdAt: 1,
+            customer_date: 1,
+            seller_date: 1,
+            product: {
+              _id: 1,
+              title: 1,
+              price: 1,
+              photos: 1,
+              category: 1,
+              store: 1,
+              coupons: 1,
+            },
+          },
+        },
+        {
+          $facet: {
+            wait: [
+              { $match: { delivery_status: 'wait' } },
+              { $unset: 'delivery_status' },
+            ],
+            seller: [
+              { $match: { delivery_status: 'seller' } },
+              { $unset: 'delivery_status' },
+            ],
+            customer: [
+              { $match: { delivery_status: 'customer' } },
+              { $unset: 'delivery_status' },
+            ],
           },
         },
       ];
     }
     // Execute the aggregation pipeline
     const products = await Delivery.aggregate(pipeline);
-    res.status(STATUS_CODE.SUCCESS).json(products);
+
+    res.status(STATUS_CODE.SUCCESS).json({ ...products[0], unpaid });
   }
 );
 
@@ -363,11 +418,34 @@ export const getAllPros = catchAsync(
         foreignField: '_id', // Field from the joined collection
         as: 'category', // Alias for the joined data
       })
+      // .lookup({
+      //   from: 'coupons', // The collection to join with
+      //   localField: 'coupons', // Field from the main collection
+      //   foreignField: '_id', // Field from the joined collection
+      //   as: 'coupons', // Alias for the joined data
+      // })
       .lookup({
-        from: 'coupons', // The collection to join with
-        localField: 'coupons', // Field from the main collection
-        foreignField: '_id', // Field from the joined collection
-        as: 'coupons', // Alias for the joined data
+        from: 'coupons',
+        let: { couponIds: '$coupons' }, //index
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $and: [
+                  { $in: ['$_id', '$$couponIds'] },
+                  { $eq: ['$user', req.user?._id] },
+                  {
+                    $or: [
+                      { $gt: ['$expire', new Date()] },
+                      { $eq: ['$expire', null] },
+                    ],
+                  },
+                ],
+              },
+            },
+          },
+        ],
+        as: 'coupons',
       })
       .lookup({
         from: 'users', // The collection to join with
@@ -421,20 +499,7 @@ export const getAllPros = catchAsync(
         title: 1,
         content: 1,
         user: { photo: 1, name: 1, _id: 1, id: 1 },
-        coupons: {
-          _id: 1,
-          user: {
-            _id: 1,
-            name: 1,
-            photo: 1,
-            id: 1,
-          },
-          expire: 1,
-          discount: 1,
-          active: 1,
-          createdAt: 1,
-          updatedAt: 1,
-        },
+        coupons: 1,
         likes: 1,
         photos: 1,
         price: 1,

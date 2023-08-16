@@ -1,5 +1,5 @@
-import { ObjectId } from 'mongodb';
-
+import { Types } from 'mongoose';
+const { ObjectId } = Types;
 export default class AggregateFeatures {
   pipeline: any[];
   queryString: any;
@@ -88,8 +88,12 @@ export default class AggregateFeatures {
     return this;
   }
 
-  unwind(unwindStage: string) {
+  unwind(unwindStage: string | Object) {
     this.pipeline.push({ $unwind: unwindStage });
+    return this;
+  }
+  group(groupStage: any) {
+    this.pipeline.push({ $group: groupStage });
     return this;
   }
 
