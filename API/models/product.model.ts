@@ -125,28 +125,6 @@ productSchema.pre<Query<IProduct, IProduct>>(
   }
 );
 
-// After the query is executed, filter coupons for the specific user
-productSchema.post(/^find/, function (docs) {
-  const namespace = cls.getNamespace('app');
-  const userId = namespace?.get('loggedInUserId');
-  // i put this condition for in coupon when i populate proudct the doc it will be null
-  if (docs != null && docs.coupons != undefined) {
-    if (docs.coupons) {
-      docs.coupons = docs.coupons.filter(
-        (coupon: { user: { _id: { toString: () => any } } }) =>
-          coupon.user._id.toString() === userId
-      );
-    } else {
-      docs.forEach((doc: { coupons: any[] }) => {
-        if (doc.coupons[0]) {
-          doc.coupons = doc.coupons.filter(
-            (coupon) => coupon.user._id.toString() === userId
-          );
-        }
-      });
-    }
-  }
-});
 
 const Product = model<ProductDoc, ProductModel>('Product', productSchema);
 
