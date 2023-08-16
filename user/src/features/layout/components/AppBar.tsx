@@ -31,6 +31,7 @@ export const AppBar: FC<AppBarProps> = forwardRef(function Fr(
           }}
           color="transparent"
           position="fixed"
+          className="app-bar"
           {...props}
           sx={{
             ...props.sx,

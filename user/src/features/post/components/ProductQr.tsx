@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Alert, Box, Typography } from "@mui/material";
 import Loading from "components/feedback/Loading";
 import { useIsMe } from "features/account";
 import { EdgeDrawer, EdgeDrawerProps } from "features/layout";
@@ -7,6 +7,7 @@ import { PostMine } from "features/post";
 import { useIsDesktop } from "hooks/useIsDesktop";
 import { FC, useId } from "react";
 import QRCode from "react-qr-code";
+import { isBackendError } from "utils/apiHelpers";
 export type ProductQrProps = Omit<EdgeDrawerProps, "children"> & {
   post: PostMine["product"] | null;
   onClose: () => void;
@@ -18,6 +19,7 @@ export const ProductQr: FC<ProductQrProps> = ({ post, onClose, ...props }) => {
     { product: props.open && post ? post._id : "" },
     isSeller
   );
+
   const value = JSON.stringify({
     isDeliver: isSeller,
     product: post?._id ?? "",
@@ -53,6 +55,18 @@ export const ProductQr: FC<ProductQrProps> = ({ post, onClose, ...props }) => {
         {props.title}
       </Typography>
       <Box width="fit-content" mx="auto" mt={10}>
+        {generate.isError && isBackendError(generate.error) && (
+          <Alert
+            sx={{
+              ".MuiSvgIcon-root": {
+                fill: (th) => th.palette.error.main,
+              },
+            }}
+            severity={"error"}
+          >
+            {generate.error.response?.data?.message}
+          </Alert>
+        )}
         {generate.isLoading && <Loading size={50} />}
         {generate.isSuccess && <QRCode size={256} value={value} />}
       </Box>
