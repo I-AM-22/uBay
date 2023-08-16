@@ -13,8 +13,8 @@ import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { priceFormatter } from "utils/transforms";
-import type { DeliveryStatusEnum } from "..";
-import { PostMine, ProductMine, postQueries } from "..";
+import type { DeliveryStatusEnum, Product, ProductMine } from "..";
+import { PostMine, postQueries } from "..";
 import { ProductQr } from "./ProductQr";
 const priority = {
   seller: {
@@ -44,25 +44,42 @@ export const PostMineList: FC<PostMineListProps> = ({ isBuy }) => {
     <>
       <Stack gap={1} p={1} maxWidth={600} width="min(500px,100%)" mx="auto" alignItems={"center"}>
         {query.isSuccess &&
-          Object.entries(query.data)
+          [
+            ["customer", query.data.customer] as const,
+            ["seller", query.data.seller] as const,
+            ["wait", query.data.wait] as const,
+            ["unpaid", query.data.unpaid] as const,
+          ]
             .sort(
               (a, b) =>
                 priority[tab][a[0] as DeliveryStatusEnum] -
                 priority[tab][b[0] as DeliveryStatusEnum]
             )
-            .map(([status, list]) =>
-              list.map((product) => (
-                <PostMineCard
-                  onQrClick={() => {
-                    setToScanPost(product);
-                    setQrOpen(true);
-                  }}
-                  isBuy={isBuy}
-                  deliveryStatus={status as keyof PostMine<typeof isBuy>}
-                  key={product._id}
-                  data={product}
-                />
-              ))
+            .map(
+              ([status, list]) =>
+                (status === "unpaid" &&
+                  list?.map((product) => (
+                    <PostMineCard
+                      onQrClick={() => {}}
+                      isBuy={isBuy}
+                      deliveryStatus={status}
+                      key={product._id}
+                      data={product}
+                    />
+                  ))) ||
+                (status !== "unpaid" &&
+                  list.map((product) => (
+                    <PostMineCard
+                      onQrClick={() => {
+                        setToScanPost(product);
+                        setQrOpen(true);
+                      }}
+                      isBuy={isBuy}
+                      deliveryStatus={status}
+                      key={product._id}
+                      data={product}
+                    />
+                  )))
             )}
         {query.isInitialLoading && (
           <>
@@ -86,13 +103,20 @@ export const PostMineList: FC<PostMineListProps> = ({ isBuy }) => {
 };
 
 export type PostMineCardProps<IsBuy extends boolean = boolean> =
-  | {
-      data: ProductMine;
+  | ((
+      | {
+          data: Product;
+          deliveryStatus: "unpaid";
+        }
+      | {
+          data: ProductMine;
+          deliveryStatus: "wait" | "customer" | "seller";
+        }
+    ) & {
       isBuy: IsBuy;
       skeleton?: false;
       onQrClick: () => void;
-      deliveryStatus: keyof PostMine<IsBuy>;
-    }
+    })
   | {
       data?: undefined;
       isBuy?: undefined;
@@ -117,13 +141,13 @@ export const PostMineCard: FC<PostMineCardProps> = ({
             {data && (
               <>
                 <Typography component="div" variant="h6">
-                  {data.product.title}
+                  {deliveryStatus === "unpaid" ? data.title : data.product.title}
                 </Typography>
                 <LabelValue
                   sx={{ my: 1, fontSize: 12, ".label": { color: "text.secondary" } }}
                   label={t("price")}
                 >
-                  {!data.payment.is_discount && (
+                  {deliveryStatus !== "unpaid" && !data.payment.is_discount && (
                     <Stack direction={"row"} flexWrap={"wrap"} alignItems={"end"}>
                       <Box
                         component={"span"}
@@ -136,9 +160,19 @@ export const PostMineCard: FC<PostMineCardProps> = ({
                       </Box>
                     </Stack>
                   )}
-                  {data.payment.is_discount && priceFormatter.format(data.product.price)}
+                  {deliveryStatus !== "unpaid" &&
+                    data.payment.is_discount &&
+                    priceFormatter.format(data.product.price)}
+                  {deliveryStatus === "unpaid" && (
+                    <Stack direction={"row"} flexWrap={"wrap"} alignItems={"end"}>
+                      {priceFormatter.format(data.price)}
+                    </Stack>
+                  )}
+                  {deliveryStatus !== "unpaid" &&
+                    data.payment.is_discount &&
+                    priceFormatter.format(data.product.price)}
                 </LabelValue>
-                {data.seller_date && (
+                {deliveryStatus !== "unpaid" && data.seller_date && (
                   <LabelValue
                     sx={{ my: 1, fontSize: 12, ".label": { color: "text.secondary" } }}
                     label={t("seller_date")}
@@ -146,7 +180,7 @@ export const PostMineCard: FC<PostMineCardProps> = ({
                     {dayjs(data.seller_date).format("YYYY/MM/DD")}
                   </LabelValue>
                 )}
-                {data.customer_date && (
+                {deliveryStatus !== "unpaid" && data.customer_date && (
                   <LabelValue
                     sx={{ my: 1, fontSize: 12, ".label": { color: "text.secondary" } }}
                     label={t("customer_date")}
@@ -171,7 +205,7 @@ export const PostMineCard: FC<PostMineCardProps> = ({
                 variant="outlined"
                 color="secondary"
                 component={Link}
-                to={`/posts/${data?.product._id}`}
+                to={`/posts/${deliveryStatus === "unpaid" ? data?._id : data.product._id}`}
               >
                 {t("details")}
               </Button>
@@ -192,7 +226,8 @@ export const PostMineCard: FC<PostMineCardProps> = ({
         {skeleton && <Skeleton variant="rectangular" sx={{ width: 151, height: 120 }} />}
         {data && (
           <Box position={"relative"}>
-            {data.product.photos.length !== 1 && (
+            {((deliveryStatus !== "unpaid" && data.product.photos.length !== 1) ||
+              (deliveryStatus == "unpaid" && data.photos.length !== 1)) && (
               <Box
                 sx={{
                   position: "absolute",
@@ -204,13 +239,16 @@ export const PostMineCard: FC<PostMineCardProps> = ({
                   alignItems: "center",
                   fontSize: 40,
                 }}
-              >{`${data.product.photos.length - 1}+`}</Box>
+              >
+                {deliveryStatus === "unpaid" && `${data.photos.length - 1}+`}
+                {deliveryStatus !== "unpaid" && `${data.product.photos.length - 1}+`}
+              </Box>
             )}
 
             <CardMedia
               component="img"
               sx={{ width: 151, height: 1 }}
-              image={data?.product.photos[0]}
+              image={deliveryStatus === "unpaid" ? data?.photos[0] : data?.product.photos[0]}
             />
           </Box>
         )}
@@ -233,7 +271,7 @@ const statusColor = {
   },
 } as const;
 export type DeliveryStatusProps<IsBuy extends boolean = boolean> = {
-  status: keyof PostMine<IsBuy>;
+  status: keyof PostMine;
   isBuy: IsBuy;
 };
 export const DeliveryStatus: FC<DeliveryStatusProps> = ({ status, isBuy }) => {
