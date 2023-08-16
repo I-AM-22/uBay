@@ -72,11 +72,8 @@ chatSchema.pre<Query<IChat, IChat>>(/^find/, function (next) {
         price: 1,
         likedBy: 0,
       },
-    })
-    .populate({
-      path: 'lastMessage',
-      select: { chat: 0 },
     });
+
   next();
 });
 

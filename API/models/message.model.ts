@@ -40,37 +40,27 @@ messageSchema.pre('save', async function (next) {
 
 messageSchema.post('save', async function (doc, next) {
   await Chat.findByIdAndUpdate(this.chat, { lastMessage: doc });
-  await doc.populate({
-    path: 'user',
-    select: {
-      name: 1,
-      photo: 1,
-      wallet: 0,
-      favoriteCategories: 0,
-      favoriteCities: 0,
-    },
-  });
-  await doc.populate({ path: 'chat', select: { lastMessage: 0 } });
+
   next();
 });
 
-messageSchema.post('save', async function (doc) {
-  if (!doc.chat) return;
-  if (!doc.user) return;
-  if (doc.user.id === doc.chat.customer?.id) {
-    await Notification.create({
-      message: doc.id,
-      chat: doc.chat.id,
-      user: doc.chat.seller?.id,
-    });
-  } else {
-    await Notification.create({
-      message: doc.id,
-      chat: doc.chat.id,
-      user: doc.chat.customer?.id,
-    });
-  }
-});
+// messageSchema.post('save', async function (doc) {
+//   if (!doc.chat) return;
+//   if (!doc.user) return;
+//   if (doc.user.id === doc.chat.customer?.id) {
+//     await Notification.create({
+//       message: doc.id,
+//       chat: doc.chat.id,
+//       user: doc.chat.seller?.id,
+//     });
+//   } else {
+//     await Notification.create({
+//       message: doc.id,
+//       chat: doc.chat.id,
+//       user: doc.chat.customer?.id,
+//     });
+//   }
+// });
 
 messageSchema.pre<Query<IMessage, IMessage>>(/^find/, function (next) {
   this.populate({ path: 'user', select: { name: 1, photo: 1, wallet: 0 } });

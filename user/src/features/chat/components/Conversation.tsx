@@ -13,7 +13,7 @@ function Conversation() {
   const submitRef = useRef<HTMLButtonElement | null>(null);
   const token = localStorage.getItem("token");
   const [message, setMessage] = useState("");
-  const [receiveMes,setReceiveMes]=useState<any>([]);
+  const [receiveMes, setReceiveMes] = useState<any>([]);
   const theme = useTheme();
   const isMdOrLarger = useMediaQuery(theme.breakpoints.up("md"));
   const pageTitle = useLocation().pathname.split("/")[2];
@@ -27,25 +27,23 @@ function Conversation() {
       socket.emit("setup", query.data);
     }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[query])
-  console.log(receiveMes)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
+  console.log(receiveMes);
   useEffect(() => {
-    console.log("hello")
-    const listener = (data:any) => {
+    console.log("hello");
+    const listener = (data: any) => {
       console.log("data from conversation", data);
-      setReceiveMes((prev:any)=>[...prev,data])
+      setReceiveMes((prev: any) => [...prev, data]);
     };
-  
-    socket.on('message received', listener);
-  
+
+    socket.on("message received", listener);
+
     return () => {
-      socket.off('message received', listener);
+      socket.off("message received", listener);
     };
   }, [socket]);
-  const sendMessage = (
-    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-  ) => {
+  const sendMessage = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
     e.preventDefault();
     if (message.trim().length == 0) return;
 
@@ -69,18 +67,17 @@ function Conversation() {
       })
       .then((response) => {
         console.log("Message sent successfully:", response.data);
-        socket.emit("new message", response.data);
+        socket.emit("new message", { message: response.data,  chatId });
       })
       .catch((error) => {
         console.error("Error sending message:", error);
       });
     setMessage("");
   };
-  
-    
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
 
-  console.log(receiveMes)
+  console.log(receiveMes);
   return (
     <Stack direction={"row"} flex={1}>
       {isMdOrLarger && <Chat />}

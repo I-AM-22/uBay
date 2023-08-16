@@ -6,9 +6,9 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 type user = {
   userData: string | undefined;
-  messageReal:[]
+  messageReal: [];
 };
-const Message = ({ userData,messageReal }: user) => {
+const Message = ({ userData, messageReal }: user) => {
   const { t } = useTranslation("chat");
   const token = localStorage.getItem("token");
   const { id } = useParams();
@@ -16,7 +16,7 @@ const Message = ({ userData,messageReal }: user) => {
   const [isLoading, setIsLoading] = useState(true);
   const isEmpty = !isLoading && messages.length === 0;
   const theme = useTheme();
-  console.log("from message",messageReal)
+  console.log("from message", messageReal);
   const ref = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     const fetchMessages = async () => {
@@ -55,7 +55,7 @@ const Message = ({ userData,messageReal }: user) => {
       {isLoading && messages.length === 0 && <Loading mt={10} />}
       {messages.map((message: any, index) => {
         const time = message.createdAt;
-        const isMe = message.user._id == userData;
+        const isMe = message.user.id == userData;
         return (
           <Box
             key={index}
@@ -95,7 +95,7 @@ const Message = ({ userData,messageReal }: user) => {
       })}
       {messageReal.map((message: any, index) => {
         const time = message.newMessageReceived.createdAt;
-        const isMe = message.newMessageReceived.user.id == userData;
+        const isMe = message.newMessageReceived.user == userData;
         return (
           <Box
             key={index}
