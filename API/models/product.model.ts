@@ -111,6 +111,28 @@ productSchema.pre<Query<IProduct, IProduct>>(/^find/, async function (next) {
     .populate({ path: 'coupons', select: { product: 0 } });
   next();
 });
+productSchema.post(/^find/, function (docs) {
+  const namespace = cls.getNamespace('app');
+  const userId = namespace?.get('loggedInUserId');
+  const a = docs;//just to remove any error from typescript
+  if (docs != null) {
+    //if doc is not array and there is coupons filter this coupon
+    if (!Array.isArray(a) && docs.coupons != undefined) {
+      // docs.coupons = docs.coupons.filter((coupon: { user: { _id: { toString: () => any; }; }; }) => coupon.user._id.toString() === userId);
+      docs.coupons = docs.coupons.filter((coupon: { user: { _id: { toString: () => any; } | null; }; }) => {
+        return coupon.user !== null && coupon.user._id !== null && coupon.user._id.toString() === userId;
+      });
+    }
+    ///and if doc is array i need to check if he has coupon but is array i need to check just the first element 
+    else if (Array.isArray(a) && docs[0].coupons != undefined) {
+      docs.forEach((doc: { coupons: any[]; }) => {
+        doc.coupons = docs.coupons.filter((coupon: { user: { _id: { toString: () => any; } | null; }; }) => {
+          return coupon.user !== null && coupon.user._id !== null && coupon.user._id.toString() === userId;
+        })});
+    }
+  }
+
+});
 
 //can't remove after product is paid
 productSchema.pre<Query<IProduct, IProduct>>(
