@@ -13,6 +13,7 @@ function Conversation() {
   const submitRef = useRef<HTMLButtonElement | null>(null);
   const token = localStorage.getItem("token");
   const [message, setMessage] = useState("");
+  const [receiveMes,setReceiveMes]=useState<any>([]);
   const theme = useTheme();
   const isMdOrLarger = useMediaQuery(theme.breakpoints.up("md"));
   const pageTitle = useLocation().pathname.split("/")[2];
@@ -26,15 +27,25 @@ function Conversation() {
       socket.emit("setup", query.data);
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[query])
+  console.log(receiveMes)
   useEffect(() => {
-    socket.on("message received", (data) => {
+    console.log("hello")
+    const listener = (data:any) => {
       console.log("data from conversation", data);
-    });
+      setReceiveMes((prev:any)=>[...prev,data])
+    };
+  
+    socket.on('message received', listener);
+  
+    return () => {
+      socket.off('message received', listener);
+    };
   }, [socket]);
-  const sendMessage = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
+  const sendMessage = (
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
     e.preventDefault();
     if (message.trim().length == 0) return;
 
@@ -65,6 +76,11 @@ function Conversation() {
       });
     setMessage("");
   };
+  
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  console.log(receiveMes)
   return (
     <Stack direction={"row"} flex={1}>
       {isMdOrLarger && <Chat />}
@@ -82,7 +98,7 @@ function Conversation() {
           <UserInformation userData={query.data?._id} />
         </Box>
         <Divider />
-        <Message userData={query.data?._id} />
+        <Message userData={query.data?._id} messageReal={receiveMes} />
         <Box
           component={"form"}
           sx={{
