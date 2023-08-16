@@ -1,4 +1,5 @@
-import { Button, ButtonProps, SxProps } from "@mui/material";
+import SaveIcon from "@mui/icons-material/Save";
+import { Button, ButtonProps } from "@mui/material";
 import { Box } from "@mui/system";
 import Loading from "components/feedback/Loading";
 import { RefObject, forwardRef } from "react";
@@ -7,33 +8,39 @@ export type SubmitProps = {
   isSubmitting?: boolean;
   error?: boolean;
   loadingSize?: number;
+  saveIcon?: boolean;
 } & ButtonProps;
-const defaultSx: SxProps = {
-  fontSize: { xs: 15, sm: 17 },
-  minWidth: 110,
-};
+
+const loadingBySize = {
+  large: 20,
+  medium: 17,
+  small: 15,
+} as const;
 const Submit = forwardRef(function Fr(
   {
     isSubmitting = false,
     error = false,
     disabled,
-    loadingSize = 20,
+    loadingSize,
     children,
     sx,
+    saveIcon,
     ...props
   }: SubmitProps,
   ref
 ) {
   const { t } = useTranslation();
+  loadingSize = loadingBySize[props.size ?? "medium"];
   return (
     <Button
       ref={ref as RefObject<any>}
       disabled={isSubmitting || error || disabled}
       variant="contained"
       type="submit"
+      {...{ endIcon: saveIcon ? <SaveIcon /> : props.endIcon }}
       {...props}
       sx={{
-        ...(props.size !== "small" && defaultSx),
+        ".MuiButton-endIcon, .MuiButton-startIcon": { opacity: isSubmitting ? 0 : 1 },
         position: "relative",
         bgcolor: error ? "error.main" : "",
         ...sx,
@@ -41,7 +48,7 @@ const Submit = forwardRef(function Fr(
     >
       {isSubmitting && (
         <Box sx={{ position: "absolute", inset: 0 }}>
-          <Loading sx={{ height: "100%" }} size={loadingSize} />
+          <Loading color={props.color} sx={{ height: "100%" }} size={loadingSize} />
         </Box>
       )}
       <Box sx={{ opacity: isSubmitting ? 0 : 1 }}>{children ?? t("submit")}</Box>

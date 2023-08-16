@@ -48,6 +48,7 @@ export const PostDetails: FC<PostCardProps> = ({ post, skeleton }) => {
   const isDesktop = useIsDesktop();
   const sellerIsMe = useIsMe(post?.user._id ?? "");
   const discount = post?.coupons[0]?.discount ?? 0;
+  const isDiscountWithExpireDate = discount && post?.coupons[0].expire !== null;
   const discountDaysToExpire =
     (discount !== 0 && dayjs(post?.coupons[0].expire).diff(dayjs(), "day")) || 0;
   const isThereADiscount = discount !== 0 && discountDaysToExpire >= 0 && !post?.is_paid;
@@ -203,7 +204,7 @@ export const PostDetails: FC<PostCardProps> = ({ post, skeleton }) => {
                     {t("discounts")}
                   </Button>
                 )}
-                {isThereADiscount && !sellerIsMe && (
+                {isThereADiscount && isDiscountWithExpireDate && !sellerIsMe && (
                   <Typography
                     color="text.secondary"
                     sx={{ my: "auto", ml: "auto" }}
@@ -220,7 +221,9 @@ export const PostDetails: FC<PostCardProps> = ({ post, skeleton }) => {
                     if (post && !sellerIsMe) setPaymentDrawerOpen(true);
                   }}
                   sx={{
-                    ml: !(isThereADiscount && !sellerIsMe) ? "auto" : "",
+                    ml: !(isThereADiscount && isDiscountWithExpireDate && !sellerIsMe)
+                      ? "auto"
+                      : "",
                   }}
                   startIcon={<ShoppingCartRoundedIcon sx={{ color: "white" }} />}
                   variant="contained"

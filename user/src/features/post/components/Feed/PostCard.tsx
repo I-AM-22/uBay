@@ -16,10 +16,12 @@ import {
 } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import axios from "axios";
+import Loading from "components/feedback/Loading";
 import Skeleton from "components/feedback/Skeleton";
 import { UserAvatar } from "components/icons/UserAvatar";
 import { OptionalWrap } from "components/layout/OptionalWrap";
 import RouterLink from "components/links/RouterLink";
+import { useSnackbar } from "context/snackbarContext";
 import { accountQueries } from "features/account";
 import { Post } from "features/post";
 import Timeago from "lib/Timeago";
@@ -27,6 +29,7 @@ import i18n from "lib/i18next";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { parseResponseError } from "utils/apiHelpers";
 import { LikeButton } from "../LikeButton";
 import { PostOptions } from "../PostOptions";
 const priceFormatter = new Intl.NumberFormat(i18n.language, {
@@ -40,9 +43,11 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
   const discount = post?.coupons[0]?.discount ?? 0;
   const navigate = useNavigate();
   const query = accountQueries.useProfile();
+  const [isLoadingChat, setIsLoadingChat] = useState(false);
   const [open, setOpen] = useState(true);
   const { t } = useTranslation("post");
   const token = localStorage.getItem("token");
+  const snackbar = useSnackbar;
   const handleRemove = () => {
     setOpen(false);
   };
@@ -50,6 +55,7 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
     if (post?.user._id == query.data?._id) return;
     // eslint-disable-next-line no-useless-catch
     try {
+      setIsLoadingChat(true);
       const response = await axios.post(
         "http://localhost:3000/api/v1/chats",
         {
@@ -65,17 +71,15 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
           },
         }
       );
-      console.log(response.data);
-      console.log("chat", response.data.chat);
-      console.log("data", response.data.data);
       {
         response.data.data
           ? navigate(`/chats/${response.data.data._id}`)
           : navigate(`/chats/${response.data.chat._id}`);
       }
+      setIsLoadingChat(false);
       return response.data;
     } catch (error) {
-      throw error;
+      parseResponseError({ snackbar })(error);
     }
   };
   return (
@@ -226,7 +230,7 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
                 <ChatBubbleIcon />
               </Button>
               <Button onClick={addToChat}>
-                <TelegramIcon />
+                {!isLoadingChat ? <TelegramIcon /> : <Loading size={15} />}
               </Button>
             </>
           )}

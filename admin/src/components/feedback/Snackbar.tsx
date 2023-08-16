@@ -27,7 +27,7 @@ const SnackbarComponent: FC<Props> = ({
       onClose={onClose}
       TransitionComponent={Slide}
     >
-      <Alert sx={{ bgcolor: "primary.100" }} severity={severity} elevation={5} onClose={onClose}>
+      <Alert sx={{ bgcolor: "white" }} severity={severity} elevation={5} onClose={onClose}>
         <AlertTitle>
           <Typography px={1}>{message}</Typography>
         </AlertTitle>
