@@ -18,14 +18,14 @@ export type CommentOptionsProps = {
 export const DiscountOptions: FC<CommentOptionsProps> = ({ discount, onRemove }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { t } = useTranslation();
-  const removeComment = discountQueries.useRemove();
+  const removeDiscount = discountQueries.useRemove();
   const snackbar = useSnackbar();
   const queryClient = useQueryClient();
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleRemove = () => {
-    removeComment.mutate(discount._id, {
+    removeDiscount.mutate(discount._id, {
       onSuccess: () => {
         queryClient.invalidateQueries(queryStore.discount.byProduct(discount.product._id));
         handleClose();
@@ -44,7 +44,7 @@ export const DiscountOptions: FC<CommentOptionsProps> = ({ discount, onRemove })
       </IconButton>
       <Dropdown anchor={anchorEl} onClose={handleClose}>
         <MenuItem onClick={handleRemove}>
-          {removeComment.isLoading ? <Loading size={15} mr={2} /> : <DeleteIcon />}
+          {removeDiscount.isLoading ? <Loading size={15} mr={2} /> : <DeleteIcon />}
           {t("remove")}
         </MenuItem>
       </Dropdown>
