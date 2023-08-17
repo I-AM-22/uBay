@@ -58,7 +58,6 @@ export default class AggregateFeatures {
         this.mongoQuery[field] = value;
       }
     }
-
     if (Object.keys(this.mongoQuery).length) this.match(this.mongoQuery);
     return this;
   }
@@ -101,7 +100,10 @@ export default class AggregateFeatures {
     this.pipeline.push({ $unset: unsetStage });
     return this;
   }
-
+  replaceRoot(newRoot: any) {
+    this.pipeline.push({ $replaceRoot: newRoot });
+    return this;
+  }
   facet() {
     const pageNumber = this.queryString.page || 1;
     const limit = this.queryString.limit * 1 || 100;
