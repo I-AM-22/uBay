@@ -55,7 +55,15 @@ chatSchema.post('save', async function () {
   });
   await this.populate({
     path: 'product',
-    select: { user: 0, title: 1, photos: 1, category: 1, price: 1, likedBy: 0 },
+    select: {
+      user: 0,
+      title: 1,
+      photos: 1,
+      category: 1,
+      price: 1,
+      likedBy: 0,
+      coupons: 0,
+    },
   });
 });
 
@@ -71,6 +79,7 @@ chatSchema.pre<Query<IChat, IChat>>(/^find/, function (next) {
         category: 1,
         price: 1,
         likedBy: 0,
+        coupons: 0,
       },
     });
 
