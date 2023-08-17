@@ -73,7 +73,7 @@ export const createOne = (Model: Model<any>, addFiled?: any): RequestHandler =>
     }
     if (Model.modelName === 'Message') {
       let { content, _id, createdAt, user } = newDoc;
- 
+
       res.status(STATUS_CODE.CREATED).json({ content, _id, createdAt, user });
     } else {
       res.status(STATUS_CODE.CREATED).json(newDoc);
@@ -101,7 +101,12 @@ export const getOne = (
         new AppError(STATUS_CODE.NOT_FOUND, [], `No ${modelName} with that Id`)
       );
     }
-    res.status(STATUS_CODE.SUCCESS).json(doc);
+    //to go to filter coupon method
+    if (Model.modelName === 'Product') {
+        req.body.doc = doc;
+       return  next();
+      }
+      res.status(STATUS_CODE.SUCCESS).json(doc);
   });
 
 /**

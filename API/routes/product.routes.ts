@@ -8,6 +8,7 @@ import {
   createProduct,
   deleteProduct,
   dislike,
+  filterCoupon,
   getAllProducts,
   getAllPros,
   getProduct,
@@ -39,7 +40,7 @@ router.use(
 
 router.get('/', getAllPros);
 router.get('/mine', myProduct);
-router.get('/:id', getProduct);
+router.get('/:id', getProduct,filterCoupon);
 
 router.post(
   '/',

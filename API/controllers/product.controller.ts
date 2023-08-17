@@ -398,7 +398,11 @@ export const checkProductIsPaid = catchAsync(
 
 export const filterCoupon = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    next();
+    let doc = req.body.doc;
+    doc.coupons = doc.coupons.filter((coupon: { user: { _id: { toString: () => any; } | null; }; }) => {
+      return coupon.user !== null && coupon.user._id !== null && coupon.user._id.toString() === req.user?._id.toString();
+    });
+    res.status(STATUS_CODE.SUCCESS).json(doc);
   }
 );
 export const checkIsOwnerProduct = checkIsOwner(Product);
