@@ -271,3 +271,20 @@ export const couponSchema = {
   },
   required: ['user', 'product', 'expire', 'discount'],
 };
+export const favoriteSchema = {
+  type: 'object',
+  properties: {
+    favoriteCategories: {
+      type: 'array',
+      description: 'The IDs of the categories',
+    },
+    favoriteCities: {
+      type: 'array',
+      description: 'The ID of the cities',
+    },
+  },
+  example: {
+    favoriteCategories: ['id'],
+    favoriteCities: ['id'],
+  },
+};

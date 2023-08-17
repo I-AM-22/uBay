@@ -135,6 +135,29 @@
  *           description: User deleted successfully
  */
 
+/**
+ * @swagger
+ *   /users/favorites:
+ *     patch:
+ *       summary: choose favorites
+ *       tags: [Users]
+ *       security:
+ *         - Bearer: []
+ *       requestBody:
+ *         required: true
+ *         content:
+ *            application/json:
+ *             schema:
+ *              $ref: '#/components/schemas/favoriteSchema'
+ *       responses:
+ *         "200":
+ *           description: ok
+ *         "400":
+ *           $ref: '#/components/responses/400'
+ *         "401":
+ *           $ref: '#/components/responses/401'
+ */
+
 //                                                   TODO: Admin routes
 /**
  * @swagger

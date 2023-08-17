@@ -59,7 +59,7 @@ router
 router
   .route('/updateMyPassword')
   .patch(validate(updatePasswordSchema), updateMyPassword);
-
+router.route('/favorites').patch(updateMe);
 //All routes after this middleware are only for admin
 router.use(restrictTo('superadmin', 'admin'));
 router.route('/:id').get(getUser).delete(deleteUser).patch(updateUser);

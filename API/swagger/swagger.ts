@@ -6,7 +6,7 @@ import { categorySchema } from './routes/categories.swagger';
 import { citySchema } from './routes/cities.swagger';
 import { storeSchema } from './routes/stores.swagger';
 import { employeeSchema } from './routes/employees.swagger';
-import { couponSchema } from './routes/coupon.swagger';
+import { couponSchema, favoriteSchema } from './routes/coupon.swagger';
 import { paymentSchema } from './routes/payment.swagger';
 import { deliverySchema } from './routes/delivery.swagger';
 import { QrSchema } from './routes/delivery.swagger';
@@ -46,6 +46,7 @@ const options: Options = {
         chatSchema,
         updatechatSchema,
         messagesSchema,
+        favoriteSchema,
       },
       securitySchemes: {
         Bearer: {
