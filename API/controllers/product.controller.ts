@@ -17,7 +17,6 @@ import AggregateFeatures from '@utils/aggregateFeatures';
 import User from '../models/user.model';
 import mongoose, { Types } from 'mongoose';
 
-
 export const like = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     await Product.findByIdAndUpdate(req.params.id, {
@@ -301,7 +300,12 @@ export const myProduct = catchAsync(
                   $expr: {
                     $and: [
                       { $in: ['$_id', '$$couponIds'] },
-                      { $eq: ['$user', new mongoose.Types.ObjectId(req.user?.id)] },
+                      {
+                        $eq: [
+                          '$user',
+                          new mongoose.Types.ObjectId(req.user?.id),
+                        ],
+                      },
                       {
                         $or: [
                           { $gt: ['$expire', new Date()] },
@@ -468,6 +472,8 @@ export const getAllPros = catchAsync(
       .unwind('$category') // Unwind the category data array
       .unwind('$user') // Unwind the user data array
       .unwind('$store') // Unwind the store data array
+      .match({ 'user.active': { $ne: false } })
+      .sort({ createdAt: -1 })
       .addFields({
         sortField: {
           $switch: {
@@ -494,9 +500,38 @@ export const getAllPros = catchAsync(
             default: 2,
           },
         },
-      }) // Add fields stage
-      .sort({ sortField: 1 }) // Sort stage
-      .unset('sortField') //S Unset stage
+      })
+      .group({
+        _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
+        docs: {
+          $push: '$$ROOT',
+        },
+      })
+      .unwind('$docs') // Unwind the docs array
+      .sort({ 'docs.sortField': 1 })
+      // Sort by the sortField within each doc
+      .group({
+        _id: '$_id',
+        docs: { $push: '$docs' }, // Group the docs back into an array
+      })
+      .sort({ _id: -1 })
+      .group({
+        _id: null, // Grouping everything into a single document
+        combinedDocs: { $push: '$docs' },
+      })
+      .addFields({
+        combinedDocs: {
+          $reduce: {
+            input: '$combinedDocs',
+            initialValue: [],
+            in: { $concatArrays: ['$$value', '$$this'] },
+          },
+        },
+      })
+      .unwind('$combinedDocs')
+      .replaceRoot({
+        newRoot: '$combinedDocs',
+      })
       .filter('store.city')
       .addFields({
         likes: { $size: '$likedBy' },
