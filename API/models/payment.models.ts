@@ -14,6 +14,7 @@ const paymentSchema = new Schema<PaymentDoc, PaymentModel, any>(
       required: true,
       ref: 'Product',
     },
+    coupon: { type: Types.ObjectId, default: null, ref: 'Coupon' },
     customer: {
       type: Types.ObjectId,
       required: true,

@@ -16,8 +16,8 @@ export const deletePayment = deleteOne(Payment);
 
 export const createPayment = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     //take fields to payment from req.body
-    const { product, price, is_discount } = req.body;
-    const payment = { customer: req.user?._id, product, price, is_discount };
+    const { product, price, is_discount, couponId } = req.body;
+    const payment = { customer: req.user?._id, product, price, is_discount, coupon:couponId };
 
     //check if customer has enough wallet
     const walletDoc = req.user?.wallet;
@@ -46,15 +46,16 @@ export const hasCoupon = catchAsync(async (req: Request, res: Response, next: Ne
             )
         );
     }
-    let discount = 0, is_discount = false;
+    let discount = 0, is_discount = false, couponId = null;
     if (couponDoc) {
         discount = couponDoc.discount;
         is_discount = true;
+        couponId = couponDoc.id;
     }
     let price = productDoc?.price - discount;
     (price < 0) ? price = 0 : price;
     const updatedReqBody = {
-        ...req.body, price: price, is_discount: is_discount
+        ...req.body, price: price, is_discount: is_discount, couponId
     };
     // Attach the updated object to req.body
     req.body = updatedReqBody;
