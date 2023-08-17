@@ -46,6 +46,7 @@ export const PostDetails: FC<PostCardProps> = ({ post, skeleton }) => {
   const [commentsDrawerOpen, setCommentsDrawerOpen] = useState(false);
   const navigate = useNavigate();
   const isDesktop = useIsDesktop();
+
   const sellerIsMe = useIsMe(post?.user._id ?? "");
   const discount = post?.coupons[0]?.discount ?? 0;
   const isDiscountWithExpireDate = discount && post?.coupons[0].expire !== null;
