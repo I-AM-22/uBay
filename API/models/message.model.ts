@@ -63,7 +63,7 @@ messageSchema.post('save', async function (doc, next) {
 // });
 
 messageSchema.pre<Query<IMessage, IMessage>>(/^find/, function (next) {
-  this.populate({ path: 'user', select: { name: 1, photo: 1, wallet: 0 } });
+
   this.populate({ path: 'chat', select: { lastMessage: 0 } });
   next();
 });

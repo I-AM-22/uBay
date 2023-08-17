@@ -57,7 +57,7 @@ export const getAllChats = catchAsync(
     }).sort({
       updatedAt: -1,
     });
-
+console.log(chats);
     res.status(STATUS_CODE.SUCCESS).json({ result: chats.length, data: chats });
   }
 );
