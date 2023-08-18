@@ -7,6 +7,7 @@ import { STATUS_CODE } from './../types/helper.types';
 import Store from '@models/store.model';
 import Comment from '@models/comment.model';
 import Delivery from '@models/delivery.model';
+import Profit from '@models/profit.model';
 
 export const getStatistics = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
