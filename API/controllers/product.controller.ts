@@ -305,23 +305,6 @@ export const myProduct = catchAsync(
           },
         },
         {
-          $addFields: {
-            sortField: {
-              $switch: {
-                branches: [
-                  { case: { $eq: ['$delivery_status', 'seller'] }, then: 0 },
-                  { case: { $eq: ['$delivery_status', 'customer'] }, then: 1 },
-                  { case: { $eq: ['$delivery_status', 'wait'] }, then: 2 },
-                ],
-                default: 3,
-              },
-            },
-          },
-        },
-        {
-          $sort: { sortField: 1 },
-        },
-        {
           $project: {
             delivery_status: 1,
             _id: 1,
@@ -343,6 +326,7 @@ export const myProduct = catchAsync(
               category: 1,
               store: 1,
               coupons: 1,
+              delivery_status: 1,
             },
           },
         },
