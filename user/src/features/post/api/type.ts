@@ -1,5 +1,3 @@
-import { User } from "features/account";
-import { Category } from "features/category";
 import { APIListParams } from "types/api";
 
 export type PostBody = {
@@ -12,33 +10,52 @@ export type PostBody = {
 };
 export type PostAllParams = APIListParams & { is_paid?: boolean };
 export type Post = {
+  _id: string;
   title: string;
   content: string;
-  user: User;
-  coupons: {
-    _id: string;
-    user: {
-      _id: string;
-      name: string;
-      photo: string;
-    };
-    expire: string;
-    discount: number;
-    active: boolean;
-    createdAt: string;
-    updatedAt: string;
-  }[];
-  likes: number;
+  user: Store;
+  likedBy: LikedBy[];
+  coupons: any[];
   photos: string[];
   price: number;
-  category: Category;
-  _id: string;
   is_paid: boolean;
+  category: Category;
+  store: Store;
+  comments: number;
   createdAt: string;
   updatedAt: string;
-  likedBy: string[];
+  likes: number;
   likedByMe: boolean;
-  comments: number;
+  id: string;
+};
+
+export type Category = {
+  _id: string;
+  name: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+};
+
+export type LikedBy = {
+  _id: string;
+  name: string;
+  photo: string;
+  favoriteCategories: any[];
+  favoriteCities: any[];
+  id: string;
+};
+
+export type Store = {
+  _id: string;
+  name: string;
+  city: {
+    _id: string;
+    name: string;
+  };
+  id: string;
+  photo?: string;
 };
 
 export type PostMineParams = { isBuy: boolean };

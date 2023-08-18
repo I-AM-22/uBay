@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, LinearProgress, Paper, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useQueryClient } from "@tanstack/react-query";
 import ImageUploadInput from "components/Inputs/ImageUploadInput";
@@ -43,7 +43,7 @@ export const PostEditForm: FC<PostEditFormProps> = ({}) => {
     edit.mutate(
       { _id: id, ...formToBody(form) },
       {
-        onSuccess: (post:Post) => {
+        onSuccess: (post: Post) => {
           queryClient.setQueryData(queryStore.post.detail(post._id).queryKey, post);
           queryClient.invalidateQueries(queryStore.post.all._def);
           navigate(`/posts/${post._id}`);
@@ -63,7 +63,14 @@ export const PostEditForm: FC<PostEditFormProps> = ({}) => {
   }, [query.data, reset]);
   return (
     <Box p={2}>
-      <Paper sx={{ mx: "auto", py: 3, px: 1, width: { xs: 1, sm: 600 } }}>
+      <Paper sx={{ mx: "auto", position: "relative", py: 3, px: 1, width: { xs: 1, sm: 600 } }}>
+        {query.isLoading && (
+          <LinearProgress
+            variant="indeterminate"
+            sx={{ position: "absolute", top: 0, left: 0, right: 0, padding: 0.2 }}
+            color="primary"
+          />
+        )}
         <form onSubmit={handleSubmit(onSubmit)}>
           <fieldset disabled={query.isLoading}>
             <Stack gap={3}>

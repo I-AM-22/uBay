@@ -17,7 +17,7 @@ import z from "lib/zod";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { parseResponseError } from "utils/apiHelpers";
+import { isBackendError, parseResponseError } from "utils/apiHelpers";
 import { priceFormatter } from "utils/transforms";
 export type Form = {
   product: string;
@@ -51,8 +51,6 @@ export const DiscountForm: FC<DiscountFormProps> = ({ post, user, onSuccess }) =
     },
   });
   const queryClient = useQueryClient();
-  console.log(watch("expire"));
-
   const createDiscount = discountQueries.useCreate();
   const snackbar = useSnackbar();
   const { t } = useTranslation("discount", { keyPrefix: "form" });
@@ -63,7 +61,18 @@ export const DiscountForm: FC<DiscountFormProps> = ({ post, user, onSuccess }) =
         onSuccess();
         snackbar({ severity: "success", message: t("success") });
       },
-      onError: parseResponseError({ setFormError: setError, snackbar }),
+      onError: (err) => {
+        if (isBackendError(err)) {
+          if (
+            err?.response?.data.type === "form" &&
+            err.response.data.errors[0].path[0] === "product"
+          ) {
+            snackbar({ severity: "error", message: t("productError") });
+            return;
+          }
+        }
+        return parseResponseError({ snackbar, setFormError: setError })(err);
+      },
     });
   };
   return (

@@ -16,6 +16,7 @@
     "priceWillBecome": "سيصبح السعر: {{price}}",
     "create": "إضافة",
     "success": "تمت إضافة الحسم بنجاح",
+    "productError": "لا يمكن إعطاء حسم لشخص يملك حسم بالفعل!",
     "discountCannotBeEqualToPrice": "لا يمكن للحسم ان يساوي السعر"
   }
 }

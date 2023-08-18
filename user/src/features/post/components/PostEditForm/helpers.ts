@@ -10,7 +10,6 @@ export function detailsToForm(post: Post): Form {
     content: post.content,
     price: post.price,
     title: post.title,
-    //TODO receive from backend
-    store: { _id: "", name: "", city: { _id: "", name: "" } },
+    store: post.store,
   };
 }
