@@ -3,15 +3,22 @@ import TabPanel from "components/layout/TabPanel";
 import Tabs from "components/layout/Tabs";
 import { PostMineList } from "features/post";
 import SwipeableViews from "lib/SwipeableViews";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { storage } from "utils/storage";
 const TransactionsPage: FC<{}> = ({}) => {
+  const startTab = storage.getTransactionsTab();
+
   const { t } = useTranslation("post");
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(startTab);
 
   const handleTabChange = (index: number) => {
     setActiveIndex(index);
   };
+
+  useEffect(() => {
+    storage.setTransactionsTab(activeIndex);
+  }, [activeIndex]);
   return (
     <>
       <Tabs

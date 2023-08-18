@@ -2,18 +2,24 @@ import { Paper, Tab } from "@mui/material";
 import TabPanel from "components/layout/TabPanel";
 import Tabs from "components/layout/Tabs";
 import SwipeableViews from "lib/SwipeableViews";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
+import { storage } from "utils/storage";
 import BuyChat from "./buy/BuyChat";
 import SellChat from "./sell/SellChat";
 const AppBarChat: FC<{}> = ({}) => {
   const { t } = useTranslation("chat");
-  const [activeIndex, setActiveIndex] = useState(0);
+  const startTab = storage.getChatTab();
+
+  const [activeIndex, setActiveIndex] = useState(startTab);
   const { id } = useParams();
   const handleTabChange = (index: number) => {
     setActiveIndex(index);
   };
+  useEffect(() => {
+    storage.setChatTab(activeIndex);
+  }, [activeIndex]);
   return (
     <>
       <Paper>
