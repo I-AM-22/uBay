@@ -135,6 +135,29 @@ export const getStatistics = catchAsync(
       const value = result[day];
       byDay.push({ day, ...value });
     }
+    const currentDate = new Date();
+    const last7Days = new Date();
+    last7Days.setDate(currentDate.getDate() - 6); // Subtract 6 days to get the last 7 days
+    const profits = await Profit.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: last7Days },
+        },
+      },
+      {
+        $group: {
+          _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
+          totalValue: { $sum: '$value' },
+        },
+      },
+      {
+        $project: {
+          _id: 0,     // Exclude the original _id field
+          date: '$_id', // Rename _id to day
+          totalValue: 1,
+        },
+      },
+    ]);
     // Call the function to retrieve the counts
     res.status(STATUS_CODE.SUCCESS).json({
       users,
@@ -145,6 +168,7 @@ export const getStatistics = catchAsync(
       salesPercentage,
       salesPerCategory,
       byDay,
+      profits,
     });
   }
 );
