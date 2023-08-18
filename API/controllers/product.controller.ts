@@ -306,7 +306,6 @@ export const myProduct = catchAsync(
         },
         {
           $project: {
-            delivery_status: 1,
             _id: 1,
             payment: {
               _id: 1,
