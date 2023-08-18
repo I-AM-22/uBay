@@ -15,6 +15,7 @@ export const LoginPage: FC<{}> = ({}) => {
         "&>svg:nth-of-type(1)": {
           position: "fixed",
           minHeight: "100vh",
+          scale: (th) => (th.direction === "rtl" ? "1" : "-1 1"),
           top: 0,
           right: 0,
           zIndex: 0,
