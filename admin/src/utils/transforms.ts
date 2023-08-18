@@ -1,3 +1,5 @@
+import i18n from "lib/i18next";
+
 export const objectToFormData = (object: { [k: string]: any }) => {
   const formData = new FormData();
   for (const key in object) {
@@ -13,3 +15,7 @@ export function getCurrencySign(locale: string) {
   const currencySign = parts.find((part) => part.type === "currency")?.value;
   return currencySign ?? "SYP";
 }
+export const priceFormatter = new Intl.NumberFormat(i18n.language, {
+  style: "currency",
+  currency: "SYP",
+});

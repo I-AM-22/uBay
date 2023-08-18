@@ -7,10 +7,25 @@ export type User = {
   photo: string;
   role: string;
   active: boolean;
-  createdAt: string;
-  updatedAt: string;
-  passwordChangedAt: string;
+  favoriteCategories: any[];
+  favoriteCities: any[];
+  createdAt: Date;
+  updatedAt: Date;
+  wallet: Wallet;
+  id: string;
 };
+
+export type Wallet = {
+  _id: string;
+  user: string;
+  total: number;
+  pending: number;
+  createdAt: Date;
+  updatedAt: Date;
+  available: number;
+  id: string;
+};
+
 export type UserAllParams = APIListParams;
 export type WalletChargeBody = {
   amount: number;
