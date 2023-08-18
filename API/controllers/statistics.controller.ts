@@ -135,7 +135,6 @@ export const getStatistics = catchAsync(
       const value = result[day];
       byDay.push({ day, ...value });
     }
-    const profits = await Profit.find();
     // Call the function to retrieve the counts
     res.status(STATUS_CODE.SUCCESS).json({
       users,
