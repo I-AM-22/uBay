@@ -2,6 +2,7 @@ import { DeliveryDoc, DeliveryModel } from "../types/delivery.types";
 import { Schema, Types, model } from "mongoose";
 import Wallet from "./wallet.model";
 import User from "./user.model";
+import Profit from "./profit.model";
 
 const deliverySchema = new Schema<DeliveryDoc, DeliveryModel, any>(
     {
@@ -32,7 +33,7 @@ const deliverySchema = new Schema<DeliveryDoc, DeliveryModel, any>(
             type: Date,
             default: null
         },
-        store:{
+        store: {
             type: Types.ObjectId,
             ref: "Store"
         }
@@ -54,7 +55,7 @@ deliverySchema.pre('save', async function (next) {
             $inc: { total: -price, pending: -price },
         });
 
-        const companyFee =price * 5 / 100;
+        const companyFee = price * 5 / 100;
         const priceForSeller = price - companyFee;
 
         // // //                         seller
@@ -64,6 +65,8 @@ deliverySchema.pre('save', async function (next) {
         //                            company
         const company = await User.findOne({ email: "company@gmail.com" });
         await Wallet.findByIdAndUpdate(company?.wallet.id, { $inc: { total: companyFee } });
+        //add the profit to the profit company
+        await Profit.create({ product: doc.payment.product._id, value: companyFee });
         next();
     }
 });

@@ -7,6 +7,7 @@ import { STATUS_CODE } from './../types/helper.types';
 import Store from '@models/store.model';
 import Comment from '@models/comment.model';
 import Delivery from '@models/delivery.model';
+import Profit from '@models/profit.model';
 
 export const getStatistics = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -134,6 +135,7 @@ export const getStatistics = catchAsync(
       const value = result[day];
       byDay.push({ day, ...value });
     }
+    const profits = await Profit.find();
     // Call the function to retrieve the counts
     res.status(STATUS_CODE.SUCCESS).json({
       users,
