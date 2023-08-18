@@ -148,21 +148,10 @@ export const PostMineCard: FC<PostMineCardProps> = ({
                   label={t("price")}
                 >
                   {deliveryStatus !== "unpaid" && !data.payment.is_discount && (
-                    <Stack direction={"row"} flexWrap={"wrap"} alignItems={"end"}>
-                      <Box
-                        component={"span"}
-                        sx={{ fontSize: 10, mr: 1, opacity: 0.5, textDecoration: "line-through" }}
-                      >
-                        {priceFormatter.format(data.product.price)}
-                      </Box>
-                      <Box component={"span"} minWidth={"max-content"}>
-                        {priceFormatter.format(data.payment.price_after)}
-                      </Box>
-                    </Stack>
+                    <Box component={"span"} minWidth={"max-content"}>
+                      {priceFormatter.format(data.product.price)}
+                    </Box>
                   )}
-                  {deliveryStatus !== "unpaid" &&
-                    data.payment.is_discount &&
-                    priceFormatter.format(data.product.price)}
                   {deliveryStatus === "unpaid" && (
                     <Stack direction={"row"} flexWrap={"wrap"} alignItems={"end"}>
                       {priceFormatter.format(data.price)}
@@ -199,7 +188,7 @@ export const PostMineCard: FC<PostMineCardProps> = ({
             )}
           </CardContent>
           {!skeleton && (
-            <Stack direction="row" sx={{ mx: 1, mb: 2, gap: 1 }}>
+            <Stack direction="row" sx={{ flexWrap: "wrap", mx: 1, mb: 2, gap: 1 }}>
               <Button
                 size="small"
                 variant="outlined"
