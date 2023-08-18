@@ -4,6 +4,7 @@ import { Stack } from "@mui/system";
 import { useQueryClient } from "@tanstack/react-query";
 import TextField from "components/Inputs/TextField";
 import Submit from "components/buttons/Submit";
+import DialogTitle from "components/forms/DialogTitle";
 import { UserAvatar } from "components/icons/UserAvatar";
 import { useSnackbar } from "context/snackbarContext";
 import dayjs from "dayjs";
@@ -137,6 +138,7 @@ export type DiscountDialogProps = {
 export const DiscountDialog: FC<DiscountDialogProps> = ({ post, user, onClose }) => {
   return (
     <Dialog open={!!user} onClose={onClose}>
+      <DialogTitle onClose={onClose} />
       {user && post && <DiscountForm user={user} onSuccess={onClose} post={post} />}
     </Dialog>
   );
