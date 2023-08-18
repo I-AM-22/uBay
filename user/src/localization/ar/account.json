@@ -2,7 +2,9 @@
   "profile": {
     "name": "الاسم",
     "email": "البريد الإلكتروني",
-    "createdAt": "مستخدم منذ"
+    "createdAt": "مستخدم منذ",
+    "available": "الأموال المتوفرة",
+    "pending": "الأموال المعلّقة"
   },
   "profileEdit": {
     "name": "الاسم"

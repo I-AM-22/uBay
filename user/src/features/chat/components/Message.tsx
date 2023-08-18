@@ -17,7 +17,7 @@ const Message = forwardRef(function FC(
   const { id } = useParams();
   const [messages, setMessages] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const isEmpty = !isLoading && messages.length === 0;
+  const isEmpty = !isLoading && messages.length === 0 && messageReal.length === 0;
   const theme = useTheme();
   const ref = useRef<HTMLDivElement | null>(null);
   useEffect(() => {

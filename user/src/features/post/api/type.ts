@@ -73,7 +73,7 @@ export type ProductMine = {
   seller_date: string;
   createdAt: Date;
   product: Product;
-  seller: Seller;
+  customer: Customer;
 };
 
 export type Payment = {
@@ -93,7 +93,7 @@ export type Product = {
   store: string;
 };
 
-export type Seller = {
+export type Customer = {
   _id: string;
   name: string;
   photo: string;
