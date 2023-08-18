@@ -16,6 +16,8 @@ export default function Details() {
         icon: <WebIcon sx={{ fill: "#F47560" }} />,
         label: t("products"),
         count: query.data?.products ?? undefined,
+        fadedLabel: t("soldProducts"),
+        fadedCount: query.data?.soldProducts ?? undefined,
       },
 
       {

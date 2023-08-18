@@ -8,8 +8,17 @@ export type CountCardProps = {
   label: ReactNode;
   index: number;
   icon: ReactNode;
+  fadedLabel?: ReactNode;
+  fadedCount?: number;
 };
-export const CountCard: FC<CountCardProps> = ({ count, label, index, icon }) => {
+export const CountCard: FC<CountCardProps> = ({
+  count,
+  label,
+  index,
+  icon,
+  fadedLabel,
+  fadedCount,
+}) => {
   const isLoading = count === undefined;
   return (
     <Fade in={true} timeout={500 * index + 500}>
@@ -20,7 +29,24 @@ export const CountCard: FC<CountCardProps> = ({ count, label, index, icon }) => 
               {label}
             </Typography>
             <Box sx={{ fontSize: 20, pb: 3, color: "#4B465C" }}>
-              {!isLoading && <CountUp end={count} useEasing duration={index + 1} />}
+              {!isLoading && (
+                <Stack direction={"row"} alignItems={"center"}>
+                  <CountUp end={count} useEasing duration={index + 1} />
+                  {fadedLabel && fadedCount && (
+                    <Stack
+                      direction={"row"}
+                      fontSize={16}
+                      color="text.secondary"
+                      alignItems={"center"}
+                      gap={0.5}
+                      ml={1}
+                    >
+                      {fadedLabel}
+                      <CountUp end={fadedCount} useEasing duration={index + 1} />
+                    </Stack>
+                  )}
+                </Stack>
+              )}
               {isLoading && <Skeleton sx={{ fontSize: 15 }} widthRange={{ min: 27, max: 30 }} />}
             </Box>
           </Stack>

@@ -1,10 +1,12 @@
 import { Box, useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
+import { homeQueries } from "features/home";
 import { useTranslation } from "react-i18next";
-import { data } from "./data";
 export const Bar = () => {
   const theme = useTheme();
   const { t } = useTranslation("home", { keyPrefix: "bar" });
+  const query = homeQueries.useStatics();
+
   return (
     <>
       <Box
@@ -18,11 +20,13 @@ export const Bar = () => {
         }}
       >
         <ResponsiveBar
-          data={data
-            .sort((a, b) => (a.day > b.day ? 1 : -1))
-            .map((value) =>
-              Object.fromEntries(Object.entries(value).map(([key, value]) => [t(key), value]))
-            )}
+          data={
+            query.data?.byDay
+              .sort((a, b) => (a.day > b.day ? 1 : -1))
+              .map((value) =>
+                Object.fromEntries(Object.entries(value).map(([key, value]) => [t(key), value]))
+              ) ?? []
+          }
           keys={[t("products"), t("comments"), t("soldProducts")]}
           indexBy={t("day")}
           theme={{
@@ -198,7 +202,7 @@ export const Bar = () => {
               dataFrom: "keys",
               anchor: "bottom-right",
               direction: "column",
-              translateX: 100,
+              translateX: 92,
               symbolSpacing: 2,
               itemsSpacing: 21,
               itemWidth: 100,
@@ -218,9 +222,6 @@ export const Bar = () => {
               ],
             },
           ]}
-          role="application"
-          ariaLabel="Nivo bar chart demo"
-          barAriaLabel={(e) => e.id + ": " + e.formattedValue + " in country: " + e.indexValue}
         />
       </Box>
     </>

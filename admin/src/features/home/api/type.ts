@@ -6,6 +6,20 @@ export type Statics = {
   soldProducts: number;
   salesPercentage: number;
   salesPerCategory: SalesPerCategory[];
+  byDay: ByDay[];
+  profits: Profit[];
+};
+
+export type ByDay = {
+  day: string;
+  comments?: number;
+  products: number;
+  soldProducts?: number;
+};
+
+export type Profit = {
+  totalValue: number;
+  date: string;
 };
 
 export type SalesPerCategory = {
