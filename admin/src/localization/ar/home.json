@@ -2,9 +2,14 @@
   "products": "القطع المنشورة",
   "users": "المستخدمين",
   "warehouses": "المستودعات",
-  "soldProducts": "القطع المباعة",
+  "soldProducts": "تم بيع",
   "employees": "الموظفين",
   "loadingPie": "جاري التحميل...",
+  "line": {
+    "profits": "صافي أرباح الشركة",
+    "y": "ل.س",
+    "x": ""
+  },
   "bar": {
     "today": "اليوم",
     "products": "القطع المنشورة",
