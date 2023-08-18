@@ -1,4 +1,5 @@
-import { Avatar, Box, Stack } from "@mui/material";
+import AddCardIcon from "@mui/icons-material/AddCard";
+import { Avatar, Box, IconButton, Stack, Tooltip } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
@@ -16,10 +17,10 @@ import useQuerySearchParam from "hooks/useQuerySearchParam";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { getPage } from "utils/apiHelpers";
-import { userQueries } from "..";
+import { User, userQueries } from "..";
 import useTableHeader from "../hooks/useTableHeaders";
-type Props = {};
-export const Table: FC<Props> = ({}) => {
+type Props = { setUserToDeposit: React.Dispatch<React.SetStateAction<User | null>> };
+export const Table: FC<Props> = ({ setUserToDeposit }) => {
   const search = useQuerySearchParam();
   const page = usePageNumberSearchParam();
   const { remove, details } = useEventSearchParams();
@@ -78,6 +79,11 @@ export const Table: FC<Props> = ({}) => {
             </TableCell>
             <TableCell>
               <ButtonsStack>
+                <Tooltip title={t("table.deposit")}>
+                  <IconButton onClick={() => setUserToDeposit(row)}>
+                    <AddCardIcon sx={{ color: "secondary.main" }} />
+                  </IconButton>
+                </Tooltip>
                 <ShowIconButton onClick={() => details(row._id)} />
                 <RemoveIconButton onClick={() => remove(row._id)} />
               </ButtonsStack>

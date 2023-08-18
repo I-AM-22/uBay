@@ -12,3 +12,7 @@ export type User = {
   passwordChangedAt: string;
 };
 export type UserAllParams = APIListParams;
+export type WalletChargeBody = {
+  amount: number;
+  userId: string;
+};

@@ -50,6 +50,10 @@ let API_ROUTES = {
     root: "statistics",
     GET: "",
   },
+  WALLET: {
+    root: "wallets",
+    CHARGE: "chargeMyWallet",
+  },
 } as const;
 
 const controllersArr = Object.entries(API_ROUTES).map(([controllerKey, { root, ...routes }]) => {
@@ -60,7 +64,7 @@ const controllersArr = Object.entries(API_ROUTES).map(([controllerKey, { root, .
         return [
           routeKey,
           (...params: Parameters<typeof route>) =>
-            `${root}/${(route as (...args: string[]) => unknown)(...params)}`,
+            `${root}/${(route as (...args: unknown[]) => unknown)(...params)}`,
         ];
       }
       return [routeKey, `${root}/${route}`];

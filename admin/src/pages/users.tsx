@@ -1,9 +1,10 @@
 import { Grid, Stack } from "@mui/material";
 import SearchFilter from "components/inputs/SearchFilter";
 import FilterRow from "components/layout/FilterRow";
-import { UserDetails, UserRemoveForm, UsersTable } from "features/user";
-import { FC } from "react";
+import { DepositDialog, User, UserDetails, UserRemoveForm, UsersTable } from "features/user";
+import { FC, useState } from "react";
 export const UsersPage: FC<{}> = ({}) => {
+  const [userToDeposit, setUserToDeposit] = useState<User | null>(null);
   return (
     <Stack gap={1}>
       <FilterRow>
@@ -11,9 +12,10 @@ export const UsersPage: FC<{}> = ({}) => {
           <SearchFilter />
         </Grid>
       </FilterRow>
-      <UsersTable />
+      <UsersTable setUserToDeposit={setUserToDeposit} />
       <UserDetails />
       <UserRemoveForm />
+      <DepositDialog user={userToDeposit} onClose={() => setUserToDeposit(null)} />
     </Stack>
   );
 };
