@@ -18,43 +18,6 @@ function Layout({ person }: per) {
   const { t } = useTranslation("chat");
   const token = localStorage.getItem("token");
   const isEmpty = !loading && data.length === 0;
-  // useEffect(() => {
-  //   axios
-  //     .delete('http://localhost:3000/api/v1/chats/64cea0fdfc7e8570e20a2866', {
-  //       headers: {
-  //         accept: "*/*",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       // Handle successful response
-  //       console.log("Resource deleted successfully.");
-  //     })
-  //     .catch((error) => {
-  //       // Handle error
-  //       console.error("Error deleting resource:", error);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const response = await axios.get(
-  //         "http://localhost:3000/api/v1/users/me",
-  //         {
-  //           headers: {
-  //             accept: "application/json",
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       setUserData(response.data._id);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  //   fetchData();
-  // }, []);
 
   useEffect(() => {
     const getChats = async () => {

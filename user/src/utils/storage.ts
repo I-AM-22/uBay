@@ -18,4 +18,16 @@ export const storage = {
   getLanguage() {
     return localStorage.getItem("language");
   },
+  getChatTab() {
+    return Number(localStorage.getItem("chatTab") ?? 0);
+  },
+  setChatTab(tab: number) {
+    return localStorage.setItem("chatTab", String(tab));
+  },
+  getTransactionsTab() {
+    return Number(localStorage.getItem("transactionsTab") ?? 0);
+  },
+  setTransactionsTab(tab: number) {
+    return localStorage.setItem("transactionsTab", String(tab));
+  },
 };
