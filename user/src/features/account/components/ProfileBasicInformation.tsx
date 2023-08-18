@@ -25,8 +25,8 @@ export const ProfileBasicInformation: FC<ProfileBasicInformationProps> = ({}) =>
     <Paper
       elevation={isSmOrMore ? 1 : 0}
       sx={{
-        width: { xs: 1, sm: 600 },
         mx: "auto",
+        width: { xs: 1, sm: 600 },
         mt: { xs: 0, sm: 4 },
         borderRadius: { xs: 0, sm: 4 },
         overflow: "hidden",

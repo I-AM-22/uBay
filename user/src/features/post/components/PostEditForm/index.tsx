@@ -63,7 +63,16 @@ export const PostEditForm: FC<PostEditFormProps> = ({}) => {
   }, [query.data, reset]);
   return (
     <Box p={2}>
-      <Paper sx={{ mx: "auto", position: "relative", py: 3, px: 1, width: { xs: 1, sm: 600 } }}>
+      <Paper
+        sx={{
+          mx: "auto",
+          overflow: "hidden",
+          position: "relative",
+          py: 3,
+          px: 1,
+          width: { xs: 1, sm: 600 },
+        }}
+      >
         {query.isLoading && (
           <LinearProgress
             variant="indeterminate"

@@ -1,26 +1,17 @@
 import { Tab, Tabs } from "@mui/material";
 import RouterLink from "components/links/RouterLink";
 import { navLinks } from "constants/navLinks";
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC } from "react";
 import { useLocation } from "react-router-dom";
 import { getIndexFromLink } from "../utils/linksParsers";
 
 export const AppBarNavigator: FC<{}> = ({}) => {
-  const [currentIndex, setCurrentIndex] = useState<number | false>(false);
   const location = useLocation();
+  const currentIndex = getIndexFromLink(location.pathname);
 
-  const handlePageChange = useCallback((_: any, index: number) => {
-    setCurrentIndex(index);
-  }, []);
-  useEffect(() => {
-    if (currentIndex === false) setCurrentIndex(getIndexFromLink(window.location.pathname));
-  }, [currentIndex]);
-  useEffect(() => {
-    setCurrentIndex(getIndexFromLink(location.pathname));
-  }, [location]);
   return (
     <>
-      <Tabs onChange={handlePageChange} value={currentIndex} sx={{ height: 1 }}>
+      <Tabs value={currentIndex} sx={{ height: 1 }}>
         {navLinks.map((navLink, index) => (
           <Tab
             sx={{
