@@ -21,7 +21,7 @@ router.use('/:chatId/notifications', notificationRouter);
 
 router.use(
   passport.authenticate('jwt', { session: false, failWithError: true }),
-  restrictTo('user')
+  restrictTo('user','superadmin')
 );
 
 router

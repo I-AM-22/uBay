@@ -19,6 +19,7 @@ export default class AggregateFeatures {
       'fields',
       'search',
       'role',
+      'q',
     ];
     excludedFields.forEach((el) => delete queryObj[el]);
     //Advance
@@ -121,6 +122,20 @@ export default class AggregateFeatures {
         ],
       },
     });
+    return this;
+  }
+  search() {
+    if (this.queryString.q) {
+      const query = {
+        $or: [
+          { name: { $regex: this.queryString.q, $options: 'xi' } },
+          { email: { $regex: this.queryString.q, $options: 'xi' } },
+          { description: { $regex: this.queryString.q, $options: 'xi' } },
+          { content: { $regex: this.queryString.q, $options: 'xi' } },
+        ],
+      };
+      this.match(query);
+    }
     return this;
   }
 
