@@ -1,3 +1,4 @@
+import NoData from "components/feedback/NoData";
 import SomethingWentWrong from "components/feedback/SomethingWentWrong";
 import { CommentsDrawer } from "features/comment";
 import { Post, postQueries } from "features/post";
@@ -9,6 +10,7 @@ export const Feed: FC<FeedProps> = ({}) => {
   const query = postQueries.useInfinite({ limit: 10, is_paid: false });
   const [commentsPost, setCommentsPost] = useState<Post | null>(null);
   const [CommentsDrawerOpen, setCommentsDrawerOpen] = useState(false);
+  const isEmpty = query.isSuccess && query.data.pages[0].totalDataCount === 0;
   return (
     <>
       <InfiniteScroll
@@ -35,6 +37,7 @@ export const Feed: FC<FeedProps> = ({}) => {
             <PostCard skeleton />
           </>
         )}
+        {isEmpty && <NoData />}
         {query.isError && <SomethingWentWrong />}
       </InfiniteScroll>
       <CommentsDrawer

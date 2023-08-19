@@ -1,6 +1,7 @@
 import { mergeQueryKeys } from "@lukemorales/query-key-factory";
 import { accountKeys } from "features/account";
 import { categoryKeys } from "features/category";
+import { chatKeys } from "features/chat";
 import { commentKeys } from "features/comment";
 import { discountKeys } from "features/discount";
 import { postKeys } from "features/post";
@@ -11,5 +12,6 @@ export const queryStore = mergeQueryKeys(
   categoryKeys,
   commentKeys,
   storeKeys,
-  discountKeys
+  discountKeys,
+  chatKeys
 );

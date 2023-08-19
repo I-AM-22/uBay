@@ -8,7 +8,7 @@ import DialogTitle from "components/forms/DialogTitle";
 import { UserAvatar } from "components/icons/UserAvatar";
 import { useSnackbar } from "context/snackbarContext";
 import dayjs from "dayjs";
-import { Comment } from "features/comment";
+import { User } from "features/account";
 import { DiscountCreateBody, discountQueries } from "features/discount";
 import { Post } from "features/post";
 import { queryStore } from "features/shared";
@@ -36,8 +36,8 @@ const schema: (price: number) => z.ZodType<Form> = (price) =>
     expire: z.date().min(dayjs().add(1, "day").toDate()).optional(),
   });
 export type DiscountFormProps = {
-  post: Post;
-  user: { _id: string; name: string; photo: string };
+  post: Pick<Post, "_id" | "price" | "title">;
+  user: Pick<User, "_id" | "name" | "photo">;
   onSuccess: () => void;
 };
 export const DiscountForm: FC<DiscountFormProps> = ({ post, user, onSuccess }) => {
@@ -140,8 +140,8 @@ export function fromFormToBody(form: Form): DiscountCreateBody {
 }
 
 export type DiscountDialogProps = {
-  user: Comment["user"] | null;
-  post: Post | null;
+  user: Pick<User, "_id" | "name" | "photo"> | null;
+  post: Pick<Post, "_id" | "price" | "title"> | null;
   onClose: () => void;
 };
 export const DiscountDialog: FC<DiscountDialogProps> = ({ post, user, onClose }) => {
