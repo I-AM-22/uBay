@@ -15,6 +15,7 @@ _$_ProductModel _$$_ProductModelFromJson(Map<String, dynamic> json) =>
           (json['photos'] as List<dynamic>).map((e) => e as String).toList(),
       price: json['price'] as int,
       store: Store.fromJson(json['store'] as Map<String, dynamic>),
+      createdAt: DateTime.parse(json['createdAt'] as String),
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     );
 
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$_ProductModelToJson(_$_ProductModel instance) =>
       'photos': instance.photos,
       'price': instance.price,
       'store': instance.store,
+      'createdAt': instance.createdAt.toIso8601String(),
       'user': instance.user,
     };
 

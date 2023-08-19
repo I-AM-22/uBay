@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget {
     return AppBar(
       centerTitle: true,
       title: const Text(
-        'نظيف',
+        'uBay',
         style: TextStyle(color: Colors.white, fontFamily: 'Mont'),
       ),
     );

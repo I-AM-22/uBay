@@ -4,15 +4,16 @@ import '../theme.dart';
 
 class ElevatedButtonWidget extends StatelessWidget {
   final void Function() onPressed;
-  final Widget row;
-  const ElevatedButtonWidget({Key? key, required this.onPressed, required this.row}) : super(key: key);
+  final Widget widget;
+  final Color color;
+  ElevatedButtonWidget({Key? key, required this.onPressed, required this.widget,required this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: primaryColor,
-          side: BorderSide(color: primaryColor),
+          backgroundColor: color,
+          side: BorderSide(color: color),
           //border width and color
           elevation: 3,
           //elevation of button
@@ -21,6 +22,6 @@ class ElevatedButtonWidget extends StatelessWidget {
         ),
 
         onPressed: onPressed,
-        child: row);
+        child: widget);
   }
 }
