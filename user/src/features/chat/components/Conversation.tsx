@@ -134,7 +134,7 @@ function Conversation() {
                   submitRef.current?.click();
                 }
               }}
-              onChange={(e) => setMessage(e.target.value)}
+              onChange={(e) => !postMessage.isLoading && setMessage(e.target.value)}
               value={message}
               multiline
               maxRows={10}
