@@ -88,7 +88,6 @@ function Layout({ person }: per) {
           >
             <Stack direction="row" m="8px 0" width="100%" alignItems="center" p={1}>
               <Avatar src={item[isSeller ? "customer" : "seller"].photo} />
-
               <Stack>
                 <>
                   <Typography
@@ -98,7 +97,7 @@ function Layout({ person }: per) {
                     color="black"
                     textTransform="none"
                   >
-                    {item?.product.title}
+                    {item?.product?.title}
                   </Typography>
                   <Typography
                     variant="body1"
