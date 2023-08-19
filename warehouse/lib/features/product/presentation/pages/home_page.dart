@@ -21,13 +21,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int index = 0;
-  List<Widget> body = [const BuildHomeProductPage(), MyTransactions()];
+  List<Widget> body = [ BuildHomeProductPage(), MyTransactions()];
   List<String> bar = ['الرئيسية', 'معاملاتي'];
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => di.getIt<ProductBloc>(),
+      create: (context) => di.getIt<ProductBloc>()..add(ProductEvent.getAllProduct()),
       child: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
           return Scaffold(
@@ -48,6 +48,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 BlocProvider.of<ProductBloc>(context)
                     .add(const ProductEvent.logOut());
+                SnackBarMessage().snackBarMessageSuccess(context, 'تم تسجيل الخروج بنجاح');
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/loginScreen', (route) => false);
               },
@@ -63,8 +64,7 @@ class _HomePageState extends State<HomePage> {
       );
 
   FloatingActionButton floatingActionButton() => FloatingActionButton(
-        onPressed: () => Navigator.push(
-            context, MaterialPageRoute(builder: (_) => const BuildQrWidget())),
+        onPressed: () => Navigator.pushNamed(context, '/qrPage'),
         backgroundColor: primaryColor,
         child: const Icon(
           Icons.qr_code_scanner,

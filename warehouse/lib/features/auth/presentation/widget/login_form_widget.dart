@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,6 +16,7 @@ class LoginFormWidget extends StatelessWidget {
   LoginFormWidget({Key? key}) : super(key: key);
 
   bool isVisibility = true;
+  bool isLoading = false;
   final form = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -24,25 +26,30 @@ class LoginFormWidget extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           state.maybeWhen(
-              orElse: () {},
-              successLoginState: (message) {
-                SnackBarMessage().snackBarMessageSuccess(context, message);
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/homePage', (route) => false);
-              },
-              errorLoginState: (message) {
-                SnackBarMessage().snackBarMessageError(context, message);
-              },);
+            orElse: () {},
+            loading: () {
+              isLoading = true;
+            },
+            successLoginState: (message) {
+              SnackBarMessage().snackBarMessageSuccess(context, message);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/homePage', (route) => false);
+            },
+            errorLoginState: (message) {
+              isLoading = false;
+              SnackBarMessage().snackBarMessageError(context, message);
+            },
+          );
         },
         builder: (context, state) => state.maybeWhen(
-            orElse: ()=>_buildLoginFormWidget(context),
+            orElse: () => _buildLoginFormWidget(context),
             authInitial: () {
               return _buildLoginFormWidget(context);
-            }, loading: () {
-              return const LoadingWidget();
-            }, errorLoginState: (message) {
+            },
+            errorLoginState: (message) {
               return _buildLoginFormWidget(context);
-            }, changeIconVisibilityState: (isVisible) {
+            },
+            changeIconVisibilityState: (isVisible) {
               isVisibility = isVisible;
               return _buildLoginFormWidget(context);
             }));
@@ -112,24 +119,32 @@ class LoginFormWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  ElevatedButtonWidget(
-                      onPressed: () {
-                        if (form.currentState!.validate()) {
-                        BlocProvider.of<AuthBloc>(context).add(AuthEvent.loginEvent(
-                            email: emailController.text,
-                            password: passwordController.text));
-                        }
-                      },
-                      row: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'تسجيل الدخول',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          )
-                        ],
-                      )),
-
+                  ConditionalBuilder(
+                    condition: !isLoading,
+                    fallback: (context) => ElevatedButtonWidget(
+                        onPressed: () {},
+                        widget: LoadingWidget(),
+                        color: Colors.grey),
+                    builder: (context) => ElevatedButtonWidget(
+                        color: primaryColor,
+                        onPressed: () {
+                          if (form.currentState!.validate()) {
+                            BlocProvider.of<AuthBloc>(context).add(
+                                AuthEvent.loginEvent(
+                                    email: emailController.text,
+                                    password: passwordController.text));
+                          }
+                        },
+                        widget: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'تسجيل الدخول',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            )
+                          ],
+                        )),
+                  ),
                 ],
               ),
             ),
