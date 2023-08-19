@@ -4,11 +4,13 @@ import { Post, postQueries } from "features/post";
 import InfiniteScroll from "lib/infiniteScroll";
 import { FC, useState } from "react";
 import { PostCard } from "./PostCard";
+import NoData from "components/feedback/NoData";
 export type FeedProps = {};
 export const Feed: FC<FeedProps> = ({}) => {
   const query = postQueries.useInfinite({ limit: 10, is_paid: false });
   const [commentsPost, setCommentsPost] = useState<Post | null>(null);
   const [CommentsDrawerOpen, setCommentsDrawerOpen] = useState(false);
+  const isEmpty = query.isSuccess&&query.data.pages[0].totalDataCount===0
   return (
     <>
       <InfiniteScroll
@@ -35,6 +37,7 @@ export const Feed: FC<FeedProps> = ({}) => {
             <PostCard skeleton />
           </>
         )}
+        {isEmpty&&<NoData/>}
         {query.isError && <SomethingWentWrong />}
       </InfiniteScroll>
       <CommentsDrawer
