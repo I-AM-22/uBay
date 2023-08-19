@@ -64,6 +64,33 @@ export const deleteMe = catchAsync(
   }
 );
 
+export const userToggleActive = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email } = req.body;
+    if (!email) {
+      return next(
+        new AppError(
+          STATUS_CODE.BAD_REQUEST,
+          [],
+          'الرجاء ارسال بريد الالكتروني'
+        )
+      );
+    }
+    const updatedUser = await User.findOne({
+      email,
+      includeInActive: { $ne: false },
+      role: 'user',
+    }).select({ active: 1 });
+    if (!updatedUser) {
+      return next(
+        new AppError(STATUS_CODE.BAD_REQUEST, [], 'لا يوجد مستخدم لهذا البريد')
+      );
+    }
+    updatedUser.active = !updatedUser.active;
+    await updatedUser.save();
+    res.status(STATUS_CODE.SUCCESS).send('ok');
+  }
+);
 export const getAllUsers = getAll(User, 'user');
 export const getUser = getOne(User);
 export const CreateUser = createOne(User);
