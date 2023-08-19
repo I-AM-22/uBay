@@ -13,6 +13,7 @@ class ProductModel with _$ProductModel {
       required List<String> photos,
       required int price,
       required Store store,
+      required DateTime createdAt,
       required User user}) = _ProductModel;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>

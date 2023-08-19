@@ -26,6 +26,7 @@ mixin _$ProductModel {
   List<String> get photos => throw _privateConstructorUsedError;
   int get price => throw _privateConstructorUsedError;
   Store get store => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
   User get user => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,6 +48,7 @@ abstract class $ProductModelCopyWith<$Res> {
       List<String> photos,
       int price,
       Store store,
+      DateTime createdAt,
       User user});
 
   $StoreCopyWith<$Res> get store;
@@ -72,6 +74,7 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? photos = null,
     Object? price = null,
     Object? store = null,
+    Object? createdAt = null,
     Object? user = null,
   }) {
     return _then(_value.copyWith(
@@ -99,6 +102,10 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.store
           : store // ignore: cast_nullable_to_non_nullable
               as Store,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -138,6 +145,7 @@ abstract class _$$_ProductModelCopyWith<$Res>
       List<String> photos,
       int price,
       Store store,
+      DateTime createdAt,
       User user});
 
   @override
@@ -163,6 +171,7 @@ class __$$_ProductModelCopyWithImpl<$Res>
     Object? photos = null,
     Object? price = null,
     Object? store = null,
+    Object? createdAt = null,
     Object? user = null,
   }) {
     return _then(_$_ProductModel(
@@ -190,6 +199,10 @@ class __$$_ProductModelCopyWithImpl<$Res>
           ? _value.store
           : store // ignore: cast_nullable_to_non_nullable
               as Store,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -208,6 +221,7 @@ class _$_ProductModel implements _ProductModel {
       required final List<String> photos,
       required this.price,
       required this.store,
+      required this.createdAt,
       required this.user})
       : _photos = photos;
 
@@ -233,11 +247,13 @@ class _$_ProductModel implements _ProductModel {
   @override
   final Store store;
   @override
+  final DateTime createdAt;
+  @override
   final User user;
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, title: $title, content: $content, photos: $photos, price: $price, store: $store, user: $user)';
+    return 'ProductModel(id: $id, title: $title, content: $content, photos: $photos, price: $price, store: $store, createdAt: $createdAt, user: $user)';
   }
 
   @override
@@ -251,13 +267,23 @@ class _$_ProductModel implements _ProductModel {
             const DeepCollectionEquality().equals(other._photos, _photos) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.store, store) || other.store == store) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
             (identical(other.user, user) || other.user == user));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, content,
-      const DeepCollectionEquality().hash(_photos), price, store, user);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      title,
+      content,
+      const DeepCollectionEquality().hash(_photos),
+      price,
+      store,
+      createdAt,
+      user);
 
   @JsonKey(ignore: true)
   @override
@@ -281,6 +307,7 @@ abstract class _ProductModel implements ProductModel {
       required final List<String> photos,
       required final int price,
       required final Store store,
+      required final DateTime createdAt,
       required final User user}) = _$_ProductModel;
 
   factory _ProductModel.fromJson(Map<String, dynamic> json) =
@@ -298,6 +325,8 @@ abstract class _ProductModel implements ProductModel {
   int get price;
   @override
   Store get store;
+  @override
+  DateTime get createdAt;
   @override
   User get user;
   @override
