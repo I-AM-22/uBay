@@ -30,7 +30,10 @@ const UserInformation = ({ userData }: user) => {
         </IconButton>
         <Avatar src={data.seller.photo} alt={data.seller.name} />
         <Typography variant="h6" margin="0 12px" width="fit-content" color="text.primary">
-          {data.seller.name}
+          {data.seller.name} |{" "}
+          <RouterLink noStyle to={`/posts/${data.product._id}`}>
+            {data.product.title}
+          </RouterLink>
         </Typography>
       </Stack>
     );
