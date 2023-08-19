@@ -1,46 +1,55 @@
 import SendIcon from "@mui/icons-material/Send";
 import { Box, Divider, IconButton, Stack, TextField, useMediaQuery, useTheme } from "@mui/material";
-import axios from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 import Loading from "components/feedback/Loading";
+import { SERVER_BASE_URL } from "constants/domain";
+import { useSnackbar } from "context/snackbarContext";
 import { accountQueries } from "features/account";
 import { BOTTOM_NAVIGATOR_HEIGHT_IN_SPACINGS } from "features/layout";
-import { ElementRef, MouseEvent, useEffect, useRef, useState } from "react";
+import { queryStore } from "features/shared";
+import { ElementRef, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
-import Chat from "./Chat";
-import Message from "./Message";
+import { parseResponseError } from "utils/apiHelpers";
+import { Message, chatQueries } from "..";
+import AppBarChat from "./AppBar";
+import MessagesList from "./MessagesList";
 import UserInformation from "./UserInformation";
 
+const socket = io(SERVER_BASE_URL);
 function Conversation() {
-  const { id } = useParams();
-  return <ConversationById key={id} />;
-}
-const socket = io("http://localhost:3000");
-function ConversationById() {
   const submitRef = useRef<HTMLButtonElement | null>(null);
-  const token = localStorage.getItem("token");
-  const [message, setMessage] = useState("");
-  const [receiveMes, setReceiveMes] = useState<any>([]);
+
   const theme = useTheme();
   const isMdOrLarger = useMediaQuery(theme.breakpoints.up("md"));
-  const [isSending, setIsSending] = useState(false);
-  const { id } = useParams();
+  const [message, setMessage] = useState("");
+  const { id: chatId = "" } = useParams();
   const query = accountQueries.useProfile();
-  const messagesRef = useRef<ElementRef<typeof Message>>();
-  // console.log(query.data);
+  const messagesRef = useRef<ElementRef<typeof MessagesList>>();
+  const postMessage = chatQueries.usePostMessage();
+  const snackbar = useSnackbar();
+  const queryClient = useQueryClient();
   useEffect(() => {
-    socket.emit("join chat", id);
-  }, [id]);
+    setMessage("");
+  }, [chatId]);
+  useEffect(() => {
+    socket.emit("join chat", chatId);
+  }, [chatId]);
   useEffect(() => {
     if (query.data) {
       socket.emit("setup", query.data);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
   useEffect(() => {
-    const listener = (data: any) => {
-      setReceiveMes((prev: any) => [...prev, data.newMessageReceived]);
+    const listener = ({ newMessageReceived }: { newMessageReceived: Message }) => {
+      const queryKey = queryStore.chat.messages(chatId).queryKey;
+      const prevData: Message[] = queryClient.getQueryData(queryKey) ?? [];
+      const state = queryClient.getQueryState(queryKey);
+      const isStillLoading = state?.status === "loading";
+      queryClient.setQueryData(queryKey, [...prevData, newMessageReceived]);
+      if (isStillLoading) {
+        queryClient.invalidateQueries(queryKey);
+      }
       messagesRef.current?.scrollToEnd();
     };
 
@@ -49,45 +58,38 @@ function ConversationById() {
     return () => {
       socket.off("message received", listener);
     };
-  }, []);
-  const sendMessage = (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
-    e.preventDefault();
+  }, [chatId, queryClient]);
+  const sendMessage = () => {
+    if (postMessage.isLoading) return;
     if (message.trim().length == 0) return;
-    const chatId = id;
-    const userId = query.data?._id;
-
-    const data = {
-      content: message,
-      chat: chatId,
-      user: userId,
-    };
-
-    setIsSending(true);
-    axios
-      .post(`http://localhost:3000/api/v1/chats/${chatId}/messages`, data, {
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+    postMessage.mutate(
+      {
+        chat: chatId,
+        content: message,
+        user: query.data?._id ?? "",
+      },
+      {
+        onSuccess: (message) => {
+          socket.emit("new message", { message: message, chatId });
+          const queryKey = queryStore.chat.messages(chatId).queryKey;
+          const prevData: Message[] = queryClient.getQueryData(queryKey) ?? [];
+          const state = queryClient.getQueryState(queryKey);
+          const isStillLoading = state?.status === "loading";
+          queryClient.setQueryData(queryKey, [...prevData, message]);
+          if (isStillLoading) {
+            queryClient.invalidateQueries(queryKey);
+          }
+          messagesRef.current?.scrollToEnd();
+          setMessage("");
         },
-      })
-      .then((response) => {
-        socket.emit("new message", {message:response.data,chatId});
-        setIsSending(false);
-        setReceiveMes((prev: any) => [...prev, response.data]);
-        setMessage("");
-        messagesRef.current?.scrollToEnd();
-      })
-      .catch((error) => {
-        console.error("Error sending message:", error);
-      });
+        onError: parseResponseError({ snackbar }),
+      }
+    );
   };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
 
   return (
     <Stack direction={"row"} flex={1}>
-      {isMdOrLarger && <Chat />}
+      {isMdOrLarger && <AppBarChat />}
       <Stack
         width={1}
         flex={2.5}
@@ -102,7 +104,7 @@ function ConversationById() {
           <UserInformation userData={query.data?._id} />
         </Box>
         <Divider />
-        <Message ref={messagesRef} userData={query.data?._id} messageReal={receiveMes} />
+        <MessagesList ref={messagesRef} userData={query.data?._id} />
         <Box
           component={"form"}
           sx={{
@@ -137,14 +139,8 @@ function ConversationById() {
               multiline
               maxRows={10}
             />
-            <IconButton
-              type="submit"
-              sx={{ minWidth: 40 }}
-              ref={submitRef}
-              onClick={(e) => sendMessage(e)}
-              // disabled={postComment.isLoading}
-            >
-              {isSending ? (
+            <IconButton type="button" sx={{ minWidth: 40 }} ref={submitRef} onClick={sendMessage}>
+              {postMessage.isLoading ? (
                 <Loading size={15} />
               ) : (
                 <SendIcon sx={{ scale: (th) => (th.direction === "rtl" ? "-1" : "1") }} />

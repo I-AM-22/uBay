@@ -1,39 +1,22 @@
 import { ArrowBack } from "@mui/icons-material";
+import DiscountIcon from "@mui/icons-material/Discount";
 import { Avatar, IconButton, Skeleton, Stack, Typography, useTheme } from "@mui/material";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import RouterLink from "components/links/RouterLink";
+import { DiscountDialog } from "features/discount";
+import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { chatQueries } from "..";
+
 type user = {
   userData: string | undefined;
 };
 const UserInformation = ({ userData }: user) => {
-  const token = localStorage.getItem("token");
-  const [data, setData] = useState<any>([]);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [loading, setLoading] = useState(true);
-  const pageTitle = useLocation().pathname.split("/")[2];
+  const [isDiscountOpen, setIsDialogOpen] = useState(false);
+  const { id: chatId = "" } = useParams();
+  const { data, isSuccess, isLoading } = chatQueries.useDetails(chatId);
   const theme = useTheme();
 
-  useEffect(() => {
-    const getChat = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/api/v1/chats/${pageTitle}`, {
-          headers: {
-            accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setData(response.data);
-        // setLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getChat();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (data.length != 0 && data.customer._id == userData) {
+  if (isSuccess && data.customer._id == userData) {
     return (
       <Stack
         key={data.seller._id}
@@ -51,7 +34,7 @@ const UserInformation = ({ userData }: user) => {
         </Typography>
       </Stack>
     );
-  } else if (data.length != 0 && data.seller._id == userData) {
+  } else if (isSuccess && data.seller._id == userData) {
     return (
       <Stack
         key={data.customer._id}
@@ -65,15 +48,29 @@ const UserInformation = ({ userData }: user) => {
         </IconButton>
         <Avatar src={data.customer.photo} alt={data.customer.name} />
         <Typography variant="h6" margin="0 12px" width="fit-content" color="text.primary">
-          {data.customer.name}
+          {data.customer.name} |{" "}
+          <RouterLink noStyle to={`/posts/${data.product._id}`}>
+            {data.product.title}
+          </RouterLink>
         </Typography>
+        <IconButton sx={{ ml: "auto" }} onClick={() => setIsDialogOpen(true)}>
+          <DiscountIcon sx={{ color: "secondary.main" }} />
+        </IconButton>
+        <DiscountDialog
+          onClose={() => setIsDialogOpen(false)}
+          post={isDiscountOpen ? data.product : null}
+          user={isDiscountOpen ? data.customer : null}
+        />
       </Stack>
     );
   }
   return (
     <>
-      {loading && (
+      {isLoading && (
         <Stack direction="row" alignItems="center">
+          <IconButton component={Link} to="/chats" sx={{ mr: 1 }}>
+            <ArrowBack sx={{ scale: theme.direction === "ltr" ? "1" : "-1" }} />
+          </IconButton>
           <Skeleton variant="circular" width={40} height={40} />
           <Skeleton variant="text" width={70} height={30} sx={{ ml: 1 }} />
         </Stack>
