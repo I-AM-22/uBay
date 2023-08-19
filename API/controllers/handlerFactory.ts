@@ -103,10 +103,10 @@ export const getOne = (
     }
     //to go to filter coupon method
     if (Model.modelName === 'Product') {
-        req.body.doc = doc;
-       return  next();
-      }
-      res.status(STATUS_CODE.SUCCESS).json(doc);
+      req.body.doc = doc;
+      return next();
+    }
+    res.status(STATUS_CODE.SUCCESS).json(doc);
   });
 
 /**
@@ -149,6 +149,9 @@ export const getAll = (Model: any, path?: string): RequestHandler =>
         query = query.find({ is_paid: false });
         counter = counter.find({ is_paid: false });
       }
+    }
+    if (Model.modelName === 'Message') {
+      query = query.find({}).select({ chat: 0, updatedAt: 0, id: 0 });
     }
     const countFeature = new APIFeatures(counter, req.query).filter();
     const feature = new APIFeatures(query, req.query)
