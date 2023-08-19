@@ -11,6 +11,10 @@ const profitSchema = new Schema<ProfitDoc, ProfitModel, any>(
       type: Number,
       required: true,
     },
+    percentage: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: true,

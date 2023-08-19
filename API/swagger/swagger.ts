@@ -13,6 +13,7 @@ import { QrSchema } from './routes/delivery.swagger';
 import { chatSchema } from './routes/chat.swagger';
 import { updatechatSchema } from './routes/chat.swagger';
 import { messagesSchema } from './routes/messages.swagger';
+import { profitSchema } from './routes/profits.swagger';
 const options: Options = {
   url: '',
   definition: {
@@ -47,6 +48,7 @@ const options: Options = {
         updatechatSchema,
         messagesSchema,
         favoriteSchema,
+        profitSchema
       },
       securitySchemes: {
         Bearer: {
@@ -101,6 +103,7 @@ const options: Options = {
     './swagger/routes/chat.swagger.ts',
     './swagger/routes/messages.swagger.ts',
     './swagger/routes/statistics.swagger.ts',
+    './swagger/routes/profits.swagger.ts',
   ],
 };
 
