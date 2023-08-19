@@ -370,9 +370,15 @@ export const checkProductIsPaid = catchAsync(
 export const filterCoupon = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     let doc = req.body.doc;
-    doc.coupons = doc.coupons.filter((coupon: { user: { _id: { toString: () => any; } | null; }; }) => {
-      return coupon.user !== null && coupon.user._id !== null && coupon.user._id.toString() === req.user?._id.toString();
-    });
+    doc.coupons = doc.coupons.filter(
+      (coupon: { user: { _id: { toString: () => any } | null } }) => {
+        return (
+          coupon.user !== null &&
+          coupon.user._id !== null &&
+          coupon.user._id.toString() === req.user?._id.toString()
+        );
+      }
+    );
     res.status(STATUS_CODE.SUCCESS).json(doc);
   }
 );
@@ -385,10 +391,10 @@ export const deleteProduct = deleteOne(Product);
 export const getAllPros = catchAsync(
   async (req: any, res: Response, next: NextFunction) => {
     const user: Express.User = req.user; // User's ObjectId
-    console.log(new mongoose.Types.ObjectId(req.user.id));
     const aggregateFeatures = new AggregateFeatures(req.query);
     aggregateFeatures
       .match({})
+      .search()
       .lookup({
         from: 'categories', // The collection to join with
         localField: 'category', // Field from the main collection

@@ -1,5 +1,5 @@
-import { Types, Schema, model } from 'mongoose';
-import { WalletDoc, WalletModel } from 'types/wallet.types';
+import { Types, Schema, model, Query } from 'mongoose';
+import { IWallet, WalletDoc, WalletModel } from 'types/wallet.types';
 
 const walletSchema = new Schema<WalletDoc, WalletModel, any>(
   {

@@ -8,6 +8,7 @@ import {
   getMe,
   updateMe,
   deleteMe,
+  userToggleActive,
 } from '@controllers/user.controller';
 import {
   login,
@@ -62,6 +63,7 @@ router
 router.route('/favorites').patch(updateMe);
 //All routes after this middleware are only for admin
 router.use(restrictTo('superadmin', 'admin'));
+router.patch('/activeToggle', userToggleActive);
 router.route('/:id').get(getUser).delete(deleteUser).patch(updateUser);
 
 export default router;

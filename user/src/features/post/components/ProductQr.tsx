@@ -22,7 +22,7 @@ export const ProductQr: FC<ProductQrProps> = ({ post, onClose, ...props }) => {
 
   const value = JSON.stringify({
     isDeliver: !isBuyer,
-    product: post?._id ?? "",
+    product: post?.product._id ?? "",
     payment: generate.data?.payment,
   });
 

@@ -10,6 +10,7 @@ import { io } from "socket.io-client";
 import Chat from "./Chat";
 import Message from "./Message";
 import UserInformation from "./UserInformation";
+
 function Conversation() {
   const { id } = useParams();
   return <ConversationById key={id} />;
@@ -37,7 +38,6 @@ function ConversationById() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
-  console.log(receiveMes);
   useEffect(() => {
     const listener = (data: any) => {
       setReceiveMes((prev: any) => [...prev, data.newMessageReceived]);

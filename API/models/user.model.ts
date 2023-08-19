@@ -42,7 +42,7 @@ const userSchema = new Schema<UserDoc, UserModel, any>(
       default: true,
       select: false,
     },
-    wallet: { type: Types.ObjectId, ref: 'Wallet' },
+    wallet: { type: Types.ObjectId, ref: 'Wallet', unique: true },
     favoriteCategories: {
       type: [Types.ObjectId],
       ref: 'Category',

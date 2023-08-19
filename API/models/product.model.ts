@@ -56,7 +56,6 @@ productSchema.virtual('likes').get(function () {
   return this.likedBy.length;
 });
 
-
 productSchema.virtual('likedByMe').get(function () {
   if (!this.likedBy) return undefined;
 
@@ -124,7 +123,6 @@ productSchema.pre<Query<IProduct, IProduct>>(
     }
   }
 );
-
 
 const Product = model<ProductDoc, ProductModel>('Product', productSchema);
 
