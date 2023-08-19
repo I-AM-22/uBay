@@ -40,7 +40,7 @@ router.use(
 
 router.get('/', getAllPros);
 router.get('/mine', myProduct);
-router.get('/:id', getProduct,filterCoupon);
+router.get('/:id', getProduct, filterCoupon);
 
 router.post(
   '/',
