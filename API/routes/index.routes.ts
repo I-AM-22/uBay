@@ -14,6 +14,7 @@ import employeeRouter from '@routes/employee.routes';
 import walletRouter from '@routes/wallet.routes';
 import paymentRouter from '@routes/payment.routes';
 import deliveryRouter from '@routes/delivery.routes';
+import profitsRouter from '@routes/profits.routes';
 
 import { settings } from '@config/settings';
 import { Request, Response, NextFunction } from 'express';
@@ -40,6 +41,7 @@ api.use('/wallets', walletRouter);
 api.use('/payments', paymentRouter);
 api.use('/deliveries', deliveryRouter);
 api.use('/statistics', statisticsRouter);
+api.use('/profits', profitsRouter);
 //API ROUTES
 router.use('/api/v1', api);
 //swagger page

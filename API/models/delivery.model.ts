@@ -3,6 +3,7 @@ import { Query, Schema, Types, model } from 'mongoose';
 import Wallet from './wallet.model';
 import User from './user.model';
 import Profit from './profit.model';
+import ProfitPercentage from './ProfitPercentag.model';
 
 const deliverySchema = new Schema<DeliveryDoc, DeliveryModel, any>(
   {
@@ -56,8 +57,12 @@ deliverySchema.pre('save', async function (next) {
     await Wallet.findByIdAndUpdate(buyerWallet.id, {
       $inc: { total: -price, pending: -price },
     });
-
-    const companyFee = (price * 5) / 100;
+    //get the profit percentage from database
+    let percentage: any = (await ProfitPercentage.findOne({})) ? await ProfitPercentage.findOne({}) : 5;
+    if (percentage != 5) {
+      percentage = percentage.value;
+    }
+    const companyFee = (price * percentage) / 100;
     const priceForSeller = price - companyFee;
 
     // // //                         seller
@@ -76,6 +81,7 @@ deliverySchema.pre('save', async function (next) {
     await Profit.create({
       product: doc.payment.product._id,
       value: companyFee,
+      percentage
     });
     next();
   }
