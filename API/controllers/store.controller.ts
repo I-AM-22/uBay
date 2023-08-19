@@ -108,7 +108,7 @@ export const getAllproductInstore = catchAsync(
           Employee: {
             _id: '$employee_seller._id',
             name: '$employee_seller.name',
-            photo: '$employee.photo',
+            photo: '$employee_seller.photo',
           },
         },
       },
