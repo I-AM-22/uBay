@@ -1,44 +1,53 @@
+
 class AllProductModel {
+  String id;
   Product product;
-  Employee employee;
+  Customer customer;
+  Customer employee;
 
   AllProductModel({
+    required this.id,
     required this.product,
+    required this.customer,
     required this.employee,
   });
 
   factory AllProductModel.fromJson(Map<String, dynamic> json) => AllProductModel(
+    id: json["_id"],
     product: Product.fromJson(json["Product"]),
-    employee: Employee.fromJson(json["Employee"]),
+    customer: Customer.fromJson(json["Customer"]),
+    employee: Customer.fromJson(json["Employee"]),
   );
 
   Map<String, dynamic> toJson() => {
+    "_id": id,
     "Product": product.toJson(),
+    "Customer": customer.toJson(),
     "Employee": employee.toJson(),
   };
 }
 
-class Employee {
+class Customer {
   String id;
   String name;
-  String email;
+  String photo;
 
-  Employee({
+  Customer({
     required this.id,
     required this.name,
-    required this.email,
+    required this.photo,
   });
 
-  factory Employee.fromJson(Map<String, dynamic> json) => Employee(
+  factory Customer.fromJson(Map<String, dynamic> json) => Customer(
     id: json["_id"],
     name: json["name"],
-    email: json["email"],
+    photo: json["photo"],
   );
 
   Map<String, dynamic> toJson() => {
     "_id": id,
     "name": name,
-    "email": email,
+    "photo": photo,
   };
 }
 
@@ -46,16 +55,18 @@ class Product {
   String id;
   String title;
   String content;
-  List<String> photos;
   int price;
+  List<String> photos;
+  Customer user;
   DateTime createdAt;
 
   Product({
     required this.id,
     required this.title,
     required this.content,
-    required this.photos,
     required this.price,
+    required this.photos,
+    required this.user,
     required this.createdAt,
   });
 
@@ -63,8 +74,9 @@ class Product {
     id: json["_id"],
     title: json["title"],
     content: json["content"],
-    photos: List<String>.from(json["photos"].map((x) => x)),
     price: json["price"],
+    photos: List<String>.from(json["photos"].map((x) => x)),
+    user: Customer.fromJson(json["user"]),
     createdAt: DateTime.parse(json["createdAt"]),
   );
 
@@ -72,8 +84,9 @@ class Product {
     "_id": id,
     "title": title,
     "content": content,
-    "photos": List<dynamic>.from(photos.map((x) => x)),
     "price": price,
+    "photos": List<dynamic>.from(photos.map((x) => x)),
+    "user": user.toJson(),
     "createdAt": createdAt.toIso8601String(),
   };
 }

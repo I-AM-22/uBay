@@ -33,7 +33,6 @@ const UserInformation = ({ userData }: user) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(data.length);
   if (data.length != 0 && data.customer._id == userData) {
     return (
       <Stack

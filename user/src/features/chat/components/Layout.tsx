@@ -1,11 +1,12 @@
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
-import { Avatar, Button, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Divider, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { accountQueries } from "features/account";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "./Loading";
+
 type per = {
   person: boolean;
 };
@@ -71,51 +72,64 @@ function Layout({ person }: per) {
           </Typography>
         </Stack>
       )}
-      {data.map((item: any) => {
-        const isSeller = item.seller._id === query.data?._id;
-        return (
-          <Button
-            key={item._id}
-            sx={{
-              justifyContent: "unset",
-              width: "100%",
-              borderRadius: 2,
-              "&,&:hover,&:focus": {
-                bgcolor: item._id === id ? "primary.100" : "auto",
-              },
-            }}
-            onClick={() => navigate(`/chats/${item._id}`)}
-          >
-            <Stack direction="row" m="8px 0" width="100%" alignItems="center" p={1}>
-              <Avatar src={item[isSeller ? "customer" : "seller"].photo} />
-              <Stack>
-                <>
-                  <Typography
-                    variant="h6"
-                    margin="0 12px"
-                    width="fit-content"
-                    color="black"
-                    textTransform="none"
-                  >
-                    {item?.product?.title}
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    margin="0 12px"
-                    color="darkslategray"
-                    sx={{
-                      textTransform: "none",
-                      width: "fit-content",
-                    }}
-                  >
-                    {item[isSeller ? "customer" : "seller"].name}
-                  </Typography>
-                </>
-              </Stack>
-            </Stack>
-          </Button>
-        );
-      })}
+      <Box width={1}>
+        {data.map((item: any) => {
+          const isSeller = item.seller._id === query.data?._id;
+          return (
+            <>
+              <Button
+                key={item._id}
+                sx={{
+                  justifyContent: "unset",
+                  width: "100%",
+                  borderRadius: 0,
+                  "&,&:hover,&:focus": {
+                    bgcolor: item._id === id ? "primary.100" : "auto",
+                  },
+                }}
+                onClick={() => navigate(`/chats/${item._id}`)}
+              >
+                <Stack
+                  direction="row"
+                  m="8px 0"
+                  width="100%"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  p={1}
+                >
+                  <Avatar src={item[isSeller ? "customer" : "seller"].photo} />
+
+                  <Stack>
+                    <>
+                      <Typography
+                        variant="h6"
+                        margin="0 12px"
+                        width="fit-content"
+                        color="black"
+                        textTransform="none"
+                      >
+                        {item?.product?.title}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        margin="0 12px"
+                        color="darkslategray"
+                        sx={{
+                          textTransform: "none",
+                          width: "fit-content",
+                        }}
+                      >
+                        {item[isSeller ? "customer" : "seller"].name}
+                      </Typography>
+                    </>
+                  </Stack>
+                </Stack>
+              </Button>
+              {id && <Divider />}
+            </>
+          );
+        })}
+      </Box>
     </Stack>
   );
 }

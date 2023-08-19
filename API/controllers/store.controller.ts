@@ -54,6 +54,17 @@ export const getAllproductInstore = catchAsync(
       {
         $lookup: {
           from: 'users',
+          localField: 'payment.customer',
+          foreignField: '_id',
+          as: 'customer',
+        },
+      },
+      {
+        $unwind: '$customer',
+      },
+      {
+        $lookup: {
+          from: 'users',
           localField: 'product.user',
           foreignField: '_id',
           as: 'product.user',
@@ -79,17 +90,25 @@ export const getAllproductInstore = catchAsync(
           Product: {
             _id: '$product._id',
             title: '$product.title',
+            content: '$product.content',
             price: '$product.price',
+            photos: '$product.photos',
             user: {
               _id: '$product.user._id',
               name: '$product.user.name',
               photo: '$product.user.photo',
             },
+            createdAt: '$product.createdAt',
+          },
+          Customer: {
+            _id: '$customer._id',
+            name: '$customer.name',
+            photo: '$customer.photo',
           },
           Employee: {
             _id: '$employee_seller._id',
             name: '$employee_seller.name',
-            email: '$employee_seller.email',
+            photo: '$employee_seller.photo',
           },
         },
       },

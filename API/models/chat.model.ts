@@ -68,8 +68,23 @@ chatSchema.post('save', async function () {
 });
 
 chatSchema.pre<Query<IChat, IChat>>(/^find/, function (next) {
-  this.populate('customer', 'name photo -wallet')
-    .populate({ path: 'seller', select: { name: 1, photo: 1, wallet: 0 } })
+  this.populate('customer', {
+    name: 1,
+    photo: 1,
+    wallet: 0,
+    favoriteCategories: 0,
+    favoriteCities: 0,
+  })
+    .populate({
+      path: 'seller',
+      select: {
+        name: 1,
+        photo: 1,
+        wallet: 0,
+        favoriteCategories: 0,
+        favoriteCities: 0,
+      },
+    })
     .populate({
       path: 'product',
       select: {

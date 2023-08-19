@@ -37,7 +37,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<_$_getProductEvent>((event, emit) async {
       emit(const _$_loading());
       final successOrFailure = await getProductUseCase(event.id);
-      print('in bloc \n');
       successOrFailure.fold((failure) {
         emit(_$_errorGetProductState(_mapFailureToString(failure)));
       }, (success) {
@@ -45,7 +44,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       });
     });
     on<_$_receiveProductEvent>((event, emit) async {
-      emit(const _$_loading());
+      emit(const _$_loadingReceiveOrGive());
       final succOrFailure = await receiveProductUseCase(event.id, event.status);
       succOrFailure.fold((l) {
         emit(_$_errorReceiveProductState(_mapFailureToString(l)));
