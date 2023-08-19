@@ -29,6 +29,19 @@ let API_ROUTES = {
     EDIT: (id: string) => id,
     DELETE: (id: string) => id,
   },
+  CHATS: {
+    root: "chats",
+    ADD: "",
+    GET_ALL: "",
+    GET: (id: string) => id,
+    EDIT: (id: string) => id,
+    DELETE: (id: string) => id,
+  },
+  MESSAGES: {
+    root: "chats",
+    ADD: (chatId: string) => `${chatId}/messages`,
+    GET_ALL: (chatId: string) => `${chatId}/messages`,
+  },
   COMMENTS: {
     root: "comments",
     POST: "",
