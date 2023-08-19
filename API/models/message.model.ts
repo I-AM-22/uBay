@@ -62,11 +62,5 @@ messageSchema.post('save', async function (doc, next) {
 //   }
 // });
 
-messageSchema.pre<Query<IMessage, IMessage>>(/^find/, function (next) {
-
-  this.populate({ path: 'chat', select: { lastMessage: 0 } });
-  next();
-});
-
 const Message = model<MessageDoc, MessageModel>('Message', messageSchema);
 export default Message;
