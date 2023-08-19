@@ -391,7 +391,6 @@ export const deleteProduct = deleteOne(Product);
 export const getAllPros = catchAsync(
   async (req: any, res: Response, next: NextFunction) => {
     const user: Express.User = req.user; // User's ObjectId
-    console.log(new mongoose.Types.ObjectId(req.user.id));
     const aggregateFeatures = new AggregateFeatures(req.query);
     aggregateFeatures
       .match({})
