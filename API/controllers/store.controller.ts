@@ -82,9 +82,8 @@ export const getAllproductInstore = catchAsync(
         },
       },
       {
-        $unwind: '$employee_seller',
+        $unwind: { path: '$employee_seller', preserveNullAndEmptyArrays: true }, // Unwind the userDetails array
       },
-      // { $unset: [] },
       {
         $project: {
           Product: {

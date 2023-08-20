@@ -267,7 +267,7 @@ export const myProduct = catchAsync(
           },
         },
         {
-          $unwind: '$seller',
+          $unwind: { path: '$seller', preserveNullAndEmptyArrays: true }, // Unwind the userDetails array
         },
         {
           $match: {
@@ -325,8 +325,8 @@ export const myProduct = catchAsync(
               category: 1,
               store: 1,
               coupons: 1,
-              delivery_status: 1,
             },
+            delivery_status: 1,
           },
         },
         {
