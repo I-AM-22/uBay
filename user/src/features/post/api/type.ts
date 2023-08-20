@@ -73,8 +73,16 @@ export type ProductMine = {
   seller_date: string;
   createdAt: Date;
   product: Product;
-  customer: Customer;
-};
+} & (
+  | {
+      customer: User;
+      seller: never;
+    }
+  | {
+      customer: never;
+      seller: User;
+    }
+);
 
 export type Payment = {
   _id: string;
@@ -93,7 +101,7 @@ export type Product = {
   store: string;
 };
 
-export type Customer = {
+export type User = {
   _id: string;
   name: string;
   photo: string;

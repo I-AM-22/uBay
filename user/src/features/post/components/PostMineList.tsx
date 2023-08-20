@@ -38,8 +38,6 @@ export const PostMineList: FC<PostMineListProps> = ({ isBuy }) => {
   const query = postQueries.useMine({ isBuy });
   const tab = isBuy ? "customer" : "seller";
   const noData = query.isSuccess && Object.values(query.data).flat().length === 0;
-  query.isSuccess && console.log(Object.entries(query.data));
-
   return (
     <>
       <Stack gap={1} p={1} maxWidth={600} width="min(500px,100%)" mx="auto" alignItems={"center"}>
