@@ -5,16 +5,16 @@ import 'package:warehouse/features/product/presentation/widget/photo_grid.dart';
 import '../../../../core/theme.dart';
 import '../../../../core/util/chose_date_time.dart';
 
-class ReceivedDeliveredProductsWidget extends StatelessWidget {
-  final List<Ive> list;
-  const ReceivedDeliveredProductsWidget({super.key, required this.list});
+class GiveProductsWidget extends StatelessWidget {
+  final List<Give> list;
+  const GiveProductsWidget({super.key, required this.list});
 
   @override
   Widget build(BuildContext context) {
     return _buildListProduct(list, context);
   }
   Widget _buildListProduct(
-      List<Ive> giveProductModel, BuildContext context) {
+      List<Give> giveProductModel, BuildContext context) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: ListView.separated(
@@ -34,11 +34,11 @@ class ReceivedDeliveredProductsWidget extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(borderRadius),
                         ),
-                        color: primaryColor,
+                        color: secondaryColor,
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Text(
-                            '${giveProductModel[index].product.price} ',
+                            '${giveProductModel[index].product.price}',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall!
@@ -49,35 +49,61 @@ class ReceivedDeliveredProductsWidget extends StatelessWidget {
                       const SizedBox(
                         width: 10,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'majed',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(fontSize: 18),
-                          ),
-                          Text(
-                              ChoseDateTime().chose(
-                                  giveProductModel[index].product.createdAt),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                  fontSize: 13, color: Colors.grey))
-                        ],
+                      Text('(البائع)',style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.black,fontSize: 15),),
+                      SizedBox(width: 5,),
+                      Text(
+                        '${list[index].product.user.name}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(fontSize: 18),
                       ),
                       const SizedBox(
-                        width: 20,
+                        width: 10,
                       ),
-                      const CircleAvatar(
+                      CircleAvatar(
                           radius: 25,
                           backgroundImage: NetworkImage(
-                              'https://i.imgur.com/7rlze8l.jpg')),
+                              list[index].product.user.photo)),
                     ],
                   ),
+                  const Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('(المشتري)',style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.black,fontSize: 15),),
+                      SizedBox(width: 5,),
+                      Text(
+                        '${list[index].customer.name}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(fontSize: 18),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      CircleAvatar(
+                          radius: 25,
+                          backgroundImage: NetworkImage(
+                              list[index].customer.photo)),
+                    ],
+                  ),
+                  const Divider(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                    Text(
+                      'تاريخ الاستلام: ${ChoseDateTime().chose(list[index].giveDate)}',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    SizedBox(height: 5,),
+                    Text(
+                      'في الساعة: ${list[index].giveDate.hour}:${list[index].giveDate.minute}',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ],),
                   const Divider(),
                   Text(
                     giveProductModel[index].product.title,
@@ -91,6 +117,7 @@ class ReceivedDeliveredProductsWidget extends StatelessWidget {
                   ),
                   Text(
                     giveProductModel[index].product.content,
+                    textAlign: TextAlign.end,
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium!

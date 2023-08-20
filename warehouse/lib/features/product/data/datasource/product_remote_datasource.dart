@@ -28,7 +28,6 @@ class ProductRemoteDataSourceImplement implements ProductRemoteDataSource {
     ProductModel? productModel;
     await DioHelper.getData(url: '$GET_PRODUCT/$id', token: token)
         .then((value) {
-          print(value.data);
       productModel = ProductModel.fromJson(value.data);
       return Future.value(productModel);
     }).catchError((error) {
@@ -63,13 +62,11 @@ class ProductRemoteDataSourceImplement implements ProductRemoteDataSource {
     await DioHelper.getData(
             url: '$GET_ALL_PRODUCT_1$idStore$GET_ALL_PRODUCT_2', token: token)
         .then((value) {
-          print(value.data);
       value.data.forEach((element) {
         allProductModel.add(AllProductModel.fromJson(element));
       });
       return Future.value(allProductModel);
     }).catchError((error) {
-      print('error is: $error');
       DioError dioError = error;
       if (dioError.response != null) {
         SERVER_FAILURE = _mapResponseError(dioError.response!);
@@ -85,13 +82,10 @@ class ProductRemoteDataSourceImplement implements ProductRemoteDataSource {
     await DioHelper.getData(
             url: '$GET_ALL_GIVE_RECEIVE_PRODUCT$idEmployee', token: token)
         .then((value) {
-          print(value.data);
       receiveAndGiveModel = ReceiveAndGiveModel.fromJson(value.data);
       return Future.value(receiveAndGiveModel);
     }).catchError((error) {
-      print(error.toString());
       DioError dioError = error;
-      print(dioError.response!.data['message']);
       if (dioError.response != null) {
         SERVER_FAILURE = _mapResponseError(dioError.response!);
       }

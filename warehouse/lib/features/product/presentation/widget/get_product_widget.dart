@@ -1,4 +1,4 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:warehouse/core/strings/id_and_token.dart';
@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 import '../../../../core/theme.dart';
 import '../../../../core/util/chose_date_time.dart';
 
+// ignore: must_be_immutable
 class GetProductWidget extends StatelessWidget {
   final String payment;
   final String product;
@@ -21,7 +22,6 @@ class GetProductWidget extends StatelessWidget {
       {super.key, required this.payment, required this.product, required this.isDeliver});
 
   var formatter = NumberFormat('###,###,###,000');
-  bool isLoading = false;
 
 
   @override
@@ -40,12 +40,9 @@ class GetProductWidget extends StatelessWidget {
       child: BlocConsumer<ProductBloc, ProductState>(
           listener: (context, state) {
             state.maybeWhen(
-                orElse: () {},
-                loadingReceiveOrGive: () {
-                  isLoading = true;
+                orElse: () {
                 },
                 errorGetProductState: (message) {
-                  isLoading=false;
                   SnackBarMessage().snackBarMessageError(context, message);
                 },
                 successReceiveProductState: () {
@@ -69,160 +66,158 @@ class GetProductWidget extends StatelessWidget {
 
   Widget _buildProduct(ProductModel productModel, BuildContext context,
       String bottom, String store) {
-    return Column(
-      children: [
-        if(idStore != productModel.store.id)...[
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: Column(
+        children: [
+          if(idStore != productModel.store.id)...[
+            Card(
+              color: primaryColor1,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRadius),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(store,),
+                    const SizedBox(width: 5,),
+                    const Icon(Icons.error_outline, color: Colors.red,)
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 10,),
+          ],
           Card(
-            color: primaryColor1,
+            margin: const EdgeInsets.all(5),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(store,),
-                  const SizedBox(width: 5,),
-                  const Icon(Icons.error_outline, color: Colors.red,)
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 10,),
-        ],
-        Card(
-          margin: const EdgeInsets.all(5),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(borderRadius),
-                        ),
-                        color: primaryColor,
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text(
-                            '${formatter.format(productModel.price)} ',
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(color: Colors.white),
+              padding: const EdgeInsets.all(16.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(borderRadius),
                           ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            productModel.user.name,
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(fontSize: 18),
-                          ),
-                          Text(
-                              ChoseDateTime().chose(
-                                  productModel.createdAt),
+                          color: primaryColor,
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                              '${formatter.format(productModel.price)} ',
                               style: Theme
                                   .of(context)
                                   .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                  fontSize: 13, color: Colors.grey))
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      CircleAvatar(
-                          radius: 25,
-                          backgroundImage: NetworkImage(
-                              productModel.user.photo)),
-                    ],
-                  ),
-                  const Divider(),
-                  Text(
-                    productModel.title,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodyLarge,
-                  ),
-                  const SizedBox(height: 10,),
-                  Text(
-                    productModel.content,
-                    textAlign: TextAlign.end,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodyMedium,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ListView.separated(
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) =>
-                          Image(
+                                  .titleSmall!
+                                  .copyWith(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              productModel.user.name,
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(fontSize: 18),
+                            ),
+                            Text(
+                                ChoseDateTime().chose(
+                                    productModel.createdAt),
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                    fontSize: 13, color: Colors.grey))
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        CircleAvatar(
+                            radius: 25,
+                            backgroundImage: NetworkImage(
+                                productModel.user.photo)),
+                      ],
+                    ),
+                    const Divider(),
+                    Text(
+                      productModel.title,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyLarge,
+                    ),
+                    const SizedBox(height: 10,),
+                    Text(
+                      productModel.content,
+                      textAlign: TextAlign.end,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyMedium,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ListView.separated(
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) =>
+                            Image(
 
-                              image: NetworkImage(productModel.photos[index])),
-                      separatorBuilder: (context, index) =>
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      itemCount: productModel.photos.length),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  ConditionalBuilder(
-                    builder: (context) =>
-                        ElevatedButtonWidget(
-                          color: primaryColor,
-                            onPressed: () {
-                              BlocProvider.of<ProductBloc>(context)
-                                  .add(ProductEvent.receiveProductEvent(
-                                  payment, isDeliver ? '0' : '1'));
-                            },
-                            widget: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  bottom,
-                                  style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(color: Colors.white),
-                                )
-                              ],
-                            )),
-                    fallback: (context) => ElevatedButtonWidget(onPressed: (){}, widget: LoadingWidget(),color: Colors.grey,),
-                    condition:!isLoading,
-                  ),
-                ],
+                                image: NetworkImage(productModel.photos[index])),
+                        separatorBuilder: (context, index) =>
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        itemCount: productModel.photos.length),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    ElevatedButtonWidget(
+                        color: primaryColor,
+                        onPressed: () {
+                          BlocProvider.of<ProductBloc>(context)
+                              .add(ProductEvent.receiveProductEvent(
+                              payment, isDeliver ? '0' : '1'));
+                        },
+                        widget: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              bottom,
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(color: Colors.white),
+                            )
+                          ],
+                        )),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
