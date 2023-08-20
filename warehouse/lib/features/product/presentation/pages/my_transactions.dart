@@ -30,26 +30,35 @@ class _MyTransactionsState extends State<MyTransactions>
     return BlocProvider(
       create: (context) => di.getIt<ProductBloc>()..add(ProductEvent.getReceiveAndGiveProducts()),
       child: Scaffold(
-        appBar: AppBar(
-          bottom: TabBar(
-            controller: tabController,
-            labelColor: Colors.white,
-            labelStyle: const TextStyle(fontSize: 17, fontFamily: 'Mont'),
-            unselectedLabelColor: Colors.grey,
-            indicatorColor: primaryColor2,
-            tabs: const [
-              Tab(
-                text: 'تم استلامها',
+        body: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                pinned: true,
+                floating: true,
+                forceElevated: innerBoxIsScrolled,
+                bottom: TabBar(
+                  controller: tabController,
+                  labelColor: Colors.white,
+                  labelStyle: const TextStyle(fontSize: 17, fontFamily: 'Mont'),
+                  unselectedLabelColor: Colors.grey,
+                  indicatorColor: primaryColor2,
+                  tabs: <Tab>[
+                    Tab(
+                      text: 'تم استلامها',
+                    ),
+                    Tab(
+                      text: 'تم تسليمها',
+                    )
+                  ],
+                ),
               ),
-              Tab(
-                text: 'تم تسليمها',
-              )
-            ],
+            ];
+          },
+          body: TabBarView(
+            controller: tabController,
+            children: const [ProductsReceived(), ProductsDelivered()],
           ),
-        ),
-        body: TabBarView(
-          controller: tabController,
-          children: const [ProductsReceived(), ProductsDelivered()],
         ),
       ),
     );

@@ -2,7 +2,7 @@ class ChoseDateTime {
   String chose(DateTime createdAt) {
     final date=DateTime.now().difference(createdAt);
     if (date.inMinutes < 60) {
-      return ' منذ ${date.inMinutes} دقيقة ';
+      return ' منذ ${date.inMinutes}';
     } else if (date.inHours < 24) {
       return '  منذ ${date.inHours} ساعة ';
     } else if (date.inDays < 7) {

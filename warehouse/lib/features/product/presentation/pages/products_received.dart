@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:warehouse/core/util/snackbar_message.dart';
-import 'package:warehouse/core/widget/elevated_button_widget.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
+import 'package:warehouse/features/product/presentation/widget/recived_products_widget.dart';
 
 import '../bloc/product_bloc.dart';
-import '../widget/recived_delivered_products_widget.dart';
 
 class ProductsReceived extends StatelessWidget {
   const ProductsReceived({super.key});
@@ -24,8 +23,8 @@ class ProductsReceived extends StatelessWidget {
             orElse: () => const Text('خطأ غير معروف'),
             loading: ()=>const LoadingWidget(),
             successGetReceiveAndGiveProductsState: (list) {
-              if(list.recive.isNotEmpty) {
-                return ReceivedDeliveredProductsWidget(list: list.recive);
+              if(list.receive.isNotEmpty) {
+                return ReceivedProductsWidget(list: list.receive);
               }else{
                 return Center(child: Text('لا يوجد بيانات', style: Theme.of(context)
                     .textTheme

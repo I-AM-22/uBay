@@ -44,7 +44,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       });
     });
     on<_$_receiveProductEvent>((event, emit) async {
-      emit(const _$_loadingReceiveOrGive());
+      emit(const _$_loading());
       final succOrFailure = await receiveProductUseCase(event.id, event.status);
       succOrFailure.fold((l) {
         emit(_$_errorReceiveProductState(_mapFailureToString(l)));

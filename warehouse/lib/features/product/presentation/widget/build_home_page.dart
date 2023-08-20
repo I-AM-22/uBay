@@ -7,13 +7,14 @@ import 'package:warehouse/features/product/data/model/all_product_model/all_prod
 import 'package:warehouse/features/product/presentation/bloc/product_bloc.dart';
 import 'package:warehouse/features/product/presentation/widget/photo_grid.dart';
 import 'package:intl/intl.dart';
-import 'package:warehouse/injection_container.dart' as di;
 import '../../../../core/theme.dart';
 
 // ignore: must_be_immutable
 class BuildHomeProductPage extends StatelessWidget {
   BuildHomeProductPage({super.key});
+
   var formatter = NumberFormat('###,###,###,000');
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProductBloc, ProductState>(
@@ -76,7 +77,6 @@ class BuildHomeProductPage extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
-
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -106,12 +106,20 @@ class BuildHomeProductPage extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  Text('(البائع)',style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.black,fontSize: 15),),
-                                  SizedBox(width: 5,),
+                                  Text(
+                                    '(البائع)',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(
+                                            color: Colors.black, fontSize: 15),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
                                   Text(
                                     allProductModel[index].product.user.name,
-                                    style: Theme
-                                        .of(context)
+                                    style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge!
                                         .copyWith(fontSize: 18),
@@ -121,18 +129,17 @@ class BuildHomeProductPage extends StatelessWidget {
                               Text(
                                   ChoseDateTime().chose(
                                       allProductModel[index].product.createdAt),
-                                  style: Theme
-                                      .of(context)
+                                  style: Theme.of(context)
                                       .textTheme
                                       .bodySmall!
                                       .copyWith(
-                                      fontSize: 13, color: Colors.grey))
+                                          fontSize: 13, color: Colors.grey))
                             ],
                           ),
                           const SizedBox(
                             width: 10,
                           ),
-                           CircleAvatar(
+                          CircleAvatar(
                               radius: 25,
                               backgroundImage: NetworkImage(
                                   allProductModel[index].product.user.photo)),
@@ -148,12 +155,20 @@ class BuildHomeProductPage extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  Text('(المشتري)',style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.black,fontSize: 15),),
-                                  SizedBox(width: 5,),
+                                  Text(
+                                    '(المشتري)',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(
+                                            color: Colors.black, fontSize: 15),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
                                   Text(
                                     allProductModel[index].customer.name,
-                                    style: Theme
-                                        .of(context)
+                                    style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge!
                                         .copyWith(fontSize: 18),
@@ -165,7 +180,7 @@ class BuildHomeProductPage extends StatelessWidget {
                           const SizedBox(
                             width: 10,
                           ),
-                           CircleAvatar(
+                          CircleAvatar(
                               radius: 25,
                               backgroundImage: NetworkImage(
                                   allProductModel[index].customer.photo)),

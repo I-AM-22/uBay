@@ -3,13 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:warehouse/core/theme.dart';
 import 'package:warehouse/features/product/presentation/bloc/product_bloc.dart';
 import 'package:warehouse/features/product/presentation/pages/my_transactions.dart';
-import 'package:warehouse/features/product/presentation/pages/products_delivered.dart';
-import 'package:warehouse/features/product/presentation/pages/products_received.dart';
 import 'package:warehouse/features/product/presentation/widget/build_home_page.dart';
 import 'package:warehouse/injection_container.dart' as di;
 
 import '../../../../core/util/snackbar_message.dart';
-import '../widget/build_qr_widget.dart';
 
 // ignore: must_be_immutable
 class HomePage extends StatefulWidget {
