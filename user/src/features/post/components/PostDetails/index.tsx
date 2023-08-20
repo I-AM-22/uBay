@@ -1,5 +1,6 @@
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import DiscountIcon from "@mui/icons-material/Discount";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import {
   Box,
@@ -106,7 +107,20 @@ export const PostDetails: FC<PostCardProps> = ({ post, skeleton }) => {
                   {skeleton && <Skeleton widthRange={{ min: 40, max: 50 }} />}
                 </Stack>
               }
-              subheader={post && <Timeago date={post.createdAt} />}
+              subheader={
+                post && (
+                  <Stack direction={"row"} alignItems={"end"} flexWrap={"wrap"} gap={0.5}>
+                    <Timeago date={post.createdAt} />
+                    <Typography fontSize={9} variant="caption">
+                      |{" "}
+                      <LocationOnIcon
+                        sx={{ fontSize: 10, mb: -0.2, mr: -0.1, color: "text.secondary" }}
+                      />
+                      {` ${post.store.name} - ${post.store.city.name}`}
+                    </Typography>
+                  </Stack>
+                )
+              }
             />
 
             <CardContent sx={{ pt: 0 }}>
