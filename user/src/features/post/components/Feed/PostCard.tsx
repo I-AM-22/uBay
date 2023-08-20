@@ -1,4 +1,5 @@
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import {
   Box,
   Button,
@@ -82,7 +83,22 @@ export const PostCard: FC<PostCardProps> = ({ post, onCommentClick, skeleton }) 
               {skeleton && <Skeleton widthRange={{ min: 40, max: 50 }} />}
             </Stack>
           }
-          subheader={post && <Timeago date={post.createdAt} />}
+          subheader={
+            post && (
+              <Stack direction={"row"} alignItems={"end"} flexWrap={"wrap"} gap={0.5}>
+                <Timeago date={post.createdAt} />
+                {post.store && (
+                  <Typography fontSize={9} variant="caption">
+                    |{" "}
+                    <LocationOnIcon
+                      sx={{ fontSize: 10, mb: -0.2, mr: -0.1, color: "text.secondary" }}
+                    />
+                    {` ${post.store.name} - ${post.store.city.name}`}
+                  </Typography>
+                )}
+              </Stack>
+            )
+          }
         />
         <OptionalWrap
           Element={RouterLink}
