@@ -12,9 +12,7 @@ import catchAsync from '@utils/catchAsync';
 import AppError from '@utils/appError';
 import { STATUS_CODE } from '../types/helper.types';
 import Delivery from '@models/delivery.model';
-import APIFeatures from '../utils/apiFeatures';
 import AggregateFeatures from '@utils/aggregateFeatures';
-import User from '../models/user.model';
 import mongoose, { Types } from 'mongoose';
 
 export const like = catchAsync(
@@ -394,7 +392,6 @@ export const getAllPros = catchAsync(
     const aggregateFeatures = new AggregateFeatures(req.query);
     aggregateFeatures
       .match({})
-      .search()
       .lookup({
         from: 'categories', // The collection to join with
         localField: 'category', // Field from the main collection
@@ -442,10 +439,18 @@ export const getAllPros = catchAsync(
         foreignField: '_id', // Field from the joined collection
         as: 'store', // Alias for the joined data
       })
+      .lookup({
+        from: 'cities', // The collection to join with
+        localField: 'store.city', // Field from the main collection
+        foreignField: '_id', // Field from the joined collection
+        as: 'city', // Alias for the joined data
+      })
       .unwind('$category') // Unwind the category data array
       .unwind('$user') // Unwind the user data array
       .unwind('$store') // Unwind the store data array
+      .unwind('$city') // Unwind the city data array
       .match({ 'user.active': { $ne: false } })
+      .search()
       .sort({ createdAt: -1 })
       .addFields({
         sortField: {
