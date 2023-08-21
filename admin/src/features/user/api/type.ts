@@ -12,6 +12,7 @@ export type User = {
   createdAt: Date;
   updatedAt: Date;
   wallet: Wallet;
+  passwordChangedAt: string;
   id: string;
 };
 

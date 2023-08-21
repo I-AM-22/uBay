@@ -1,10 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Dialog, Stack } from "@mui/material";
+import { useQueryClient } from "@tanstack/react-query";
 import Submit from "components/buttons/Submit";
 import DialogTitle from "components/forms/DialogTitle";
 import TextField from "components/inputs/TextField";
 import LabelValue from "components/typography/LabelValue";
 import { useSnackbar } from "context/snackbarContext";
+import { queryStore } from "features/shared";
 import z from "lib/zod";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
@@ -25,17 +27,22 @@ export type DepositDialogProps = { user: User | null; onClose: () => void };
 export const DepositDialog: FC<DepositDialogProps> = ({ onClose, user }) => {
   const { t, i18n } = useTranslation("user", { keyPrefix: "deposit" });
   const deposit = userQueries.useDeposit();
+  const queryClient = useQueryClient();
   const snackbar = useSnackbar();
-  const { control, reset, handleSubmit, setError } = useForm<WalletChargeBody>({
+  const { control, watch, reset, handleSubmit, setError } = useForm<WalletChargeBody>({
     resolver: zodResolver(schema),
-    defaultValues: user ? { userId: user._id, amount: 0 } : defaultForm,
+    defaultValues: defaultForm,
   });
+  if (watch("userId") === "" && user?.id !== null) {
+    setTimeout(() => reset({ userId: user?.id ?? "", amount: 0 }));
+  }
   const onSubmit = (form: WalletChargeBody) => {
     deposit.mutate(form, {
       onSuccess: () => {
         snackbar({ severity: "success", message: t("success") });
         onClose();
         reset(defaultForm);
+        queryClient.invalidateQueries(queryStore.user.all._def);
       },
       onError: parseResponseError({ snackbar, setError }),
     });

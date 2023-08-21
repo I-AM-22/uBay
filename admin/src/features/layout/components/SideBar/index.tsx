@@ -1,10 +1,11 @@
-import { Toolbar, Tooltip, useMediaQuery, useTheme } from "@mui/material";
+import { Toolbar, useMediaQuery, useTheme } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import MuiDrawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import { CSSObject, Theme, styled } from "@mui/material/styles";
-import { sideBarItems } from "constants/sideBarItems";
+import { createSideBarItems } from "constants/sideBarItems";
 import { FC, Fragment, ReactNode, useState } from "react";
+import { storage } from "utils/storage";
 import SideBarListItem from "./SideBarListItem";
 
 const drawerWidth = 240;
@@ -13,26 +14,27 @@ type Props = { open: boolean; setOpen: React.Dispatch<React.SetStateAction<boole
 const Sidebar: FC<Props> = ({ open, setOpen }) => {
   const [activeItem, setActiveItem] = useState<[boolean, string]>([false, ""]);
   const small = useMediaQuery(useTheme().breakpoints.down("sm"));
-
+  const sideBarListItems = createSideBarItems(storage.getRole());
   return (
     <ResponsiveDrawer open={open}>
       <Toolbar />
-      {sideBarItems.map((section, index) => (
+      {sideBarListItems.map((section, index) => (
         <Fragment key={index}>
           <Divider />
           <List disablePadding>
-            {section.map((sideBarItem) =>{
-              return(
-              <SideBarListItem
-                onClick={() => small && setOpen(false)}
-                activeItem={activeItem}
-                setActiveItem={setActiveItem}
-                data={sideBarItem}
-                sideBarIsOpen={open}
-                key={sideBarItem.href}
-                level={0}
+            {section.map((sideBarItem) => {
+              return (
+                <SideBarListItem
+                  onClick={() => small && setOpen(false)}
+                  activeItem={activeItem}
+                  setActiveItem={setActiveItem}
+                  data={sideBarItem}
+                  sideBarIsOpen={open}
+                  key={sideBarItem.href}
+                  level={0}
                 />
-            )})}
+              );
+            })}
           </List>
         </Fragment>
       ))}
