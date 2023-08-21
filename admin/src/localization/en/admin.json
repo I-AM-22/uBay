@@ -11,7 +11,7 @@
   "table": {
     "name": "Full Name",
     "email": "Email",
-    "createdAt": "The date the account was created",
+    "createdAt": "CreatedAt",
     "active": "account status"
   },
   "form": {
