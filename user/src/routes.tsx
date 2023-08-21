@@ -1,6 +1,7 @@
 import SomethingWentWrong from "components/feedback/SomethingWentWrong";
 import AuthenticatedRoute from "components/routes/AuthenticatedRoute";
 import NotAuthenticatedRoute from "components/routes/NotAuthenticatedRoute";
+import { RemoveTrailingSlash } from "components/routes/RemoveTrailingSlash";
 import { Chat, Conversation } from "features/chat";
 import { AppBar, MobileNavigator } from "features/layout";
 import { HomePage } from "pages";
@@ -71,6 +72,7 @@ function ErrorBoundary() {
 function WithScroll() {
   return (
     <>
+      <RemoveTrailingSlash />
       <Outlet />
       <ScrollRestoration
         getKey={({ pathname, search }) => {

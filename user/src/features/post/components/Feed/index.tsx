@@ -2,12 +2,14 @@ import NoData from "components/feedback/NoData";
 import SomethingWentWrong from "components/feedback/SomethingWentWrong";
 import { CommentsDrawer } from "features/comment";
 import { Post, postQueries } from "features/post";
+import useQuerySearchParam from "hooks/useQuerySearchParam";
 import InfiniteScroll from "lib/infiniteScroll";
 import { FC, useState } from "react";
 import { PostCard } from "./PostCard";
 export type FeedProps = {};
 export const Feed: FC<FeedProps> = ({}) => {
-  const query = postQueries.useInfinite({ limit: 10, is_paid: false });
+  const search = useQuerySearchParam();
+  const query = postQueries.useInfinite({ search, limit: 10, is_paid: false });
   const [commentsPost, setCommentsPost] = useState<Post | null>(null);
   const [CommentsDrawerOpen, setCommentsDrawerOpen] = useState(false);
   const isEmpty = query.isSuccess && query.data.pages[0].totalDataCount === 0;
