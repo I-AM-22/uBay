@@ -42,7 +42,7 @@ export const createSideBarItems: (role: Role) => SideBarItem[][] = (role) =>
       },
     ],
     ...[
-      role === "super"
+      role === "superadmin"
         ? [
             {
               href: "admins",

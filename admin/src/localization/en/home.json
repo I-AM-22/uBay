@@ -1,5 +1,5 @@
 {
-  "products": "Published pieces",
+  "products": "Posted products",
   "users": "Users",
   "warehouses": "Warehouses",
   "soldProducts": "Sold",
@@ -7,13 +7,13 @@
   "loadingPie": " Loading...",
   "line": {
     "profits": "The company's profit",
-    "y": "l.s",
+    "y": "SYP",
     "x": ""
   },
   "bar": {
     "today": "Today",
-    "products": "Published pieces",
-    "soldProducts": "Pieces sold",
+    "products": "Posted products",
+    "soldProducts": "Sold products",
     "comments": "Added comments"
   }
 }

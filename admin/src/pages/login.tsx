@@ -23,45 +23,38 @@ export const LoginPage: FC<{}> = ({}) => {
       }}
     >
       <BottomRightWavesIcon />
-      <Slide in={true} direction="up" timeout={300}>
-        <Box>
-          <Stack
-            direction={"row"}
-            alignItems={"center"}
-            gap={3}
-            sx={{
-              zIndex: 1,
-              position: "absolute",
-              top: { xs: 18, md: "3%", lg: "10%" },
-              transform: { xs: "translateX(50%)", md: "none" },
-              right: { xs: "50%", md: 100 },
-            }}
-          >
-            <Typography color={"primary"} fontSize={72} mt={1} fontFamily={"cursive"}>
-              <Typography
-                color="text.primary"
-                component={"span"}
-                fontSize={84}
-                fontFamily={"cursive"}
-              >
-                u
-              </Typography>
-              Bay
-            </Typography>
-            <Box component="img" src={"/logo.svg"} width={{ xs: 100, md: 200 }} />
-          </Stack>
-          <Box
-            sx={{
-              position: "relative",
-              zIndex: 2,
-              width: "min(80%,530px)",
-              mx: "auto",
-              mt: "32vh",
-              ml: { xs: "auto", md: 10, lg: 44 },
-            }}
-          >
-            <LoginForm />
-          </Box>
+      <Stack
+        direction={"row"}
+        alignItems={"center"}
+        gap={3}
+        sx={{
+          zIndex: 1,
+          position: "absolute",
+          top: { xs: 18, md: "3%", lg: "10%" },
+          transform: { xs: "translateX(50%)", md: "none" },
+          right: { xs: "50%", md: 100 },
+        }}
+      >
+        <Typography color={"primary"} fontSize={72} mt={1} fontFamily={"cursive"}>
+          <Typography color="text.primary" component={"span"} fontSize={84} fontFamily={"cursive"}>
+            u
+          </Typography>
+          Bay
+        </Typography>
+        <Box component="img" src={"/logo.svg"} width={{ xs: 100, md: 200 }} />
+      </Stack>
+      <Slide in={true} direction="right" timeout={300}>
+        <Box
+          sx={{
+            position: "relative",
+            zIndex: 2,
+            width: "min(80%,530px)",
+            mx: "auto",
+            mt: "32vh",
+            ml: { xs: "auto", md: 10, lg: 44 },
+          }}
+        >
+          <LoginForm />
         </Box>
       </Slide>
     </Box>
