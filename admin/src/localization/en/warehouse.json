@@ -4,7 +4,7 @@
   "remove": "Remove the warehouse",
 
   "table": {
-    "name": "Warehouse name",
+    "name": "Name",
     "address": "Address",
     "city": "City"
   },

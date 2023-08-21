@@ -4,7 +4,7 @@
   "remove": "Remove category",
 
   "table": {
-    "name": "Category name",
+    "name": "Name",
     "description": "Description"
   },
   "form": {

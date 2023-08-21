@@ -4,7 +4,7 @@
   "remove": "Remove the city",
 
   "table": {
-    "name": "Name of the city "
+    "name": "Name"
   },
   "form": {
     "name": "Name"
