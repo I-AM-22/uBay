@@ -1,5 +1,6 @@
 import { Box, useTheme } from "@mui/material";
 import { ResponsiveLine } from "@nivo/line";
+import { useLanguageContext } from "context/languageContext";
 import { homeQueries } from "features/home";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -15,6 +16,7 @@ export type Datum = {
 };
 
 export const Line: FC<{}> = () => {
+  const { lang } = useLanguageContext();
   const { t } = useTranslation("home", { keyPrefix: "line" });
   const theme = useTheme();
   const profits = (homeQueries.useStatics().data?.profits ?? [])
@@ -66,10 +68,10 @@ export const Line: FC<{}> = () => {
         }}
         axisLeft={{
           tickSize: 5,
-          tickPadding: 5,
+          tickPadding: lang == "en" ? -10 : 50, //5
           tickRotation: 0,
           legend: t("y"),
-          legendOffset: -40,
+          legendOffset: lang == "en" ? -70 : -60,
           legendPosition: "middle",
         }}
         pointSize={10}
