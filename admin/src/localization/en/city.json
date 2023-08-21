@@ -1,0 +1,19 @@
+{
+  "add": "Add a new city",
+  "edit": "Modify the city \"{{name}}\"",
+  "remove": "Remove the city",
+
+  "table": {
+    "name": "Name of the city "
+  },
+  "form": {
+    "name": "Name"
+  },
+  "message": {
+    "success": {
+      "edit": "The city has been modified successfully",
+      "add": "The city has been added successfully",
+      "remove": "The city has been removed successfully"
+    }
+  }
+}

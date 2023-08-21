@@ -1,0 +1,27 @@
+{
+  "add": "Add a new supervisor",
+  "edit": "Modify the supervisor \"{{name}}\"",
+  "remove": "Remove supervisor",
+  "login": {
+    "title": "Sign in",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign"
+  },
+  "table": {
+    "name": "Full Name",
+    "email": "Email",
+    "createdAt": "The date the account was created",
+    "active": "account status"
+  },
+  "form": {
+    "name": "Name"
+  },
+  "message": {
+    "success": {
+      "edit": "The supervisor has been modified successfully",
+      "add": "The supervisor added successfully",
+      "remove": "The supervisor has been removed successfully"
+    }
+  }
+}

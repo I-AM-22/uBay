@@ -1,0 +1,32 @@
+{
+  "remove": "Remove user",
+  "active": "Active",
+  "notActive": "Banned",
+  "table": {
+    "name": "Full Name",
+    "email": "Email",
+    "available": "Available money",
+    "pending": "Suspended money",
+    "createdAt": "The date the account was created",
+    "deposit": "Deposit money",
+    "active": "Account status"
+  },
+  "details": {
+    "title": "User details",
+    "name": "Full Name",
+    "email": "Email",
+    "createdAt": "User since",
+    "passwordChangedAt": "Last password update"
+  },
+  "deposit": {
+    "title": "Deposit money",
+    "user": "User",
+    "amount": "Amount",
+    "success": "The money has been successfully deposited"
+  },
+  "message": {
+    "success": {
+      "remove": "The user has been removed successfully"
+    }
+  }
+}

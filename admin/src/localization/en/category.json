@@ -1,0 +1,21 @@
+{
+  "add": "Adding a new category",
+  "edit": "Modification of the category \"{{name}}\"",
+  "remove": "Remove category",
+
+  "table": {
+    "name": "Category name",
+    "description": "Description"
+  },
+  "form": {
+    "name": "Name",
+    "description": "Description"
+  },
+  "message": {
+    "success": {
+      "edit": "The category has been modified successfully",
+      "add": "The category has been added successfully",
+      "remove": "The category has been removed successfully"
+    }
+  }
+}

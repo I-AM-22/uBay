@@ -1,0 +1,37 @@
+{
+  "add": "Add a new employee",
+  "edit": "Modify the employee \"{{name}}\"",
+  "remove": "Remove the employee",
+  "login": {
+    "title": "Sign in",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign"
+  },
+  "details": {
+    "title": "Employee details",
+    "name": "Full Name",
+    "email": "Email",
+    "address": "Address",
+    "store": "Warehouse",
+    "createdAt": "employee since"
+  },
+  "table": {
+    "name": "Full Name",
+    "email": "Email",
+    "store": "Warehouse",
+    "createdAt": "employee since"
+  },
+  "form": {
+    "name": "Name",
+    "address": "Address",
+    "store": "Warehouse"
+  },
+  "message": {
+    "success": {
+      "edit": "The employee has been modified successfully",
+      "add": "The employee has been added successfully",
+      "remove": "The employee has been removed successfully"
+    }
+  }
+}
