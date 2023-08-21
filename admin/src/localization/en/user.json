@@ -7,7 +7,7 @@
     "email": "Email",
     "available": "Available money",
     "pending": "Suspended money",
-    "createdAt": "The date the account was created",
+    "createdAt": "CreatedAt",
     "deposit": "Deposit money",
     "active": "Account status"
   },
