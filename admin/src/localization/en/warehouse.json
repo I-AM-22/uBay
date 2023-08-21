@@ -1,0 +1,23 @@
+{
+  "add": "Add a new warehouse",
+  "edit": "Modify the warehouse \"{{name}}\"",
+  "remove": "Remove the warehouse",
+
+  "table": {
+    "name": "Warehouse name",
+    "address": "Address",
+    "city": "City"
+  },
+  "form": {
+    "name": "Name",
+    "address": "Address",
+    "city": "City"
+  },
+  "message": {
+    "success": {
+      "edit": "The warehouse has been modified successfully",
+      "add": "The warehouse has been added successfully",
+      "remove": "The warehouse has been removed successfully"
+    }
+  }
+}

@@ -9,6 +9,7 @@ import layout from "./layout.json";
 import user from "./user.json";
 import validation from "./validation.json";
 import warehouse from "./warehouse.json";
+import auth from "./auth.json";
 const language = {
   common,
   validation,
@@ -21,5 +22,6 @@ const language = {
   city,
   warehouse,
   home,
+  auth,
 } as const;
 export default language;
