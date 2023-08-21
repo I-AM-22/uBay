@@ -1,23 +1,29 @@
-import { Autocomplete, AutocompleteProps } from "@mui/material";
+import { Autocomplete as MuiAutocomplete, AutocompleteProps as MuiProps } from "@mui/material";
 import Loading from "components/feedback/Loading";
-import AutocompleteControl, {
-  AutocompleteControlProps,
+import Control, {
+  AutocompleteControlProps as ControlProps,
 } from "components/selects/AutocompleteControl";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { categoryQueries } from "..";
-import { CategorySelect } from "../api/type";
-type Props = Omit<
-  AutocompleteProps<CategorySelect, boolean, boolean, false>,
+import { cityQueries } from "..";
+import { CitySelect } from "../api/type";
+export type AutocompleteProps = Omit<
+  MuiProps<CitySelect, boolean, boolean, false>,
   "options" | "renderInput"
 > &
-  Omit<AutocompleteControlProps, "children">;
-export const CategoryAutocomplete: FC<Props> = ({ name, control, label, ...props }) => {
+  Omit<ControlProps, "children">;
+export const Autocomplete: FC<AutocompleteProps> = ({
+  name,
+  control,
+  label,
+  required,
+  ...props
+}) => {
   const { t } = useTranslation();
-  const { data, isLoading } = categoryQueries.useSelect();
+  const { data, isLoading } = cityQueries.useSelect();
   return (
-    <AutocompleteControl control={control} label={label} name={name}>
-      <Autocomplete
+    <Control control={control} label={label} name={name} required={required}>
+      <MuiAutocomplete
         isOptionEqualToValue={(option, value) => option._id === value._id}
         {...props}
         loading={isLoading}
@@ -32,6 +38,6 @@ export const CategoryAutocomplete: FC<Props> = ({ name, control, label, ...props
         loadingText={<Loading />}
         noOptionsText={t("error.noData")}
       />
-    </AutocompleteControl>
+    </Control>
   );
 };

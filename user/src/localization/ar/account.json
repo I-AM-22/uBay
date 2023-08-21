@@ -9,6 +9,12 @@
   "profileEdit": {
     "name": "الاسم"
   },
+  "favorites": {
+    "favoriteCategories": "الأصناف المفضلة",
+    "favoriteCities": "المدن المفضلة",
+    "save": "حفظ",
+    "success": "تم حفظ التفضيلات"
+  },
   "profileRemove": {
     "title": "هل أنت متأكد؟",
     "subtitle": "سيتم حذف حساب uBay الخاص بك ، هذا الفعل لا عودة فيه",
