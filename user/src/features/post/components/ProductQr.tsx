@@ -1,6 +1,5 @@
 import { Alert, Box, Typography } from "@mui/material";
 import Loading from "components/feedback/Loading";
-import { useIsMe } from "features/account";
 import { EdgeDrawer, EdgeDrawerProps } from "features/layout";
 import { paymentQueries } from "features/payment";
 import { ProductMine } from "features/post";
@@ -11,10 +10,10 @@ import { isBackendError } from "utils/apiHelpers";
 export type ProductQrProps = Omit<EdgeDrawerProps, "children"> & {
   post: ProductMine | null;
   onClose: () => void;
+  isBuyer: boolean;
 };
-export const ProductQr: FC<ProductQrProps> = ({ post, onClose, ...props }) => {
+export const ProductQr: FC<ProductQrProps> = ({ post, isBuyer, onClose, ...props }) => {
   const isDesktop = useIsDesktop();
-  const isBuyer = useIsMe(post?.customer?._id ?? "");
   const generate = paymentQueries.useGenerateQr(
     { product: props.open && post ? post.product._id : "" },
     !isBuyer

@@ -90,6 +90,7 @@ export const PostMineList: FC<PostMineListProps> = ({ isBuy }) => {
       </Stack>
       <ProductQr
         onClose={() => setQrOpen(false)}
+        isBuyer={isBuy}
         open={qrOpen}
         setOpen={setQrOpen}
         post={postToScan}
