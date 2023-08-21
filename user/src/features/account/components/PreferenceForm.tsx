@@ -78,9 +78,9 @@ export const PreferenceForm: FC<PreferenceFormProps> = ({}) => {
                 ".MuiChip-root": {
                   bgcolor: "secondary.main",
                   color: "white",
-                },
-                ".MuiSvgIcon-root": {
-                  color: "white",
+                  ".MuiSvgIcon-root": {
+                    color: "#fff",
+                  },
                 },
               }}
             >
