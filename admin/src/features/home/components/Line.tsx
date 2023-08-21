@@ -14,7 +14,7 @@ export type Datum = {
   x: string;
   y: number;
 };
-
+const numberFormatter = new Intl.NumberFormat().format;
 export const Line: FC<{}> = () => {
   const { lang } = useLanguageContext();
   const { t } = useTranslation("home", { keyPrefix: "line" });
@@ -46,7 +46,7 @@ export const Line: FC<{}> = () => {
     >
       <ResponsiveLine
         data={data}
-        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+        margin={{ top: 50, right: 110, bottom: 50, left: 90 }}
         xScale={{ type: "point" }}
         curve="monotoneX"
         yScale={{
@@ -67,25 +67,26 @@ export const Line: FC<{}> = () => {
           legendPosition: "middle",
         }}
         axisLeft={{
+          format: (a: number) => numberFormatter(a),
           tickSize: 5,
           tickPadding: lang == "en" ? -10 : 50, //5
           tickRotation: 0,
           legend: t("y"),
-          legendOffset: lang == "en" ? -70 : -60,
+          legendOffset: lang == "en" ? -80 : -70,
           legendPosition: "middle",
         }}
         pointSize={10}
         pointColor={{ theme: "background" }}
         pointBorderWidth={2}
         pointBorderColor={{ from: "serieColor" }}
-        pointLabelYOffset={-12}
+        pointLabelYOffset={-14}
         useMesh={true}
         legends={[
           {
             anchor: "bottom-right",
             direction: "column",
-            translateY: -21,
-            translateX: 104,
+            translateY: -23,
+            translateX: 115,
             symbolSpacing: 2,
             itemsSpacing: 21,
             itemWidth: 100,

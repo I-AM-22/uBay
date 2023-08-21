@@ -42,4 +42,4 @@ export type AdminAction = {
   createdAt: string;
   updatedAt: string;
 };
-export type Role = "admin" | "super";
+export type Role = "admin" | "superadmin";
