@@ -17,6 +17,6 @@
     "create": "إضافة",
     "success": "تمت إضافة الحسم بنجاح",
     "productError": "لا يمكن إعطاء حسم لشخص يملك حسم بالفعل!",
-    "discountCannotBeEqualToPrice": "لا يمكن للحسم ان يساوي السعر"
+    "discountCannotBeEqualToPrice": "لا يمكن للحسم ان يكون أكبر او يساوي السعر "
   }
 }

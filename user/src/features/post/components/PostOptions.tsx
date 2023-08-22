@@ -2,7 +2,6 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-import FlagIcon from "@mui/icons-material/Flag";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { IconButton } from "@mui/material";
 import Divider from "@mui/material/Divider";
@@ -82,10 +81,6 @@ export const PostOptions: FC<PostOptionsProps> = ({ post, onPostRemove }) => {
         <MenuItem onClick={handleCopyToClipboard}>
           <ContentCopyIcon />
           {t("copyLink")}
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <FlagIcon />
-          {t("report")}
         </MenuItem>
       </Dropdown>
     </>

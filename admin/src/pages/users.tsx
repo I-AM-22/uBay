@@ -15,7 +15,11 @@ export const UsersPage: FC<{}> = ({}) => {
       <UsersTable setUserToDeposit={setUserToDeposit} />
       <UserDetails />
       <UserRemoveForm />
-      <DepositDialog user={userToDeposit} onClose={() => setUserToDeposit(null)} />
+      <DepositDialog
+        key={userToDeposit?.id ?? ""}
+        user={userToDeposit}
+        onClose={() => setUserToDeposit(null)}
+      />
     </Stack>
   );
 };

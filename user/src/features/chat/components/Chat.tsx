@@ -11,7 +11,7 @@ export default function Chat() {
     <Stack flex={1} direction={"row"} bgcolor={"white"}>
       <AppBarChat />
       {isMdOrLarger && (
-        <Stack flex={2.5} gap={3} alignItems={"center"} pt={6}>
+        <Stack flex={2.5} gap={3} justifyContent={"center"} mt={-14} alignItems={"center"} pt={6}>
           <MapsUgcIcon sx={{ fontSize: 200 }} />
           <Typography variant="h6">{t("startChat")}</Typography>
         </Stack>

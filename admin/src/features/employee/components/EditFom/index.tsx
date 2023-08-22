@@ -21,7 +21,7 @@ import DialogTitle from "components/forms/DialogTitle";
 import TextField from "components/inputs/TextField";
 import { useSnackbar } from "context/snackbarContext";
 import { employeeQueries } from "features/employee";
-import { EmailInput, PasswordInput, queryStore } from "features/shared";
+import { EmailInput, queryStore } from "features/shared";
 import { WarehouseAutocomplete } from "features/warehouse";
 import useEditSearchParams from "hooks/useEditSearchParams";
 import useSuccessSnackbar from "hooks/useSuccessSnackbar";
@@ -114,9 +114,6 @@ export const EditForm: FC<EditFormProps> = ({}) => {
                 </Grid>
                 <Grid item xs={12}>
                   <EmailInput control={control} name="email" />
-                </Grid>
-                <Grid item xs={12}>
-                  <PasswordInput control={control} name="password" />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
