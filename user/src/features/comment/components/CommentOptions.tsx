@@ -1,7 +1,6 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import DiscountIcon from "@mui/icons-material/Discount";
 import EditIcon from "@mui/icons-material/Edit";
-import FlagIcon from "@mui/icons-material/Flag";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { IconButton } from "@mui/material";
 import Divider from "@mui/material/Divider";
@@ -61,7 +60,7 @@ export const CommentOptions: FC<CommentOptionsProps> = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
-  return (
+  return isMe || showDiscount ? (
     <>
       <IconButton onClick={handleOpen}>
         <MoreVertIcon />
@@ -87,11 +86,9 @@ export const CommentOptions: FC<CommentOptionsProps> = ({
             {t("discount:discountForUser")}
           </MenuItem>
         )}
-        <MenuItem onClick={handleClose}>
-          <FlagIcon />
-          {t("report")}
-        </MenuItem>
       </Dropdown>
     </>
+  ) : (
+    <></>
   );
 };

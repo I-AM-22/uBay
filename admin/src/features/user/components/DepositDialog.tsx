@@ -7,6 +7,7 @@ import TextField from "components/inputs/TextField";
 import LabelValue from "components/typography/LabelValue";
 import { useSnackbar } from "context/snackbarContext";
 import { queryStore } from "features/shared";
+import i18n from "lib/i18next";
 import z from "lib/zod";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
@@ -15,10 +16,15 @@ import { parseResponseError } from "utils/apiHelpers";
 import { getCurrencySign } from "utils/transforms";
 import { userQueries } from "..";
 import { User, WalletChargeBody } from "../api/type";
-const schema: z.ZodType<WalletChargeBody> = z.object({
-  amount: z.coerce.number().positive(),
-  userId: z.string().nonempty(),
-});
+const schema: (balance: number) => z.ZodType<WalletChargeBody> = (balance) =>
+  z.object({
+    amount: z.coerce
+      .number()
+      .refine((amount) => (amount < 0 && amount + balance >= 0) || amount >= 0, {
+        message: i18n.t("user:deposit.notEnoughMoney"),
+      }),
+    userId: z.string().nonempty(),
+  });
 const defaultForm: WalletChargeBody = {
   amount: 0,
   userId: "",
@@ -30,7 +36,7 @@ export const DepositDialog: FC<DepositDialogProps> = ({ onClose, user }) => {
   const queryClient = useQueryClient();
   const snackbar = useSnackbar();
   const { control, watch, reset, handleSubmit, setError } = useForm<WalletChargeBody>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema(user?.wallet.available ?? 0)),
     defaultValues: defaultForm,
   });
   if (watch("userId") === "" && user?.id !== null) {
