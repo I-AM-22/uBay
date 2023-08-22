@@ -25,6 +25,7 @@ export const LoginForm = () => {
     login.mutate(data, {
       onSuccess: (data) => {
         storage.setToken(data.token);
+        storage.setRole(data.user.role);
         navigate("/");
       },
       onError: parseResponseError({ setError: setError, snackbar }),

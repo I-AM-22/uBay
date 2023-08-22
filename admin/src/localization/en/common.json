@@ -6,14 +6,17 @@
   "cancel": "Cancel",
   "submit": "Submit",
   "next": "Next",
-  "search": "search...",
-
+  "search": "Seach...",
+  "pagination": "{{from}} - {{to}} of {{count}}",
+  "email": "Email",
+  "phone": "Phone",
+  "password": "Password",
   "error": {
     "notFound": "Not Found 404",
-    "noData": "No Data",
+    "noData": "No data",
     "sorry": "Sorry",
-    "somethingWentWrong": "Something Went Wrong, please try later",
+    "somethingWentWrong": "Something went wrong, please try later",
     "retry": "Retry",
-    "offline": "No internet connection"
+    "offline": "No internet connection, please try again"
   }
 }

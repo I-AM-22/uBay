@@ -37,7 +37,7 @@ const Submit = forwardRef(function Fr(
       disabled={isSubmitting || error || disabled}
       variant="contained"
       type="submit"
-      {...{ endIcon: saveIcon ? <SaveIcon /> : props.endIcon }}
+      {...{ endIcon: saveIcon ? <SaveIcon sx={{ color: "#fff" }} /> : props.endIcon }}
       {...props}
       sx={{
         ".MuiButton-endIcon, .MuiButton-startIcon": { opacity: isSubmitting ? 0 : 1 },

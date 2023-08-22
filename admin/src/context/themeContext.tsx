@@ -56,8 +56,8 @@ const theme = (language: string) =>
       MuiCssBaseline: {
         styleOverrides: {
           "::-webkit-scrollbar": {
-            width: 8,
-            height: 8,
+            width: 6,
+            height: 6,
           },
           "::-webkit-scrollbar-track": {
             background: themeConstants.primary05,

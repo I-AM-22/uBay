@@ -7,6 +7,7 @@ let API_ROUTES = {
     RESET_PASSWORD: "resetPassword",
     UPDATE_MY_PASSWORD: "updateMyPassword",
     ME: "me",
+    FAVORITES: "favorites",
   },
   PRODUCTS: {
     root: "products",
@@ -20,6 +21,10 @@ let API_ROUTES = {
     UNLIKE: (id: string) => `${id}/likes`,
     COMMENTS: (id: string) => `${id}/comments`,
     MINE: "mine",
+  },
+  CITIES: {
+    root: "cities",
+    GET_ALL: "",
   },
   COUPON: {
     root: "coupons",
