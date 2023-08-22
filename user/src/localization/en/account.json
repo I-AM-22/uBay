@@ -1,54 +1,53 @@
 {
+  "profile": {
+    "name": "Name",
+    "email": "Email",
+    "createdAt": "CreatedAt",
+    "available": "Available money",
+    "pending": "Outstanding money"
+  },
+  "profileEdit": {
+    "name": "Name"
+  },
+  "favorites": {
+    "favoriteCategories": "Favorite categories",
+    "favoriteCities": "Favorite cities",
+    "save": "Save",
+    "success": "Preferences saved"
+  },
+  "profileRemove": {
+    "title": "Are You Sure?",
+    "subtitle": "Your account will be deleted, this act is irreversible",
+    "submit": "Yes,Delete my Account",
+    "cancel": "Cancel"
+  },
+  "logout": {
+    "title": "Are You Sure?",
+    "subtitle": "Do you want to log out of your current account?",
+    "submit": "Logout",
+    "cancel": "Cancel"
+  },
+  "settings": {
+    "title": "Settings",
+    "tabs": {
+      "account": "Account and security",
+      "preferences": "Post preferences",
+      "dummy": "privacy"
+    },
     "profile": {
-      "name": "Name",
-      "email": "Email",
-      "createdAt": "CreatedAt",
-      "available": "الأموال المتوفرة",
-      "pending": "الأموال المعلّقة"
+      "title": "Profile personly",
+      "profile": "personal information",
+      "profile-edit": "Update personal information"
     },
-    "profileEdit": {
-      "name": "الاسم"
+    "account": {
+      "title": "Account",
+      "profile-remove": "Delete Account",
+      "profile-logout": "Logout"
     },
-    "favorites": {
-      "favoriteCategories": "الأصناف المفضلة",
-      "favoriteCities": "المدن المفضلة",
-      "save": "حفظ",
-      "success": "تم حفظ التفضيلات"
-    },
-    "profileRemove": {
-      "title": "هل أنت متأكد؟",
-      "subtitle": "سيتم حذف حساب uBay الخاص بك ، هذا الفعل لا عودة فيه",
-      "submit": "نعم احذف حسابي",
-      "cancel": "إلغاء"
-    },
-    "logout": {
-      "title": "هل أنت متأكد؟",
-      "subtitle": "هل تريد تسجيل خروج من حسابك الحالي",
-      "submit": "تسجيل خروج",
-      "cancel": "إلغاء"
-    },
-    "settings": {
-      "title": "الأعدادات",
-      "tabs": {
-        "account": "الحساب والأمن",
-        "preferences": "تفضيلات المنشورات",
-        "dummy": "الخصوصية"
-      },
-      "profile": {
-        "title": "الملف الشخصي",
-        "profile": "المعلومات الشخصية",
-        "profile-edit": "تحديث المعلومات الشخصية"
-      },
-      "account": {
-        "title": "الحساب",
-        "profile-remove": "حذف الحساب",
-        "profile-logout": "تسجيل خروج"
-      },
-      "security": {
-        "title": "الخصوصية والأمان",
-        "password-change": "تغيير كلمة المرور",
-        "password-forgot": "نسيت كلمة المرور الخاصة بي"
-      }
+    "security": {
+      "title": "Privacy and security",
+      "password-change": "Change password",
+      "password-forgot": "Forgot my password"
     }
   }
-  
+}

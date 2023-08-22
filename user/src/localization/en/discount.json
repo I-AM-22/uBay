@@ -1,0 +1,22 @@
+{
+  "discountForUser": "Add a discount to the user",
+  "discounts": "Discounts",
+  "discount": "Discount",
+  "priceAfterDiscount": "Price after discount",
+  "afterDays": "After {{days}} Days",
+  "expireDate": "closing",
+  "expired": "Finished",
+  "noExpire": "nothing",
+  "empty": "There are no discounts...",
+  "form": {
+    "title": "Add a discount to the piece: {{product}}",
+    "user": "The user who will receive the discount",
+    "discount": "Discount",
+    "expire": "Expiry date (Optional)",
+    "priceWillBecome": "The price will become: {{price}}",
+    "create": "addition",
+    "success": "Discount added successfully",
+    "productError": "A discount cannot be given to someone who already has a discount!",
+    "discountCannotBeEqualToPrice": "The discount cannot equal the price"
+  }
+}
