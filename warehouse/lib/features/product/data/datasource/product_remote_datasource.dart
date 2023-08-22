@@ -26,7 +26,7 @@ class ProductRemoteDataSourceImplement implements ProductRemoteDataSource {
   @override
   Future<ProductModel> getProduct(String id) async {
     ProductModel? productModel;
-    await DioHelper.getData(url: '$GET_PRODUCT/$id', token: token)
+    await DioHelper.getData(url: '$GET_PRODUCT$id', token: token)
         .then((value) {
       productModel = ProductModel.fromJson(value.data);
       return Future.value(productModel);
