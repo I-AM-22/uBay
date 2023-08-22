@@ -157,23 +157,23 @@ export const myProduct = catchAsync(
             newRoot: {
               delivery_status: '$delivery_status',
               product: {
-                'user': {
-                  'id': '$user._id',
-                  'wallet': '$wallet'
+                user: {
+                  id: '$user._id',
+                  wallet: '$wallet',
                 },
-                '_id': '$product._id',
-                'title': '$product.title',
-                'content': '$product.content',
-                'photos': '$product.photos',
-                'price': '$product.title',
-                'store': '$product.store',
-                'discount': '$product.discount',
-                'priceAfterDiscount': '$payment.price'
+                _id: '$product._id',
+                title: '$product.title',
+                content: '$product.content',
+                photos: '$product.photos',
+                price: '$product.title',
+                store: '$product.store',
+                discount: '$product.discount',
+                priceAfterDiscount: '$payment.price',
               },
               customer: {
-                'id': '$payment.customer',
+                id: '$payment.customer',
                 // 'wallet': '$walletCustomer'
-              }
+              },
             },
           },
         },
@@ -298,23 +298,23 @@ export const myProduct = catchAsync(
             newRoot: {
               delivery_status: '$delivery_status',
               product: {
-                'user': {
-                  'id': '$user._id',
+                user: {
+                  id: '$user._id',
                   // 'wallet': '$wallet'
                 },
-                '_id': '$product._id',
-                'title': '$product.title',
-                'content': '$product.content',
-                'photos': '$product.photos',
-                'price': '$product.title',
-                'store': '$product.store',
-                'discount': '$product.discount',
-                'priceAfterDiscount': '$payment.price'
+                _id: '$product._id',
+                title: '$product.title',
+                content: '$product.content',
+                photos: '$product.photos',
+                price: '$product.title',
+                store: '$product.store',
+                discount: '$product.discount',
+                priceAfterDiscount: '$payment.price',
               },
               customer: {
-                'id': '$customer._id',
-                'wallet': '$walletCustomer'
-              }
+                id: '$customer._id',
+                wallet: '$walletCustomer',
+              },
             },
           },
         },
@@ -391,6 +391,7 @@ export const getAllPros = catchAsync(
         as: 'store.city', // Alias for the joined data
       })
       .unwind('$store.city') // Unwind the store data array
+      .search()
       .addFields({
         sortField: {
           $switch: {
@@ -459,9 +460,9 @@ export const getAllPros = catchAsync(
           name: 1,
           city: {
             _id: 1,
-            name: 1
+            name: 1,
           },
-        }
+        },
       }) // Project stage
       .addFields({
         likedByMe: {
