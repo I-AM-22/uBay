@@ -15,7 +15,7 @@ export type Admin = {
   name: string;
   email: string;
   photo: string;
-  role: string;
+  role: Role;
   active: boolean;
   createdAt: string;
   updatedAt: string;
@@ -26,7 +26,7 @@ export type AdminDetails = {
   name: string;
   email: string;
   photo: string;
-  role: string;
+  role: Role;
   createdAt: string;
   updatedAt: string;
 };
@@ -36,9 +36,10 @@ export type AdminAction = {
   name: string;
   email: string;
   photo: string;
-  role: string;
+  role: Role;
   active: boolean;
   _id: string;
   createdAt: string;
   updatedAt: string;
 };
+export type Role = "admin" | "superadmin";

@@ -2,17 +2,18 @@ import { EmployeeDetails, EmployeeEditBody } from "features/employee";
 import { Form } from "./type";
 
 export function formToBody(form: Form): EmployeeEditBody {
-  console.log(form);
-
-  return { ...form, store: form.store?._id ?? "", password: form.password ?? undefined };
+  const { password, store, ...body } = form;
+  return {
+    ...body,
+    store: store?._id ?? "",
+    ...(password && { password }),
+  };
 }
 export function detailsToForm(details: EmployeeDetails): Form {
   return {
     address: details.address,
     email: details.email,
     name: details.name,
-    password: undefined,
     store: details.store,
-    photo: undefined,
   };
 }

@@ -42,6 +42,7 @@ export const PaymentDialog: FC<Props> = ({ setOpen, post, open }) => {
           successSnackbar(t("success"));
           setOpen(false);
           queryClient.invalidateQueries(queryStore.post.detail(post._id).queryKey);
+          queryClient.invalidateQueries(queryStore.account.profile.queryKey);
         },
         onError: parseResponseError({ snackbar }),
       }

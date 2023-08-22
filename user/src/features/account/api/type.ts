@@ -1,15 +1,23 @@
+import { CategorySelect } from "features/category";
+import { CitySelect } from "features/city";
+
 export type User = {
   _id: string;
   name: string;
   email: string;
   photo: string;
   role: string;
-  favoriteCategories: any[];
-  favoriteCities: any[];
+  favoriteCategories: CategorySelect[];
+  favoriteCities: CitySelect[];
   createdAt: Date;
   updatedAt: Date;
   wallet: Wallet;
   id: string;
+};
+
+export type FavoriteUpdate = {
+  favoriteCategories: string[];
+  favoriteCities: string[];
 };
 
 export type Wallet = {

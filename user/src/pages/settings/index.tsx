@@ -1,5 +1,5 @@
 import { Stack, Typography } from "@mui/material";
-import { AccountSettingsList, ProfilePhoto, SettingsTabs } from "features/account";
+import { AccountSettingsList, PreferenceForm, ProfilePhoto, SettingsTabs } from "features/account";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Route, Routes } from "react-router-dom";
@@ -22,7 +22,7 @@ export const SettingsPage: FC<{}> = ({}) => {
         <Route path="" element={<AccountSettingsList />} />
         <Route path="logout" element={<LogoutPage />} />
         <Route path="account" element={<AccountSettingsList />} />
-        <Route path="preferences" element={<></>} />
+        <Route path="preferences" element={<PreferenceForm />} />
       </Routes>
     </Stack>
   );

@@ -66,7 +66,7 @@ export const PostMineList: FC<PostMineListProps> = ({ isBuy }) => {
                     />
                   ))) ||
                 (status !== "unpaid" &&
-                  list.map((product) => (
+                  list?.map((product) => (
                     <PostMineCard
                       onQrClick={() => {
                         setToScanPost(product);
