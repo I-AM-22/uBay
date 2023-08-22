@@ -1,0 +1,41 @@
+{
+  "like": "Like",
+  "comment": "Comment",
+  "is_paid": "Sold",
+  "qrSeller": "Piece delivery",
+  "qrBuyer": "Receive the piece",
+  "myPurchases": "My purchases",
+  "price": "Price",
+  "mySales": "My sales",
+  "details": "Piece details",
+  "discounts": "View discounts",
+  "discountExpires": "The discount ends after {{days}} days",
+  "generateQr": "code generation QR",
+  "customer_date": "Customer date",
+  "seller_date": "Seller date",
+  "form": {
+    "formAdd": "Add a new piece",
+    "formEdit": "Modify Piece information",
+    "title": "Address",
+    "price": "price",
+    "content": "Content",
+    "category": "Category",
+    "store": "The warehouse to which the part will be delivered",
+    "photos": "photos",
+    "create": "Add",
+    "save": "Save"
+  },
+  "deliveryStatus": {
+    "seller": {
+      "seller": "Delivered to the warehouse",
+      "customer": "Delivered to the customer",
+      "wait": "Please go to receive the Piece",
+      "unpaid": "Not sold yet..."
+    },
+    "customer": {
+      "seller": "Please go to receive the Piece",
+      "customer": "It was received",
+      "wait": "Waiting for the seller to bring the Piece to the warehouse"
+    }
+  }
+}

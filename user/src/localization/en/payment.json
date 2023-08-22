@@ -1,0 +1,11 @@
+{
+  "dialog": {
+    "title": "Confirm item purchase",
+    "price": "Price:",
+    "list1": "You will be notified to go to receive the piece as soon as the seller brings it",
+    "list2": "When the notification arrives, please go to the warehouse mentioned in the notification",
+    "success": "The item has been purchased successfully",
+    "cancel": "Cancel",
+    "submit": "Buy"
+  }
+}

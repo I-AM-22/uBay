@@ -7,7 +7,16 @@
   "submit": "Submit",
   "next": "Next",
   "search": "search...",
-
+  "copyLink": "Copy link",
+  "report": "Report a problem",
+  "copyToClipboard": {
+    "success": "The link has been copied to the clipboard",
+    "error": "Something went wrong!"
+  },
+  "input": {
+    "email": "Email",
+    "password": "Password"
+  },
   "error": {
     "notFound": "Not Found 404",
     "noData": "No Data",
