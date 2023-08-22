@@ -1,0 +1,54 @@
+{
+    "profile": {
+      "name": "Name",
+      "email": "Email",
+      "createdAt": "CreatedAt",
+      "available": "الأموال المتوفرة",
+      "pending": "الأموال المعلّقة"
+    },
+    "profileEdit": {
+      "name": "الاسم"
+    },
+    "favorites": {
+      "favoriteCategories": "الأصناف المفضلة",
+      "favoriteCities": "المدن المفضلة",
+      "save": "حفظ",
+      "success": "تم حفظ التفضيلات"
+    },
+    "profileRemove": {
+      "title": "هل أنت متأكد؟",
+      "subtitle": "سيتم حذف حساب uBay الخاص بك ، هذا الفعل لا عودة فيه",
+      "submit": "نعم احذف حسابي",
+      "cancel": "إلغاء"
+    },
+    "logout": {
+      "title": "هل أنت متأكد؟",
+      "subtitle": "هل تريد تسجيل خروج من حسابك الحالي",
+      "submit": "تسجيل خروج",
+      "cancel": "إلغاء"
+    },
+    "settings": {
+      "title": "الأعدادات",
+      "tabs": {
+        "account": "الحساب والأمن",
+        "preferences": "تفضيلات المنشورات",
+        "dummy": "الخصوصية"
+      },
+      "profile": {
+        "title": "الملف الشخصي",
+        "profile": "المعلومات الشخصية",
+        "profile-edit": "تحديث المعلومات الشخصية"
+      },
+      "account": {
+        "title": "الحساب",
+        "profile-remove": "حذف الحساب",
+        "profile-logout": "تسجيل خروج"
+      },
+      "security": {
+        "title": "الخصوصية والأمان",
+        "password-change": "تغيير كلمة المرور",
+        "password-forgot": "نسيت كلمة المرور الخاصة بي"
+      }
+    }
+  }
+  
