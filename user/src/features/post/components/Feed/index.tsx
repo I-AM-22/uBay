@@ -8,8 +8,8 @@ import { FC, useState } from "react";
 import { PostCard } from "./PostCard";
 export type FeedProps = {};
 export const Feed: FC<FeedProps> = ({}) => {
-  const search = useQuerySearchParam();
-  const query = postQueries.useInfinite({ search, limit: 10, is_paid: false });
+  const q = useQuerySearchParam();
+  const query = postQueries.useInfinite({ q, limit: 10, is_paid: false });
   const [commentsPost, setCommentsPost] = useState<Post | null>(null);
   const [CommentsDrawerOpen, setCommentsDrawerOpen] = useState(false);
   const isEmpty = query.isSuccess && query.data.pages[0].totalDataCount === 0;
