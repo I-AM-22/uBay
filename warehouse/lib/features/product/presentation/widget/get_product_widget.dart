@@ -7,6 +7,7 @@ import 'package:warehouse/core/widget/elevated_button_widget.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/features/product/data/model/product_model/product_model.dart';
 import 'package:warehouse/features/product/presentation/bloc/product_bloc.dart';
+import 'package:warehouse/features/product/presentation/pages/home_page.dart';
 import 'package:warehouse/injection_container.dart' as di;
 import 'package:intl/intl.dart';
 import '../../../../core/theme.dart';
@@ -57,7 +58,7 @@ class GetProductWidget extends StatelessWidget {
           },
           builder: (context, state) =>
               state.maybeWhen(
-                  orElse: () => const Center(child: Text('خطأ غير معروف, الرجاء المحاولة لاحقاً')),
+                  orElse: () => HomePage(),
                   successGetProductState: (productModel) =>
                       _buildProduct(productModel, context, bottom, store),
                   loading: () => const LoadingWidget())),

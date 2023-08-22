@@ -30,7 +30,7 @@
  *            type: string
  *           fields:
  *            type: string
- *           search:
+ *           q:
  *            type: string
  *           is_paid:
  *            type: boolean

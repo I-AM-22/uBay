@@ -132,8 +132,9 @@ export default class AggregateFeatures {
           { email: { $regex: this.queryString.q, $options: 'xi' } },
           { description: { $regex: this.queryString.q, $options: 'xi' } },
           { content: { $regex: this.queryString.q, $options: 'xi' } },
-          { 'city.name': { $regex: this.queryString.q, $options: 'xi' } },
+          { 'store.city.name': { $regex: this.queryString.q, $options: 'xi' } },
           { 'category.name': { $regex: this.queryString.q, $options: 'xi' } },
+          { 'store.name': { $regex: this.queryString.q, $options: 'xi' } },
           { title: { $regex: this.queryString.q, $options: 'xi' } },
         ],
       };
