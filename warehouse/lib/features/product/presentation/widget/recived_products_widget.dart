@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:warehouse/features/product/data/model/recive_and_give_model/recive_and_give_model.dart';
 import 'package:warehouse/features/product/presentation/widget/photo_grid.dart';
-
+import 'package:intl/intl.dart';
 import '../../../../core/theme.dart';
 import '../../../../core/util/chose_date_time.dart';
 
+// ignore: must_be_immutable
 class ReceivedProductsWidget extends StatelessWidget {
   final List<Receive> list;
 
-  const ReceivedProductsWidget({super.key, required this.list});
-
+  ReceivedProductsWidget({super.key, required this.list});
+  var formatter = NumberFormat('###,###,###,000');
   @override
   Widget build(BuildContext context) {
     return _buildListProduct(list, context);
@@ -40,7 +41,7 @@ class ReceivedProductsWidget extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text(
-                                '${giveProductModel[index].product.price}',
+                                '${formatter.format(giveProductModel[index].product.price)}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleSmall!
@@ -109,21 +110,9 @@ class ReceivedProductsWidget extends StatelessWidget {
                         ],
                       ),
                       const Divider(),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            'تاريخ الاستلام: ${ChoseDateTime().chose(list[index].receiveDate)}',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            'في الساعة: ${list[index].receiveDate.hour}:${list[index].receiveDate.minute}',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ],
+                      Text(
+                        'تاريخ الاستلام: ${ChoseDateTime().chose(list[index].receiveDate)}',
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const Divider(),
                       Text(
