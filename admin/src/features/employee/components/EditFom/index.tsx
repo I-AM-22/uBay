@@ -21,7 +21,7 @@ import DialogTitle from "components/forms/DialogTitle";
 import TextField from "components/inputs/TextField";
 import { useSnackbar } from "context/snackbarContext";
 import { employeeQueries } from "features/employee";
-import { EmailInput, queryStore } from "features/shared";
+import { EmailInput, PasswordInput, queryStore } from "features/shared";
 import { WarehouseAutocomplete } from "features/warehouse";
 import useEditSearchParams from "hooks/useEditSearchParams";
 import useSuccessSnackbar from "hooks/useSuccessSnackbar";
@@ -37,11 +37,15 @@ export const EditForm: FC<EditFormProps> = ({}) => {
   const { isActive, clearEditParams, id = "" } = useEditSearchParams();
   const { t } = useTranslation("employee");
   const query = employeeQueries.useDetails(id);
-  const [imageUrl, setImageUrl] = useState<string | undefined>(query.data?.photo);
+  const [imageUrl, setImageUrl] = useState<string | undefined>(
+    query.data?.photo
+  );
   const { control, setValue, reset, handleSubmit, setError } = useForm<Form>({
     resolver: zodResolver(employeeEditSchema),
 
-    defaultValues: query.isSuccess ? detailsToForm(query.data) : employeeDefaultForm,
+    defaultValues: query.isSuccess
+      ? detailsToForm(query.data)
+      : employeeDefaultForm,
   });
   const queryClient = useQueryClient();
   const successSnackbar = useSuccessSnackbar();
@@ -85,14 +89,24 @@ export const EditForm: FC<EditFormProps> = ({}) => {
   return (
     <Dialog open={isActive} onClose={handleClose} fullWidth maxWidth={"sm"}>
       <Fade in={isActive} timeout={0}>
-        <DialogTitle onClose={handleClose} fontSize={22} color="primary" skeleton={query.isLoading}>
+        <DialogTitle
+          onClose={handleClose}
+          fontSize={22}
+          color="primary"
+          skeleton={query.isLoading}
+        >
           {query.isSuccess && t("edit", { name: query.data.name })}
         </DialogTitle>
       </Fade>
       <DialogContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <fieldset disabled={query.isLoading}>
-            <Grid container spacing={3} justifyContent={"center"} alignItems={"start"}>
+            <Grid
+              container
+              spacing={3}
+              justifyContent={"center"}
+              alignItems={"start"}
+            >
               <Grid item container spacing={1} xs={7}>
                 <Grid item xs={12}>
                   <TextField
@@ -110,10 +124,21 @@ export const EditForm: FC<EditFormProps> = ({}) => {
                 </Grid>
 
                 <Grid item xs={12}>
-                  <WarehouseAutocomplete control={control} name="store" label={t(`form.store`)} />
+                  <WarehouseAutocomplete
+                    control={control}
+                    name="store"
+                    label={t(`form.store`)}
+                  />
                 </Grid>
                 <Grid item xs={12}>
                   <EmailInput control={control} name="email" />
+                </Grid>
+                <Grid item xs={12}>
+                  <PasswordInput
+                    control={control}
+                    name="password"
+                    InputProps={{ autoComplete: "off" }}
+                  />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
