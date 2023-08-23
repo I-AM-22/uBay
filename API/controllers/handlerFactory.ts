@@ -38,6 +38,7 @@ export const updateOne = (Model: Model<any>): RequestHandler =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const { body } = req;
+
     if (req.file?.filename) body.photo = req.file.filename;
     const doc = await Model.findByIdAndUpdate(id, body, {
       new: true,
