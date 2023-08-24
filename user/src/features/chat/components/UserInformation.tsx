@@ -31,9 +31,11 @@ const UserInformation = ({ userData }: user) => {
         <Avatar src={data.seller.photo} alt={data.seller.name} />
         <Typography variant="h6" margin="0 12px" width="fit-content" color="text.primary">
           {data.seller.name} |{" "}
-          <RouterLink noStyle to={`/posts/${data.product._id}`}>
-            {data.product.title}
-          </RouterLink>
+          {data.product && (
+            <RouterLink noStyle to={`/posts/${data.product._id}`}>
+              {data.product.title}
+            </RouterLink>
+          )}
         </Typography>
       </Stack>
     );
@@ -52,9 +54,11 @@ const UserInformation = ({ userData }: user) => {
         <Avatar src={data.customer.photo} alt={data.customer.name} />
         <Typography variant="h6" margin="0 12px" width="fit-content" color="text.primary">
           {data.customer.name} |{" "}
-          <RouterLink noStyle to={`/posts/${data.product._id}`}>
-            {data.product.title}
-          </RouterLink>
+          {data.product && (
+            <RouterLink noStyle to={`/posts/${data.product._id}`}>
+              {data.product.title}
+            </RouterLink>
+          )}
         </Typography>
         <IconButton sx={{ ml: "auto" }} onClick={() => setIsDialogOpen(true)}>
           <DiscountIcon sx={{ color: "secondary.main" }} />
