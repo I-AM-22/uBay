@@ -5,7 +5,7 @@ uBay is social media platform for selling and buying second-hand items
 #### Applications included:
 - User Application: developed by [@I-3B](https://github.com/I-3B) and [@amr-kallas](https://github.com/amr-kallas) with React and Typescript 
 - Admin Dashboard: developed by [@I-3B](https://github.com/I-3B) and [@amr-kallas](https://github.com/amr-kallas) with React and Typescript 
-- API Server: developed by [@bahaa-alden](https://github.com/bahaa-alden) and [@ibrahimi8](https://github.com/ibrahimi8) with Express.js and Typescript
+- API Server: developed by [@bahaa-alden](https://github.com/bahaa-alden) and [@ibrahimAlAssi](https://github.com/ibrahimAlAssi) with Express.js and Typescript
 - Warehouse Employee Application: developed by [@Majed-alaswad9](https://github.com/Majed-alaswad9) with Flutter
 
 
