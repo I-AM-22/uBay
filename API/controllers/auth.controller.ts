@@ -30,7 +30,7 @@ export const signup = catchAsync(
   }
 );
 
-export const login = (role: string) =>
+export const  login = (role: string) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     //Check if  the email and password  exist
     const { email, password } = req.body;

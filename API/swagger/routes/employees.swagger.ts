@@ -40,6 +40,8 @@
  *   get:
  *     summary: Get All employees
  *     tags: [Employees]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - name: params
  *        in: query
@@ -230,63 +232,60 @@
  *         $ref: '#/components/responses/404'
  */
 
-
-
-
 /**
-* @swagger
-* /employees/{id}:
-*   delete:
-*     summary: Delete a employee by ID
-*     tags: [Employees]
-*     security:
-*       - Bearer: []
-*     parameters:
-*       - in: path
-*         name: id
-*         schema:
-*           type: string
-*         required: true
-*         description: ID of the employee
-*     responses:
-*       '204':
-*         $ref: '#/components/responses/204'
-*       '404':
-*         description: Comment not found
-*       '401':
-*         $ref: '#/components/responses/401'
-*/
+ * @swagger
+ * /employees/{id}:
+ *   delete:
+ *     summary: Delete a employee by ID
+ *     tags: [Employees]
+ *     security:
+ *       - Bearer: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the employee
+ *     responses:
+ *       '204':
+ *         $ref: '#/components/responses/204'
+ *       '404':
+ *         description: Comment not found
+ *       '401':
+ *         $ref: '#/components/responses/401'
+ */
 
 export const employeeSchema = {
-    type: 'object',
-    properties: {
-        name: {
-            type: 'string',
-            description: 'The name of the store',
-        },
-        email: {
-            type: 'string',
-            description: 'The email of the employee',
-        },
-        password: {
-            type: 'string',
-            description: 'The password of the employee',
-        },
-        address: {
-            type: 'string',
-            description: 'The address of the employee',
-        },
-        store: {
-            type: 'string',
-            description: 'The ID of the store to which the employee belongs',
-        },
+  type: 'object',
+  properties: {
+    name: {
+      type: 'string',
+      description: 'The name of the store',
     },
-    example: {
-        name: 'employeeName',
-        email: 'ibrahim@gmail.com',
-        password: 'test1234',
-        store: 'storeID',
-        address: 'store address',
+    email: {
+      type: 'string',
+      description: 'The email of the employee',
     },
-    // required: ['name', 'email', 'password', 'store', 'address'],
+    password: {
+      type: 'string',
+      description: 'The password of the employee',
+    },
+    address: {
+      type: 'string',
+      description: 'The address of the employee',
+    },
+    store: {
+      type: 'string',
+      description: 'The ID of the store to which the employee belongs',
+    },
+  },
+  example: {
+    name: 'employeeName',
+    email: 'ibrahim@gmail.com',
+    password: 'test1234',
+    store: 'storeID',
+    address: 'store address',
+  },
+  // required: ['name', 'email', 'password', 'store', 'address'],
 };

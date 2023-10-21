@@ -11,6 +11,8 @@
  *   get:
  *     summary: Get all categories
  *     tags: [Categories]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - name: params
  *        in: query
@@ -74,6 +76,8 @@
  *   get:
  *     summary: Get a category by ID
  *     tags: [Categories]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *       - in: path
  *         name: id
