@@ -33,7 +33,7 @@ router
     passport.authenticate('jwt', { session: false, failWithError: true }),
     restrictTo('superadmin', 'admin'),
     uploadUserPhoto,
-    resizeUserImage,
+    // resizeUserImage,
     validate(employeeSchema),
     createEmployee
   );

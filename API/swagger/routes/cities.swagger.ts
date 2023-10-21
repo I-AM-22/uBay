@@ -11,6 +11,8 @@
  *   get:
  *     summary: Get all cities
  *     tags: [Cities]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - name: params
  *        in: query

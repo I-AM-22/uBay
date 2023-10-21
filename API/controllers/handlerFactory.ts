@@ -40,6 +40,7 @@ export const updateOne = (Model: Model<any>): RequestHandler =>
     const { body } = req;
 
     if (req.file?.filename) body.photo = req.file.filename;
+
     const doc = await Model.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,

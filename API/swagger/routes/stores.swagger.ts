@@ -11,6 +11,8 @@
  *   get:
  *     summary: Get all stores
  *     tags: [Stores]
+ *     security:
+ *       - Bearer: []
  *     parameters:
  *      - name: params
  *        in: query
@@ -91,7 +93,6 @@
  *         $ref: '#/components/responses/401'
  */
 
-
 /**
  * @swagger
  * /stores:
@@ -152,53 +153,53 @@
  *       '401':
  *         $ref: '#/components/responses/401'
  *       '400':
- *         $ref: '#/components/responses/400' 
+ *         $ref: '#/components/responses/400'
  */
 
 /**
-* @swagger
-* /stores/{id}:
-*   delete:
-*     summary: Delete a store by ID
-*     tags: [Stores]
-*     security:
-*       - Bearer: []
-*     parameters:
-*       - in: path
-*         name: id
-*         schema:
-*           type: string
-*         required: true
-*         description: ID of the store
-*     responses:
-*       '204':
-*         $ref: '#/components/responses/204'
-*       '404':
-*         description: Comment not found
-*       '401':
-*         $ref: '#/components/responses/401'
-*/
+ * @swagger
+ * /stores/{id}:
+ *   delete:
+ *     summary: Delete a store by ID
+ *     tags: [Stores]
+ *     security:
+ *       - Bearer: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the store
+ *     responses:
+ *       '204':
+ *         $ref: '#/components/responses/204'
+ *       '404':
+ *         description: Comment not found
+ *       '401':
+ *         $ref: '#/components/responses/401'
+ */
 
 export const storeSchema = {
-    type: 'object',
-    properties: {
-        name: {
-            type: 'string',
-            description: 'The name of the store',
-        },
-        address: {
-            type: 'string',
-            description: 'The address of the store',
-        },
-        city: {
-            type: 'string',
-            description: 'The ID of the city to which the store belongs',
-        },
+  type: 'object',
+  properties: {
+    name: {
+      type: 'string',
+      description: 'The name of the store',
     },
-    example: {
-        name: 'store name',
-        address: 'store address',
-        city: 'cityID',
+    address: {
+      type: 'string',
+      description: 'The address of the store',
     },
-    required: ['name', 'address', 'city'],
+    city: {
+      type: 'string',
+      description: 'The ID of the city to which the store belongs',
+    },
+  },
+  example: {
+    name: 'store name',
+    address: 'store address',
+    city: 'cityID',
+  },
+  required: ['name', 'address', 'city'],
 };
