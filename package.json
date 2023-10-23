@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node API/server.ts",
+    "start": " cd API && yarn start",
     "lint": "eslint . --ext .js,.ts"
   },
   "dependencies": {
