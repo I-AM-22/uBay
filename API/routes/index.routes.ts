@@ -25,6 +25,12 @@ const port = settings.PORT;
 const router = Router();
 
 const api = Router();
+if (settings.NODE_ENV === 'production') {
+  router.get('/health', async (req, res, next) => {
+    res.status(200).send({ status: 'success' });
+  });
+}
+
 api.use('/users', userRouter);
 api.use('/products', productRouter);
 api.use('/comments', commentRouter);
