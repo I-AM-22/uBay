@@ -19,6 +19,7 @@ import routes from '@routes/index.routes';
 import JWTStrategy from '@middlewares/passport.config';
 import passport from 'passport';
 import cls from 'cls-hooked';
+import { STATUS_CODE } from 'types/helper.types';
 // import { rateLimit } from 'express-rate-limit';
 
 const app = express();
@@ -41,6 +42,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
 if (settings.NODE_ENV === 'development') {
   app.use(morgan('dev'));
+  app
+    .route('/health')
+    .get(async (req: Request, res: Response, next: NextFunction) => {
+      return res.status(STATUS_CODE.SUCCESS).json({ status: 'success' });
+    });
 }
 app.disable('x-powered-by');
 
@@ -74,7 +80,6 @@ app.use(compression());
 app.use(passport.initialize());
 
 passport.use('jwt', JWTStrategy);
-
 
 app.use((req: any, res: Response, next: NextFunction) => {
   req.requestTime = new Date().toISOString();
