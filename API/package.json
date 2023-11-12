@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node server.ts",
     "start:dev": "nodemon server.ts",
-    "start:prod": "NODE_ENV=production PORT=3000 nodemon server.ts",
+    "start:prod": "NODE_ENV=production PORT=3000 ts-node server.ts",
     "start:windows": "nodemon server.ts",
     "lint": "eslint . --ext .js,.ts"
   },
