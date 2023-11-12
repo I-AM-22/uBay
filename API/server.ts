@@ -39,7 +39,7 @@ io.on('connection', (socket) => {
   socket.on('new message', ({ chatId, message }) => {
     // socket.broadcast.in(chat).emit('message received', { newMessageReceived });
     socket.to(chatId).emit('message received', { newMessageReceived: message });
-    console.log('new Message Arrived', {message,chatId});
+    console.log('New message arrived:', { message, chatId });
   });
 });
 
@@ -56,5 +56,6 @@ process.on('SIGTERM', () => {
   console.log('SIGTERM RECEIVED. Shutting down gracefully!');
   server.close(() => {
     console.log('💥 Process terminated');
+    process.exit(0);
   });
 });

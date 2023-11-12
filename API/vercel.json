@@ -1,0 +1,15 @@
+{
+  "version": "2",
+  "build": [
+    {
+      "src": "./server.ts",
+      "user": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
+  ]
+}
