@@ -42,12 +42,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(helmet());
 if (settings.NODE_ENV === 'development') {
   app.use(morgan('dev'));
-  app
-    .route('/health')
-    .get(async (req: Request, res: Response, next: NextFunction) => {
-      return res.status(STATUS_CODE.SUCCESS).json({ status: 'success' });
-    });
 }
+app
+  .route('/health')
+  .get(async (req: Request, res: Response, next: NextFunction) => {
+    return res.status(STATUS_CODE.SUCCESS).json({ status: 'success' });
+  });
 app.disable('x-powered-by');
 
 // const limiter = rateLimit({
