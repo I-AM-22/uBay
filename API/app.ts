@@ -19,7 +19,7 @@ import routes from '@routes/index.routes';
 import JWTStrategy from '@middlewares/passport.config';
 import passport from 'passport';
 import cls from 'cls-hooked';
-import { STATUS_CODE } from 'types/helper.types';
+import { STATUS_CODE } from './types/helper.types';
 // import { rateLimit } from 'express-rate-limit';
 
 const app = express();
