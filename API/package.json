@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node server.ts",
+    "start": "node --max-old-space-size=4096 ./node_modules/.bin/ts-node server.ts",
     "start:dev": "nodemon server.ts",
     "start:prod": "NODE_ENV=production PORT=3000 nodemon server.ts",
     "start:windows": "nodemon server.ts",
@@ -92,6 +92,6 @@
     "ts-node-dev": "^2.0.0"
   },
   "engines": {
-    "node": "14.x"
+    "node": ">=14"
   }
 }
