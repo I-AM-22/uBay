@@ -7,7 +7,7 @@ import { useSnackbar } from "context/snackbarContext";
 import { accountQueries } from "features/account";
 import { BOTTOM_NAVIGATOR_HEIGHT_IN_SPACINGS } from "features/layout";
 import { queryStore } from "features/shared";
-import { ElementRef, useEffect, useRef, useState } from "react";
+import { ElementRef, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import { parseResponseError } from "utils/apiHelpers";
@@ -16,8 +16,8 @@ import AppBarChat from "./AppBar";
 import MessagesList from "./MessagesList";
 import UserInformation from "./UserInformation";
 
-const socket = io(SERVER_BASE_URL);
 function Conversation() {
+  const socket = useMemo(() => io(SERVER_BASE_URL), []);
   const submitRef = useRef<HTMLButtonElement | null>(null);
 
   const theme = useTheme();
@@ -34,12 +34,12 @@ function Conversation() {
   }, [chatId]);
   useEffect(() => {
     socket.emit("join chat", chatId);
-  }, [chatId]);
+  }, [chatId, socket]);
   useEffect(() => {
     if (query.data) {
       socket.emit("setup", query.data);
     }
-  }, [query]);
+  }, [query, socket]);
   useEffect(() => {
     const listener = ({ newMessageReceived }: { newMessageReceived: Message }) => {
       const queryKey = queryStore.chat.messages(chatId).queryKey;
@@ -58,7 +58,7 @@ function Conversation() {
     return () => {
       socket.off("message received", listener);
     };
-  }, [chatId, queryClient]);
+  }, [chatId, queryClient, socket]);
   const sendMessage = () => {
     if (postMessage.isLoading) return;
     if (message.trim().length == 0) return;
