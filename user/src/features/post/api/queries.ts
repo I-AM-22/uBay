@@ -5,7 +5,12 @@ import { PostAllParams, PostMineParams } from "./type";
 
 export const keys = createQueryKeys("post", {
   all: (params: PostAllParams) => ({
-    queryFn: () => API.getAll(params),
+    async queryFn(context) {
+      const pageParam = context?.pageParam ?? 1;
+      params.page = pageParam;
+      const data = await API.getAll(params);
+      return data;
+    },
     queryKey: [params],
   }),
   detail: (id: string) => ({
