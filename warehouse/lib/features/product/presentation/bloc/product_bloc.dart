@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:warehouse/features/product/data/model/all_product_model/all_product_model.dart';
 import 'package:warehouse/features/product/data/model/product_model/product_model.dart';
+import 'package:warehouse/generated/locale_keys.g.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/strings/failure.dart';
@@ -34,29 +36,30 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       this.getAllProductUsecase,
       this.receiveAndGiveProductsUseCase)
       : super(const ProductState.initial()) {
-    on<_$_getProductEvent>((event, emit) async {
-      emit(const _$_loading());
+    on<_getProductEvent>((event, emit) async {
+      emit(const _loading());
       final successOrFailure = await getProductUseCase(event.id);
       successOrFailure.fold((failure) {
-        emit(_$_errorGetProductState(_mapFailureToString(failure)));
+        emit(_errorGetProductState(_mapFailureToString(failure)));
       }, (success) {
-        emit(_$_successGetProductState(success));
+        emit(_successGetProductState(success));
       });
     });
-    on<_$_receiveProductEvent>((event, emit) async {
-      emit(const _$_loading());
-      final succOrFailure = await receiveProductUseCase(event.id, event.status);
-      succOrFailure.fold((l) {
-        emit(_$_errorReceiveProductState(_mapFailureToString(l)));
+    on<_receiveProductEvent>((event, emit) async {
+      emit(const _loadingReceiveProductState());
+      final successOrFailure =
+          await receiveProductUseCase(event.id, event.status);
+      successOrFailure.fold((l) {
+        emit(_errorReceiveProductState(_mapFailureToString(l)));
       }, (r) {
-        emit(const _$_successReceiveProductState());
+        emit(const _successReceiveProductState());
       });
     });
-    on<_$_logOut>((event, emit) async {
+    on<_logOut>((event, emit) async {
       await logoutUseCase();
-      emit(const _successLogOutState('تم تسجيل الخروج'));
+      emit(_successLogOutState(LocaleKeys.messages_logged_out.tr()));
     });
-    on<_$_getAllProduct>((event, emit) async {
+    on<_getAllProduct>((event, emit) async {
       emit(const _loading());
       final successOrFailure = await getAllProductUsecase();
       successOrFailure.fold((failure) {
@@ -65,12 +68,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         emit(_successGetAllProductState(success));
       });
     });
-    on<_$_getReceiveAndGiveProducts>((event, emit) async{
-      emit(const _$_loading());
-      final successOrFailure=await receiveAndGiveProductsUseCase();
-      successOrFailure.fold((failure){
-        emit(_errorGetReceiveAndGiveProductsState(_mapFailureToString(failure)));
-      }, (success){
+    on<_getReceiveAndGiveProducts>((event, emit) async {
+      emit(const _loading());
+      final successOrFailure = await receiveAndGiveProductsUseCase();
+      successOrFailure.fold((failure) {
+        emit(
+            _errorGetReceiveAndGiveProductsState(_mapFailureToString(failure)));
+      }, (success) {
         emit(_successGetReceiveAndGiveProductsState(success));
       });
     });
@@ -85,7 +89,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       case EmptyCacheFailure:
         return EMPTY_CACHE_FAILURE;
       default:
-        return "خطأ غير معروف, الرجاء المحاولة لاحقاً";
+        return LocaleKeys.messages_unExpected_error.tr();
     }
   }
 }

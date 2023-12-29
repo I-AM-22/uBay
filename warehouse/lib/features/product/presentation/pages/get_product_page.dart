@@ -7,20 +7,25 @@ class GetProductPage extends StatelessWidget {
   final bool isDeliver;
 
   const GetProductPage(
-      {super.key, required this.payment, required this.product, required this.isDeliver});
+      {super.key,
+      required this.payment,
+      required this.product,
+      required this.isDeliver});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/homePage', (route) => false),
+            onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                context, '/homePage', (route) => false),
             icon: const Icon(
               Icons.arrow_back,
               color: Colors.white,
             )),
       ),
-      body: GetProductWidget(payment: payment, product: product,isDeliver: isDeliver),
+      body: GetProductWidget(
+          payment: payment, product: product, isDeliver: isDeliver),
     );
   }
 }

@@ -22,19 +22,22 @@ final lightTheme = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: backGround,
   textTheme: TextTheme(
-    bodyLarge: const TextStyle(
-        color: Colors.black,
-        fontFamily: 'Mont',
-        fontSize: 25,
-        fontWeight: FontWeight.bold),
-    bodySmall:
-        const TextStyle(color: Colors.black, fontFamily: 'Mont', fontSize: 10),
-    bodyMedium:
-        const TextStyle(color: Colors.black, fontFamily: 'Mont', fontSize: 15,fontWeight: FontWeight.normal),
-    titleSmall:
-        TextStyle(color: primaryColor, fontFamily: 'Mont', fontSize: 12),
-    titleMedium: const TextStyle(color: Colors.white,fontFamily: 'Mont',fontSize: 18)
-  ),
+      bodyLarge: const TextStyle(
+          color: Colors.black,
+          fontFamily: 'Mont',
+          fontSize: 25,
+          fontWeight: FontWeight.bold),
+      bodySmall: const TextStyle(
+          color: Colors.black, fontFamily: 'Mont', fontSize: 10),
+      bodyMedium: const TextStyle(
+          color: Colors.black,
+          fontFamily: 'Mont',
+          fontSize: 15,
+          fontWeight: FontWeight.normal),
+      titleSmall:
+          TextStyle(color: primaryColor, fontFamily: 'Mont', fontSize: 12),
+      titleMedium: const TextStyle(
+          color: Colors.white, fontFamily: 'Mont', fontSize: 18)),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     elevation: 10,
     selectedItemColor: primaryColor,

@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:warehouse/generated/locale_keys.g.dart';
 
 import '../../../../../core/errors/failures.dart';
 import '../../../../../core/strings/failure.dart';
@@ -13,17 +15,17 @@ part 'auth_bloc.freezed.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUseCase loginUseCase;
 
-  AuthBloc(
-      {
-      required this.loginUseCase,})
-      : super(const AuthState.authInitial()) {
+  AuthBloc({
+    required this.loginUseCase,
+  }) : super(const AuthState.authInitial()) {
     on<_$_loginEvent>((event, emit) async {
       emit(const _$_loading());
       final login = await loginUseCase(event.email, event.password);
       login.fold((failure) {
         emit(AuthState.errorLoginState(_mapFailureToString(failure)));
       }, (success) {
-        emit(const AuthState.successLoginState("تم تسجيل الدخول بنجاح"));
+        emit(AuthState.successLoginState(
+            LocaleKeys.messages_login_successfully.tr()));
       });
     });
     on<_$_changeIconVisibilityEvent>((event, emit) {
@@ -38,7 +40,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       case OfflineFailure:
         return OFFLINE_FAILURE;
       default:
-        return "unExpected Error, pleas try again later";
+        return LocaleKeys.messages_unExpected_error.tr();
     }
   }
 }

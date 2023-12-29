@@ -792,6 +792,7 @@ mixin _$ProductState {
     required TResult Function() loading,
     required TResult Function(ProductModel productModel) successGetProductState,
     required TResult Function(String message) errorGetProductState,
+    required TResult Function() loadingReceiveProductState,
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
@@ -810,6 +811,7 @@ mixin _$ProductState {
     TResult? Function()? loading,
     TResult? Function(ProductModel productModel)? successGetProductState,
     TResult? Function(String message)? errorGetProductState,
+    TResult? Function()? loadingReceiveProductState,
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
@@ -827,6 +829,7 @@ mixin _$ProductState {
     TResult Function()? loading,
     TResult Function(ProductModel productModel)? successGetProductState,
     TResult Function(String message)? errorGetProductState,
+    TResult Function()? loadingReceiveProductState,
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
@@ -846,6 +849,8 @@ mixin _$ProductState {
     required TResult Function(_successGetProductState value)
         successGetProductState,
     required TResult Function(_errorGetProductState value) errorGetProductState,
+    required TResult Function(_loadingReceiveProductState value)
+        loadingReceiveProductState,
     required TResult Function(_successReceiveProductState value)
         successReceiveProductState,
     required TResult Function(_errorReceiveProductState value)
@@ -867,6 +872,8 @@ mixin _$ProductState {
     TResult? Function(_loading value)? loading,
     TResult? Function(_successGetProductState value)? successGetProductState,
     TResult? Function(_errorGetProductState value)? errorGetProductState,
+    TResult? Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult? Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult? Function(_errorReceiveProductState value)?
@@ -887,6 +894,8 @@ mixin _$ProductState {
     TResult Function(_loading value)? loading,
     TResult Function(_successGetProductState value)? successGetProductState,
     TResult Function(_errorGetProductState value)? errorGetProductState,
+    TResult Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
@@ -962,6 +971,7 @@ class _$_Initial implements _Initial {
     required TResult Function() loading,
     required TResult Function(ProductModel productModel) successGetProductState,
     required TResult Function(String message) errorGetProductState,
+    required TResult Function() loadingReceiveProductState,
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
@@ -983,6 +993,7 @@ class _$_Initial implements _Initial {
     TResult? Function()? loading,
     TResult? Function(ProductModel productModel)? successGetProductState,
     TResult? Function(String message)? errorGetProductState,
+    TResult? Function()? loadingReceiveProductState,
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
@@ -1003,6 +1014,7 @@ class _$_Initial implements _Initial {
     TResult Function()? loading,
     TResult Function(ProductModel productModel)? successGetProductState,
     TResult Function(String message)? errorGetProductState,
+    TResult Function()? loadingReceiveProductState,
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
@@ -1028,6 +1040,8 @@ class _$_Initial implements _Initial {
     required TResult Function(_successGetProductState value)
         successGetProductState,
     required TResult Function(_errorGetProductState value) errorGetProductState,
+    required TResult Function(_loadingReceiveProductState value)
+        loadingReceiveProductState,
     required TResult Function(_successReceiveProductState value)
         successReceiveProductState,
     required TResult Function(_errorReceiveProductState value)
@@ -1052,6 +1066,8 @@ class _$_Initial implements _Initial {
     TResult? Function(_loading value)? loading,
     TResult? Function(_successGetProductState value)? successGetProductState,
     TResult? Function(_errorGetProductState value)? errorGetProductState,
+    TResult? Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult? Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult? Function(_errorReceiveProductState value)?
@@ -1075,6 +1091,8 @@ class _$_Initial implements _Initial {
     TResult Function(_loading value)? loading,
     TResult Function(_successGetProductState value)? successGetProductState,
     TResult Function(_errorGetProductState value)? errorGetProductState,
+    TResult Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
@@ -1140,6 +1158,7 @@ class _$_loading implements _loading {
     required TResult Function() loading,
     required TResult Function(ProductModel productModel) successGetProductState,
     required TResult Function(String message) errorGetProductState,
+    required TResult Function() loadingReceiveProductState,
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
@@ -1161,6 +1180,7 @@ class _$_loading implements _loading {
     TResult? Function()? loading,
     TResult? Function(ProductModel productModel)? successGetProductState,
     TResult? Function(String message)? errorGetProductState,
+    TResult? Function()? loadingReceiveProductState,
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
@@ -1181,6 +1201,7 @@ class _$_loading implements _loading {
     TResult Function()? loading,
     TResult Function(ProductModel productModel)? successGetProductState,
     TResult Function(String message)? errorGetProductState,
+    TResult Function()? loadingReceiveProductState,
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
@@ -1206,6 +1227,8 @@ class _$_loading implements _loading {
     required TResult Function(_successGetProductState value)
         successGetProductState,
     required TResult Function(_errorGetProductState value) errorGetProductState,
+    required TResult Function(_loadingReceiveProductState value)
+        loadingReceiveProductState,
     required TResult Function(_successReceiveProductState value)
         successReceiveProductState,
     required TResult Function(_errorReceiveProductState value)
@@ -1230,6 +1253,8 @@ class _$_loading implements _loading {
     TResult? Function(_loading value)? loading,
     TResult? Function(_successGetProductState value)? successGetProductState,
     TResult? Function(_errorGetProductState value)? errorGetProductState,
+    TResult? Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult? Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult? Function(_errorReceiveProductState value)?
@@ -1253,6 +1278,8 @@ class _$_loading implements _loading {
     TResult Function(_loading value)? loading,
     TResult Function(_successGetProductState value)? successGetProductState,
     TResult Function(_errorGetProductState value)? errorGetProductState,
+    TResult Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
@@ -1357,6 +1384,7 @@ class _$_successGetProductState implements _successGetProductState {
     required TResult Function() loading,
     required TResult Function(ProductModel productModel) successGetProductState,
     required TResult Function(String message) errorGetProductState,
+    required TResult Function() loadingReceiveProductState,
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
@@ -1378,6 +1406,7 @@ class _$_successGetProductState implements _successGetProductState {
     TResult? Function()? loading,
     TResult? Function(ProductModel productModel)? successGetProductState,
     TResult? Function(String message)? errorGetProductState,
+    TResult? Function()? loadingReceiveProductState,
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
@@ -1398,6 +1427,7 @@ class _$_successGetProductState implements _successGetProductState {
     TResult Function()? loading,
     TResult Function(ProductModel productModel)? successGetProductState,
     TResult Function(String message)? errorGetProductState,
+    TResult Function()? loadingReceiveProductState,
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
@@ -1423,6 +1453,8 @@ class _$_successGetProductState implements _successGetProductState {
     required TResult Function(_successGetProductState value)
         successGetProductState,
     required TResult Function(_errorGetProductState value) errorGetProductState,
+    required TResult Function(_loadingReceiveProductState value)
+        loadingReceiveProductState,
     required TResult Function(_successReceiveProductState value)
         successReceiveProductState,
     required TResult Function(_errorReceiveProductState value)
@@ -1447,6 +1479,8 @@ class _$_successGetProductState implements _successGetProductState {
     TResult? Function(_loading value)? loading,
     TResult? Function(_successGetProductState value)? successGetProductState,
     TResult? Function(_errorGetProductState value)? errorGetProductState,
+    TResult? Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult? Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult? Function(_errorReceiveProductState value)?
@@ -1470,6 +1504,8 @@ class _$_successGetProductState implements _successGetProductState {
     TResult Function(_loading value)? loading,
     TResult Function(_successGetProductState value)? successGetProductState,
     TResult Function(_errorGetProductState value)? errorGetProductState,
+    TResult Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
@@ -1569,6 +1605,7 @@ class _$_errorGetProductState implements _errorGetProductState {
     required TResult Function() loading,
     required TResult Function(ProductModel productModel) successGetProductState,
     required TResult Function(String message) errorGetProductState,
+    required TResult Function() loadingReceiveProductState,
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
@@ -1590,6 +1627,7 @@ class _$_errorGetProductState implements _errorGetProductState {
     TResult? Function()? loading,
     TResult? Function(ProductModel productModel)? successGetProductState,
     TResult? Function(String message)? errorGetProductState,
+    TResult? Function()? loadingReceiveProductState,
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
@@ -1610,6 +1648,7 @@ class _$_errorGetProductState implements _errorGetProductState {
     TResult Function()? loading,
     TResult Function(ProductModel productModel)? successGetProductState,
     TResult Function(String message)? errorGetProductState,
+    TResult Function()? loadingReceiveProductState,
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
@@ -1635,6 +1674,8 @@ class _$_errorGetProductState implements _errorGetProductState {
     required TResult Function(_successGetProductState value)
         successGetProductState,
     required TResult Function(_errorGetProductState value) errorGetProductState,
+    required TResult Function(_loadingReceiveProductState value)
+        loadingReceiveProductState,
     required TResult Function(_successReceiveProductState value)
         successReceiveProductState,
     required TResult Function(_errorReceiveProductState value)
@@ -1659,6 +1700,8 @@ class _$_errorGetProductState implements _errorGetProductState {
     TResult? Function(_loading value)? loading,
     TResult? Function(_successGetProductState value)? successGetProductState,
     TResult? Function(_errorGetProductState value)? errorGetProductState,
+    TResult? Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult? Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult? Function(_errorReceiveProductState value)?
@@ -1682,6 +1725,8 @@ class _$_errorGetProductState implements _errorGetProductState {
     TResult Function(_loading value)? loading,
     TResult Function(_successGetProductState value)? successGetProductState,
     TResult Function(_errorGetProductState value)? errorGetProductState,
+    TResult Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
@@ -1710,6 +1755,197 @@ abstract class _errorGetProductState implements ProductState {
   @JsonKey(ignore: true)
   _$$_errorGetProductStateCopyWith<_$_errorGetProductState> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_loadingReceiveProductStateCopyWith<$Res> {
+  factory _$$_loadingReceiveProductStateCopyWith(
+          _$_loadingReceiveProductState value,
+          $Res Function(_$_loadingReceiveProductState) then) =
+      __$$_loadingReceiveProductStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_loadingReceiveProductStateCopyWithImpl<$Res>
+    extends _$ProductStateCopyWithImpl<$Res, _$_loadingReceiveProductState>
+    implements _$$_loadingReceiveProductStateCopyWith<$Res> {
+  __$$_loadingReceiveProductStateCopyWithImpl(
+      _$_loadingReceiveProductState _value,
+      $Res Function(_$_loadingReceiveProductState) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_loadingReceiveProductState implements _loadingReceiveProductState {
+  const _$_loadingReceiveProductState();
+
+  @override
+  String toString() {
+    return 'ProductState.loadingReceiveProductState()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_loadingReceiveProductState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(ProductModel productModel) successGetProductState,
+    required TResult Function(String message) errorGetProductState,
+    required TResult Function() loadingReceiveProductState,
+    required TResult Function() successReceiveProductState,
+    required TResult Function(String message) errorReceiveProductState,
+    required TResult Function(String message) successLogOutState,
+    required TResult Function(List<AllProductModel> allProductModel)
+        successGetAllProductState,
+    required TResult Function(String message) errorGetAllProductState,
+    required TResult Function(ReceiveAndGiveModel receiveAndGiveModel)
+        successGetReceiveAndGiveProductsState,
+    required TResult Function(String message)
+        errorGetReceiveAndGiveProductsState,
+  }) {
+    return loadingReceiveProductState();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(ProductModel productModel)? successGetProductState,
+    TResult? Function(String message)? errorGetProductState,
+    TResult? Function()? loadingReceiveProductState,
+    TResult? Function()? successReceiveProductState,
+    TResult? Function(String message)? errorReceiveProductState,
+    TResult? Function(String message)? successLogOutState,
+    TResult? Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult? Function(String message)? errorGetAllProductState,
+    TResult? Function(ReceiveAndGiveModel receiveAndGiveModel)?
+        successGetReceiveAndGiveProductsState,
+    TResult? Function(String message)? errorGetReceiveAndGiveProductsState,
+  }) {
+    return loadingReceiveProductState?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(ProductModel productModel)? successGetProductState,
+    TResult Function(String message)? errorGetProductState,
+    TResult Function()? loadingReceiveProductState,
+    TResult Function()? successReceiveProductState,
+    TResult Function(String message)? errorReceiveProductState,
+    TResult Function(String message)? successLogOutState,
+    TResult Function(List<AllProductModel> allProductModel)?
+        successGetAllProductState,
+    TResult Function(String message)? errorGetAllProductState,
+    TResult Function(ReceiveAndGiveModel receiveAndGiveModel)?
+        successGetReceiveAndGiveProductsState,
+    TResult Function(String message)? errorGetReceiveAndGiveProductsState,
+    required TResult orElse(),
+  }) {
+    if (loadingReceiveProductState != null) {
+      return loadingReceiveProductState();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_loading value) loading,
+    required TResult Function(_successGetProductState value)
+        successGetProductState,
+    required TResult Function(_errorGetProductState value) errorGetProductState,
+    required TResult Function(_loadingReceiveProductState value)
+        loadingReceiveProductState,
+    required TResult Function(_successReceiveProductState value)
+        successReceiveProductState,
+    required TResult Function(_errorReceiveProductState value)
+        errorReceiveProductState,
+    required TResult Function(_successLogOutState value) successLogOutState,
+    required TResult Function(_successGetAllProductState value)
+        successGetAllProductState,
+    required TResult Function(_errorGetAllProductState value)
+        errorGetAllProductState,
+    required TResult Function(_successGetReceiveAndGiveProductsState value)
+        successGetReceiveAndGiveProductsState,
+    required TResult Function(_errorGetReceiveAndGiveProductsState value)
+        errorGetReceiveAndGiveProductsState,
+  }) {
+    return loadingReceiveProductState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_loading value)? loading,
+    TResult? Function(_successGetProductState value)? successGetProductState,
+    TResult? Function(_errorGetProductState value)? errorGetProductState,
+    TResult? Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
+    TResult? Function(_successReceiveProductState value)?
+        successReceiveProductState,
+    TResult? Function(_errorReceiveProductState value)?
+        errorReceiveProductState,
+    TResult? Function(_successLogOutState value)? successLogOutState,
+    TResult? Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult? Function(_errorGetAllProductState value)? errorGetAllProductState,
+    TResult? Function(_successGetReceiveAndGiveProductsState value)?
+        successGetReceiveAndGiveProductsState,
+    TResult? Function(_errorGetReceiveAndGiveProductsState value)?
+        errorGetReceiveAndGiveProductsState,
+  }) {
+    return loadingReceiveProductState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_loading value)? loading,
+    TResult Function(_successGetProductState value)? successGetProductState,
+    TResult Function(_errorGetProductState value)? errorGetProductState,
+    TResult Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
+    TResult Function(_successReceiveProductState value)?
+        successReceiveProductState,
+    TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
+    TResult Function(_successLogOutState value)? successLogOutState,
+    TResult Function(_successGetAllProductState value)?
+        successGetAllProductState,
+    TResult Function(_errorGetAllProductState value)? errorGetAllProductState,
+    TResult Function(_successGetReceiveAndGiveProductsState value)?
+        successGetReceiveAndGiveProductsState,
+    TResult Function(_errorGetReceiveAndGiveProductsState value)?
+        errorGetReceiveAndGiveProductsState,
+    required TResult orElse(),
+  }) {
+    if (loadingReceiveProductState != null) {
+      return loadingReceiveProductState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _loadingReceiveProductState implements ProductState {
+  const factory _loadingReceiveProductState() = _$_loadingReceiveProductState;
 }
 
 /// @nodoc
@@ -1757,6 +1993,7 @@ class _$_successReceiveProductState implements _successReceiveProductState {
     required TResult Function() loading,
     required TResult Function(ProductModel productModel) successGetProductState,
     required TResult Function(String message) errorGetProductState,
+    required TResult Function() loadingReceiveProductState,
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
@@ -1778,6 +2015,7 @@ class _$_successReceiveProductState implements _successReceiveProductState {
     TResult? Function()? loading,
     TResult? Function(ProductModel productModel)? successGetProductState,
     TResult? Function(String message)? errorGetProductState,
+    TResult? Function()? loadingReceiveProductState,
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
@@ -1798,6 +2036,7 @@ class _$_successReceiveProductState implements _successReceiveProductState {
     TResult Function()? loading,
     TResult Function(ProductModel productModel)? successGetProductState,
     TResult Function(String message)? errorGetProductState,
+    TResult Function()? loadingReceiveProductState,
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
@@ -1823,6 +2062,8 @@ class _$_successReceiveProductState implements _successReceiveProductState {
     required TResult Function(_successGetProductState value)
         successGetProductState,
     required TResult Function(_errorGetProductState value) errorGetProductState,
+    required TResult Function(_loadingReceiveProductState value)
+        loadingReceiveProductState,
     required TResult Function(_successReceiveProductState value)
         successReceiveProductState,
     required TResult Function(_errorReceiveProductState value)
@@ -1847,6 +2088,8 @@ class _$_successReceiveProductState implements _successReceiveProductState {
     TResult? Function(_loading value)? loading,
     TResult? Function(_successGetProductState value)? successGetProductState,
     TResult? Function(_errorGetProductState value)? errorGetProductState,
+    TResult? Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult? Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult? Function(_errorReceiveProductState value)?
@@ -1870,6 +2113,8 @@ class _$_successReceiveProductState implements _successReceiveProductState {
     TResult Function(_loading value)? loading,
     TResult Function(_successGetProductState value)? successGetProductState,
     TResult Function(_errorGetProductState value)? errorGetProductState,
+    TResult Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
@@ -1964,6 +2209,7 @@ class _$_errorReceiveProductState implements _errorReceiveProductState {
     required TResult Function() loading,
     required TResult Function(ProductModel productModel) successGetProductState,
     required TResult Function(String message) errorGetProductState,
+    required TResult Function() loadingReceiveProductState,
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
@@ -1985,6 +2231,7 @@ class _$_errorReceiveProductState implements _errorReceiveProductState {
     TResult? Function()? loading,
     TResult? Function(ProductModel productModel)? successGetProductState,
     TResult? Function(String message)? errorGetProductState,
+    TResult? Function()? loadingReceiveProductState,
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
@@ -2005,6 +2252,7 @@ class _$_errorReceiveProductState implements _errorReceiveProductState {
     TResult Function()? loading,
     TResult Function(ProductModel productModel)? successGetProductState,
     TResult Function(String message)? errorGetProductState,
+    TResult Function()? loadingReceiveProductState,
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
@@ -2030,6 +2278,8 @@ class _$_errorReceiveProductState implements _errorReceiveProductState {
     required TResult Function(_successGetProductState value)
         successGetProductState,
     required TResult Function(_errorGetProductState value) errorGetProductState,
+    required TResult Function(_loadingReceiveProductState value)
+        loadingReceiveProductState,
     required TResult Function(_successReceiveProductState value)
         successReceiveProductState,
     required TResult Function(_errorReceiveProductState value)
@@ -2054,6 +2304,8 @@ class _$_errorReceiveProductState implements _errorReceiveProductState {
     TResult? Function(_loading value)? loading,
     TResult? Function(_successGetProductState value)? successGetProductState,
     TResult? Function(_errorGetProductState value)? errorGetProductState,
+    TResult? Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult? Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult? Function(_errorReceiveProductState value)?
@@ -2077,6 +2329,8 @@ class _$_errorReceiveProductState implements _errorReceiveProductState {
     TResult Function(_loading value)? loading,
     TResult Function(_successGetProductState value)? successGetProductState,
     TResult Function(_errorGetProductState value)? errorGetProductState,
+    TResult Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
@@ -2176,6 +2430,7 @@ class _$_successLogOutState implements _successLogOutState {
     required TResult Function() loading,
     required TResult Function(ProductModel productModel) successGetProductState,
     required TResult Function(String message) errorGetProductState,
+    required TResult Function() loadingReceiveProductState,
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
@@ -2197,6 +2452,7 @@ class _$_successLogOutState implements _successLogOutState {
     TResult? Function()? loading,
     TResult? Function(ProductModel productModel)? successGetProductState,
     TResult? Function(String message)? errorGetProductState,
+    TResult? Function()? loadingReceiveProductState,
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
@@ -2217,6 +2473,7 @@ class _$_successLogOutState implements _successLogOutState {
     TResult Function()? loading,
     TResult Function(ProductModel productModel)? successGetProductState,
     TResult Function(String message)? errorGetProductState,
+    TResult Function()? loadingReceiveProductState,
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
@@ -2242,6 +2499,8 @@ class _$_successLogOutState implements _successLogOutState {
     required TResult Function(_successGetProductState value)
         successGetProductState,
     required TResult Function(_errorGetProductState value) errorGetProductState,
+    required TResult Function(_loadingReceiveProductState value)
+        loadingReceiveProductState,
     required TResult Function(_successReceiveProductState value)
         successReceiveProductState,
     required TResult Function(_errorReceiveProductState value)
@@ -2266,6 +2525,8 @@ class _$_successLogOutState implements _successLogOutState {
     TResult? Function(_loading value)? loading,
     TResult? Function(_successGetProductState value)? successGetProductState,
     TResult? Function(_errorGetProductState value)? errorGetProductState,
+    TResult? Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult? Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult? Function(_errorReceiveProductState value)?
@@ -2289,6 +2550,8 @@ class _$_successLogOutState implements _successLogOutState {
     TResult Function(_loading value)? loading,
     TResult Function(_successGetProductState value)? successGetProductState,
     TResult Function(_errorGetProductState value)? errorGetProductState,
+    TResult Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
@@ -2399,6 +2662,7 @@ class _$_successGetAllProductState implements _successGetAllProductState {
     required TResult Function() loading,
     required TResult Function(ProductModel productModel) successGetProductState,
     required TResult Function(String message) errorGetProductState,
+    required TResult Function() loadingReceiveProductState,
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
@@ -2420,6 +2684,7 @@ class _$_successGetAllProductState implements _successGetAllProductState {
     TResult? Function()? loading,
     TResult? Function(ProductModel productModel)? successGetProductState,
     TResult? Function(String message)? errorGetProductState,
+    TResult? Function()? loadingReceiveProductState,
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
@@ -2440,6 +2705,7 @@ class _$_successGetAllProductState implements _successGetAllProductState {
     TResult Function()? loading,
     TResult Function(ProductModel productModel)? successGetProductState,
     TResult Function(String message)? errorGetProductState,
+    TResult Function()? loadingReceiveProductState,
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
@@ -2465,6 +2731,8 @@ class _$_successGetAllProductState implements _successGetAllProductState {
     required TResult Function(_successGetProductState value)
         successGetProductState,
     required TResult Function(_errorGetProductState value) errorGetProductState,
+    required TResult Function(_loadingReceiveProductState value)
+        loadingReceiveProductState,
     required TResult Function(_successReceiveProductState value)
         successReceiveProductState,
     required TResult Function(_errorReceiveProductState value)
@@ -2489,6 +2757,8 @@ class _$_successGetAllProductState implements _successGetAllProductState {
     TResult? Function(_loading value)? loading,
     TResult? Function(_successGetProductState value)? successGetProductState,
     TResult? Function(_errorGetProductState value)? errorGetProductState,
+    TResult? Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult? Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult? Function(_errorReceiveProductState value)?
@@ -2512,6 +2782,8 @@ class _$_successGetAllProductState implements _successGetAllProductState {
     TResult Function(_loading value)? loading,
     TResult Function(_successGetProductState value)? successGetProductState,
     TResult Function(_errorGetProductState value)? errorGetProductState,
+    TResult Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
@@ -2613,6 +2885,7 @@ class _$_errorGetAllProductState implements _errorGetAllProductState {
     required TResult Function() loading,
     required TResult Function(ProductModel productModel) successGetProductState,
     required TResult Function(String message) errorGetProductState,
+    required TResult Function() loadingReceiveProductState,
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
@@ -2634,6 +2907,7 @@ class _$_errorGetAllProductState implements _errorGetAllProductState {
     TResult? Function()? loading,
     TResult? Function(ProductModel productModel)? successGetProductState,
     TResult? Function(String message)? errorGetProductState,
+    TResult? Function()? loadingReceiveProductState,
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
@@ -2654,6 +2928,7 @@ class _$_errorGetAllProductState implements _errorGetAllProductState {
     TResult Function()? loading,
     TResult Function(ProductModel productModel)? successGetProductState,
     TResult Function(String message)? errorGetProductState,
+    TResult Function()? loadingReceiveProductState,
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
@@ -2679,6 +2954,8 @@ class _$_errorGetAllProductState implements _errorGetAllProductState {
     required TResult Function(_successGetProductState value)
         successGetProductState,
     required TResult Function(_errorGetProductState value) errorGetProductState,
+    required TResult Function(_loadingReceiveProductState value)
+        loadingReceiveProductState,
     required TResult Function(_successReceiveProductState value)
         successReceiveProductState,
     required TResult Function(_errorReceiveProductState value)
@@ -2703,6 +2980,8 @@ class _$_errorGetAllProductState implements _errorGetAllProductState {
     TResult? Function(_loading value)? loading,
     TResult? Function(_successGetProductState value)? successGetProductState,
     TResult? Function(_errorGetProductState value)? errorGetProductState,
+    TResult? Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult? Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult? Function(_errorReceiveProductState value)?
@@ -2726,6 +3005,8 @@ class _$_errorGetAllProductState implements _errorGetAllProductState {
     TResult Function(_loading value)? loading,
     TResult Function(_successGetProductState value)? successGetProductState,
     TResult Function(_errorGetProductState value)? errorGetProductState,
+    TResult Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
@@ -2831,6 +3112,7 @@ class _$_successGetReceiveAndGiveProductsState
     required TResult Function() loading,
     required TResult Function(ProductModel productModel) successGetProductState,
     required TResult Function(String message) errorGetProductState,
+    required TResult Function() loadingReceiveProductState,
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
@@ -2852,6 +3134,7 @@ class _$_successGetReceiveAndGiveProductsState
     TResult? Function()? loading,
     TResult? Function(ProductModel productModel)? successGetProductState,
     TResult? Function(String message)? errorGetProductState,
+    TResult? Function()? loadingReceiveProductState,
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
@@ -2872,6 +3155,7 @@ class _$_successGetReceiveAndGiveProductsState
     TResult Function()? loading,
     TResult Function(ProductModel productModel)? successGetProductState,
     TResult Function(String message)? errorGetProductState,
+    TResult Function()? loadingReceiveProductState,
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
@@ -2897,6 +3181,8 @@ class _$_successGetReceiveAndGiveProductsState
     required TResult Function(_successGetProductState value)
         successGetProductState,
     required TResult Function(_errorGetProductState value) errorGetProductState,
+    required TResult Function(_loadingReceiveProductState value)
+        loadingReceiveProductState,
     required TResult Function(_successReceiveProductState value)
         successReceiveProductState,
     required TResult Function(_errorReceiveProductState value)
@@ -2921,6 +3207,8 @@ class _$_successGetReceiveAndGiveProductsState
     TResult? Function(_loading value)? loading,
     TResult? Function(_successGetProductState value)? successGetProductState,
     TResult? Function(_errorGetProductState value)? errorGetProductState,
+    TResult? Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult? Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult? Function(_errorReceiveProductState value)?
@@ -2944,6 +3232,8 @@ class _$_successGetReceiveAndGiveProductsState
     TResult Function(_loading value)? loading,
     TResult Function(_successGetProductState value)? successGetProductState,
     TResult Function(_errorGetProductState value)? errorGetProductState,
+    TResult Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,
@@ -3050,6 +3340,7 @@ class _$_errorGetReceiveAndGiveProductsState
     required TResult Function() loading,
     required TResult Function(ProductModel productModel) successGetProductState,
     required TResult Function(String message) errorGetProductState,
+    required TResult Function() loadingReceiveProductState,
     required TResult Function() successReceiveProductState,
     required TResult Function(String message) errorReceiveProductState,
     required TResult Function(String message) successLogOutState,
@@ -3071,6 +3362,7 @@ class _$_errorGetReceiveAndGiveProductsState
     TResult? Function()? loading,
     TResult? Function(ProductModel productModel)? successGetProductState,
     TResult? Function(String message)? errorGetProductState,
+    TResult? Function()? loadingReceiveProductState,
     TResult? Function()? successReceiveProductState,
     TResult? Function(String message)? errorReceiveProductState,
     TResult? Function(String message)? successLogOutState,
@@ -3091,6 +3383,7 @@ class _$_errorGetReceiveAndGiveProductsState
     TResult Function()? loading,
     TResult Function(ProductModel productModel)? successGetProductState,
     TResult Function(String message)? errorGetProductState,
+    TResult Function()? loadingReceiveProductState,
     TResult Function()? successReceiveProductState,
     TResult Function(String message)? errorReceiveProductState,
     TResult Function(String message)? successLogOutState,
@@ -3116,6 +3409,8 @@ class _$_errorGetReceiveAndGiveProductsState
     required TResult Function(_successGetProductState value)
         successGetProductState,
     required TResult Function(_errorGetProductState value) errorGetProductState,
+    required TResult Function(_loadingReceiveProductState value)
+        loadingReceiveProductState,
     required TResult Function(_successReceiveProductState value)
         successReceiveProductState,
     required TResult Function(_errorReceiveProductState value)
@@ -3140,6 +3435,8 @@ class _$_errorGetReceiveAndGiveProductsState
     TResult? Function(_loading value)? loading,
     TResult? Function(_successGetProductState value)? successGetProductState,
     TResult? Function(_errorGetProductState value)? errorGetProductState,
+    TResult? Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult? Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult? Function(_errorReceiveProductState value)?
@@ -3163,6 +3460,8 @@ class _$_errorGetReceiveAndGiveProductsState
     TResult Function(_loading value)? loading,
     TResult Function(_successGetProductState value)? successGetProductState,
     TResult Function(_errorGetProductState value)? errorGetProductState,
+    TResult Function(_loadingReceiveProductState value)?
+        loadingReceiveProductState,
     TResult Function(_successReceiveProductState value)?
         successReceiveProductState,
     TResult Function(_errorReceiveProductState value)? errorReceiveProductState,

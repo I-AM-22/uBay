@@ -1,5 +1,8 @@
-// ignore_for_file: non_constant_identifier_names, constant_identifier_names
+import 'package:easy_localization/easy_localization.dart';
+import 'package:warehouse/generated/locale_keys.g.dart';
 
-String SERVER_FAILURE = "الرجاء المحاولة لاحقاً";
-const String OFFLINE_FAILURE = "الرجاء التحقق من الاتصال بالانترنت";
-const String EMPTY_CACHE_FAILURE = "لا يوجد بيانات لعرضها";
+String SERVER_FAILURE = LocaleKeys.messages_Please_try_again_later.tr();
+String OFFLINE_FAILURE =
+    LocaleKeys.messages_please_check_your_internet_connection.tr();
+String EMPTY_CACHE_FAILURE =
+    LocaleKeys.messages_there_is_no_data_to_display.tr();

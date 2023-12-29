@@ -1,4 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,6 +8,7 @@ import 'package:warehouse/core/util/snackbar_message.dart';
 import 'package:warehouse/core/widget/elevated_button_widget.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/features/auth/presentation/widget/text_form_widget.dart';
+import 'package:warehouse/generated/locale_keys.g.dart';
 
 import '../../../../core/theme.dart';
 import '../bloc/auth/auth_bloc.dart';
@@ -66,8 +68,7 @@ class LoginFormWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'تسجيل الدخول',
-                    textAlign: TextAlign.end,
+                    LocaleKeys.auth_login.tr(),
                     style: TextStyle(
                         fontSize: 25,
                         fontFamily: 'Mont',
@@ -77,22 +78,20 @@ class LoginFormWidget extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  SvgPicture.asset('assets/images/login.svg'),
-                  const SizedBox(
-                    height: 50,
-                  ),
                   TextFormWidget(
                     obscureText: false,
                     controller: emailController,
                     validate: FormBuilderValidators.compose([
                       FormBuilderValidators.required(
-                          errorText:
-                              'حقل البريد الالكتروني يجب الا يكون فارغا'),
+                          errorText: LocaleKeys
+                              .validation_the_email_field_must_not_be_empty
+                              .tr()),
                       FormBuilderValidators.minLength(8,
-                          errorText:
-                              'البريد الالكتروني يجب ان يكون بريدا الكترونيا صالحا')
+                          errorText: LocaleKeys
+                              .validation_the_email_must_be_a_valid_email
+                              .tr())
                     ]),
-                    hintText: 'البريد الالكتروني',
+                    hintText: LocaleKeys.auth_email.tr(),
                     suffixIcon: Icons.email_outlined,
                   ),
                   const SizedBox(
@@ -103,11 +102,15 @@ class LoginFormWidget extends StatelessWidget {
                     obscureText: isVisibility,
                     validate: FormBuilderValidators.compose([
                       FormBuilderValidators.required(
-                          errorText: 'حقل كلمة المرور يجب الا يكون فارغا'),
+                          errorText: LocaleKeys
+                              .validation_the_password_field_must_not_be_empty
+                              .tr()),
                       FormBuilderValidators.minLength(6,
-                          errorText: 'كلمة المرور يجب ان تكون على الاقل 6 رموز')
+                          errorText: LocaleKeys
+                              .validation_The_password_must_be_at_least_characters_long
+                              .tr())
                     ]),
-                    hintText: 'كلمة المرور',
+                    hintText: LocaleKeys.auth_password.tr(),
                     suffixIcon: Icons.lock,
                     prefixIcon:
                         isVisibility ? Icons.visibility : Icons.visibility_off,
@@ -139,7 +142,7 @@ class LoginFormWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'تسجيل الدخول',
+                              LocaleKeys.auth_login.tr(),
                               style: Theme.of(context).textTheme.titleMedium,
                             )
                           ],

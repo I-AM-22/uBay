@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:warehouse/core/util/snackbar_message.dart';
+import 'package:warehouse/core/widget/failure_widget.dart';
 import 'package:warehouse/core/widget/loading_widget.dart';
 import 'package:warehouse/features/product/presentation/bloc/product_bloc.dart';
 import 'package:warehouse/features/product/presentation/widget/give_products_widget.dart';
+import 'package:warehouse/generated/locale_keys.g.dart';
 
 class ProductsDelivered extends StatelessWidget {
   const ProductsDelivered({super.key});
@@ -19,20 +22,27 @@ class ProductsDelivered extends StatelessWidget {
               });
         },
         builder: (context, state) => state.maybeWhen(
-            orElse: () => const Text('خطأ غير معروف'),
-            loading: ()=>const LoadingWidget(),
+            orElse: () => Text(LocaleKeys.messages_unExpected_error.tr()),
+            loading: () => const LoadingWidget(),
             successGetReceiveAndGiveProductsState: (list) {
-              if(list.give.isNotEmpty) {
+              if (list.give.isNotEmpty) {
                 return GiveProductsWidget(list: list.give);
-              }else{
+              } else {
                 return Center(
-                  child: Text('لا يوجد بيانات', style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(fontSize: 20)),
+                  child: Text(
+                      LocaleKeys.messages_there_is_no_data_to_display.tr(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(fontSize: 20)),
                 );
               }
             },
-            errorGetReceiveAndGiveProductsState: (message) => Text(message)));
+            errorGetReceiveAndGiveProductsState: (message) => FailureWidget(
+                  message: message,
+                  onPressed: () => context
+                      .read<ProductBloc>()
+                      .add(ProductEvent.getReceiveAndGiveProducts()),
+                )));
   }
 }

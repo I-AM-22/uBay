@@ -1,0 +1,38 @@
+{
+  "auth": {
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "email": "البريد الالكتروني",
+    "password": "كلمة المرور"
+  },
+  "validation": {
+    "the_email_field_must_not_be_empty":"حقل البريد الالكتروني يجب الا يكون فارغا",
+    "the_email_must_be_a_valid_email": "البريد الالكتروني يجب ان يكون بريدا الكترونيا صالحا",
+    "the_password_field_must_not_be_empty": "حقل كلمة المرور يجب الا يكون فارغا",
+    "The_password_must_be_at_least_characters_long": "كلمة المرور يجب ان تكون على الاقل 6 رموز"
+  },
+  "messages": {
+    "Please_try_again_later": "الرجاء المحاولة لاحقا",
+    "please_check_your_internet_connection": "الرجاء التحقق من الاتصال بالانترنت",
+    "there_is_no_data_to_display": "لا يوجد بيانات لعرضها",
+    "login_successfully": "تم تسجيل الدخول بنجاح",
+    "logged_out": "تم تسجيل الخروج",
+    "unExpected_error": "خطأ غير معروف, الرجاء المحاولة لاحقا"
+  },
+  "home": "الرئيسية",
+  "my_transactions": "معاملاتي",
+  "it_was_delivered": "تم استلامها",
+  "it_has_been_delivered": "تم تسليمها",
+  "the_seller": "البائع",
+  "the_buyer": "المشتري",
+  "warehouse": "مستودع",
+  "confirm_receive": "تأكيد استلام القطعة",
+  "confirm_delivery": "تأكيد تسليم القطعة",
+  "price": "السعر:",
+  "received_date": "تاريخ الاستلام:",
+  "delivery_date": "تاريخ التسليم:",
+  "the_item_has_been_received": "تم استلام القطعة من البائع",
+  "the_item_was_delivered": "تم تسليم القطعة للمشتري",
+  "this_item_does_not_need_to_be_delivered_to_our_warehouse": "هذه القطعة لا يجب تسليمها لمستودعنا",
+  "this_item_is_not_in_our_warehouse": "هذه القطعة ليست في مستودعنا"
+}

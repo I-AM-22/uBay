@@ -6,10 +6,7 @@ class PhotoGrid extends StatefulWidget {
   final int maxImages;
   final List<String> imageUrls;
 
-  const PhotoGrid(
-      {required this.imageUrls,
-        this.maxImages = 4,
-        Key? key})
+  const PhotoGrid({required this.imageUrls, this.maxImages = 4, Key? key})
       : super(key: key);
 
   @override
@@ -20,17 +17,18 @@ class _PhotoGridState extends State<PhotoGrid> {
   @override
   Widget build(BuildContext context) {
     var images = buildImages();
-    if (widget.imageUrls.length==1){
+    if (widget.imageUrls.length == 1) {
       return Image.network(widget.imageUrls[0]);
-    }else {
+    } else {
       return GridView(
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 300,
-        crossAxisSpacing: 2,
-        mainAxisSpacing: 2,
-      ),
-      children: images,
-    );
+        physics: NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 300,
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
+        ),
+        children: images,
+      );
     }
   }
 
@@ -47,10 +45,11 @@ class _PhotoGridState extends State<PhotoGrid> {
         // If no more are remaining return a simple image widget
         if (remaining == 0) {
           return GestureDetector(
-            child: Image.network(imageUrl,
+            child: Image.network(
+              imageUrl,
               fit: BoxFit.cover,
             ),
-            onTap: (){},
+            onTap: () {},
           );
         } else {
           // Create the facebook like effect for the last image with number of remaining  images
@@ -76,7 +75,6 @@ class _PhotoGridState extends State<PhotoGrid> {
         }
       } else {
         return GestureDetector(
-
           child: Image.network(
             imageUrl,
             fit: BoxFit.cover,

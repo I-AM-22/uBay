@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:warehouse/generated/locale_keys.g.dart';
 import 'package:warehouse/injection_container.dart' as di;
 import '../bloc/auth/auth_bloc.dart';
 import '../widget/login_form_widget.dart';
@@ -17,8 +19,8 @@ class LoginPage extends StatelessWidget {
   AppBar _buildAppBar() {
     return AppBar(
       centerTitle: true,
-      title: const Text(
-        'uBay',
+      title: Text(
+        LocaleKeys.warehouse.tr(),
         style: TextStyle(color: Colors.white, fontFamily: 'Mont'),
       ),
     );
