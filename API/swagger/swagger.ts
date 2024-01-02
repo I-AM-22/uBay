@@ -26,7 +26,7 @@ const options: Options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000/api/v1',
+        url: 'https://ubay-9pwo.onrender.com/api/v1',
         description: 'Development server',
       },
     ],
