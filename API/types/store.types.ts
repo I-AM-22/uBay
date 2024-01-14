@@ -4,6 +4,7 @@ export interface IStore {
   name: string;
   address: string;
   city: PopulatedDoc<Document<ObjectId>> & ICity;
+  deleted: boolean;
 }
 export type StoreDoc = IStore & Document;
 

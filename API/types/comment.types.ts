@@ -6,6 +6,7 @@ export interface IComment {
   content: string;
   user: PopulatedDoc<Document<ObjectId>> & IUser;
   product: PopulatedDoc<Document<ObjectId>> & IProduct;
+  deleted: boolean;
 }
 
 export type CommentDoc = IComment & Document;

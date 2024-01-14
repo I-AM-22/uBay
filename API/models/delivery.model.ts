@@ -38,6 +38,11 @@ const deliverySchema = new Schema<DeliveryDoc, DeliveryModel, any>(
       type: Types.ObjectId,
       ref: 'Store',
     },
+    deleted: {
+      type: Boolean,
+      default: false,
+      select: false,
+    },
   },
   {
     timestamps: true,
@@ -58,7 +63,9 @@ deliverySchema.pre('save', async function (next) {
       $inc: { total: -price, pending: -price },
     });
     //get the profit percentage from database
-    let percentage: any = (await ProfitPercentage.findOne({})) ? await ProfitPercentage.findOne({}) : 5;
+    let percentage: any = (await ProfitPercentage.findOne({}))
+      ? await ProfitPercentage.findOne({})
+      : 5;
     if (percentage != 5) {
       percentage = percentage.value;
     }
@@ -81,7 +88,7 @@ deliverySchema.pre('save', async function (next) {
     await Profit.create({
       product: doc.payment.product._id,
       value: companyFee,
-      percentage
+      percentage,
     });
     next();
   }

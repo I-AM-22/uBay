@@ -145,6 +145,11 @@ userSchema.pre<any>('findOneAndUpdate', async function (next) {
   next();
 });
 
+//soft delete handle
+userSchema.pre('findOneAndUpdate', async function (next) {
+  console.log(this.getUpdate());
+});
+
 //we did this operation in the model to apply the concept of fat model && fit controller
 //for matching the password with the encrypted one
 userSchema.methods.correctPassword = async function (

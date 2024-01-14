@@ -22,7 +22,7 @@ const notificationSchema = new Schema<NotificationDoc, NotificationModel, any>(
       ref: 'Chat',
       required: [true, 'Notification must have chat'],
     },
-    read: { type: Boolean, default: false },
+    read: { type: Boolean, default: true },
   },
   {
     toJSON: { virtuals: true, versionKey: false },

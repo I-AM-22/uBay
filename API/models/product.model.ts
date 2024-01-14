@@ -3,6 +3,10 @@ import { IProduct, ProductDoc, ProductModel } from '../types/product.types';
 import cls from 'cls-hooked';
 import AppError from '@utils/appError';
 import { STATUS_CODE } from '../types/helper.types';
+import Comment from './comment.model';
+import Chat from './chat.model';
+import Coupon from './coupon.model';
+import Payment from './payment.models';
 
 const productSchema = new Schema<ProductDoc, ProductModel, any>(
   {
@@ -30,7 +34,7 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
 
     is_paid: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     category: {
       type: Types.ObjectId,
@@ -41,6 +45,11 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
       type: Types.ObjectId,
       required: true,
       ref: 'Store',
+    },
+    deleted: {
+      type: Boolean,
+      default: false,
+      select: false,
     },
     comments: { type: Number, default: 0 },
   },
@@ -112,17 +121,20 @@ productSchema.pre<Query<IProduct, IProduct>>(/^find/, async function (next) {
 });
 
 //can't remove after product is paid
-productSchema.pre<Query<IProduct, IProduct>>(
-  'findOneAndRemove',
-  async function (next) {
-    const doc = await this.model.findOne(this.getQuery());
+productSchema.pre<Query<any, any>>('findOneAndUpdate', async function (next) {
+  const { deleted }: any = this.getUpdate();
+  if (deleted) {
+    const doc = await this.model.findOne({ _id: this.getQuery()._id });
     if (doc.is_paid) {
       return next(
         new AppError(STATUS_CODE.BAD_REQUEST, [], 'لا يمكنك حذف منتج تم بيعه')
       );
     }
+    await Comment.updateMany({ product: doc.id }, { $set: { deleted: true } });
+    await Chat.updateMany({ product: doc.id }, { $set: { deleted: true } });
+    await Coupon.updateMany({ product: doc.id }, { $set: { active: false } });
   }
-);
+});
 
 const Product = model<ProductDoc, ProductModel>('Product', productSchema);
 

@@ -29,6 +29,26 @@ export const deleteOne = (Model: any): RequestHandler =>
     res.sendStatus(STATUS_CODE.DELETED);
   });
 
+export const softDeleteOne = (Model: any): RequestHandler =>
+  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const doc = await Model.findOneAndUpdate(
+      { _id: id, deleted: false },
+      { deleted: true }
+    );
+    const modelName = `${Model.modelName.toLowerCase()}`;
+    if (!doc) {
+      return next(
+        new AppError(
+          STATUS_CODE.NOT_FOUND,
+          [],
+          `No ${modelName} found with that Id`
+        )
+      );
+    }
+
+    res.sendStatus(STATUS_CODE.DELETED);
+  });
 /**
  * Updates a document of the specified model by ID.
  * @param {Model<Document>} Model - The Mongoose model.
@@ -39,9 +59,11 @@ export const updateOne = (Model: Model<any>): RequestHandler =>
     const { id } = req.params;
     const { body } = req;
 
+    let where;
     if (req.file?.filename) body.photo = req.file.filename;
-
-    const doc = await Model.findByIdAndUpdate(id, body, {
+    if (req.user?.role === 'superadmin') where = { _id: id };
+    else where = { _id: id, deleted: false };
+    const doc = await Model.findOneAndUpdate(where, body, {
       new: true,
       runValidators: true,
     });
@@ -93,7 +115,10 @@ export const getOne = (
   ...popOptions: Array<any>
 ): RequestHandler =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const query = Model.findById(req.params.id);
+    let where;
+    if (req.user?.role === 'superadmin') where = { _id: req.params.id };
+    else where = { _id: req.params.id, deleted: false };
+    const query = Model.findOne(where);
     if (popOptions) query.populate(popOptions);
     const doc = await query;
     const modelName = `${Model.modelName.toLowerCase()}`;
@@ -118,8 +143,11 @@ export const getOne = (
  */
 export const getAll = (Model: any, path?: string): RequestHandler =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    let query = Model.find();
-    let counter = Model.find();
+    let where;
+    if (req.user?.role === 'superadmin') where = {};
+    else where = { deleted: false };
+    let query = Model.find(where);
+    let counter = Model.find(where);
 
     if (req.params.userId) {
       query = query.where('user').equals(req.params.userId);

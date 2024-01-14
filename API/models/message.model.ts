@@ -18,6 +18,11 @@ const messageSchema = new Schema<MessageDoc, MessageModel, any>(
       ref: 'Chat',
       required: true,
     },
+    deleted: {
+      type: Boolean,
+      default: false,
+      select: false,
+    },
   },
   {
     toJSON: { virtuals: true, versionKey: false },

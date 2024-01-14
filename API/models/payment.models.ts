@@ -29,6 +29,11 @@ const paymentSchema = new Schema<PaymentDoc, PaymentModel, any>(
       default: false,
       required: true,
     },
+    deleted: {
+      type: Boolean,
+      default: false,
+      select: false,
+    },
   },
   {
     timestamps: true,

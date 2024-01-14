@@ -14,5 +14,6 @@ export interface IChat {
 export interface ChatDoc extends IChat, Document {
   createdAt: Date;
   updatedAt: Date;
+  deleted: boolean;
 }
 export type ChatModel = Model<ChatDoc, object, any>;

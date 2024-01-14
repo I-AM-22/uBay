@@ -11,8 +11,13 @@ const storeSchema = new Schema<StoreDoc, StoreModel, any>(
     city: {
       type: Types.ObjectId,
       required: true,
-      ref: 'City'
-    }
+      ref: 'City',
+    },
+    deleted: {
+      type: Boolean,
+      default: false,
+      select: false,
+    },
   },
   {
     timestamps: true,
@@ -23,8 +28,13 @@ const storeSchema = new Schema<StoreDoc, StoreModel, any>(
 storeSchema.pre<Query<IStore, IStore>>(/^find/, function (next) {
   this.populate({
     path: 'city',
-    select: 'name'
+    select: 'name',
   });
+  next();
+});
+
+storeSchema.pre('updateMany', function (next) {
+  console.log(this.getQuery());
   next();
 });
 const Store = model<StoreDoc>('Store', storeSchema);

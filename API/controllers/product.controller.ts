@@ -5,6 +5,7 @@ import {
   updateOne,
   deleteOne,
   createOne,
+  softDeleteOne,
 } from '@controllers/handlerFactory';
 import { NextFunction, Request, Response } from 'express';
 import { checkIsOwner } from '@middlewares/auth.middleware';
@@ -385,7 +386,7 @@ export const getAllProducts = getAll(Product);
 export const getProduct = getOne(Product);
 export const createProduct = createOne(Product);
 export const updateProduct = updateOne(Product);
-export const deleteProduct = deleteOne(Product);
+export const deleteProduct = softDeleteOne(Product);
 export const getAllPros = catchAsync(
   async (req: any, res: Response, next: NextFunction) => {
     const user: Express.User = req.user; // User's ObjectId
@@ -536,9 +537,9 @@ export const getAllPros = catchAsync(
           name: 1,
           city: {
             _id: 1,
-            name: 1
-          }
-        }
+            name: 1,
+          },
+        },
       }) // Project stage
       .addFields({
         likedByMe: {
@@ -551,7 +552,7 @@ export const getAllPros = catchAsync(
                 then: true,
               },
             ],
-            default: false,
+            default: true,
           },
         },
       })

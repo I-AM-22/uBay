@@ -1,4 +1,11 @@
-import { Date, Document, Model, ObjectId, PopulatedDoc, Schema } from 'mongoose';
+import {
+  Date,
+  Document,
+  Model,
+  ObjectId,
+  PopulatedDoc,
+  Schema,
+} from 'mongoose';
 
 import { IPayment } from './payment.types';
 import { IEmployee } from './employee.types';
@@ -13,6 +20,7 @@ export interface IDelivery {
   customer_date: Date;
   seller_date: Date;
   store: PopulatedDoc<Document<ObjectId>> & IStore;
+  deleted: boolean;
 }
 
 export type DeliveryDoc = IDelivery & Document;

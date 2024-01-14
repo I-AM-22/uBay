@@ -1,5 +1,6 @@
 import { Query, Schema, Types, model } from 'mongoose';
 import { ChatModel, ChatDoc, IChat } from '../types/chat.types';
+import Message from './message.model';
 
 const chatSchema = new Schema<ChatDoc, ChatModel, any>(
   {
@@ -22,7 +23,11 @@ const chatSchema = new Schema<ChatDoc, ChatModel, any>(
       required: true,
       ref: 'Product',
     },
-    lastMessage: { type: Schema.Types.ObjectId, ref: 'Message' },
+    deleted: {
+      type: Boolean,
+      default: false,
+      select: false,
+    },
   },
 
   {
@@ -101,5 +106,13 @@ chatSchema.pre<Query<IChat, IChat>>(/^find/, function (next) {
   next();
 });
 
+chatSchema.pre<Query<any, any>>('findOneAndUpdate', async function (next) {
+  const { deleted }: any = this.getUpdate();
+  if (deleted) {
+    const doc = await this.model.findOne({ _id: this.getQuery()._id });
+
+    await Message.updateMany({ chat: doc.id }, { $set: { deleted: true } });
+  }
+});
 const Chat = model<ChatDoc>('Chat', chatSchema);
 export default Chat;

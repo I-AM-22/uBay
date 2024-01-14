@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import catchAsync from '@utils/catchAsync';
-import Chat from '@models/chat.model';
+
 import AppError from '@utils/appError';
 
 import {
@@ -8,9 +8,11 @@ import {
   getOne,
   deleteOne,
   updateOne,
+  softDeleteOne,
 } from '@controllers/handlerFactory';
 import Product from '@models/product.model';
 import { STATUS_CODE } from '../types/helper.types';
+import Chat from '@models/chat.model';
 
 export const isSeller = async (
   req: Request,
@@ -65,4 +67,4 @@ export const getAllChats = catchAsync(
 export const getChat = getOne(Chat);
 export const CreateChat = createOne(Chat);
 export const updateChat = updateOne(Chat);
-export const deleteChat = deleteOne(Chat);
+export const deleteChat = softDeleteOne(Chat);

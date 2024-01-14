@@ -15,6 +15,11 @@ const commentSchema = new Schema<CommentDoc, CommentModel, any>(
       required: true,
       ref: 'Product',
     },
+    deleted: {
+      type: Boolean,
+      default: false,
+      select: false,
+    },
   },
 
   {
@@ -81,7 +86,7 @@ commentSchema.post<any>('save', function () {
 
 commentSchema.pre<any>('findOneAndRemove', async function (next) {
   // I can not use this.findOne() here because it returns null when i delete doc but it works on update
-  const docToUpdate = await this.model.findOne(this.getQuery());
+  const docToUpdate = await this.model.findOne({ _id: this.getQuery()._id });
   this.doc = docToUpdate;
   next();
 });

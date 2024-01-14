@@ -4,6 +4,7 @@ import {
   deleteOne,
   getAll,
   getOne,
+  softDeleteOne,
   updateOne,
 } from '@controllers/handlerFactory';
 import Store from '@models/store.model';
@@ -11,18 +12,18 @@ import AppError from '@utils/appError';
 import catchAsync from '@utils/catchAsync';
 import { STATUS_CODE } from '../types/helper.types';
 import Delivery from '@models/delivery.model';
-import mongoose, { Types } from 'mongoose';
+import mongoose, { PipelineStage, Types } from 'mongoose';
 
 export const getAllStores = getAll(Store);
 export const getStore = getOne(Store);
 export const createStore = createOne(Store);
 export const updateStore = updateOne(Store);
-export const deleteStore = deleteOne(Store);
+export const deleteStore = softDeleteOne(Store);
 
 export const getAllproductInstore = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { storeID } = req.params;
-    let pipeline: any = [
+    let pipeline: PipelineStage[] = [
       {
         $match: {
           delivery_status: 'seller',
