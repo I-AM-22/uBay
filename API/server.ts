@@ -26,7 +26,9 @@ io.on('connection', (socket) => {
     socket.emit('connected');
   });
   socket.on('join chat', (room) => {
+    console.log('roomId: '+room);
     socket.join(room);
+    socket.emit('joined');
   });
 
   socket.on('isTyping', ({ chatId, userId, userName }) => {
