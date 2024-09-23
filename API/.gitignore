@@ -10,7 +10,7 @@
 # Local History for Visual Studio Code
 .history/
 node_modules/
-# dist/
+dist/
 
 # Built Visual Studio Code Extensions
 *.vsix

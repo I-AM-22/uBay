@@ -1,1 +1,0 @@
-{"version":3,"file":"profits.swagger.js","sourceRoot":"","sources":["../../../swagger/routes/profits.swagger.ts"],"names":[],"mappings":";;;AAiGa,QAAA,YAAY,GAAG;IACxB,IAAI,EAAE,QAAQ;IACd,UAAU,EAAE;QACR,KAAK,EAAE;YACH,IAAI,EAAE,QAAQ;YACd,WAAW,EAAE,yBAAyB;SACzC;KACJ;IACD,OAAO,EAAE;QACL,KAAK,EAAE,GAAG;KACb;IACD,QAAQ,EAAE,CAAC,OAAO,CAAC;CACtB,CAAC"}

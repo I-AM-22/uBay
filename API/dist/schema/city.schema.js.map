@@ -1,1 +1,0 @@
-{"version":3,"file":"city.schema.js","sourceRoot":"","sources":["../../schema/city.schema.ts"],"names":[],"mappings":";;;AAAA,6BAAwB;AAEX,QAAA,UAAU,GAAG,OAAC,CAAC,MAAM,CAAC;IAC/B,IAAI,EAAE,OAAC,CAAC,MAAM,CAAC;QACX,IAAI,EAAE,OAAC,CAAC,MAAM,CAAC;YACX,cAAc,EAAE,8BAA8B;SACjD,CAAC;KACL,CAAC;CACL,CAAC,CAAC"}
