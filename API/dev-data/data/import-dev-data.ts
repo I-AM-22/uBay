@@ -1,5 +1,5 @@
 ﻿import { config } from 'dotenv';
-import mongoose from 'mongoose';
+import * as mongoose from 'mongoose';
 import users from './users.json';
 import User from '../../models/user.model';
 

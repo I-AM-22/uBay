@@ -1,10 +1,10 @@
 import City from '@models/city.model';
 import {
-    createOne,
-    deleteOne,
-    getAll,
-    getOne,
-    updateOne,
+  createOne,
+  deleteOne,
+  getAll,
+  getOne,
+  updateOne,
 } from '@controllers/handlerFactory';
 
 export const getAllCities = getAll(City);

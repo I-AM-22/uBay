@@ -1,6 +1,6 @@
 import { Schema, model, Query, Types } from 'mongoose';
 import { EmployeeDoc, EmployeeModel, IEmployee } from 'types/employee.types';
-import bcryptjs from 'bcryptjs';
+import * as bcryptjs from 'bcryptjs';
 
 const employeeSchema = new Schema<EmployeeDoc, EmployeeModel, any>(
   {

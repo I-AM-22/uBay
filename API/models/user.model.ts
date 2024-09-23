@@ -1,6 +1,6 @@
 import { Schema, model, Query, Types } from 'mongoose';
-import bcryptjs from 'bcryptjs';
-import crypto from 'crypto';
+import * as bcryptjs from 'bcryptjs';
+import * as crypto from 'crypto';
 import { UserModel, UserDoc, IUser } from '../types/user.types';
 import AppError from '@utils/appError';
 import { STATUS_CODE } from '../types/helper.types';

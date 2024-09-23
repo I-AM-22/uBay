@@ -1,6 +1,5 @@
 import { settings } from '@config/settings';
-import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
+import * as jwt from 'jsonwebtoken';
 
 export function signJwt(id: string) {
   const privateKey = settings.JWT_PRIVATE_KEY;

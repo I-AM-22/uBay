@@ -3,7 +3,6 @@ import AppError from '@utils/appError';
 import catchAsync from '@utils/catchAsync';
 import { NextFunction, Request, Response } from 'express';
 import { STATUS_CODE } from './../types/helper.types';
-import User from '@models/user.model';
 import { getAll } from './handlerFactory';
 
 export const chargeMyWallet = catchAsync(

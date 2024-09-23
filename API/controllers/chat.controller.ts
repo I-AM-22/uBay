@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import catchAsync from '@utils/catchAsync';
 import Chat from '@models/chat.model';
-import AppError from '@utils/appError';
 
 import {
   createOne,

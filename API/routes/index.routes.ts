@@ -15,7 +15,6 @@ import walletRouter from '@routes/wallet.routes';
 import paymentRouter from '@routes/payment.routes';
 import deliveryRouter from '@routes/delivery.routes';
 import profitsRouter from '@routes/profits.routes';
-
 import { settings } from '@config/settings';
 import { Request, Response } from 'express';
 import * as swaggerUi from 'swagger-ui-express';

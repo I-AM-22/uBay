@@ -1,7 +1,6 @@
-import { Query, Schema, Types, model } from 'mongoose';
-import { MessageModel, MessageDoc, IMessage } from '../types/message.types';
+import { Schema, Types, model } from 'mongoose';
+import { MessageModel, MessageDoc } from '../types/message.types';
 import Chat from './chat.model';
-import Notification from './notification.model';
 import AppError from '@utils/appError';
 import { STATUS_CODE } from '../types/helper.types';
 

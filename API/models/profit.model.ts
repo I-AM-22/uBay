@@ -1,11 +1,12 @@
-import { Query, Schema, model } from 'mongoose';
-import { IProfit, ProfitDoc, ProfitModel } from 'types/profit';
+import { Schema, model } from 'mongoose';
+import { ProfitDoc, ProfitModel } from 'types/profit';
+
 const profitSchema = new Schema<ProfitDoc, ProfitModel, any>(
   {
     product: {
       type: String,
       required: true,
-      ref:'Product'
+      ref: 'Product',
     },
     value: {
       type: Number,

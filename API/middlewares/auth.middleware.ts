@@ -3,7 +3,6 @@ import catchAsync from '@utils/catchAsync';
 import { Request, Response, NextFunction } from 'express';
 import { STATUS_CODE } from './../types/helper.types';
 import { Model } from 'mongoose';
-import Product from '@models/product.model';
 
 //Check the role of the user
 export const restrictTo =
