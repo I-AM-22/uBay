@@ -17,8 +17,8 @@ import deliveryRouter from '@routes/delivery.routes';
 import profitsRouter from '@routes/profits.routes';
 
 import { settings } from '@config/settings';
-import { Request, Response, NextFunction } from 'express';
-import swaggerUi from 'swagger-ui-express';
+import { Request, Response } from 'express';
+import * as swaggerUi from 'swagger-ui-express';
 import swaggerSpec from '../swagger/swagger';
 import statisticsRouter from '@routes/statistics.routes';
 const port = settings.PORT;

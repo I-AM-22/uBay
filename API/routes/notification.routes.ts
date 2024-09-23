@@ -8,7 +8,7 @@ import {
   updateNotification,
 } from '@controllers/notification.controller';
 import { Router } from 'express';
-import passport from 'passport';
+import * as passport from 'passport';
 
 const router = Router({ mergeParams: true });
 

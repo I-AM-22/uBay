@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
+import * as express from 'express';
 import {
   getAllAdmins,
   getAdmin,
@@ -6,7 +6,7 @@ import {
   updateAdmin,
   deleteAdmin,
 } from '@controllers/admin.controller';
-import passport from 'passport';
+import * as passport from 'passport';
 import { restrictTo } from '@middlewares/auth.middleware';
 import { login } from '@controllers/auth.controller';
 

@@ -6,7 +6,7 @@ import {
   updateCategory,
 } from '@controllers/category.controller';
 import { restrictTo } from '@middlewares/auth.middleware';
-import passport from 'passport';
+import * as passport from 'passport';
 import { getAllCategories } from '@controllers/category.controller';
 import productRouter from '@routes/product.routes';
 import validate from '@middlewares/validateResource';

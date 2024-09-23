@@ -1,4 +1,4 @@
-import swaggerJsdoc, { Options } from 'swagger-jsdoc';
+import * as swaggerJsdoc from 'swagger-jsdoc';
 import { productSchema } from './routes/products.swagger';
 import { updateMe, signUp } from './routes/auth.swagger';
 import { commentSchema } from './routes/comments.swagger';
@@ -14,7 +14,7 @@ import { chatSchema } from './routes/chat.swagger';
 import { updatechatSchema } from './routes/chat.swagger';
 import { messagesSchema } from './routes/messages.swagger';
 import { profitSchema } from './routes/profits.swagger';
-const options: Options = {
+const options: swaggerJsdoc.Options = {
   url: '',
   definition: {
     openapi: '3.0.0',
@@ -48,7 +48,7 @@ const options: Options = {
         updatechatSchema,
         messagesSchema,
         favoriteSchema,
-        profitSchema
+        profitSchema,
       },
       securitySchemes: {
         Bearer: {

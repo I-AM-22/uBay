@@ -1,8 +1,8 @@
-import multer from 'multer';
+import * as multer from 'multer';
 import AppError from '@utils/appError';
 import catchAsync from '@utils/catchAsync';
 import { NextFunction, Response, Request } from 'express';
-import sharp from 'sharp';
+import * as sharp from 'sharp';
 import { Client } from '@rmp135/imgur';
 import { settings } from '@config/settings';
 import { STATUS_CODE } from '../types/helper.types';

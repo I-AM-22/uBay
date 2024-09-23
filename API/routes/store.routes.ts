@@ -6,39 +6,31 @@ import {
   getStore,
   updateStore,
   getAllStores,
-  getAllproductInstore
+  getAllproductInstore,
 } from '@controllers/store.controller';
 import { restrictTo } from '@middlewares/auth.middleware';
-import passport from 'passport';
-import userRouter from '@routes/user.routes';
+import * as passport from 'passport';
 import validate from '@middlewares/validateResource';
 
 const router = Router();
-router.use(passport.authenticate('jwt', { session: false, failWithError: true }));
+router.use(
+  passport.authenticate('jwt', { session: false, failWithError: true })
+);
 
-router.get("/:storeID/getAllproduct",
+router.get(
+  '/:storeID/getAllproduct',
   restrictTo('employee', 'admin', 'superadmin'),
   getAllproductInstore
 );
 router
   .route('/')
   .get(getAllStores)
-  .post(
-    restrictTo('superadmin', 'admin'),
-    validate(storeSchema),
-    createStore
-  );
+  .post(restrictTo('superadmin', 'admin'), validate(storeSchema), createStore);
 
 router
   .route('/:id')
   .get(getStore)
-  .patch(
-    restrictTo('superadmin', 'admin'),
-    updateStore
-  )
-  .delete(
-    restrictTo('superadmin', 'admin'),
-    deleteStore
-  );
+  .patch(restrictTo('superadmin', 'admin'), updateStore)
+  .delete(restrictTo('superadmin', 'admin'), deleteStore);
 
 export default router;

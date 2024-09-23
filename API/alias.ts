@@ -1,6 +1,6 @@
-import moduleAlias from 'module-alias';
+import { addAliases } from 'module-alias';
 
-moduleAlias.addAliases({
+addAliases({
   '@database': __dirname + '/database',
   '@models': __dirname + '/models',
   '@middlewares': __dirname + '/middlewares',

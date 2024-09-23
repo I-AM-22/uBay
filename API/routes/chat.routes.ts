@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import passport from 'passport';
+import * as passport from 'passport';
 import messageRouter from '@routes/message.routes';
 import notificationRouter from '@routes/notification.routes';
 import {
@@ -21,7 +21,7 @@ router.use('/:chatId/notifications', notificationRouter);
 
 router.use(
   passport.authenticate('jwt', { session: false, failWithError: true }),
-  restrictTo('user','superadmin')
+  restrictTo('user', 'superadmin')
 );
 
 router

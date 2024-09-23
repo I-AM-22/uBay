@@ -1,5 +1,5 @@
 ﻿import { Router } from 'express';
-import passport from 'passport';
+import * as passport from 'passport';
 import { restrictTo } from '@middlewares/auth.middleware';
 import commentRouter from '@routes/comment.routes';
 import {
@@ -9,7 +9,6 @@ import {
   deleteProduct,
   dislike,
   filterCoupon,
-  getAllProducts,
   getAllPros,
   getProduct,
   like,

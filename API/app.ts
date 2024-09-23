@@ -1,24 +1,19 @@
-﻿import express, {
-  NextFunction,
-  Request,
-  Response,
-  json,
-  urlencoded,
-} from 'express';
-import path from 'path';
-import morgan from 'morgan';
+﻿import { NextFunction, Request, Response, json, urlencoded } from 'express';
+import * as express from 'express';
+import * as path from 'path';
+import * as morgan from 'morgan';
 import helmet from 'helmet';
-import mongoSanitize from 'express-mongo-sanitize';
-import cookieParser from 'cookie-parser';
-import hpp from 'hpp';
-import cors from 'cors';
-import compression from 'compression';
+import * as mongoSanitize from 'express-mongo-sanitize';
+import * as cookieParser from 'cookie-parser';
+import * as hpp from 'hpp';
+import * as cors from 'cors';
+import * as compression from 'compression';
 import { globalErrorHandler, notFound } from '@controllers/error.controller';
 import { settings } from './config/settings';
 import routes from '@routes/index.routes';
 import JWTStrategy from '@middlewares/passport.config';
-import passport from 'passport';
-import cls from 'cls-hooked';
+import * as passport from 'passport';
+import * as cls from 'cls-hooked';
 import { STATUS_CODE } from './types/helper.types';
 // import { rateLimit } from 'express-rate-limit';
 

@@ -1,7 +1,7 @@
 import { getStatistics } from '@controllers/statistics.controller';
 import { restrictTo } from '@middlewares/auth.middleware';
 import { Router } from 'express';
-import passport from 'passport';
+import * as passport from 'passport';
 
 const router = Router();
 router.use(

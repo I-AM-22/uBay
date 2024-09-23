@@ -1,5 +1,4 @@
-import express from 'express';
-
+import * as express from 'express';
 import { restrictTo } from '@middlewares/auth.middleware';
 import {
   getCoupon,
@@ -12,7 +11,7 @@ import {
   checkProductIspaid,
   removeCouponfromProduct,
 } from '@controllers/coupon.controller';
-import passport from 'passport';
+import * as passport from 'passport';
 import validate from '@middlewares/validateResource';
 import { couponSchema } from './../schema/coupon.schema';
 import { checkIsOwnerProduct } from '@controllers/product.controller';
@@ -38,9 +37,11 @@ router
 router
   .route('/:id')
   .get(couponMaker, getCoupon)
-  .patch(couponMaker,checkProductIspaid, updateCoupon)
-  .delete(couponMaker
-          ,checkProductIspaid
-          ,removeCouponfromProduct
-          , deleteCoupon);
+  .patch(couponMaker, checkProductIspaid, updateCoupon)
+  .delete(
+    couponMaker,
+    checkProductIspaid,
+    removeCouponfromProduct,
+    deleteCoupon
+  );
 export default router;

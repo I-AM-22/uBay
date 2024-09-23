@@ -8,11 +8,10 @@ import {
   getAllCities,
 } from '@controllers/city.controller';
 import { restrictTo } from '@middlewares/auth.middleware';
-import passport from 'passport';
+import * as passport from 'passport';
 import validate from '@middlewares/validateResource';
 
 const router = Router();
-
 
 router
   .route('/')

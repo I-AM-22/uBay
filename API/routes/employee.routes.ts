@@ -15,7 +15,7 @@ import {
 } from '@controllers/employee.controller';
 import { restrictTo } from '@middlewares/auth.middleware';
 import { resizeUserImage, uploadUserPhoto } from '@middlewares/uploadingImage';
-import passport from 'passport';
+import * as passport from 'passport';
 import validate from '@middlewares/validateResource';
 
 const router = Router();

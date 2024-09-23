@@ -5,15 +5,13 @@ import {
   generateQrForCustomer,
   receive,
 } from '@controllers/delivery.controller';
-import passport from 'passport';
+import * as passport from 'passport';
 import { restrictTo } from '@middlewares/auth.middleware';
 
 import { Router } from 'express';
 import validate from '@middlewares/validateResource';
 import { deliverySchema } from '../schema/delivery.schema';
 import { QrSchema } from '../schema/delivery.schema';
-import { deleteOne } from '@controllers/handlerFactory';
-import Delivery from '../models/delivery.model';
 const router = Router();
 
 router.use(

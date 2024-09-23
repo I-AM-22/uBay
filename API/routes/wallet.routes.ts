@@ -1,10 +1,9 @@
-import express from 'express';
-import { setIds } from '@middlewares/helper.middleware';
-import { chargeMyWallet, getAllWallets } from '@controllers/wallet.controller';
-import passport from 'passport';
+import * as express from 'express';
+import { chargeMyWallet } from '@controllers/wallet.controller';
+import * as passport from 'passport';
 import { restrictTo } from '@middlewares/auth.middleware';
 import Wallet from '@models/wallet.model';
-import { deleteOne, getOne } from '@controllers/handlerFactory';
+import { getOne } from '@controllers/handlerFactory';
 
 const router = express.Router();
 
