@@ -10,11 +10,7 @@ import { STATUS_CODE } from '../types/helper.types';
 // type FilePhoto
 const multerStorage = multer.memoryStorage();
 
-const multerFilter: any = (
-  req: Request,
-  file: Express.Multer.File,
-  cb: any
-): void => {
+const multerFilter: any = (req: Request, file: any, cb: any): void => {
   if (file.mimetype.startsWith('image')) cb(null, true);
   else
     cb(
@@ -63,7 +59,7 @@ export const resizeUserImage = catchAsync(
 
 interface UploadedFiles {
   // photos?: Express.Multer.File[];
-  [fieldname: string]: Express.Multer.File[] | undefined;
+  [fieldname: string]: any[] | undefined;
 }
 
 export const uploadProductPhotos = upload.fields([{ name: 'photos' }]);
