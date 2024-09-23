@@ -1,5 +1,5 @@
 import { Document, Model } from 'mongoose';
-import { Request, Response, NextFunction, RequestHandler } from 'express';
+import { Response, NextFunction, RequestHandler } from 'express';
 import APIFeatures from '../utils/apiFeatures';
 import AppError from '../utils/appError';
 import catchAsync from '../utils/catchAsync';
@@ -12,7 +12,7 @@ const a = 10;
  * @returns {RequestHandler} - Express middleware function.
  */
 export const deleteOne = (Model: any): RequestHandler =>
-  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  catchAsync(async (req: any, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const doc = await Model.findByIdAndRemove(id);
     const modelName = `${Model.modelName.toLowerCase()}`;
@@ -35,7 +35,7 @@ export const deleteOne = (Model: any): RequestHandler =>
  * @returns {RequestHandler} - Express middleware function.
  */
 export const updateOne = (Model: Model<any>): RequestHandler =>
-  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  catchAsync(async (req: any, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const { body } = req;
 
@@ -64,7 +64,7 @@ export const updateOne = (Model: Model<any>): RequestHandler =>
  * @returns {RequestHandler} - Express middleware function.
  */
 export const createOne = (Model: Model<any>, addFiled?: any): RequestHandler =>
-  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  catchAsync(async (req: any, res: Response, next: NextFunction) => {
     if (addFiled) req.body = { ...req.body, ...addFiled };
     //if there any photo to save them
     if (req.file && req.file.filename) req.body.photo = req.file.filename;
@@ -92,7 +92,7 @@ export const getOne = (
   Model: Model<any>,
   ...popOptions: Array<any>
 ): RequestHandler =>
-  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  catchAsync(async (req: any, res: Response, next: NextFunction) => {
     const query = Model.findById(req.params.id);
     if (popOptions) query.populate(popOptions);
     const doc = await query;
@@ -117,7 +117,7 @@ export const getOne = (
  * @returns {RequestHandler} - Express middleware function.
  */
 export const getAll = (Model: any, path?: string): RequestHandler =>
-  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  catchAsync(async (req: any, res: Response, next: NextFunction) => {
     let query = Model.find();
     let counter = Model.find();
 

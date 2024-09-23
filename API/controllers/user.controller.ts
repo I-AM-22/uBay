@@ -25,7 +25,7 @@ export const getMe = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 export const updateMe = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: any, res: Response, next: NextFunction) => {
     //If the user use update me should not send pass cause this route for normal work like update name,email... not auth
     //and if the front end developer thought this route for update password
     if (req.body.password || req.body.passwordConfirm)
