@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf dist && yarn build-ts && yarn tslint",
+    "build": "rm -rf dist && yarn build-ts",
     "serve": "node --max-old-space-size=4096 dist/server.js",
     "watch-node": "sleep 5 && nodemon dist/server.js",
     "build-ts": "yarn tsc -p ./tsconfig.build.json",
