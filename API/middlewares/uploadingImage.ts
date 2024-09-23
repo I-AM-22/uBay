@@ -77,11 +77,12 @@ export const resizeProductPhotos = catchAsync(
     req.body.photos = [];
 
     // we are using map to make the data inside the promise.all an array of promises because forEach does not
-    const photos = [];
-    for (const e of req.files.photos) {
-      const response = await resizeAndUpload(e.buffer);
-      photos.push(response.data.link);
-    }
+    const photos = await Promise.all(
+      req.files.photos.map(async (e: any) => {
+        const response = await resizeAndUpload(e.buffer);
+        return response.data.link;
+      })
+    );
     req.body.photos = photos;
     next();
   }
