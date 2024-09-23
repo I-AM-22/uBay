@@ -1,0 +1,1 @@
+{"version":3,"file":"cities.swagger.js","sourceRoot":"","sources":["../../../swagger/routes/cities.swagger.ts"],"names":[],"mappings":";;;AA0Ja,QAAA,UAAU,GAAG;IACtB,IAAI,EAAE,QAAQ;IACd,UAAU,EAAE;QACR,IAAI,EAAE;YACF,IAAI,EAAE,QAAQ;YACd,WAAW,EAAE,sBAAsB;SACtC;KACJ;IACD,OAAO,EAAE;QACL,IAAI,EAAE,WAAW;KACpB;IACD,QAAQ,EAAE,CAAC,MAAM,CAAC;CACrB,CAAC"}
