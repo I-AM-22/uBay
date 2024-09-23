@@ -10,7 +10,7 @@
     "build": "yarn build-ts && yarn tslint",
     "serve": "node --max-old-space-size=4096 dist/server.js",
     "watch-node": "sleep 5 && nodemon dist/server.js",
-    "build-ts": "rm -rf dist && npx tsc -p ./tsconfig.build.json",
+    "build-ts": "rm -rf dist && yarn tsc -p ./tsconfig.build.json",
     "watch-ts": "tsc -w",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"yarn watch-ts\" \"yarn watch-node\"",
     "tslint": "tslint -c tslint.json -p tsconfig.json",
