@@ -1,6 +1,7 @@
 import { Query, Schema, Types, model } from 'mongoose';
 import { IProduct, ProductDoc, ProductModel } from '../types/product.types';
-import cls from 'cls-hooked';
+import * as cls from 'cls-hooked';
+
 import AppError from '@utils/appError';
 import { STATUS_CODE } from '../types/helper.types';
 

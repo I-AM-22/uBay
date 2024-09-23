@@ -5,17 +5,17 @@ import {
   getOne,
   updateOne,
 } from '@controllers/handlerFactory';
-import { NextFunction, Request, Response, response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 // import catchAsync from '@utils/catchAsync';
 import catchAsync from '@utils/catchAsync';
-import cls from 'cls-hooked';
+import * as cls from 'cls-hooked';
+
 import { signJwt } from '@utils/jwt.utils';
 import { STATUS_CODE } from '../types/helper.types';
 import AppError from '@utils/appError';
 import Employee from '@models/employee.model';
-import mongoose, { PipelineStage } from 'mongoose';
+import { PipelineStage } from 'mongoose';
 import Delivery from '@models/delivery.model';
-import { receive } from './delivery.controller';
 
 export const getAllEmployee = getAll(Employee);
 export const getEmployee = getOne(Employee);

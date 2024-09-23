@@ -3,10 +3,10 @@ import { Request, Response, NextFunction } from 'express';
 import User from '@models/user.model';
 import AppError from '@utils/appError';
 import Email from '@utils/email';
-import crypto from 'crypto';
+import * as crypto from 'crypto';
 import { STATUS_CODE } from '../types/helper.types';
 import { signJwt } from '@utils/jwt.utils';
-import cls from 'cls-hooked';
+import * as cls from 'cls-hooked';
 
 //Send The User With the response after login and signup
 const sendUser = (user: any, statusCode: number, res: Response) => {
@@ -30,7 +30,7 @@ export const signup = catchAsync(
   }
 );
 
-export const  login = (role: string) =>
+export const login = (role: string) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     //Check if  the email and password  exist
     const { email, password } = req.body;

@@ -1,4 +1,5 @@
-import cls from 'cls-hooked';
+import * as cls from 'cls-hooked';
+
 import { JwtPayload } from 'jsonwebtoken';
 import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt';
 import { settings } from '../config/settings';
@@ -24,7 +25,9 @@ export default new JWTStrategy(
     algorithms: ['RS256'],
   },
   catchAsync(async function (payload: JwtPayload, done: any) {
-    let user= await User.findById(payload.id) || await Employee.findById(payload.id);
+    let user =
+      (await User.findById(payload.id)) ||
+      (await Employee.findById(payload.id));
     if (!user) {
       return done(
         new AppError(
