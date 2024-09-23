@@ -35,7 +35,7 @@ class Email {
         user: MAILER.USERNAME,
         pass: MAILER.PASSWORD,
       },
-    } as SMTPTransport.Options);
+    } as unknown as SMTPTransport.Options);
   }
 
   async send(template: string, subject: string) {
