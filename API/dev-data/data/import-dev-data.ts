@@ -1,7 +1,7 @@
 ﻿import { config } from 'dotenv';
 import mongoose from 'mongoose';
 import users from './users.json';
-import User from './../../models/user.model';
+import User from '../../models/user.model';
 
 config({ path: './../../.env' });
 const DB = process.env.DATABASE_LOCAL || '';

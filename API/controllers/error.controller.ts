@@ -68,6 +68,7 @@ const sendErrorProd = (err: any, req: Request, res: Response) => {
   } //Programming or other unknown error:don't leak details
   //1) log error
   console.error('Error', err);
+  console.log(err.errors);
   //2) send generic message :don't leak error details
   return res
     .status(STATUS_CODE.INTERNAL_SERVER_ERROR)

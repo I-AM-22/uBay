@@ -1,5 +1,4 @@
 {
-  
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
@@ -13,7 +12,7 @@
     "target": "es6",
     "module": "commonjs",
     "rootDir": "./",
-    "outDir": "./build",
+    "outDir": "./dist",
     "esModuleInterop": true,
     "strict": true,
     /* Language and Environment */
