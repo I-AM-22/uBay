@@ -24,4 +24,9 @@ export const settings = {
     FROM_ADDRESS: process.env.EMAIL_FROM,
     FROM_NAME: process.env.EMAIL_FROM_NAME,
   },
+  CLOUDINARY: {
+    CLOUD_NAME: process.env.CLOUDINARY_NAME,
+    API_KEY: process.env.CLOUDINARY_API_KEY,
+    API_SECRET: process.env.CLOUDINARY_API_SECRET,
+  },
 };

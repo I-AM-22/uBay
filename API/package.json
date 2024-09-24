@@ -24,6 +24,7 @@
     "@types/passport": "^1.0.12",
     "@types/passport-local": "^1.0.35",
     "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.5.0",
     "cls-hooked": "^4.2.2",
     "compression": "^1.7.4",
     "concurrently": "^9.0.1",

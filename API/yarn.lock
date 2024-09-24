@@ -1066,6 +1066,14 @@ cliui@^8.0.1:
     strip-ansi "^6.0.1"
     wrap-ansi "^7.0.0"
 
+cloudinary@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/cloudinary/-/cloudinary-2.5.0.tgz#f018416262b66fbcbc92ecb3136415fa484df50c"
+  integrity sha512-gPkyylFpyBAXiErAnMgZBlpwztHuZoik/OTLQM9oswjlzYHLMtQGoh0oisPBQvVHQxHmBUjcgwsAi393HDedqQ==
+  dependencies:
+    lodash "^4.17.21"
+    q "^1.5.1"
+
 cls-hooked@^4.2.2:
   version "4.2.2"
   resolved "https://registry.npmjs.org/cls-hooked/-/cls-hooked-4.2.2.tgz"
@@ -3367,6 +3375,11 @@ punycode@^2.1.0, punycode@^2.1.1:
   version "2.3.0"
   resolved "https://registry.npmjs.org/punycode/-/punycode-2.3.0.tgz"
   integrity sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==
+
+q@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
+  integrity sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==
 
 qs@6.13.0:
   version "6.13.0"

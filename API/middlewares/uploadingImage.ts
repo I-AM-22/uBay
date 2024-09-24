@@ -3,9 +3,8 @@ import AppError from '@utils/appError';
 import catchAsync from '@utils/catchAsync';
 import { NextFunction, Response, Request } from 'express';
 import * as sharp from 'sharp';
-import { Client } from '@rmp135/imgur';
-import { settings } from '@config/settings';
 import { STATUS_CODE } from '../types/helper.types';
+import { cloudinaryService } from '@utils/cloudinary';
 
 // type FilePhoto
 const multerStorage = multer.memoryStorage();
@@ -46,13 +45,9 @@ export const resizeUserImage = catchAsync(
         quantisationTable: 0,
       })
       .toBuffer();
-    // or your client ID
-    const client = new Client({
-      client_id: settings.IMGUR_CLIENT_ID,
-      client_secret: settings.IMGUR_CLIENT_SECRET,
-    });
-    const response = await client.Image.upload(pic.toString('base64'));
-    req.file.filename = response.data.link;
+
+    const response = await cloudinaryService.uploadPhoto(pic);
+    req.file.filename = response.url;
     next();
   }
 );
@@ -72,11 +67,10 @@ export const resizeProductPhotos = catchAsync(
     if (!req.files || !req.files.photos) return next();
     req.body.photos = [];
 
-    // we are using map to make the data inside the promise.all an array of promises because forEach does not
     const photos = await Promise.all(
       req.files.photos.map(async (e: any) => {
         const response = await resizeAndUpload(e.buffer);
-        return response.data.link;
+        return response.url;
       })
     );
     req.body.photos = photos;
@@ -104,10 +98,6 @@ export const resizeAndUpload = async (img: any) => {
     })
     .toBuffer();
 
-  const client = new Client({
-    client_id: settings.IMGUR_CLIENT_ID,
-    client_secret: settings.IMGUR_CLIENT_SECRET,
-  });
-  const response = await client.Image.upload(pic.toString('base64'));
+  const response = await cloudinaryService.uploadPhoto(pic);
   return response;
 };
