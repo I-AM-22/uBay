@@ -1,0 +1,62 @@
+﻿import './alias';
+import '@utils/unCaughtException';
+import app from './app';
+import { settings } from '@config/settings';
+import connDB from '@config/database';
+import http from 'http';
+import { Server } from 'socket.io';
+
+const port = settings.PORT;
+
+const server: http.Server = app.listen(port, async () => {
+  await connDB();
+  console.log(`Example app listening on port ${port}!`);
+  console.log(`Docs available at http://localhost:${port}/docs`);
+});
+
+const io = new Server(server, {
+  pingTimeout: 60000,
+  cors: { origin: 'https://u-bay.vercel.app' },
+});
+
+io.on('connection', (socket) => {
+  socket.on('setup', (userData) => {
+    socket.join(userData.id);
+    socket.emit('connected');
+  });
+  socket.on('join chat', (room) => {
+    console.log('roomId: ' + room);
+    socket.join(room);
+    socket.emit('joined');
+  });
+
+  socket.on('isTyping', ({ chatId, userId, userName }) => {
+    // Broadcast the isTyping event to all other clients in the same chat room
+    socket.broadcast.in(chatId).emit('isTyping', { chatId, userId, userName });
+  });
+  socket.on('stop typing', ({ chatId, userId }) => {
+    socket.broadcast.in(chatId).emit('stop typing', { chatId, userId });
+  });
+  socket.on('new message', ({ chatId, message }) => {
+    // socket.broadcast.in(chat).emit('message received', { newMessageReceived });
+    socket.to(chatId).emit('message received', { newMessageReceived: message });
+    console.log('New message arrived:', { message, chatId });
+  });
+});
+
+//for unhandled rejection like mongo connection failed and this handler work for async rejection
+process.on('unhandledRejection', (err: Error) => {
+  console.log('UNHANDLED REJECTION Shutting down...');
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
+});
+
+process.on('SIGTERM', () => {
+  console.log('SIGTERM RECEIVED. Shutting down gracefully!');
+  server.close(() => {
+    console.log('💥 Process terminated');
+    process.exit(0);
+  });
+});

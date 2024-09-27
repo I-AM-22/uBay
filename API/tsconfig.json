@@ -10,17 +10,17 @@
     "resolveJsonModule": true,
     "baseUrl": "./" /* Specify the base directory to resolve non-relative module names. */,
     "paths": {
-      "@models/*": ["./models/*"],
-      "@middlewares/*": ["./middlewares/*"],
-      "@helpers/*": ["./helpers/*"],
-      "@config/*": ["./config/*"],
-      "@modules/*": ["./modules/*"],
-      "@controllers/*": ["./controllers/*"],
-      "@utils/*": ["./utils/*"],
-      "@routes/*": ["./routes/*"]
+      "@models/*": ["src/models/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@config/*": ["src/config/*"],
+      "@controllers/*": ["src/controllers/*"],
+      "@utils/*": ["src/utils/*"],
+      "@routes/*": ["src/routes/*"],
+      "@interfaces/*": ["src/types/*"],
+      "@swagger/*": ["src/swagger/*"]
     } /* Specify a set of entries that re-map imports to additional lookup locations. */,
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
-    "typeRoots": ["./types"],
+    "typeRoots": ["src/types"],
     "target": "es6",
     "sourceMap": true,
     "outDir": "./dist",
@@ -32,5 +32,6 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
   },
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }
