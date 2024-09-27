@@ -1,8 +1,8 @@
-import { STATUS_CODE } from '@interfaces/helper.types';
-import { ProductDoc, ProductModel, IProduct } from '@interfaces/product.types';
-import AppError from '@utils/appError';
-import { Schema, Types, Query, model } from 'mongoose';
-import * as cls from 'cls-hooked';
+import { STATUS_CODE } from '@interfaces/helper.types'
+import { ProductDoc, ProductModel, IProduct } from '@interfaces/product.types'
+import AppError from '@utils/appError'
+import { Schema, Types, Query, model } from 'mongoose'
+import * as cls from 'cls-hooked'
 
 const productSchema = new Schema<ProductDoc, ProductModel, any>(
   {
@@ -49,27 +49,27 @@ const productSchema = new Schema<ProductDoc, ProductModel, any>(
     toJSON: { virtuals: true, versionKey: false },
     toObject: { virtuals: true, versionKey: false },
   }
-);
+)
 
 productSchema.virtual('likes').get(function () {
-  if (!this.likedBy) return undefined;
-  return this.likedBy.length;
-});
+  if (!this.likedBy) return undefined
+  return this.likedBy.length
+})
 
 productSchema.virtual('likedByMe').get(function () {
-  if (!this.likedBy) return undefined;
+  if (!this.likedBy) return undefined
 
-  const namespace = cls.getNamespace('app');
-  const user = namespace?.get('loggedInUserId');
-  return this.likedBy.filter((e) => e?.id === user).length ? true : false;
-});
+  const namespace = cls.getNamespace('app')
+  const user = namespace?.get('loggedInUserId')
+  return this.likedBy.filter((e) => e?.id === user).length ? true : false
+})
 
-productSchema.index({ price: 1 });
-productSchema.index({ category: 1 });
-productSchema.index({ description: 1 });
+productSchema.index({ price: 1 })
+productSchema.index({ category: 1 })
+productSchema.index({ description: 1 })
 
 productSchema.post('save', async function () {
-  await this.populate('category');
+  await this.populate('category')
   await this.populate({
     path: 'user',
     select: {
@@ -79,7 +79,7 @@ productSchema.post('save', async function () {
       favoriteCategories: 0,
       favoriteCities: 0,
     },
-  });
+  })
   await this.populate({
     path: 'likedBy',
     select: {
@@ -89,9 +89,9 @@ productSchema.post('save', async function () {
       favoriteCategories: 0,
       favoriteCities: 0,
     },
-  });
-  await this.populate('store');
-});
+  })
+  await this.populate('store')
+})
 
 productSchema.pre<Query<IProduct, IProduct>>(/^find/, async function (next) {
   this.populate({ path: 'category' })
@@ -107,23 +107,23 @@ productSchema.pre<Query<IProduct, IProduct>>(/^find/, async function (next) {
     })
     .populate({ path: 'likedBy', select: { name: 1, photo: 1, wallet: 0 } })
     .populate({ path: 'store', select: { name: 1 } })
-    .populate({ path: 'coupons', select: { product: 0 } });
-  next();
-});
+    .populate({ path: 'coupons', select: { product: 0 } })
+  next()
+})
 
 //can't remove after product is paid
 productSchema.pre<Query<IProduct, IProduct>>(
   'findOneAndRemove',
   async function (next) {
-    const doc = await this.model.findOne(this.getQuery());
+    const doc = await this.model.findOne(this.getQuery())
     if (doc.is_paid) {
       return next(
         new AppError(STATUS_CODE.BAD_REQUEST, [], 'لا يمكنك حذف منتج تم بيعه')
-      );
+      )
     }
   }
-);
+)
 
-const Product = model<ProductDoc, ProductModel>('Product', productSchema);
+const Product = model<ProductDoc, ProductModel>('Product', productSchema)
 
-export default Product;
+export default Product

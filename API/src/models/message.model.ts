@@ -1,8 +1,8 @@
-import { Schema, Types, model } from 'mongoose';
-import { MessageModel, MessageDoc } from '@interfaces/message.types';
-import Chat from './chat.model';
-import AppError from '@utils/appError';
-import { STATUS_CODE } from '@interfaces/helper.types';
+import { Schema, Types, model } from 'mongoose'
+import { MessageModel, MessageDoc } from '@interfaces/message.types'
+import Chat from './chat.model'
+import AppError from '@utils/appError'
+import { STATUS_CODE } from '@interfaces/helper.types'
 
 const messageSchema = new Schema<MessageDoc, MessageModel, any>(
   {
@@ -23,25 +23,25 @@ const messageSchema = new Schema<MessageDoc, MessageModel, any>(
     toObject: { virtuals: true, versionKey: false },
     timestamps: true,
   }
-);
-messageSchema.index({ content: 1 });
+)
+messageSchema.index({ content: 1 })
 messageSchema.pre('save', async function (next) {
   const chat = await Chat.findOne({
     _id: this.chat,
     $or: [{ seller: this.user }, { customer: this.user }],
-  });
+  })
   if (!chat)
     return next(
       new AppError(STATUS_CODE.FORBIDDEN, [], 'you do not belong to this chat')
-    );
-  next();
-});
+    )
+  next()
+})
 
 messageSchema.post('save', async function (doc, next) {
-  await Chat.findByIdAndUpdate(this.chat, { lastMessage: doc });
+  await Chat.findByIdAndUpdate(this.chat, { lastMessage: doc })
 
-  next();
-});
+  next()
+})
 
 // messageSchema.post('save', async function (doc) {
 //   if (!doc.chat) return;
@@ -61,5 +61,5 @@ messageSchema.post('save', async function (doc, next) {
 //   }
 // });
 
-const Message = model<MessageDoc, MessageModel>('Message', messageSchema);
-export default Message;
+const Message = model<MessageDoc, MessageModel>('Message', messageSchema)
+export default Message

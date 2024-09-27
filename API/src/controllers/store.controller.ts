@@ -1,26 +1,26 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express'
 import {
   createOne,
   deleteOne,
   getAll,
   getOne,
   updateOne,
-} from '@controllers/handlerFactory';
-import Store from '@models/store.model';
-import catchAsync from '@utils/catchAsync';
-import { STATUS_CODE } from '@interfaces/helper.types';
-import Delivery from '@models/delivery.model';
-import mongoose from 'mongoose';
+} from '@controllers/handlerFactory'
+import Store from '@models/store.model'
+import catchAsync from '@utils/catchAsync'
+import { STATUS_CODE } from '@interfaces/helper.types'
+import Delivery from '@models/delivery.model'
+import mongoose from 'mongoose'
 
-export const getAllStores = getAll(Store);
-export const getStore = getOne(Store);
-export const createStore = createOne(Store);
-export const updateStore = updateOne(Store);
-export const deleteStore = deleteOne(Store);
+export const getAllStores = getAll(Store)
+export const getStore = getOne(Store)
+export const createStore = createOne(Store)
+export const updateStore = updateOne(Store)
+export const deleteStore = deleteOne(Store)
 
 export const getAllproductInstore = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { storeID } = req.params;
+    const { storeID } = req.params
     let pipeline: any = [
       {
         $match: {
@@ -110,9 +110,9 @@ export const getAllproductInstore = catchAsync(
           },
         },
       },
-    ];
-    const products = await Delivery.aggregate(pipeline);
+    ]
+    const products = await Delivery.aggregate(pipeline)
 
-    res.status(STATUS_CODE.SUCCESS).json(products);
+    res.status(STATUS_CODE.SUCCESS).json(products)
   }
-);
+)

@@ -157,7 +157,7 @@
  *         "401":
  *           $ref: '#/components/responses/401'
  */
-/** 
+/**
  * @swagger
  *   /users/activeToggle:
  *     patch:

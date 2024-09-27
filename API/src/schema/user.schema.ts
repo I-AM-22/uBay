@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const userSchema = z.object({
   body: z.object({
@@ -22,7 +22,7 @@ export const userSchema = z.object({
       .email('البريد الإلكتروني غير صالح')
       .trim(),
   }),
-});
+})
 
 export const loginInput = z.object({
   body: z.object({
@@ -40,7 +40,7 @@ export const loginInput = z.object({
       .nonempty('كلمة المرور مطلوبة')
       .min(6, 'كلمة المرور قصيرة جدًا - يجب أن تحتوي على 6 أحرف على الأقل'),
   }),
-});
+})
 
 export const forgotPasswordSchema = z.object({
   body: z.object({
@@ -51,7 +51,7 @@ export const forgotPasswordSchema = z.object({
       .nonempty('البريد الالكتروني مطلوب')
       .email('البريد الإلكتروني غير صالح'),
   }),
-});
+})
 
 export const resetPasswordSchema = z.object({
   body: z.object({
@@ -66,7 +66,7 @@ export const resetPasswordSchema = z.object({
       })
       .nonempty('يرجى تقديم رمز إعادة التعيين'),
   }),
-});
+})
 
 export const updatePasswordSchema = z.object({
   body: z.object({
@@ -80,4 +80,4 @@ export const updatePasswordSchema = z.object({
       })
       .nonempty('يرجى تقديم كلمة المرور الحالية'),
   }),
-});
+})

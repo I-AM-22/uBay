@@ -96,15 +96,15 @@
  */
 
 export const profitSchema = {
-    type: 'object',
-    properties: {
-        value: {
-            type: 'string',
-            description: 'The value of the profit',
-        },
+  type: 'object',
+  properties: {
+    value: {
+      type: 'string',
+      description: 'The value of the profit',
     },
-    example: {
-        value: '4',
-    },
-    required: ['value'],
-};
+  },
+  example: {
+    value: '4',
+  },
+  required: ['value'],
+}

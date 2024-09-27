@@ -1,4 +1,4 @@
-import * as moduleAlias from 'module-alias';
+import * as moduleAlias from 'module-alias'
 
 moduleAlias.addAliases({
   '@models': __dirname + '/models',
@@ -10,4 +10,4 @@ moduleAlias.addAliases({
   '@routes': __dirname + '/routes',
   '@swagger': __dirname + '/swagger',
   '@interfaces': __dirname + '/types',
-});
+})

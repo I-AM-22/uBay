@@ -92,46 +92,45 @@
  *         $ref: '#/components/responses/400'
  */
 
-
 /**
-* @swagger
-* /payments/{id}:
-*   delete:
-*     summary: Delete a payment by ID with Admins
-*     tags: [Payments]
-*     security:
-*       - Bearer: []
-*     parameters:
-*       - in: path
-*         name: id
-*         schema:
-*           type: string
-*         required: true
-*         description: ID of the payments
-*     responses:
-*       '204':
-*         $ref: '#/components/responses/204'
-*       '404':
-*         description: Comment not found
-*       '401':
-*         $ref: '#/components/responses/401'
-*/
+ * @swagger
+ * /payments/{id}:
+ *   delete:
+ *     summary: Delete a payment by ID with Admins
+ *     tags: [Payments]
+ *     security:
+ *       - Bearer: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the payments
+ *     responses:
+ *       '204':
+ *         $ref: '#/components/responses/204'
+ *       '404':
+ *         description: Comment not found
+ *       '401':
+ *         $ref: '#/components/responses/401'
+ */
 
 export const paymentSchema = {
-    type: 'object',
-    properties: {
-        product: {
-            type: 'string',
-            description: 'The id of product you wil buy',
-        },
-        note: {
-            type: 'string',
-            description: 'optional',
-        }
+  type: 'object',
+  properties: {
+    product: {
+      type: 'string',
+      description: 'The id of product you wil buy',
     },
-    example: {
-        product: '32432423ksdj',
-        note: 'لقد تم دفع الحساب كاملا',
+    note: {
+      type: 'string',
+      description: 'optional',
     },
-    required: ['product'],
-};
+  },
+  example: {
+    product: '32432423ksdj',
+    note: 'لقد تم دفع الحساب كاملا',
+  },
+  required: ['product'],
+}

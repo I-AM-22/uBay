@@ -1,5 +1,5 @@
-import { Schema, model } from 'mongoose';
-import { ProfitDoc, ProfitModel } from 'src/types/profit';
+import { Schema, model } from 'mongoose'
+import { ProfitDoc, ProfitModel } from 'src/types/profit'
 
 const profitSchema = new Schema<ProfitDoc, ProfitModel, any>(
   {
@@ -22,8 +22,8 @@ const profitSchema = new Schema<ProfitDoc, ProfitModel, any>(
     toJSON: { virtuals: true, versionKey: false },
     toObject: { virtuals: true, versionKey: false },
   }
-);
+)
 
-const Profit = model<ProfitDoc>('Profit', profitSchema);
+const Profit = model<ProfitDoc>('Profit', profitSchema)
 
-export default Profit;
+export default Profit

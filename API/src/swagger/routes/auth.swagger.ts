@@ -168,7 +168,7 @@ export const updateMe = {
     name: 'bahaa',
     email: 'bahaa@gmail.com',
   },
-};
+}
 export const signUp = {
   type: 'object',
   required: ['name', 'email', 'password'],
@@ -182,4 +182,4 @@ export const signUp = {
     email: 'bahaa@gmail.com',
     password: 'test1234',
   },
-};
+}

@@ -65,8 +65,6 @@
  *         $ref: '#/components/responses/401'
  */
 
-
-
 // /**
 //  * @swagger
 //  * /deliveries/receive:
@@ -119,7 +117,6 @@
  *         $ref: '#/components/responses/401'
  */
 
-
 /**
  * @swagger
  * /deliveries/generateQrForSeller:
@@ -146,7 +143,6 @@
  *       '401':
  *         $ref: '#/components/responses/401'
  */
-
 
 /**
  * @swagger
@@ -175,45 +171,45 @@
  *         $ref: '#/components/responses/401'
  */
 export const deliverySchema = {
-    type: 'object',
-    properties: {
-        payment: {
-            type: 'string',
-            description: 'payment',
-        },
-        employee: {
-            type: 'string',
-            description: 'employee',
-        },
-        customer_date: {
-            type: 'string',
-            description: 'the date that customer receive',
-        },
-        seller_date: {
-            type: 'string',
-            description: 'the date that customer receive',
-        },
-        status: {
-            type: 'string',
-            description: 'to check who is recieve 0 for seller and 1 for customer',
-        },
+  type: 'object',
+  properties: {
+    payment: {
+      type: 'string',
+      description: 'payment',
     },
-    example: {
-        payment: 'ID',
-        status: "0"
+    employee: {
+      type: 'string',
+      description: 'employee',
     },
-    required: ['payment', 'status'],
-};
+    customer_date: {
+      type: 'string',
+      description: 'the date that customer receive',
+    },
+    seller_date: {
+      type: 'string',
+      description: 'the date that customer receive',
+    },
+    status: {
+      type: 'string',
+      description: 'to check who is recieve 0 for seller and 1 for customer',
+    },
+  },
+  example: {
+    payment: 'ID',
+    status: '0',
+  },
+  required: ['payment', 'status'],
+}
 export const QrSchema = {
-    type: 'object',
-    properties: {
-        product: {
-            type: 'string',
-            description: 'product',
-        },
+  type: 'object',
+  properties: {
+    product: {
+      type: 'string',
+      description: 'product',
     },
-    example: {
-        product: 'ID',
-    },
-    required: ['product'],
-};
+  },
+  example: {
+    product: 'ID',
+  },
+  required: ['product'],
+}

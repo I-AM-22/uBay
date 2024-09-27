@@ -1,5 +1,5 @@
-import { Schema, model } from 'mongoose';
-import { CityDoc, CityModel } from '@interfaces/city.types';
+import { Schema, model } from 'mongoose'
+import { CityDoc, CityModel } from '@interfaces/city.types'
 const citySchema = new Schema<CityDoc, CityModel, any>(
   {
     name: {
@@ -13,8 +13,8 @@ const citySchema = new Schema<CityDoc, CityModel, any>(
     toJSON: { virtuals: true, versionKey: false },
     toObject: { virtuals: true, versionKey: false },
   }
-);
+)
 
-const City = model<CityDoc>('City', citySchema);
+const City = model<CityDoc>('City', citySchema)
 
-export default City;
+export default City

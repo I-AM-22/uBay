@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const chatSchema = z.object({
   body: z.object({
@@ -13,4 +13,4 @@ export const chatSchema = z.object({
       })
       .nonempty('يجب أن تحتوي الدردشة على منتج'),
   }),
-});
+})

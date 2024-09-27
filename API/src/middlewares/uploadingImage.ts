@@ -1,16 +1,16 @@
-import * as multer from 'multer';
-import AppError from '@utils/appError';
-import catchAsync from '@utils/catchAsync';
-import { NextFunction, Response, Request } from 'express';
-import * as sharp from 'sharp';
-import { STATUS_CODE } from '@interfaces/helper.types';
-import { cloudinaryService } from '@utils/cloudinary';
+import * as multer from 'multer'
+import AppError from '@utils/appError'
+import catchAsync from '@utils/catchAsync'
+import { NextFunction, Response, Request } from 'express'
+import * as sharp from 'sharp'
+import { STATUS_CODE } from '@interfaces/helper.types'
+import { cloudinaryService } from '@utils/cloudinary'
 
 // type FilePhoto
-const multerStorage = multer.memoryStorage();
+const multerStorage = multer.memoryStorage()
 
 const multerFilter: any = (req: any, file: any, cb: any): void => {
-  if (file.mimetype.startsWith('image')) cb(null, true);
+  if (file.mimetype.startsWith('image')) cb(null, true)
   else
     cb(
       new AppError(STATUS_CODE.BAD_REQUEST, [
@@ -20,15 +20,15 @@ const multerFilter: any = (req: any, file: any, cb: any): void => {
         },
       ]),
       false
-    );
-};
+    )
+}
 
-const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
+const upload = multer({ storage: multerStorage, fileFilter: multerFilter })
 
-export const uploadUserPhoto = upload.single('photo');
+export const uploadUserPhoto = upload.single('photo')
 export const resizeUserImage = catchAsync(
   async (req: any, res: Response, next: NextFunction) => {
-    if (!req.file) return next();
+    if (!req.file) return next()
 
     const pic = await sharp(req.file.buffer)
       .resize(128, 128)
@@ -44,39 +44,39 @@ export const resizeUserImage = catchAsync(
         mozjpeg: true,
         quantisationTable: 0,
       })
-      .toBuffer();
+      .toBuffer()
 
-    const response = await cloudinaryService.uploadPhoto(pic);
-    req.file.filename = response.url;
-    next();
+    const response = await cloudinaryService.uploadPhoto(pic)
+    req.file.filename = response.url
+    next()
   }
-);
+)
 
 interface UploadedFiles {
   // photos?: Express.Multer.File[];
-  [fieldname: string]: any[] | undefined;
+  [fieldname: string]: any[] | undefined
 }
 
-export const uploadProductPhotos = upload.fields([{ name: 'photos' }]);
+export const uploadProductPhotos = upload.fields([{ name: 'photos' }])
 export const resizeProductPhotos = catchAsync(
   async (
     req: Request & { files: UploadedFiles },
     res: Response,
     next: NextFunction
   ) => {
-    if (!req.files || !req.files.photos) return next();
-    req.body.photos = [];
+    if (!req.files || !req.files.photos) return next()
+    req.body.photos = []
 
     const photos = await Promise.all(
       req.files.photos.map(async (e: any) => {
-        const response = await resizeAndUpload(e.buffer);
-        return response.url;
+        const response = await resizeAndUpload(e.buffer)
+        return response.url
       })
-    );
-    req.body.photos = photos;
-    next();
+    )
+    req.body.photos = photos
+    next()
   }
-);
+)
 
 export const resizeAndUpload = async (img: any) => {
   const pic = await sharp(img)
@@ -96,8 +96,8 @@ export const resizeAndUpload = async (img: any) => {
       mozjpeg: true,
       quantisationTable: 3,
     })
-    .toBuffer();
+    .toBuffer()
 
-  const response = await cloudinaryService.uploadPhoto(pic);
-  return response;
-};
+  const response = await cloudinaryService.uploadPhoto(pic)
+  return response
+}

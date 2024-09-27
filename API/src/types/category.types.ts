@@ -1,9 +1,9 @@
-import { Document, Model } from 'mongoose';
+import { Document, Model } from 'mongoose'
 
 export interface ICategory {
-  name: string;
-  description: string;
+  name: string
+  description: string
 }
-export type CategoryDoc = ICategory & Document;
+export type CategoryDoc = ICategory & Document
 
-export type CategoryModel = Model<CategoryDoc, object, any>;
+export type CategoryModel = Model<CategoryDoc, object, any>

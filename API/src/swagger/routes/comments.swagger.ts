@@ -187,4 +187,4 @@ export const commentSchema = {
     product: 'product-id',
   },
   required: ['content', 'product'],
-};
+}

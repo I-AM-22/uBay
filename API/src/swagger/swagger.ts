@@ -1,23 +1,23 @@
-import * as swaggerJsdoc from 'swagger-jsdoc';
-import { productSchema } from '@swagger/routes/products.swagger';
-import { updateMe, signUp } from '@swagger/routes/auth.swagger';
-import { commentSchema } from '@swagger/routes/comments.swagger';
-import { categorySchema } from '@swagger/routes/categories.swagger';
-import { citySchema } from '@swagger/routes/cities.swagger';
-import { storeSchema } from '@swagger/routes/stores.swagger';
-import { employeeSchema } from '@swagger/routes/employees.swagger';
-import { couponSchema, favoriteSchema } from '@swagger/routes/coupon.swagger';
-import { paymentSchema } from '@swagger/routes/payment.swagger';
-import { deliverySchema } from '@swagger/routes/delivery.swagger';
-import { QrSchema } from '@swagger/routes/delivery.swagger';
-import { chatSchema } from '@swagger/routes/chat.swagger';
-import { updatechatSchema } from '@swagger/routes/chat.swagger';
-import { messagesSchema } from '@swagger/routes/messages.swagger';
-import { profitSchema } from '@swagger/routes/profits.swagger';
-import { settings } from '@config/settings';
+import * as swaggerJsdoc from 'swagger-jsdoc'
+import { productSchema } from '@swagger/routes/products.swagger'
+import { updateMe, signUp } from '@swagger/routes/auth.swagger'
+import { commentSchema } from '@swagger/routes/comments.swagger'
+import { categorySchema } from '@swagger/routes/categories.swagger'
+import { citySchema } from '@swagger/routes/cities.swagger'
+import { storeSchema } from '@swagger/routes/stores.swagger'
+import { employeeSchema } from '@swagger/routes/employees.swagger'
+import { couponSchema, favoriteSchema } from '@swagger/routes/coupon.swagger'
+import { paymentSchema } from '@swagger/routes/payment.swagger'
+import { deliverySchema } from '@swagger/routes/delivery.swagger'
+import { QrSchema } from '@swagger/routes/delivery.swagger'
+import { chatSchema } from '@swagger/routes/chat.swagger'
+import { updatechatSchema } from '@swagger/routes/chat.swagger'
+import { messagesSchema } from '@swagger/routes/messages.swagger'
+import { profitSchema } from '@swagger/routes/profits.swagger'
+import { settings } from '@config/settings'
 
 const serverUrl =
-  settings.NODE_ENV === 'production' ? settings.SERVER_URL : settings.LOCAL_URL;
+  settings.NODE_ENV === 'production' ? settings.SERVER_URL : settings.LOCAL_URL
 const options: swaggerJsdoc.Options = {
   url: '',
   definition: {
@@ -109,8 +109,8 @@ const options: swaggerJsdoc.Options = {
     'src/swagger/routes/statistics.swagger.ts',
     'src/swagger/routes/profits.swagger.ts',
   ],
-};
+}
 
-const swaggerSpec = swaggerJsdoc(options);
+const swaggerSpec = swaggerJsdoc(options)
 
-export default swaggerSpec;
+export default swaggerSpec

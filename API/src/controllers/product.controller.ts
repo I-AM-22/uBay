@@ -1,28 +1,28 @@
-import Product from '@models/product.model';
+import Product from '@models/product.model'
 import {
   getAll,
   getOne,
   updateOne,
   deleteOne,
   createOne,
-} from '@controllers/handlerFactory';
-import { NextFunction, Request, Response } from 'express';
-import { checkIsOwner } from '@middlewares/auth.middleware';
-import catchAsync from '@utils/catchAsync';
-import AppError from '@utils/appError';
-import { STATUS_CODE } from '@interfaces/helper.types';
-import Delivery from '@models/delivery.model';
-import AggregateFeatures from '@utils/aggregateFeatures';
-import mongoose from 'mongoose';
+} from '@controllers/handlerFactory'
+import { NextFunction, Request, Response } from 'express'
+import { checkIsOwner } from '@middlewares/auth.middleware'
+import catchAsync from '@utils/catchAsync'
+import AppError from '@utils/appError'
+import { STATUS_CODE } from '@interfaces/helper.types'
+import Delivery from '@models/delivery.model'
+import AggregateFeatures from '@utils/aggregateFeatures'
+import mongoose from 'mongoose'
 
 export const like = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     await Product.findByIdAndUpdate(req.params.id, {
       $addToSet: { likedBy: req.user?._id },
-    });
-    res.sendStatus(STATUS_CODE.SUCCESS);
+    })
+    res.sendStatus(STATUS_CODE.SUCCESS)
   }
-);
+)
 
 export const dislike = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -30,21 +30,21 @@ export const dislike = catchAsync(
       req.params.id,
       { $pull: { likedBy: req.user?._id } },
       { new: true, runValidators: true }
-    );
+    )
     if (!product) {
       return next(
         new AppError(STATUS_CODE.NOT_FOUND, [], `No Product found with that ID`)
-      );
+      )
     }
 
-    res.sendStatus(STATUS_CODE.SUCCESS);
+    res.sendStatus(STATUS_CODE.SUCCESS)
   }
-);
+)
 export const myProduct = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { isBuy } = req.query;
-    let pipeline: any = [];
-    let unpaid: any;
+    const { isBuy } = req.query
+    let pipeline: any = []
+    let unpaid: any
     if (isBuy == 'false') {
       unpaid = await Product.aggregate([
         { $match: { is_paid: false, user: req.user?._id } },
@@ -113,7 +113,7 @@ export const myProduct = catchAsync(
             },
           },
         },
-      ]);
+      ])
       pipeline = [
         {
           $lookup: {
@@ -231,7 +231,7 @@ export const myProduct = catchAsync(
             ],
           },
         },
-      ];
+      ]
     } else {
       pipeline = [
         {
@@ -343,53 +343,53 @@ export const myProduct = catchAsync(
             ],
           },
         },
-      ];
+      ]
     }
     // Execute the aggregation pipeline
-    const products = await Delivery.aggregate(pipeline);
+    const products = await Delivery.aggregate(pipeline)
 
-    res.status(STATUS_CODE.SUCCESS).json({ ...products[0], unpaid });
+    res.status(STATUS_CODE.SUCCESS).json({ ...products[0], unpaid })
   }
-);
+)
 
 export const checkProductIsPaid = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.id;
-    const productDoc = await Product.findById(id);
+    const id = req.params.id
+    const productDoc = await Product.findById(id)
     if (productDoc?.is_paid) {
       return next(
         new AppError(STATUS_CODE.BAD_REQUEST, [], 'لا يمكنك تعديل منتج تم بيعه')
-      );
+      )
     }
-    next();
+    next()
   }
-);
+)
 
 export const filterCoupon = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    let doc = req.body.doc;
+    let doc = req.body.doc
     doc.coupons = doc.coupons.filter(
       (coupon: { user: { _id: { toString: () => any } | null } }) => {
         return (
           coupon.user !== null &&
           coupon.user._id !== null &&
           coupon.user._id.toString() === req.user?._id.toString()
-        );
+        )
       }
-    );
-    res.status(STATUS_CODE.SUCCESS).json(doc);
+    )
+    res.status(STATUS_CODE.SUCCESS).json(doc)
   }
-);
-export const checkIsOwnerProduct = checkIsOwner(Product);
-export const getAllProducts = getAll(Product);
-export const getProduct = getOne(Product);
-export const createProduct = createOne(Product);
-export const updateProduct = updateOne(Product);
-export const deleteProduct = deleteOne(Product);
+)
+export const checkIsOwnerProduct = checkIsOwner(Product)
+export const getAllProducts = getAll(Product)
+export const getProduct = getOne(Product)
+export const createProduct = createOne(Product)
+export const updateProduct = updateOne(Product)
+export const deleteProduct = deleteOne(Product)
 export const getAllPros = catchAsync(
   async (req: any, res: Response, next: NextFunction) => {
-    const user: Express.User = req.user; // User's ObjectId
-    const aggregateFeatures = new AggregateFeatures(req.query);
+    const user: Express.User = req.user // User's ObjectId
+    const aggregateFeatures = new AggregateFeatures(req.query)
     aggregateFeatures
       .match({})
       .lookup({
@@ -555,9 +555,9 @@ export const getAllPros = catchAsync(
           },
         },
       })
-      .facet(); // Facet stage
+      .facet() // Facet stage
 
-    let result = await aggregateFeatures.build(Product);
-    res.status(200).json(result);
+    let result = await aggregateFeatures.build(Product)
+    res.status(200).json(result)
   }
-);
+)

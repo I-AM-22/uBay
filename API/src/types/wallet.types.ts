@@ -1,11 +1,11 @@
-import { Model, Document, ObjectId, PopulatedDoc } from 'mongoose';
-import { IUser } from './user.types';
+import { Model, Document, ObjectId, PopulatedDoc } from 'mongoose'
+import { IUser } from './user.types'
 
 export interface IWallet {
-  user: PopulatedDoc<Document<ObjectId>> & IUser;
-  total: number;
-  pending: number;
-  available: number;
+  user: PopulatedDoc<Document<ObjectId>> & IUser
+  total: number
+  pending: number
+  available: number
 }
 export interface WalletDoc extends IWallet, Document {}
 

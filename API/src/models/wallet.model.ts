@@ -1,5 +1,5 @@
-import { Types, Schema, model } from 'mongoose';
-import { WalletDoc, WalletModel } from 'src/types/wallet.types';
+import { Types, Schema, model } from 'mongoose'
+import { WalletDoc, WalletModel } from 'src/types/wallet.types'
 
 const walletSchema = new Schema<WalletDoc, WalletModel, any>(
   {
@@ -20,12 +20,12 @@ const walletSchema = new Schema<WalletDoc, WalletModel, any>(
     toObject: { virtuals: true, versionKey: false },
     timestamps: true,
   }
-);
+)
 
 walletSchema.virtual('available').get(function () {
-  return this.total - this.pending;
-});
+  return this.total - this.pending
+})
 
-const Wallet = model<WalletDoc>('Wallet', walletSchema);
+const Wallet = model<WalletDoc>('Wallet', walletSchema)
 
-export default Wallet;
+export default Wallet

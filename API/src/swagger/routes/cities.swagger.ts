@@ -125,43 +125,43 @@
  *       '401':
  *         $ref: '#/components/responses/401'
  *       '400':
- *         $ref: '#/components/responses/400' 
+ *         $ref: '#/components/responses/400'
  */
 
 /**
-* @swagger
-* /cities/{id}:
-*   delete:
-*     summary: Delete a city by ID
-*     tags: [Cities]
-*     security:
-*       - Bearer: []
-*     parameters:
-*       - in: path
-*         name: id
-*         schema:
-*           type: string
-*         required: true
-*         description: ID of the city
-*     responses:
-*       '204':
-*         $ref: '#/components/responses/204'
-*       '404':
-*         description: Comment not found
-*       '401':
-*         $ref: '#/components/responses/401'
-*/
+ * @swagger
+ * /cities/{id}:
+ *   delete:
+ *     summary: Delete a city by ID
+ *     tags: [Cities]
+ *     security:
+ *       - Bearer: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the city
+ *     responses:
+ *       '204':
+ *         $ref: '#/components/responses/204'
+ *       '404':
+ *         description: Comment not found
+ *       '401':
+ *         $ref: '#/components/responses/401'
+ */
 
 export const citySchema = {
-    type: 'object',
-    properties: {
-        name: {
-            type: 'string',
-            description: 'The name of the city',
-        },
+  type: 'object',
+  properties: {
+    name: {
+      type: 'string',
+      description: 'The name of the city',
     },
-    example: {
-        name: 'City name',
-    },
-    required: ['name'],
-};
+  },
+  example: {
+    name: 'City name',
+  },
+  required: ['name'],
+}

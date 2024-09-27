@@ -94,7 +94,6 @@
  *               $ref: '#/components/responses/Unauthorized'
  */
 
-
 /**
  * @swagger
  * /chats/{chatId}/messages:
@@ -168,58 +167,58 @@
  *       '401':
  *         $ref: '#/components/responses/401'
  *       '400':
- *         $ref: '#/components/responses/400' 
+ *         $ref: '#/components/responses/400'
  */
 
 /**
-* @swagger
-* /chats/{chatId}/messages/{id}:
-*   delete:
-*     summary: Delete a meessage by ID
-*     tags: [Messages]
-*     security:
-*       - Bearer: []
-*     parameters:
-*       - in: path
-*         name: chatId
-*         schema:
-*           type: string
-*         required: true
-*       - in: path
-*         name: id
-*         schema:
-*           type: string
-*         required: true
-*         description: ID of the messages
-*     responses:
-*       '204':
-*         $ref: '#/components/responses/204'
-*       '404':
-*         description: Comment not found
-*       '401':
-*         $ref: '#/components/responses/401'
-*/
+ * @swagger
+ * /chats/{chatId}/messages/{id}:
+ *   delete:
+ *     summary: Delete a meessage by ID
+ *     tags: [Messages]
+ *     security:
+ *       - Bearer: []
+ *     parameters:
+ *       - in: path
+ *         name: chatId
+ *         schema:
+ *           type: string
+ *         required: true
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the messages
+ *     responses:
+ *       '204':
+ *         $ref: '#/components/responses/204'
+ *       '404':
+ *         description: Comment not found
+ *       '401':
+ *         $ref: '#/components/responses/401'
+ */
 
 export const messagesSchema = {
-    type: 'object',
-    properties: {
-        content: {
-            type: 'string',
-            description: 'content of the message',
-        },
-        chat: {
-            type: 'string',
-            description: 'ChatID',
-        },
-        user: {
-            type: 'string',
-            description: 'the user who write the message',
-        }
+  type: 'object',
+  properties: {
+    content: {
+      type: 'string',
+      description: 'content of the message',
     },
-    example: {
-        content: 'lalalalb',
-        chat: 'chatId',
-        user: 'userID',
+    chat: {
+      type: 'string',
+      description: 'ChatID',
     },
-    required: ['content','chat', 'user'],
-};
+    user: {
+      type: 'string',
+      description: 'the user who write the message',
+    },
+  },
+  example: {
+    content: 'lalalalb',
+    chat: 'chatId',
+    user: 'userID',
+  },
+  required: ['content', 'chat', 'user'],
+}

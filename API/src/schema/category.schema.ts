@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const categorySchema = z.object({
   body: z.object({
@@ -13,4 +13,4 @@ export const categorySchema = z.object({
       })
       .nonempty('اسم الفئة مطلوب'),
   }),
-});
+})

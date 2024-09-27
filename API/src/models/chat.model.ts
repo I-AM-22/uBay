@@ -1,5 +1,5 @@
-import { Query, Schema, Types, model } from 'mongoose';
-import { ChatModel, ChatDoc, IChat } from '@interfaces/chat.types';
+import { Query, Schema, Types, model } from 'mongoose'
+import { ChatModel, ChatDoc, IChat } from '@interfaces/chat.types'
 
 const chatSchema = new Schema<ChatDoc, ChatModel, any>(
   {
@@ -30,7 +30,7 @@ const chatSchema = new Schema<ChatDoc, ChatModel, any>(
     toObject: { virtuals: true, versionKey: false },
     timestamps: true,
   }
-);
+)
 
 chatSchema.post('save', async function () {
   await this.populate({
@@ -42,7 +42,7 @@ chatSchema.post('save', async function () {
       favoriteCategories: 0,
       favoriteCities: 0,
     },
-  });
+  })
   await this.populate({
     path: 'seller',
     select: {
@@ -52,7 +52,7 @@ chatSchema.post('save', async function () {
       favoriteCategories: 0,
       favoriteCities: 0,
     },
-  });
+  })
   await this.populate({
     path: 'product',
     select: {
@@ -64,8 +64,8 @@ chatSchema.post('save', async function () {
       likedBy: 0,
       coupons: 0,
     },
-  });
-});
+  })
+})
 
 chatSchema.pre<Query<IChat, IChat>>(/^find/, function (next) {
   this.populate('customer', {
@@ -96,10 +96,10 @@ chatSchema.pre<Query<IChat, IChat>>(/^find/, function (next) {
         likedBy: 0,
         coupons: 0,
       },
-    });
+    })
 
-  next();
-});
+  next()
+})
 
-const Chat = model<ChatDoc>('Chat', chatSchema);
-export default Chat;
+const Chat = model<ChatDoc>('Chat', chatSchema)
+export default Chat

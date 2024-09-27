@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import * as passport from 'passport';
+import { Router } from 'express'
+import * as passport from 'passport'
 import {
   CreateMessage,
   getMessage,
@@ -7,26 +7,26 @@ import {
   updateMessage,
   deleteMessage,
   checkIsOwnerMessage,
-} from '@controllers/message.controller';
-import validate from '@middlewares/validateResource';
-import { messageSchema } from './../schema/message.schema';
-import { restrictTo } from '@middlewares/auth.middleware';
-import { setIds } from '@middlewares/helper.middleware';
+} from '@controllers/message.controller'
+import validate from '@middlewares/validateResource'
+import { messageSchema } from './../schema/message.schema'
+import { restrictTo } from '@middlewares/auth.middleware'
+import { setIds } from '@middlewares/helper.middleware'
 
-const router = Router({ mergeParams: true });
+const router = Router({ mergeParams: true })
 
 router.use(
   passport.authenticate('jwt', { session: false, failWithError: true }),
   restrictTo('user')
-);
+)
 router
   .route('/')
   .get(getAllMessages)
-  .post(setIds('chatId'), validate(messageSchema), CreateMessage);
+  .post(setIds('chatId'), validate(messageSchema), CreateMessage)
 router
   .route('/:id')
   .get(getMessage)
   .patch(checkIsOwnerMessage, updateMessage)
-  .delete(checkIsOwnerMessage, deleteMessage);
+  .delete(checkIsOwnerMessage, deleteMessage)
 
-export default router;
+export default router

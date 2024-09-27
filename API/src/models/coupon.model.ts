@@ -1,6 +1,6 @@
-import { Query, Schema, Types, model } from 'mongoose';
-import { CouponDoc, CouponModel, ICoupon } from 'src/types/coupon.types';
-import Product from './product.model';
+import { Query, Schema, Types, model } from 'mongoose'
+import { CouponDoc, CouponModel, ICoupon } from 'src/types/coupon.types'
+import Product from './product.model'
 
 const couponSchema = new Schema<CouponDoc, CouponModel, any>(
   {
@@ -21,14 +21,14 @@ const couponSchema = new Schema<CouponDoc, CouponModel, any>(
     active: { type: Boolean, default: true },
   },
   { timestamps: true }
-);
+)
 
-couponSchema.index({ product: 1, user: 1 }, { unique: true });
+couponSchema.index({ product: 1, user: 1 }, { unique: true })
 couponSchema.post('save', async function () {
   await this.populate({
     path: 'product',
     select: { user: 0, title: 1, photos: 1, category: 1, price: 1, likedBy: 0 },
-  });
+  })
   await this.populate({
     path: 'user',
     select: {
@@ -38,8 +38,8 @@ couponSchema.post('save', async function () {
       favoriteCategories: 0,
       favoriteCities: 0,
     },
-  });
-});
+  })
+})
 couponSchema.pre<Query<ICoupon, ICoupon>>(/^find/, function (next) {
   this.populate({
     path: 'product',
@@ -53,10 +53,10 @@ couponSchema.pre<Query<ICoupon, ICoupon>>(/^find/, function (next) {
       likedBy: 0,
       coupons: 0,
     },
-  });
-  this.populate({ path: 'user', select: { name: 1, photo: 1, wallet: 0 } });
-  next();
-});
+  })
+  this.populate({ path: 'user', select: { name: 1, photo: 1, wallet: 0 } })
+  next()
+})
 
 couponSchema.pre<Query<ICoupon, ICoupon>>(/^find/, function (next) {
   this.find({
@@ -65,17 +65,17 @@ couponSchema.pre<Query<ICoupon, ICoupon>>(/^find/, function (next) {
       { expire: null }, // Expires is null
     ],
     active: true,
-  });
-  next();
-});
+  })
+  next()
+})
 
 //save coupon to product
 couponSchema.post('save', async function (doc) {
   await Product.findByIdAndUpdate(doc.product.id, {
     $push: { coupons: doc._id },
-  });
-});
+  })
+})
 
-const Coupon = model('Coupon', couponSchema);
+const Coupon = model('Coupon', couponSchema)
 
-export default Coupon;
+export default Coupon

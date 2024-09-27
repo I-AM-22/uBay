@@ -1,8 +1,8 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model } from 'mongoose'
 import {
   ProfitPercentageDoc,
   ProfitPercentageModel,
-} from '@interfaces/profit-percentage.types';
+} from '@interfaces/profit-percentage.types'
 
 const ProfitPercentageSchema = new Schema<
   ProfitPercentageDoc,
@@ -20,11 +20,11 @@ const ProfitPercentageSchema = new Schema<
     toJSON: { virtuals: true, versionKey: false },
     toObject: { virtuals: true, versionKey: false },
   }
-);
+)
 
 const ProfitPercentage = model<ProfitPercentageDoc>(
   'ProfitPercentage',
   ProfitPercentageSchema
-);
+)
 
-export default ProfitPercentage;
+export default ProfitPercentage

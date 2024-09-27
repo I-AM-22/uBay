@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const productSchema = z.object({
   body: z.object({
@@ -17,18 +17,17 @@ export const productSchema = z.object({
         required_error: 'يجب أن يحتوي المنتج على مستخدم',
       })
       .nonempty('يجب أن يحتوي المنتج على مستخدم'),
-    photos:z
+    photos: z
       .array(z.string(), { required_error: 'يجب أن يحتوي المنتج على صور' })
       .nonempty('يجب أن يحتوي المنتج على صور')
       .min(1, 'يجب أن يحتوي المنتج على صورة واحدة على الأقل'),
     price: z.string({
-        required_error: 'يجب أن يحتوي المنتج على سعر',
-      })
-      ,
+      required_error: 'يجب أن يحتوي المنتج على سعر',
+    }),
     category: z
       .string({
         required_error: 'يجب أن يحتوي المنتج على فئة',
       })
       .nonempty('يجب أن يحتوي المنتج على فئة'),
   }),
-});
+})

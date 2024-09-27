@@ -1,13 +1,13 @@
-import * as cls from 'cls-hooked';
+import * as cls from 'cls-hooked'
 
-import { JwtPayload } from 'jsonwebtoken';
-import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt';
-import { settings } from '../config/settings';
-import User from '@models/user.model';
-import catchAsync from '@utils/catchAsync';
-import AppError from '@utils/appError';
-import { STATUS_CODE } from '@interfaces/helper.types';
-import Employee from '@models/employee.model';
+import { JwtPayload } from 'jsonwebtoken'
+import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt'
+import { settings } from '../config/settings'
+import User from '@models/user.model'
+import catchAsync from '@utils/catchAsync'
+import AppError from '@utils/appError'
+import { STATUS_CODE } from '@interfaces/helper.types'
+import Employee from '@models/employee.model'
 
 // const cookieExtractor = (req: Request) => {
 //   let token;
@@ -26,8 +26,7 @@ export default new JWTStrategy(
   },
   catchAsync(async function (payload: JwtPayload, done: any) {
     let user =
-      (await User.findById(payload.id)) ||
-      (await Employee.findById(payload.id));
+      (await User.findById(payload.id)) || (await Employee.findById(payload.id))
     if (!user) {
       return done(
         new AppError(
@@ -36,7 +35,7 @@ export default new JWTStrategy(
           [],
           'The user belonging to this token does no longer exist'
         )
-      );
+      )
     }
     //4) Check if the user changed the password
     if (user.isPasswordChanged(payload.iat)) {
@@ -46,13 +45,13 @@ export default new JWTStrategy(
           [],
           'User recently changed the password!, please login again.'
         )
-      );
+      )
     }
-    user.passwordChangedAt = undefined;
-    const namespace = cls.getNamespace('app');
+    user.passwordChangedAt = undefined
+    const namespace = cls.getNamespace('app')
 
-    namespace?.set('loggedInUserId', user?.id);
+    namespace?.set('loggedInUserId', user?.id)
 
-    return done(null, user);
+    return done(null, user)
   })
-);
+)

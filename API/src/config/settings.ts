@@ -1,6 +1,6 @@
-import { config } from 'dotenv';
+import { config } from 'dotenv'
 
-config();
+config()
 
 export const settings = {
   NODE_ENV: process.env.NODE_ENV,
@@ -31,4 +31,4 @@ export const settings = {
   },
   SERVER_URL: process.env.SERVER_URL,
   LOCAL_URL: process.env.LOCAL_URL,
-};
+}

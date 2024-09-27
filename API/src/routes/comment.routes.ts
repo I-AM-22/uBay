@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router } from 'express'
 import {
   checkIsOwnerComment,
   createComment,
@@ -6,18 +6,18 @@ import {
   getAllComments,
   getComment,
   updateComment,
-} from '@controllers/comment.controller';
-import { restrictTo } from '@middlewares/auth.middleware';
-import * as passport from 'passport';
-import validate from '@middlewares/validateResource';
-import { commentSchema } from './../schema/comment.schema';
-import { setIds } from '@middlewares/helper.middleware';
+} from '@controllers/comment.controller'
+import { restrictTo } from '@middlewares/auth.middleware'
+import * as passport from 'passport'
+import validate from '@middlewares/validateResource'
+import { commentSchema } from './../schema/comment.schema'
+import { setIds } from '@middlewares/helper.middleware'
 
-const router = Router({ mergeParams: true });
+const router = Router({ mergeParams: true })
 
 router.use(
   passport.authenticate('jwt', { session: false, failWithError: true })
-);
+)
 
 router
   .route('/')
@@ -27,11 +27,11 @@ router
     setIds('productId'),
     validate(commentSchema),
     createComment
-  );
+  )
 
 router
   .route('/:id')
   .get(getComment)
   .patch(checkIsOwnerComment, updateComment)
-  .delete(checkIsOwnerComment, deleteComment);
-export default router;
+  .delete(checkIsOwnerComment, deleteComment)
+export default router

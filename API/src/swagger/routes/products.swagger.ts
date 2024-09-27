@@ -260,7 +260,6 @@
  *           $ref: '#/components/responses/401'
  */
 
-
 export const productSchema = {
   type: 'object',
   properties: {
@@ -294,7 +293,7 @@ export const productSchema = {
     likes: 10,
     likedBy: [],
     likedByMe: false,
-    store:"IdStore"
+    store: 'IdStore',
   },
-  required: ['content', 'photos', 'price', 'category', 'title','store'],
-};
+  required: ['content', 'photos', 'price', 'category', 'title', 'store'],
+}

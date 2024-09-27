@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const messageSchema = z.object({
   body: z.object({
@@ -18,4 +18,4 @@ export const messageSchema = z.object({
       })
       .nonempty('يجب أن تحتوي الرسالة على محادثة'),
   }),
-});
+})

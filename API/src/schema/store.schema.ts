@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 //TODO
 export const storeSchema = z.object({
   body: z.object({
@@ -16,4 +16,4 @@ export const storeSchema = z.object({
       .string({ required_error: 'يجب أن يحتوي المتجر على مدينة' })
       .nonempty('يجب أن يحتوي المتجر على مدينة'),
   }),
-});
+})

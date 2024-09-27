@@ -1,22 +1,22 @@
-import Employee from '@models/employee.model';
-import Product from '@models/product.model';
-import User from '@models/user.model';
-import catchAsync from '@utils/catchAsync';
-import { NextFunction, Request, Response } from 'express-serve-static-core';
-import { STATUS_CODE } from '@interfaces/helper.types';
-import Store from '@models/store.model';
-import Comment from '@models/comment.model';
-import Delivery from '@models/delivery.model';
-import Profit from '@models/profit.model';
+import Employee from '@models/employee.model'
+import Product from '@models/product.model'
+import User from '@models/user.model'
+import catchAsync from '@utils/catchAsync'
+import { NextFunction, Request, Response } from 'express-serve-static-core'
+import { STATUS_CODE } from '@interfaces/helper.types'
+import Store from '@models/store.model'
+import Comment from '@models/comment.model'
+import Delivery from '@models/delivery.model'
+import Profit from '@models/profit.model'
 
 export const getStatistics = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const users = await User.countDocuments({ role: 'user' });
-    const products = await Product.countDocuments({});
-    const employees = await Employee.countDocuments();
-    const stores = await Store.countDocuments();
-    const soldProducts = await Product.countDocuments({ is_paid: true });
-    const salesPercentage = (soldProducts / products) * 100;
+    const users = await User.countDocuments({ role: 'user' })
+    const products = await Product.countDocuments({})
+    const employees = await Employee.countDocuments()
+    const stores = await Store.countDocuments()
+    const soldProducts = await Product.countDocuments({ is_paid: true })
+    const salesPercentage = (soldProducts / products) * 100
     const salesPerCategory = await Product.aggregate([
       { $match: { is_paid: true } },
 
@@ -67,7 +67,7 @@ export const getStatistics = catchAsync(
           },
         },
       },
-    ]);
+    ])
 
     const commentsCountByDay = await Comment.aggregate([
       { $match: {} },
@@ -79,7 +79,7 @@ export const getStatistics = catchAsync(
           count: { $sum: 1 },
         },
       },
-    ]);
+    ])
 
     const productsCountByDay = await Product.aggregate([
       { $match: {} },
@@ -91,7 +91,7 @@ export const getStatistics = catchAsync(
           count: { $sum: 1 },
         },
       },
-    ]);
+    ])
 
     const deliveriesCountByDay = await Delivery.aggregate([
       {
@@ -105,39 +105,39 @@ export const getStatistics = catchAsync(
           count: { $sum: 1 },
         },
       },
-    ]);
-    const result: any = {};
+    ])
+    const result: any = {}
 
     commentsCountByDay.forEach((entry) => {
-      const date = entry._id;
+      const date = entry._id
       if (!result[date]) {
-        result[date] = {};
+        result[date] = {}
       }
-      result[date].comments = entry.count;
-    });
+      result[date].comments = entry.count
+    })
 
     productsCountByDay.forEach((entry) => {
-      const date = entry._id;
+      const date = entry._id
       if (!result[date]) {
-        result[date] = {};
+        result[date] = {}
       }
-      result[date].products = entry.count;
-    });
+      result[date].products = entry.count
+    })
     deliveriesCountByDay.forEach((entry) => {
-      const date = entry._id;
+      const date = entry._id
       if (!result[date]) {
-        result[date] = {};
+        result[date] = {}
       }
-      result[date].soldProducts = entry.count;
-    });
-    let byDay = [];
+      result[date].soldProducts = entry.count
+    })
+    let byDay = []
     for (const day in result) {
-      const value = result[day];
-      byDay.push({ day, ...value });
+      const value = result[day]
+      byDay.push({ day, ...value })
     }
-    const currentDate = new Date();
-    const last7Days = new Date();
-    last7Days.setDate(currentDate.getDate() - 6); // Subtract 6 days to get the last 7 days
+    const currentDate = new Date()
+    const last7Days = new Date()
+    last7Days.setDate(currentDate.getDate() - 6) // Subtract 6 days to get the last 7 days
     const profits = await Profit.aggregate([
       {
         $match: {
@@ -157,7 +157,7 @@ export const getStatistics = catchAsync(
           totalValue: 1,
         },
       },
-    ]);
+    ])
     // Call the function to retrieve the counts
     res.status(STATUS_CODE.SUCCESS).json({
       users,
@@ -169,6 +169,6 @@ export const getStatistics = catchAsync(
       salesPerCategory,
       byDay,
       profits,
-    });
+    })
   }
-);
+)

@@ -169,6 +169,6 @@ export const categorySchema = {
     name: 'Category name',
   },
   required: ['name', 'description'],
-};
+}
 
-export default categorySchema;
+export default categorySchema

@@ -2,23 +2,23 @@ import {
   getProfitPercentage,
   createOrUpdatePercentage,
   getAllProfit,
-} from '@controllers/ProfitPercentag.controller';
-import { restrictTo } from '@middlewares/auth.middleware';
-import validate from '@middlewares/validateResource';
-import { Router } from 'express';
-import * as passport from 'passport';
-import { percentageSchema } from '../schema/profit.schema';
+} from '@controllers/profit-percentage.controller'
+import { restrictTo } from '@middlewares/auth.middleware'
+import validate from '@middlewares/validateResource'
+import { Router } from 'express'
+import * as passport from 'passport'
+import { percentageSchema } from '../schema/profit.schema'
 
-const router = Router();
+const router = Router()
 router.use(
   passport.authenticate('jwt', { failWithError: true, session: false }),
   restrictTo('superadmin', 'admin')
-);
-router.get('/', getAllProfit);
-router.get('/percentage', getProfitPercentage);
+)
+router.get('/', getAllProfit)
+router.get('/percentage', getProfitPercentage)
 router.post(
   '/createOrUpdatePercentage',
   validate(percentageSchema),
   createOrUpdatePercentage
-);
-export default router;
+)
+export default router

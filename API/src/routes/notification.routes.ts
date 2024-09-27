@@ -1,4 +1,4 @@
-import { restrictTo } from '@middlewares/auth.middleware';
+import { restrictTo } from '@middlewares/auth.middleware'
 import {
   createNotification,
   deleteNotification,
@@ -6,23 +6,23 @@ import {
   getNotification,
   markAsRead,
   updateNotification,
-} from '@controllers/notification.controller';
-import { Router } from 'express';
-import * as passport from 'passport';
+} from '@controllers/notification.controller'
+import { Router } from 'express'
+import * as passport from 'passport'
 
-const router = Router({ mergeParams: true });
+const router = Router({ mergeParams: true })
 
 router.use(
   passport.authenticate('jwt', { session: false, failWithError: true }),
   restrictTo('user')
-);
+)
 
-router.route('/').get(getAllNotification).post(createNotification);
-router.patch('/read', markAsRead);
+router.route('/').get(getAllNotification).post(createNotification)
+router.patch('/read', markAsRead)
 router
   .route('/:id')
   .get(getNotification)
   .delete(deleteNotification)
-  .patch(updateNotification);
+  .patch(updateNotification)
 
-export default router;
+export default router

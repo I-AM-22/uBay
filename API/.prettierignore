@@ -1,0 +1,9 @@
+# Testing
+coverage/
+
+# Build
+dist/
+
+# JavaScript & TypeScript
+*.js
+src/database/migrations

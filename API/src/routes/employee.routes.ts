@@ -2,8 +2,8 @@ import {
   employeeSchema,
   loginInput,
   updateEmployeeSchema,
-} from '../schema/employee.schema';
-import { Router } from 'express';
+} from '../schema/employee.schema'
+import { Router } from 'express'
 import {
   createEmployee,
   deleteEmployee,
@@ -12,20 +12,20 @@ import {
   getAllEmployee,
   loginEmployee,
   watchEmployee,
-} from '@controllers/employee.controller';
-import { restrictTo } from '@middlewares/auth.middleware';
-import { resizeUserImage, uploadUserPhoto } from '@middlewares/uploadingImage';
-import * as passport from 'passport';
-import validate from '@middlewares/validateResource';
+} from '@controllers/employee.controller'
+import { restrictTo } from '@middlewares/auth.middleware'
+import { resizeUserImage, uploadUserPhoto } from '@middlewares/uploadingImage'
+import * as passport from 'passport'
+import validate from '@middlewares/validateResource'
 
-const router = Router();
-router.post('/login', validate(loginInput), loginEmployee);
+const router = Router()
+router.post('/login', validate(loginInput), loginEmployee)
 router.get(
   '/watchEmployee/:employeeID',
   passport.authenticate('jwt', { session: false, failWithError: true }),
   restrictTo('superadmin', 'admin', 'employee'),
   watchEmployee
-);
+)
 router
   .route('/')
   .get(getAllEmployee)
@@ -36,7 +36,7 @@ router
     // resizeUserImage,
     validate(employeeSchema),
     createEmployee
-  );
+  )
 
 router
   .route('/:id')
@@ -53,6 +53,6 @@ router
     passport.authenticate('jwt', { session: false, failWithError: true }),
     restrictTo('superadmin', 'admin'),
     deleteEmployee
-  );
+  )
 
-export default router;
+export default router

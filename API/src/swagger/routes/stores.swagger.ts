@@ -202,4 +202,4 @@ export const storeSchema = {
     city: 'cityID',
   },
   required: ['name', 'address', 'city'],
-};
+}

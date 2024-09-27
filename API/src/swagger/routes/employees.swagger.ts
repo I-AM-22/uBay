@@ -288,4 +288,4 @@ export const employeeSchema = {
     address: 'store address',
   },
   // required: ['name', 'email', 'password', 'store', 'address'],
-};
+}

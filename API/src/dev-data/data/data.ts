@@ -105,4 +105,4 @@ export const chats = [
       email: 'guest@example.com',
     },
   },
-];
+]

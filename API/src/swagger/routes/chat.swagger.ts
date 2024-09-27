@@ -125,7 +125,7 @@
  *       '401':
  *         $ref: '#/components/responses/401'
  *       '400':
- *         $ref: '#/components/responses/400' 
+ *         $ref: '#/components/responses/400'
  */
 
 /**
@@ -153,52 +153,52 @@
  */
 
 export const chatSchema = {
-    type: 'object',
-    properties: {
-        name: {
-            type: 'string',
-            description: 'name of the chat',
-        },
-        product: {
-            type: 'string',
-            description: 'The product',
-        },
-        user: {
-            type: 'string',
-            description: 'who the user want to talk to him',
-        }
+  type: 'object',
+  properties: {
+    name: {
+      type: 'string',
+      description: 'name of the chat',
     },
-    example: {
-        name: 'sender',
-        product: 'productID',
-        user: 'userID',
+    product: {
+      type: 'string',
+      description: 'The product',
     },
-    required: ['product', 'user'],
-};
+    user: {
+      type: 'string',
+      description: 'who the user want to talk to him',
+    },
+  },
+  example: {
+    name: 'sender',
+    product: 'productID',
+    user: 'userID',
+  },
+  required: ['product', 'user'],
+}
 export const updatechatSchema = {
-    type: 'object',
-    properties: {
-        name: {
-            type: 'string',
-            description: 'name of the chat',
-        },
-        product: {
-            type: 'string',
-            description: 'The product',
-        },
-        seller: {
-            type: 'string',
-            description: 'who sell the prodcut',
-        },
-        customer: {
-            type: 'string',
-            description: 'who the buy the product',
-        }
+  type: 'object',
+  properties: {
+    name: {
+      type: 'string',
+      description: 'name of the chat',
     },
-    example: {
-        name: 'sender',
-        product: 'productID',
-        seller: 'userID',
-        customer: 'userID',
+    product: {
+      type: 'string',
+      description: 'The product',
     },
-};
+    seller: {
+      type: 'string',
+      description: 'who sell the prodcut',
+    },
+    customer: {
+      type: 'string',
+      description: 'who the buy the product',
+    },
+  },
+  example: {
+    name: 'sender',
+    product: 'productID',
+    seller: 'userID',
+    customer: 'userID',
+  },
+}

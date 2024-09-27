@@ -150,7 +150,6 @@
  *         $ref: '#/components/responses/400'
  */
 
-
 /**
  * @swagger
  * /coupons/{id}:
@@ -241,7 +240,7 @@ export const couponSchema = {
     discount: 10,
   },
   required: ['user', 'product', 'expire', 'discount'],
-};
+}
 export const favoriteSchema = {
   type: 'object',
   properties: {
@@ -258,4 +257,4 @@ export const favoriteSchema = {
     favoriteCategories: ['id'],
     favoriteCities: ['id'],
   },
-};
+}

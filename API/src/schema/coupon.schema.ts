@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 export const couponSchema = z.object({
   body: z.object({
@@ -16,4 +16,4 @@ export const couponSchema = z.object({
       .number({ required_error: 'يجب أن يحتوي الكوبون على خصم' })
       .nonnegative('يجب أن تكون قيمة الخصم موجبة'),
   }),
-});
+})

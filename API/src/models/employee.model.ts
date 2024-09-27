@@ -1,10 +1,10 @@
-import { Schema, model, Query, Types } from 'mongoose';
+import { Schema, model, Query, Types } from 'mongoose'
 import {
   EmployeeDoc,
   EmployeeModel,
   IEmployee,
-} from '@interfaces/employee.types';
-import * as bcryptjs from 'bcryptjs';
+} from '@interfaces/employee.types'
+import * as bcryptjs from 'bcryptjs'
 
 const employeeSchema = new Schema<EmployeeDoc, EmployeeModel, any>(
   {
@@ -55,70 +55,67 @@ const employeeSchema = new Schema<EmployeeDoc, EmployeeModel, any>(
     toJSON: { virtuals: true, versionKey: false },
     toObject: { virtuals: true, versionKey: false },
   }
-);
+)
 employeeSchema.virtual('role').get(function () {
-  return 'employee';
-});
-employeeSchema.index({ name: 1, email: 1 });
+  return 'employee'
+})
+employeeSchema.index({ name: 1, email: 1 })
 //Document Middleweare
 employeeSchema.pre('save', async function (next) {
   //if the password not changed end the process
-  if (!this.isModified('password')) return next();
+  if (!this.isModified('password')) return next()
   //crypt the password
-  this.password = await bcryptjs.hash(this.password, 12);
-  next();
-});
+  this.password = await bcryptjs.hash(this.password, 12)
+  next()
+})
 
 employeeSchema.pre('save', function (next) {
   //if the password not changed or newUser made end the process
-  if (!this.isModified('password') || this.isNew) return next();
-  this.passwordResetToken = undefined;
-  this.passwordResetExpires = undefined;
-  this.passwordChangedAt = new Date(Date.now() - 1000);
-  next();
-});
+  if (!this.isModified('password') || this.isNew) return next()
+  this.passwordResetToken = undefined
+  this.passwordResetExpires = undefined
+  this.passwordChangedAt = new Date(Date.now() - 1000)
+  next()
+})
 employeeSchema.methods.correctPassword = async function (
   candidatePassword: string
 ) {
   //candidate password means the password with the body
-  return bcryptjs.compare(candidatePassword, this.password);
-};
+  return bcryptjs.compare(candidatePassword, this.password)
+}
 
 employeeSchema.pre<Query<IEmployee, IEmployee>>(/^find/, function (next) {
   this.populate({
     path: 'store',
     select: 'name address',
-  });
-  next();
-});
+  })
+  next()
+})
 employeeSchema.pre<Query<IEmployee, IEmployee>>(/^find/, function (next) {
-  const query: any = {};
+  const query: any = {}
   // Check if the query has an "includeInactive" parameter
   if (this.getQuery().includeInActive !== undefined) {
     // If "includeInactive" parameter is present, bypass the "active" filtering
-    this.find({});
+    this.find({})
   } else {
     // If "includeInactive" parameter is not present, apply the "active" filter
-    query.active = { $ne: false };
-    this.find(query);
+    query.active = { $ne: false }
+    this.find(query)
   }
-  next();
-});
+  next()
+})
 employeeSchema.pre<any>('findOneAndUpdate', async function (next) {
-  if (!this.getUpdate().password) return next();
-  this.getUpdate().password = await bcryptjs.hash(
-    this.getUpdate().password,
-    12
-  );
-  next();
-});
+  if (!this.getUpdate().password) return next()
+  this.getUpdate().password = await bcryptjs.hash(this.getUpdate().password, 12)
+  next()
+})
 employeeSchema.methods.isPasswordChanged = function (JWTTimestamp: number) {
   if (this.passwordChangedAt) {
-    const changeTimestamp: number = this.passwordChangedAt.getTime() / 1000;
-    return changeTimestamp > JWTTimestamp;
+    const changeTimestamp: number = this.passwordChangedAt.getTime() / 1000
+    return changeTimestamp > JWTTimestamp
   }
-  return false;
-};
-const Employee = model<EmployeeDoc>('Employee', employeeSchema);
+  return false
+}
+const Employee = model<EmployeeDoc>('Employee', employeeSchema)
 
-export default Employee;
+export default Employee

@@ -1,16 +1,17 @@
-import ProfitPercentage from '@models/profit-percentag.model';
-import { getAll } from '@controllers/handlerFactory';
-import catchAsync from '@utils/catchAsync';
-import { NextFunction, Request, Response } from 'express';
-import { STATUS_CODE } from '@interfaces/helper.types';
-import Profit from '@models/profit.model';
-export const getAllProfit = getAll(Profit);
+import ProfitPercentage from '@models/profit-percentage.model'
+import { getAll } from '@controllers/handlerFactory'
+import catchAsync from '@utils/catchAsync'
+import { NextFunction, Request, Response } from 'express'
+import { STATUS_CODE } from '@interfaces/helper.types'
+import Profit from '@models/profit.model'
+
+export const getAllProfit = getAll(Profit)
 export const getProfitPercentage = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const percentageDoc = await ProfitPercentage.findOne({});
-    res.status(STATUS_CODE.SUCCESS).json(percentageDoc);
+    const percentageDoc = await ProfitPercentage.findOne({})
+    res.status(STATUS_CODE.SUCCESS).json(percentageDoc)
   }
-);
+)
 export const createOrUpdatePercentage = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const percentageDoc = await ProfitPercentage.findOneAndUpdate(
@@ -24,7 +25,7 @@ export const createOrUpdatePercentage = catchAsync(
         // Run Mongoose validators on the update operation
         runValidators: true,
       }
-    );
-    res.status(STATUS_CODE.SUCCESS).json(percentageDoc);
+    )
+    res.status(STATUS_CODE.SUCCESS).json(percentageDoc)
   }
-);
+)

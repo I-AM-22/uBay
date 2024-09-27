@@ -1,9 +1,9 @@
-import { Query, Schema, model } from 'mongoose';
+import { Query, Schema, model } from 'mongoose'
 import {
   INotification,
   NotificationDoc,
   NotificationModel,
-} from '@interfaces/notification.types';
+} from '@interfaces/notification.types'
 
 const notificationSchema = new Schema<NotificationDoc, NotificationModel, any>(
   {
@@ -29,7 +29,7 @@ const notificationSchema = new Schema<NotificationDoc, NotificationModel, any>(
     toObject: { virtuals: true, versionKey: false },
     timestamps: true,
   }
-);
+)
 
 notificationSchema.pre<Query<INotification, INotification>>(
   /^find/,
@@ -43,10 +43,10 @@ notificationSchema.pre<Query<INotification, INotification>>(
         favoriteCategories: 0,
         favoriteCities: 0,
       },
-    }).populate('message');
-    next();
+    }).populate('message')
+    next()
   }
-);
+)
 
-const Notification = model<NotificationDoc>('Notification', notificationSchema);
-export default Notification;
+const Notification = model<NotificationDoc>('Notification', notificationSchema)
+export default Notification

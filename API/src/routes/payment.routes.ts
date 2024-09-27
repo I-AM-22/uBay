@@ -4,13 +4,13 @@ import {
   getAllPayment,
   getPayment,
   hasCoupon,
-} from '@controllers/payment.controller';
-import * as express from 'express';
-import * as passport from 'passport';
-import { restrictTo } from '@middlewares/auth.middleware';
-import validate from '@middlewares/validateResource';
-import { paymentSchema } from '../schema/payment.schema';
-const router = express.Router();
+} from '@controllers/payment.controller'
+import * as express from 'express'
+import * as passport from 'passport'
+import { restrictTo } from '@middlewares/auth.middleware'
+import validate from '@middlewares/validateResource'
+import { paymentSchema } from '../schema/payment.schema'
+const router = express.Router()
 router
   .route('/')
   .get(
@@ -24,7 +24,7 @@ router
     validate(paymentSchema),
     hasCoupon,
     createPayment
-  );
+  )
 router
   .route('/:id')
   .get(
@@ -35,5 +35,5 @@ router
     passport.authenticate('jwt', { failWithError: true, session: false }),
     restrictTo('superadmin', 'admin', 'employee'),
     deletePayment
-  );
-export default router;
+  )
+export default router
