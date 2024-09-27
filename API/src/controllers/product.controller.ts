@@ -354,7 +354,7 @@ export const myProduct = catchAsync(
 
 export const checkProductIsPaid = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.id
+    const { id } = req.params
     const productDoc = await Product.findById(id)
     if (productDoc?.is_paid) {
       return next(
@@ -367,7 +367,7 @@ export const checkProductIsPaid = catchAsync(
 
 export const filterCoupon = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    let doc = req.body.doc
+    const { doc } = req.body
     doc.coupons = doc.coupons.filter(
       (coupon: { user: { _id: { toString: () => any } | null } }) => {
         return (
@@ -388,7 +388,7 @@ export const updateProduct = updateOne(Product)
 export const deleteProduct = deleteOne(Product)
 export const getAllPros = catchAsync(
   async (req: any, res: Response, next: NextFunction) => {
-    const user: Express.User = req.user // User's ObjectId
+    const { user } = req // User's ObjectId
     const aggregateFeatures = new AggregateFeatures(req.query)
     aggregateFeatures
       .match({})
@@ -557,7 +557,7 @@ export const getAllPros = catchAsync(
       })
       .facet() // Facet stage
 
-    let result = await aggregateFeatures.build(Product)
+    const result = await aggregateFeatures.build(Product)
     res.status(200).json(result)
   }
 )

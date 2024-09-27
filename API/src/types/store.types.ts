@@ -1,5 +1,6 @@
 import { Document, Model, PopulatedDoc, ObjectId } from 'mongoose'
 import { ICity } from './city.types'
+
 export interface IStore {
   name: string
   address: string

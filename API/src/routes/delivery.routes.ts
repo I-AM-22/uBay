@@ -12,6 +12,7 @@ import { Router } from 'express'
 import validate from '@middlewares/validateResource'
 import { deliverySchema } from '../schema/delivery.schema'
 import { QrSchema } from '../schema/delivery.schema'
+
 const router = Router()
 
 router.use(

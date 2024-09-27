@@ -20,7 +20,7 @@ import { Request, Response } from 'express'
 import * as swaggerUi from 'swagger-ui-express'
 import swaggerSpec from '../swagger/swagger'
 import statisticsRouter from '@routes/statistics.routes'
-const port = settings.PORT
+
 const router = Router()
 
 const api = Router()

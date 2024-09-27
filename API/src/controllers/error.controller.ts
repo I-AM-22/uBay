@@ -8,7 +8,7 @@ const handleCastErrorDB = (err: any) => {
 }
 
 const handleDuplicateErrorDB = (err: any) => {
-  let field = Object.entries(err.keyValue)
+  const field = Object.entries(err.keyValue)
   const message = `!موجود مسبقا الرجاء استخدام قيمة اخرى ,${field[0][1]}`
   return new AppError(STATUS_CODE.BAD_REQUEST, [
     { message, path: [field[0][0]] },
@@ -35,7 +35,7 @@ const handleJWTExpiredError = () =>
 
 const handelPassportError = () =>
   new AppError(STATUS_CODE.UNAUTHORIZE, [], 'الرجاء تسجيل الدخول')
-let a = []
+const a = []
 const handleZodError = (error: any) => {
   const prodValidationError = error.issues.map((el: any) => {
     return { message: el.message, path: el.path.slice(1) }

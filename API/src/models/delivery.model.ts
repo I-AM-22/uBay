@@ -54,7 +54,7 @@ deliverySchema.pre('save', async function (next) {
   //Check if this document not new and this happen after receive customer only
   if (!this.isNew && this.customer_date != null) {
     const doc = await this.populate('payment')
-    const price = doc.payment.price
+    const { price } = doc.payment
 
     // // //                          buyer
     const buyerWallet = doc.payment.customer.wallet

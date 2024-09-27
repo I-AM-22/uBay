@@ -2,7 +2,7 @@ import { Document, Model, ObjectId, PopulatedDoc } from 'mongoose'
 import { IStore } from './store.types'
 
 export interface IEmployee {
-  name: String
+  name: string
   photo: string
   email: string
   store: PopulatedDoc<Document<ObjectId> & IStore>

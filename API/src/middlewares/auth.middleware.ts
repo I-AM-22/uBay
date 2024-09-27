@@ -23,7 +23,7 @@ export const restrictTo =
 
 export const checkIsOwner = (Model: Model<any>) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const id = req.params.id
+    const { id } = req.params
     const user = req?.user
 
     if (user?.role === 'admin' || user?.role === 'superadmin') return next()

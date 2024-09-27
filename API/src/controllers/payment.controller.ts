@@ -6,6 +6,7 @@ import { STATUS_CODE } from '@interfaces/helper.types'
 import Product from '@models/product.model'
 import AppError from '@utils/appError'
 import Coupon from '@models/coupon.model'
+
 export const getAllPayment = getAll(Payment)
 export const getPayment = getOne(Payment)
 export const deletePayment = deleteOne(Payment)
@@ -56,15 +57,15 @@ export const hasCoupon = catchAsync(
         )
       )
     }
-    let discount = 0,
+    let discountAmount = 0,
       is_discount = false,
       couponId = null
     if (couponDoc) {
-      discount = couponDoc.discount
+      discountAmount = couponDoc.discount
       is_discount = true
       couponId = couponDoc.id
     }
-    let price = productDoc?.price - discount
+    let price = productDoc?.price - discountAmount
     price < 0 ? (price = 0) : price
     const updatedReqBody = {
       ...req.body,

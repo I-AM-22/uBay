@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose'
 import { CityDoc, CityModel } from '@interfaces/city.types'
+
 const citySchema = new Schema<CityDoc, CityModel, any>(
   {
     name: {

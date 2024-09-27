@@ -19,7 +19,7 @@ export const receive = catchAsync(
     let delivDoc = await Delivery.findOne({ payment: payment }).populate(
       'payment'
     )
-    let storeID = (await Employee.findOne({ _id: req.user?.id }))?.store?.id
+    const storeID = (await Employee.findOne({ _id: req.user?.id }))?.store?.id
 
     if (!delivDoc) {
       return next(

@@ -67,7 +67,7 @@ export const watchEmployee = catchAsync(
       )
     }
     //return the product  that receive from seller
-    let pipeline1: PipelineStage[] = [
+    const pipeline1: PipelineStage[] = [
       {
         $match: {
           employee_seller: employeeDoc._id,
@@ -150,7 +150,7 @@ export const watchEmployee = catchAsync(
       },
     ]
     //return the product that give to buyer
-    let pipeline2: PipelineStage[] = [
+    const pipeline2: PipelineStage[] = [
       {
         $match: {
           employee_customer: employeeDoc._id,

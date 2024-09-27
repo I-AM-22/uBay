@@ -10,6 +10,7 @@ import * as passport from 'passport'
 import { restrictTo } from '@middlewares/auth.middleware'
 import validate from '@middlewares/validateResource'
 import { paymentSchema } from '../schema/payment.schema'
+
 const router = express.Router()
 router
   .route('/')

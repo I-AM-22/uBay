@@ -2,6 +2,7 @@ import mongoose, { Model, Document, ObjectId, PopulatedDoc } from 'mongoose'
 import { IWallet } from './wallet.types'
 import { ICity } from './city.types'
 import { ICategory } from './category.types'
+
 export interface IUser {
   name: string
   photo: string

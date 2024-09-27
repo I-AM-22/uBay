@@ -25,7 +25,7 @@ export default new JWTStrategy(
     algorithms: ['RS256'],
   },
   catchAsync(async function (payload: JwtPayload, done: any) {
-    let user =
+    const user =
       (await User.findById(payload.id)) || (await Employee.findById(payload.id))
     if (!user) {
       return done(

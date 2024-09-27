@@ -74,7 +74,7 @@ export const createOne = (Model: Model<any>, addFiled?: any): RequestHandler =>
       newDoc.includeInActive = undefined
     }
     if (Model.modelName === 'Message') {
-      let { content, _id, createdAt, user } = newDoc
+      const { content, _id, createdAt, user } = newDoc
 
       res.status(STATUS_CODE.CREATED).json({ content, _id, createdAt, user })
     } else {

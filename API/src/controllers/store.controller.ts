@@ -21,7 +21,7 @@ export const deleteStore = deleteOne(Store)
 export const getAllproductInstore = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { storeID } = req.params
-    let pipeline: any = [
+    const pipeline: any = [
       {
         $match: {
           delivery_status: 'seller',

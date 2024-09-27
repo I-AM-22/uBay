@@ -130,7 +130,7 @@ export const getStatistics = catchAsync(
       }
       result[date].soldProducts = entry.count
     })
-    let byDay = []
+    const byDay = []
     for (const day in result) {
       const value = result[day]
       byDay.push({ day, ...value })
