@@ -16,7 +16,7 @@ const server: http.Server = app.listen(port, async () => {
 
 const io = new Server(server, {
   pingTimeout: 60000,
-  cors: { origin: 'https://u-bay.vercel.app' },
+  cors: { origin: ['https://u-bay.vercel.app', 'https://u-bay1.vercel.app'] },
 })
 
 io.on('connection', (socket) => {
